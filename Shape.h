@@ -1,10 +1,3 @@
-/**
- * header file for functions that manage the current shape 
- * being defined (including the addTriangles() function.
- *
- * Students are not to modify this file
- */
-
 #ifndef SIMPLE_SHAPE_H
 #define SIMPLE_SHAPE_H
 

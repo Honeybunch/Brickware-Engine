@@ -23,13 +23,13 @@ void Transform::setScale(Vector3* newScale){ scale = newScale; }
 void Transform::Render()
 {
 	GameObject* go = this->getGameObject();
-	Shader* shader = go->getComponent<Shader>();
+	Material* material = go->getComponent<Material>();
 
-	GLuint shaderProgram = shader->getShaderProgram();
+	GLuint shaderProgram = material->getShaderProgram();
 
-	glUniform3fv(shader->getPositionLocation(), 1, position->getAsArray());
-	glUniform3fv(shader->getRotationLocation(), 1, rotation->getAsArray());
-	glUniform3fv(shader->getScaleLocation(), 1, scale->getAsArray());
+	glUniform3fv(material->getPositionLocation(), 1, position->getAsArray());
+	glUniform3fv(material->getRotationLocation(), 1, rotation->getAsArray());
+	glUniform3fv(material->getScaleLocation(), 1, scale->getAsArray());
 }
 
 Transform::~Transform()

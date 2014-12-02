@@ -60,26 +60,7 @@ Shader::Shader(char* vertexShaderFileName, char* fragmentShaderFileName)
 }
 
 //Accessors
-
 GLuint Shader::getShaderProgram(){ return shaderProgram; }
-
-GLuint Shader::getPositionLocation(){ return positionLocation; }
-GLuint Shader::getRotationLocation(){ return rotationLocation; }
-GLuint Shader::getScaleLocation(){ return scaleLocation; }
-
-//Component Overrides
-void Shader::Start()
-{
-	//Get positions of Uniforms
-	positionLocation = glGetUniformLocation(shaderProgram, "trans");
-	rotationLocation = glGetUniformLocation(shaderProgram, "theta");
-	scaleLocation = glGetUniformLocation(shaderProgram, "scale");
-}
-
-void Shader::Render()
-{
-
-}
 
 Shader::~Shader()
 {

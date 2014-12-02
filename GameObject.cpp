@@ -42,15 +42,15 @@ void GameObject::Update()
 
 void GameObject::OnRender()
 {
-	Shader* shader = this->getComponent<Shader>();
+	Material* material = this->getComponent<Material>();
 
-	if (shader == NULL)
+	if (material == NULL)
 	{
 		cerr << "Error in Transform; no attached shader component" << endl;
 		return;
 	}
 
-	GLuint shaderProgram = shader->getShaderProgram();
+	GLuint shaderProgram = material->getShaderProgram();
 
 	glUseProgram(shaderProgram);
 

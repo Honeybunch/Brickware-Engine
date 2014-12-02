@@ -9,6 +9,8 @@ class SphereCollider : public Collider
 public:
 	SphereCollider(Vector3* center = new Vector3(0, 0, 0), float radius = 1.0f);
 
+	bool isColliding(SphereCollider* otherCollider);
+
 	Vector3* getCenter();
 	float getRadius();
 

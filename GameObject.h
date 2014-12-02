@@ -6,7 +6,7 @@
 
 #include "Component.h"
 #include "Transform.h"
-#include "Shader.h"
+#include "Material.h"
 #include "Mesh.h"
 
 class GameObject

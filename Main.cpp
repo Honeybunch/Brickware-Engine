@@ -42,7 +42,9 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "Camera.h"
 #include "Vector3.h"
 #include "Light.h"
+#include "Material.h"
 #include "SphereCollider.h"
+#include "MeshRenderer.h"
 
 using namespace std;
 
@@ -61,7 +63,7 @@ vector<GameObject*> gameObjects;
 void createShapes()
 {
 	camera = new Camera(50, 0.1f, 0.1f, 0.1f, 100.0f);
-	camera->addComponent(shader);
+	camera->addComponent(new Material(shader));
 
 	light = new Light(shader->getShaderProgram(), 0, 3, -2);
 
@@ -74,8 +76,8 @@ void createShapes()
 	GameObject* castle = new GameObject();
 	castle->getTransform()->setPosition(new Vector3(0.0f, -0.5f, 0.0f));
 
-	castle->addComponent(shader);
-	castle->addComponent(model);
+	castle->addComponent(new Material(shader));
+	castle->addComponent(new MeshRenderer(model));
 
 	gameObjects.push_back(castle);
 	gameObjects.push_back(camera);
@@ -90,8 +92,8 @@ void spawnSphere()
 {
 	GameObject* newSphere = new GameObject();
 
-	newSphere->addComponent(shader);
-	newSphere->addComponent(sphereMesh);
+	newSphere->addComponent(new Material(shader));
+	newSphere->addComponent(new MeshRenderer(sphereMesh));
 	newSphere->addComponent(new SphereCollider(new Vector3(), 0.1f));
 
 	float x = camera->getTransform()->getPosition()->getX() - (sin(camera->yaw));
@@ -106,6 +108,8 @@ void spawnSphere()
 	//Check if the spheres are colliding
 	SphereCollider* collider = newSphere->getComponent<SphereCollider>();
 
+	bool collided = false;
+
 	if (collider)
 	{
 		for (unsigned int i = 0; i < gameObjects.size(); i++)
@@ -115,29 +119,19 @@ void spawnSphere()
 			//If the game object we're looking at has a collider
 			if (otherCollider)
 			{
-				Transform* transform = gameObjects[i]->getComponent<Transform>();
-				Vector3* position = transform->getPosition();
-
-				float distXSquared = pow(x - position->getX(), 2);
-				float distYSquared = pow(y - position->getY(), 2);
-				float distZSquared = pow(z - position->getZ(), 2);
-
-				float radiusSumSquared = pow(collider->getRadius() + otherCollider->getRadius(), 2);
-
-				float distanceSquared = distXSquared + distYSquared + distZSquared;
-
-				//If ever there is a case where the radius is greater than the distance between them
-				//Just return from the function 
-				if (radiusSumSquared > distanceSquared)
+				if (otherCollider->isColliding(collider))
 				{
-					delete newSphere;
-					return;
+					collided = true;
+					break;
 				}
 			}
 		}
 	}
 
-	gameObjects.push_back(newSphere);
+	if (collided)
+		delete newSphere;
+	else
+		gameObjects.push_back(newSphere);
 }
 
 void display()

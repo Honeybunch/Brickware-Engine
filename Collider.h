@@ -11,6 +11,8 @@ class Collider : public Component
 public:
 	Collider();
 
+	virtual bool isColliding(Collider* collider);
+
 	~Collider();
 
 protected:

@@ -80,7 +80,13 @@
     <ClInclude Include="Collider.h">
       <Filter>Headers\Colliders</Filter>
     </ClInclude>
-    <ClInclude Include="Rigidbody.h" />
+    <ClInclude Include="Rigidbody.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshRenderer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -134,6 +140,12 @@
     <ClCompile Include="SphereCollider.cpp">
       <Filter>Sources\Colliders</Filter>
     </ClCompile>
-    <ClCompile Include="Rigidbody.cpp" />
+    <ClCompile Include="Rigidbody.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshRenderer.cpp" />
   </ItemGroup>
 </Project>

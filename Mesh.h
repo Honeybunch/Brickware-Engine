@@ -22,19 +22,27 @@
 using namespace std;
 
 #include "Shape.h"
-
-#include "Component.h"
 #include "Transform.h"
 #include "Shader.h"
 #include "GameObject.h"
 
-class Mesh : public Component
+class Mesh
 {
 public :
 	Mesh(GLuint shaderProgram, Shape shape, char* textureFileName = "");
-	~Mesh();
 
-	virtual void Render();
+	int getPointSize();
+	int getNormalSize();
+	int getIndexSize();
+	int getNumberOfVerts();
+	int getTexCoordSize();
+
+	GLuint getTexture();
+
+	GLuint getVBO();
+	GLuint getIBO();
+
+	~Mesh();
 
 private: 
 	int pointSize;

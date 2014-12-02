@@ -22,8 +22,8 @@ Camera::Camera(float FoV = 50, float width = 0.1f, float height = 0.1f, float zN
 
 void Camera::Start()
 {
-	Shader* shader = this->getComponent<Shader>();
-	GLuint shaderProgram = shader->getShaderProgram();
+	Material* material = this->getComponent<Material>();
+	GLuint shaderProgram = material->getShaderProgram();
 
 	//Get the locations of the shader variables on the GPU
 	FoVPos = glGetUniformLocation(shaderProgram, "FoV");
@@ -85,15 +85,15 @@ void Camera::Update()
 
 void Camera::OnRender()
 {	
-	Shader* shader = this->getComponent<Shader>();
+	Material* material = this->getComponent<Material>();
 
-	if (shader == NULL)
+	if (material == NULL)
 	{
 		cerr << "Error in Transform; no attached shader component" << endl;
 		return;
 	}
 
-	GLuint shaderProgram = shader->getShaderProgram();
+	GLuint shaderProgram = material->getShaderProgram();
 
 	glUseProgram(shaderProgram);
 

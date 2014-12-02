@@ -19,8 +19,10 @@
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Material.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="Rigidbody.h" />
     <ClInclude Include="Shader.h" />
@@ -40,7 +42,9 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Rigidbody.cpp" />
     <ClCompile Include="Shader.cpp" />

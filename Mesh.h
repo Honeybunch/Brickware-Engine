@@ -7,12 +7,14 @@
 
 #include <SOIL.h>
 
-#ifdef __APPLE__
-#include <OPENGL/gl.h>
-#else
 #include <GL/glew.h>
-#include <GL/gl.h>
+
+#ifdef _WIN32
+#define GLFW_DLL
 #endif
+
+#define GLFW_INCLUDE_GLU
+#include <glfw3.h>
 
 #include <vector>
 #include <iostream>

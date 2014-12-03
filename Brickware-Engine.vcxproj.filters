@@ -86,7 +86,9 @@
     <ClInclude Include="Material.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="MeshRenderer.h" />
+    <ClInclude Include="MeshRenderer.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -146,6 +148,8 @@
     <ClCompile Include="Material.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="MeshRenderer.cpp" />
+    <ClCompile Include="MeshRenderer.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

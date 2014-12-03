@@ -7,14 +7,15 @@
 #include <vector>
 #include <math.h>
 
-#ifdef __APPLE__ 
-#include <GLUT/GLUT.h>
-#include <OpenGL/gl.h>
-#else
 #include <GL/glew.h>
-#include <GL/glut.h>
-#include <GL/gl.h>
+
+#ifdef _WIN32
+#define GLFW_DLL
 #endif
+
+#define GLFW_INCLUDE_GLU
+#include <glfw3.h>
+
 
 #include "GameObject.h"
 

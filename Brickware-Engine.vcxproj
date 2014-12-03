@@ -127,9 +127,9 @@
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ExecutablePath>$(SolutionDir)GL\x86\bin;$(ExecutablePath)</ExecutablePath>
-    <LibraryPath>$(SolutionDir)\SOIL\lib;$(SolutionDir)GL\x86\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>$(SolutionDir)\SOIL\include;$(SolutionDir)GL\x86\include;$(IncludePath)</IncludePath>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ExecutablePath>$(SolutionDir)GL\x86\bin;$(ExecutablePath)</ExecutablePath>
@@ -138,11 +138,16 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)GL\x86\bin" "$(SolutionDir)$(Configuration)" /y</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
     <Link>
-      <AdditionalDependencies>SOIL.lib;glut32.lib;glew32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SOIL.lib;glfw3dll.lib;glew32.lib;kernel32.lib;user32.lib;opengl32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)\SOIL\lib;$(SolutionDir)\GLFW\lib\Win32;$(SolutionDir)\GL\lib\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)\SOIL\include\;$(SolutionDir)\GLFW\include\;$(SolutionDir)\GL\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <PostBuildEvent>

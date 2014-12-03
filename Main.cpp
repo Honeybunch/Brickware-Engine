@@ -26,14 +26,14 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include <vector>
 #include <math.h>
 
-#ifdef __APPLE__ 
-#include <GLUT/GLUT.h>
-#include <OpenGL/gl.h>
-#else
 #include <GL/glew.h>
-#include <GL/glut.h>
-#include <GL/gl.h>
+
+#ifdef _WIN32
+#define GLFW_DLL
 #endif
+
+#define GLFW_INCLUDE_GLU
+#include <glfw3.h>
 
 #include "Mesh.h"
 #include "Shader.h"
@@ -59,6 +59,8 @@ Light* light;
 
 Mesh* sphereMesh;
 vector<GameObject*> gameObjects;
+
+GLFWwindow* window;
 
 void createShapes()
 {
@@ -153,7 +155,7 @@ void display()
 		gameObjects[i]->OnRender();
 
 	//Swap buffers
-	glutSwapBuffers();
+	glfwSwapBuffers(window);
 }
 
 void update()
@@ -161,20 +163,69 @@ void update()
 
 }
 
-/*
+void mouseMove(float x, float y)
+{
+	float screenCenterX = 512.0f / 2.0f;
+	float screenCenterY = 512.0f / 2.0f;
+
+	//Adjust yaw and pitch based on how much we've deviated from the center
+	float yawDiff = (screenCenterX - x) / 512.0f;
+	float pitchDiff = (screenCenterY - y) / 512.0f;
+
+	camera->yaw += yawDiff;
+	camera->pitch += pitchDiff;
+
+	glfwSetCursorPos(window, screenCenterX, screenCenterY);
+}
+
+void handleInput()
+{
+	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+		running = false;
+
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_W) == GLFW_REPEAT)
+		camera->moveForward();
+
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_A) == GLFW_REPEAT)
+		camera->moveLeft();
+
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_S) == GLFW_REPEAT)
+		camera->moveBackward();
+
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_D) == GLFW_REPEAT)
+		camera->moveRight();
+
+	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_REPEAT)
+		spawnSphere();
+
+	double mouseX = 0;
+	double mouseY = 0;
+
+	glfwGetCursorPos(window, &mouseX, &mouseY);
+
+	mouseMove(mouseX, mouseY);
+}
+
 void run()
 {
-	float ticksPerSecond = 25;
-	float skipTicks = 1000 / ticksPerSecond;
+	float ticksPerSecond = 25.0f;
+	int skipTicks = (int)(1000.0f / ticksPerSecond);
 	float maxFrameskip = 5;
 
 	int nextGameTick = 0;
 
 	int loops = 0;
 
+	running = true;
+
 	while (running)
 	{
 		ticks++;
+
+		//Poll for events
+		glfwPollEvents();
+
+		handleInput();
 
 		//Update logic 25 times per second
 		loops = 0;
@@ -192,7 +243,7 @@ void run()
 		display();
 	}
 }
-*/
+
 
 // OpenGL initialization 
 void init()
@@ -202,6 +253,12 @@ void init()
     glEnable(GL_CULL_FACE);
 	glEnable(GL_LIGHTING);
     glClearColor(1.0, 1.0, 1.0, 1.0);
+
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+
+#ifdef _WIN32
+	glewInit();
+#endif
     
 	shader = new Shader("Shaders/vshader.glsl", "Shaders/fshader.glsl");
 
@@ -209,81 +266,30 @@ void init()
     createShapes();
 }
 
-void keyboardDown( unsigned char key, int x, int y )
-{
-    switch( key ) {
-		case 033:  // Escape key
-        case 'q': case 'Q':
-            exit(0);
-        break;
-
-		case 'w':
-			camera->moveForward();
-		break;
-
-		case 'a':
-			camera->moveLeft();
-		break;
-
-		case 's':
-			camera->moveBackward();
-		break;
-
-		case 'd':
-			camera->moveRight();
-		break;
-
-		case ' ':
-			spawnSphere();
-		break;
-    } 
-    
-    glutPostRedisplay();
-}
-
-void keyboardUp( unsigned char key, int x, int y )
-{
-
-}
-
-void mouseMove(int x, int y)
-{
-	float screenCenterX = 512.0f/2.0f;
-	float screenCenterY = 512.0f/2.0f;
-
-	//Adjust yaw and pitch based on how much we've deviated from the center
-	float yawDiff = (screenCenterX - x)/512.0f;
-	float pitchDiff = (screenCenterY - y)/512.0f;
-
-	camera->yaw += yawDiff;
-	camera->pitch += pitchDiff;
-
-	if(yawDiff != 0 || pitchDiff != 0)
-		glutWarpPointer(screenCenterX, screenCenterY);
-
-	glutPostRedisplay();
-}
-
 int main (int argc, char **argv)
 {
-    glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_MULTISAMPLE);
-	glutInitWindowSize(512,512);
-    glutCreateWindow("OpenGL Magic");
-	glutSetCursor(GLUT_CURSOR_NONE);
-    
-#ifndef __APPLE__
-    glewInit();
-#endif
-    
-    init();
-    
-    glutDisplayFunc(display);
-    glutKeyboardFunc(keyboardDown);
-	glutKeyboardUpFunc(keyboardUp);
-	glutPassiveMotionFunc(mouseMove);
+	//Attempt initialization
+	if (!glfwInit())
+		return -1;
 
-    glutMainLoop();
+	//Create window
+	window = glfwCreateWindow(512, 512, "Brickware-Test", NULL, NULL);
 
+	if (!window)
+	{
+		glfwTerminate();
+		return -2;
+	}
+
+	//Make Context
+	glfwMakeContextCurrent(window);
+
+	//Init GL context
+	init();
+
+	//Run Game loop
+	run();
+
+	glfwTerminate();
     return 0;
 }

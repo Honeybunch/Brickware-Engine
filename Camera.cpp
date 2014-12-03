@@ -78,9 +78,9 @@ void Camera::Update()
 	lookAt->setY(transform->getPosition()->getY() + 1 * sin(pitch));
 	lookAt->setZ(transform->getPosition()->getZ() + -1 * cos(pitch) * cos(yaw));
 
-	up->setX( -1 * cos(pitch + M_PI/2.0) * sin(yaw));
-	up->setY(1 * sin(pitch + M_PI / 2.0));
-	up->setZ(-1 * cos(pitch + M_PI / 2.0) * cos(yaw));
+	up->setX( -1 * cos((float)(pitch + M_PI/2.0f)) * sin(yaw));
+	up->setY(1 * sin((float)(pitch + M_PI / 2.0f)));
+	up->setZ(-1 * cos((float)(pitch + M_PI / 2.0f)) * cos(yaw));
 }
 
 void Camera::OnRender()

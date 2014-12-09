@@ -16,12 +16,14 @@
 #define GLFW_INCLUDE_GLU
 #include <glfw3.h>
 
-
 #include "GameObject.h"
+#include "Octree.h"
 
 class Camera : public GameObject
 {
 public:
+	static Octree* Camera::renderingOctree;
+
 	Camera(float FoV, float width, float height, float zNear, float zFar);
 	Camera(Transform* transform, float FoV, float width, float height, float zNear, float zFar);
 	~Camera(void);
@@ -31,12 +33,11 @@ public:
 	void moveLeft();
 	void moveRight();
 
+	Vector3* getLookAt();
+
 	virtual void Start() override;
 	virtual void Update() override;
 	virtual void OnRender() override;	
-
-	GLfloat yaw;
-	GLfloat pitch;
 
 private:
 	GLfloat FoV;

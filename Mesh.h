@@ -33,6 +33,8 @@ class Mesh
 public :
 	Mesh(GLuint shaderProgram, Shape shape, char* textureFileName = "");
 
+	float* getPoints();
+
 	int getPointSize();
 	int getNormalSize();
 	int getIndexSize();
@@ -47,6 +49,11 @@ public :
 	~Mesh();
 
 private: 
+	float* points;
+	float* normals;
+	GLushort* indicies;
+	float* texCoords;
+
 	int pointSize;
 	int normalSize;
 	int indexSize;

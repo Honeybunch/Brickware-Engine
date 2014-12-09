@@ -20,6 +20,11 @@ Shape::Shape(PrimitiveType type, int division1, int division2, float radius)
 			makeSphere(radius, division1, division2);
 			break;
     }
+
+	pointElements = new float[triangles.size() * 12];
+	normalElements = new float[triangles.size() * 9];
+	indicies = new GLushort[triangles.size() * 12];
+	texCoords = new float[triangles.size() * 6];
 }
 
 //Create a shape based on a file 
@@ -30,6 +35,11 @@ Shape::Shape(char* fileName)
 		loadOBJ(fileName);
 	else
 		cout << "Can't load " << fileName << ". Invalid Type; must be .obj!" << endl;
+
+	pointElements = new float[triangles.size() * 12];
+	normalElements = new float[triangles.size() * 9];
+	indicies = new GLushort[triangles.size() * 12];
+	texCoords = new float[triangles.size() * 6];
 }
 
 //Destructor
@@ -43,8 +53,6 @@ Shape::~Shape()
 */
 float* Shape::getPoints()
 {
-	float* pointElements = new float[triangles.size() * 12];
-
 	for(unsigned int i=0; i < triangles.size(); i++)
 	{
 		Vector4 point1 = triangles[i].points[0];
@@ -79,8 +87,6 @@ vector<Triangle> Shape::getTriangles()
 
 float* Shape::getNormals()
 {
-	float* normalElements = new float[triangles.size() * 9];
-
 	for(unsigned int i=0; i < triangles.size(); i++)
 	{
 		Vector3 normal1 = triangles[i].normals[0];
@@ -107,8 +113,6 @@ float* Shape::getNormals()
 
 GLushort* Shape::getIndicies()
 {
-	GLushort* indicies = new GLushort[triangles.size() * 12];
-
 	for(unsigned int i=0; i < triangles.size() * 12; i++)
 	{
 		indicies[i] = i;
@@ -119,8 +123,6 @@ GLushort* Shape::getIndicies()
 
 float* Shape::getTexCoords()
 {
-	float* texCoords = new float[triangles.size() * 6];
-
 	for(unsigned int i=0; i < triangles.size(); i++)
 	{
 		//Pass every uv element into the array, OpenGL should sort it out

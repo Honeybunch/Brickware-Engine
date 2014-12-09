@@ -38,7 +38,8 @@ Vector3::Vector3(Vector4& v4)
 
 Vector3::~Vector3()
 {
-
+	//if (rawData)
+	//	delete[] rawData;
 }
 
 /*
@@ -51,13 +52,11 @@ float Vector3::getZ(){return z;}
 
 float* Vector3::getAsArray()
 {
-	float* data = new float(3);
+	rawData[0] = Vector3::x;
+	rawData[1] = Vector3::y;
+	rawData[2] = Vector3::z;
 
-	data[0] = Vector3::x;
-	data[1] = Vector3::y;
-	data[2] = Vector3::z;
-
-	return data;
+	return rawData;
 }
 
 void Vector3::setX(float x){Vector3::x = x;}
@@ -142,6 +141,12 @@ Vector3 Vector3::operator*(float s)
 Vector3 Vector3::operator+(Vector3 u)
 {
 	return Vector3(x + u.x, y + u.y, z + u.z);
+}
+
+//Difference
+Vector3 Vector3::operator-(Vector3 u)
+{
+	return Vector3(x - u.x, y - u.y, z - u.z);
 }
 
 //Extraction

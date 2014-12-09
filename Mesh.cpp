@@ -5,10 +5,10 @@
 Mesh::Mesh(GLuint shaderProgram, Shape shape, char* textureFileName)
 {
 	//Store data from shape
-	float* points = shape.getPoints();
-	float* normals = shape.getNormals();
-	GLushort* indicies = shape.getIndicies();
-	float* texCoords = shape.getTexCoords();
+	points = shape.getPoints();
+	normals = shape.getNormals();
+	indicies = shape.getIndicies();
+	texCoords = shape.getTexCoords();
 
 	//Store sizes
 	numberOfVerts = shape.getPointCount() / 4;
@@ -44,6 +44,8 @@ Mesh::Mesh(GLuint shaderProgram, Shape shape, char* textureFileName)
 }
 
 //Accessors
+float* Mesh::getPoints(){ return points; }
+
 int Mesh::getPointSize(){ return pointSize; }
 int Mesh::getNormalSize(){ return normalSize; }
 int Mesh::getIndexSize(){ return indexSize; }

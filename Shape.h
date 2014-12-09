@@ -53,6 +53,11 @@ public :
 
 private: 	
 	vector<Triangle> triangles;
+	float* pointElements;
+	float* normalElements;
+	GLushort* indicies;
+	float* texCoords;
+
 
 	vector<float> makeLoopDivisions(float start, float length, int divisions);
 

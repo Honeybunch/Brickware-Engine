@@ -44,9 +44,6 @@
     <ClInclude Include="Mesh.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Quaternion.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="Shader.h">
       <Filter>Headers</Filter>
     </ClInclude>
@@ -89,6 +86,24 @@
     <ClInclude Include="MeshRenderer.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Octree.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="FrustrumCollider.h">
+      <Filter>Headers\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="Quaternion.h">
+      <Filter>Headers\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix4.h">
+      <Filter>Headers\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxCollider.h">
+      <Filter>Headers\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="Bounds.h">
+      <Filter>Headers\Colliders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -107,9 +122,6 @@
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Quaternion.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
@@ -150,6 +162,24 @@
     </ClCompile>
     <ClCompile Include="MeshRenderer.cpp">
       <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Octree.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="FrustrumCollider.cpp">
+      <Filter>Sources\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="Quaternion.cpp">
+      <Filter>Sources\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix4.cpp">
+      <Filter>Sources\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxCollider.cpp">
+      <Filter>Sources\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="Bounds.cpp">
+      <Filter>Sources\Colliders</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

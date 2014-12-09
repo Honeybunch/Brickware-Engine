@@ -1,4 +1,6 @@
 #include "SphereCollider.h"
+#include "BoxCollider.h"
+#include "FrustrumCollider.h"
 #include "GameObject.h"
 
 SphereCollider::SphereCollider(Vector3* center, float radius)
@@ -8,10 +10,13 @@ SphereCollider::SphereCollider(Vector3* center, float radius)
 	this->radius = radius;
 }
 
-bool SphereCollider::isColliding(SphereCollider* otherCollider)
+Vector3* SphereCollider::getCenter(){ return center;  }
+float SphereCollider::getRadius(){ return radius; }
+
+bool SphereCollider::isCollidingWithSphere(SphereCollider* other)
 {
 	Transform* transform = getGameObject()->getTransform();
-	Transform* otherTransform = otherCollider->getGameObject()->getTransform();
+	Transform* otherTransform = other->getGameObject()->getTransform();
 
 	Vector3* position = transform->getPosition();
 	Vector3* otherPosition = otherTransform->getPosition();
@@ -20,7 +25,7 @@ bool SphereCollider::isColliding(SphereCollider* otherCollider)
 	float distYSquared = pow(position->getY() - otherPosition->getY(), 2);
 	float distZSquared = pow(position->getZ() - otherPosition->getZ(), 2);
 
-	float radiusSumSquared = pow(getRadius() + otherCollider->getRadius(), 2);
+	float radiusSumSquared = pow(getRadius() + other->getRadius(), 2);
 
 	float distanceSquared = distXSquared + distYSquared + distZSquared;
 
@@ -30,8 +35,22 @@ bool SphereCollider::isColliding(SphereCollider* otherCollider)
 		return false;
 }
 
-Vector3* SphereCollider::getCenter(){ return center;  }
-float SphereCollider::getRadius(){ return radius; }
+
+bool SphereCollider::isCollidingWithBox(BoxCollider* other)
+{
+	return other->isColliding(this);
+}
+
+//TODO: refactor to mesh collision
+bool SphereCollider::isCollidingWithFrustrum(FrustrumCollider* other)
+{
+	return other->isColliding(this);
+}
+
+bool SphereCollider::isCollidingWithBounds(Bounds* other)
+{
+	return false;
+}
 
 SphereCollider::~SphereCollider()
 {

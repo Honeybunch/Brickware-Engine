@@ -44,6 +44,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "Light.h"
 #include "Material.h"
 #include "SphereCollider.h"
+#include "BoxCollider.h"
 #include "MeshRenderer.h"
 
 using namespace std;
@@ -58,6 +59,8 @@ Camera* camera;
 Light* light;
 
 Mesh* sphereMesh;
+Mesh* cubeMesh;
+
 vector<GameObject*> gameObjects;
 
 GLFWwindow* window;
@@ -71,15 +74,18 @@ void createShapes()
 
 	Shape modelShape("Models/castle.obj");
 	Shape sphere(PrimitiveType::SPHERE, 10, 10);
+	Shape cube(PrimitiveType::CUBE, 3, 3);
 	
 	Mesh* model = new Mesh(shader->getShaderProgram(), modelShape, "Textures/castleAOTexture.png");
 	sphereMesh = new Mesh(shader->getShaderProgram(), sphere, "Textures/brickTexture.png");
+	cubeMesh = new Mesh(shader->getShaderProgram(), cube, "Textures/stoneTexture.png");
 
 	GameObject* castle = new GameObject();
 	castle->getTransform()->setPosition(new Vector3(0.0f, -0.5f, 0.0f));
 
 	castle->addComponent(new Material(shader));
 	castle->addComponent(new MeshRenderer(model));
+	Camera::renderingOctree->addObject(castle);
 
 	gameObjects.push_back(castle);
 	gameObjects.push_back(camera);
@@ -87,7 +93,6 @@ void createShapes()
 	for (unsigned int i = 0; i < gameObjects.size(); i++)
 		gameObjects[i]->Start();
 }
-
 
 //Take the sphere shape, make a model out of it at a given position and push it to the mesh vector
 void spawnSphere()
@@ -98,17 +103,15 @@ void spawnSphere()
 	newSphere->addComponent(new MeshRenderer(sphereMesh));
 	newSphere->addComponent(new SphereCollider(new Vector3(), 0.1f));
 
-	float x = camera->getTransform()->getPosition()->getX() - (sin(camera->yaw));
-	float y = camera->getTransform()->getPosition()->getY();
-	float z = camera->getTransform()->getPosition()->getZ() - (cos(camera->yaw));
+	Vector3* spherePos = new Vector3(*(camera->getLookAt()));
 
-	newSphere->getTransform()->setPosition(new Vector3(x, y, z));
+	newSphere->getTransform()->setPosition(spherePos);
 	newSphere->getTransform()->setScale(new Vector3(0.1f, 0.1f, 0.1f));
 	
 	newSphere->Start();
 
 	//Check if the spheres are colliding
-	SphereCollider* collider = newSphere->getComponent<SphereCollider>();
+	Collider* collider = newSphere->getComponent<Collider>();
 
 	bool collided = false;
 
@@ -116,7 +119,7 @@ void spawnSphere()
 	{
 		for (unsigned int i = 0; i < gameObjects.size(); i++)
 		{
-			SphereCollider* otherCollider = gameObjects[i]->getComponent<SphereCollider>();
+			Collider* otherCollider = gameObjects[i]->getComponent<Collider>();
 
 			//If the game object we're looking at has a collider
 			if (otherCollider)
@@ -131,9 +134,14 @@ void spawnSphere()
 	}
 
 	if (collided)
+	{
 		delete newSphere;
+	}
 	else
+	{
 		gameObjects.push_back(newSphere);
+		Camera::renderingOctree->addObject(newSphere);
+	}
 }
 
 void display()
@@ -151,8 +159,10 @@ void display()
 		gameObjects[i]->Update();
 
 	//Draw Game Objects
-	for (unsigned int i = 0; i < gameObjects.size(); i++)
-		gameObjects[i]->OnRender();
+	//for (unsigned int i = 0; i < gameObjects.size(); i++)
+	//	gameObjects[i]->OnRender();
+
+	camera->OnRender();
 
 	//Swap buffers
 	glfwSwapBuffers(window);
@@ -172,15 +182,18 @@ void mouseMove(float x, float y)
 	float yawDiff = (screenCenterX - x) / 512.0f;
 	float pitchDiff = (screenCenterY - y) / 512.0f;
 
-	camera->yaw += yawDiff;
-	camera->pitch += pitchDiff;
+	Transform* cameraTransform = camera->getTransform();
+	Vector3* cameraRot = cameraTransform->getRotation();
+
+	cameraTransform->getRotation()->setX(cameraRot->getX() + pitchDiff);
+	cameraTransform->getRotation()->setY(cameraRot->getY() + yawDiff);
 
 	glfwSetCursorPos(window, screenCenterX, screenCenterY);
 }
 
 void handleInput()
 {
-	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		running = false;
 
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_W) == GLFW_REPEAT)
@@ -203,7 +216,7 @@ void handleInput()
 
 	glfwGetCursorPos(window, &mouseX, &mouseY);
 
-	mouseMove(mouseX, mouseY);
+	mouseMove((float)mouseX, (float)mouseY);
 }
 
 void run()

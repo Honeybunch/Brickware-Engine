@@ -40,6 +40,7 @@ public:
 	float operator* (Vector3 u);
 	Vector3 operator* (float s);
 	Vector3 operator+ (Vector3 u);
+	Vector3 operator- (Vector3 u);
 
 	friend ostream& operator<< (ostream& output, Vector3& h);
 	friend istream& operator>> (istream& input, Vector3& h);
@@ -50,6 +51,8 @@ private:
 	float x;
 	float y;
 	float z;
+
+	float rawData[3];
 };
 
 #endif

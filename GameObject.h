@@ -9,6 +9,8 @@
 #include "Material.h"
 #include "Mesh.h"
 
+class Camera;
+
 class GameObject
 {
 public:

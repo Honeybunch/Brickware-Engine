@@ -1,4 +1,6 @@
 #include "GameObject.h"
+#include "Octree.h"
+#include "Camera.h"
 
 GameObject::GameObject()
 {
@@ -62,5 +64,6 @@ void GameObject::OnRender()
 
 GameObject::~GameObject()
 {
-	//TODO: Should delete components
+	for (unsigned int i = 0; i < components.size(); i++)
+		delete components[i];
 }

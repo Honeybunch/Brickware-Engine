@@ -4,11 +4,18 @@
 MeshRenderer::MeshRenderer(Mesh* mesh)
 {
 	this->mesh = mesh;
+
+	bounds = new Bounds(Vector3(), Vector3());
+
+	calculateBounds();
 }
 
+Bounds* MeshRenderer::getBounds(){ return bounds; }
 
-MeshRenderer::~MeshRenderer()
+//Recalculate the bounds of the mesh
+void MeshRenderer::Update()
 {
+	calculateBounds();
 }
 
 //Draw everything in the VBOs
@@ -45,4 +52,50 @@ void MeshRenderer::Render()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void MeshRenderer::calculateBounds()
+{
+	float minX = bounds->getMinBound().getX();
+	float minY = bounds->getMinBound().getY();
+	float minZ = bounds->getMinBound().getZ();
+
+	float maxX = bounds->getMaxBound().getX();
+	float maxY = bounds->getMaxBound().getY();
+	float maxZ = bounds->getMaxBound().getZ();
+
+	float* points = mesh->getPoints();
+	int numOfVerts = mesh->getNumberOfVerts();
+
+	for(int i = 0; i < numOfVerts; i+=3)
+	{
+		float testX = points[i];
+		float testY = points[i+1];
+		float testZ = points[i+2];
+
+		if(testX < minX)
+			minX = testX;
+		else if(testX > maxX)
+			maxX = testX;
+
+		if(testY < minY)
+			minY = testY;
+		else if(testY > maxY)
+			maxY = testY;
+
+		if(testZ < minZ)
+			minZ = testZ;
+		else if(testZ > maxZ)
+			maxZ = testZ;
+	}
+
+	Vector3 min(minX, minY, minZ);
+	Vector3 max(maxX, maxY, maxZ);
+
+	bounds->setMinBound(min);
+	bounds->setMaxBound(max);
+}
+
+MeshRenderer::~MeshRenderer()
+{
 }

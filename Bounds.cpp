@@ -86,11 +86,14 @@ Vector3 Bounds::getNegative(Vector3 normal)
 
 bool Bounds::isCollidingWithBounds(Bounds* other)
 {
-	bool x = fabs(center.getX() - other->center.getX()) <= (xWidth + other->xWidth);
-	bool y = fabs(center.getY() - other->center.getY()) <= (yWidth + other->yWidth);
-	bool z = fabs(center.getZ() - other->center.getZ()) <= (zWidth + other->zWidth);
+	bool x = fabs(center.getX() - other->center.getX()) <= ((xWidth/2.0f) + (other->xWidth/2.0f));
+	bool y = fabs(center.getY() - other->center.getY()) <= ((yWidth/2.0f) + (other->yWidth/2.0f));
+	bool z = fabs(center.getZ() - other->center.getZ()) <= ((zWidth/2.0f) + (other->zWidth/2.0f));
 
-	return x && y && z;
+	if (x == true && y == true && z == true)
+		return true;
+	else
+		return false;
 }
 
 Bounds::~Bounds()

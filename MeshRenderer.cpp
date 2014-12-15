@@ -92,8 +92,9 @@ void MeshRenderer::calculateBounds()
 	Vector3 min(minX, minY, minZ);
 	Vector3 max(maxX, maxY, maxZ);
 
-	bounds->setMinBound(min);
-	bounds->setMaxBound(max);
+	delete bounds;
+
+	bounds = new Bounds(min, max);
 }
 
 MeshRenderer::~MeshRenderer()

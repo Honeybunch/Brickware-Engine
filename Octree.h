@@ -56,6 +56,8 @@ public:
 	int getPerNodeLimit();
 	OctreeNode* getRoot();
 
+	int nodeCount;
+
 	vector<OctreeNode*> getCollidingChildren(Collider* collider);
 
 	void addObject(GameObject* object);

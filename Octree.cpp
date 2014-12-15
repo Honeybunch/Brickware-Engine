@@ -28,7 +28,7 @@ void OctreeNode::addObject(GameObject* object)
 
 	if (bounds->isCollidingWithBounds(objectCollider))
 	{
-		if ((objects.size() < octree->getPerNodeLimit() || depth >= octree->getDepthLimit()) & !hasChildren)
+		if ((objects.size() < (unsigned)octree->getPerNodeLimit() || depth >= octree->getDepthLimit()) & !hasChildren)
 		{
 			objects.push_back(object);
 		}
@@ -36,7 +36,6 @@ void OctreeNode::addObject(GameObject* object)
 		{
 			subdivide();
 			addToChildren(object);
-			objects.clear();
 		}
 		else if (hasChildren)
 		{
@@ -50,10 +49,14 @@ void OctreeNode::addToChildren(GameObject* object)
 {
 	for (unsigned int i = 0; i < 8; i++)
 	{
-		Bounds* childBounds = object->getComponent<MeshRenderer>()->getBounds();
-		if (bounds->isCollidingWithBounds(childBounds))
+		OctreeNode* child = childNodes[i];
+
+		Bounds* childBounds = child->bounds;
+		Bounds* objectBounds = object->getComponent<MeshRenderer>()->getBounds();
+
+		if (childBounds->isCollidingWithBounds(objectBounds))
 		{
-			childNodes[i]->addObject(object);
+			child->addObject(object);
 		}
 	}
 }
@@ -79,6 +82,8 @@ void OctreeNode::subdivide()
 				OctreeNode* newNode = new OctreeNode(octree, this, depth+1, newCenter, halfWidth);
 
 				childNodes.push_back(newNode);
+
+				octree->nodeCount++;
 			}
 		}
 	}
@@ -88,6 +93,9 @@ void OctreeNode::subdivide()
 	{
 		addToChildren(objects[i]);
 	}
+
+	//Clear objects
+	objects.clear();
 
 	hasChildren = true;
 }
@@ -105,13 +113,14 @@ vector<OctreeNode*> OctreeNode::getCollidingChildrenWithFrustrum(FrustrumCollide
 				vector<OctreeNode*> childReturns = childNodes[i]->getCollidingChildrenWithFrustrum(collider);
 
 				for (unsigned int j = 0; j < childReturns.size(); j++)
+				{
 					toReturn.push_back(childReturns[j]);
+				}
 			}
 		}
 		else
 		{
 			toReturn.push_back(this);
-			return toReturn;
 		}
 	}
 
@@ -123,17 +132,17 @@ OctreeNode::~OctreeNode()
 
 }
 
-
 /*
 	Octree Implementation
 */
 
-Octree::Octree(int depthLimit = 8, int perNodeLimit = 8, Vector3 center = Vector3(), float width = 100.0f)
+Octree::Octree(int depthLimit = 3, int perNodeLimit = 8, Vector3 center = Vector3(), float width = 100.0f)
 {
 	this->depthLimit = depthLimit;
 	this->perNodeLimit = perNodeLimit;
 
 	root = new OctreeNode(this);
+	nodeCount = 1;
 }
 
 int Octree::getDepthLimit(){ return depthLimit; }

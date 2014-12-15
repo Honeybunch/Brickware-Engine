@@ -6,7 +6,7 @@ Octree* Camera::renderingOctree;
 Camera::Camera(float FoV = 50, float width = 0.1f, float height = 0.1f, float zNear = 0.1f, float zFar = 100.0f)
 {
 	if (!renderingOctree)
-		renderingOctree = new Octree(8, 8, Vector3(), zFar);
+		renderingOctree = new Octree(3, 8, Vector3(), zFar);
 
 	this->FoV = FoV;
 	this->width = width;
@@ -16,10 +16,6 @@ Camera::Camera(float FoV = 50, float width = 0.1f, float height = 0.1f, float zN
 
 	//Setup speed and velocity
 	speed = 0.1f;
-
-	//Setup look, eye, and up
-	lookAt = new Vector3(0, 0, 0);
-	up = new Vector3(0, 1, 0);
 
 	addComponent(new FrustrumCollider(zNear, zFar, FoV, width/height));
 }
@@ -42,8 +38,6 @@ void Camera::Start()
 
 	GameObject::Start();
 }
-
-Vector3* Camera::getLookAt(){ return lookAt; }
 
 void Camera::moveForward()
 {
@@ -84,17 +78,8 @@ void Camera::moveRight()
 
 void Camera::Update()
 {
-	Vector3* pos = this->transform->getPosition();
-	Vector3* rot = this->transform->getRotation();
-
-	//Update the look at to account for position, pitch and yaw
-	lookAt->setX(pos->getX() - 1*cos(rot->getX())*sin(rot->getY()));
-	lookAt->setY(pos->getY() + 1 * sin(rot->getX()));
-	lookAt->setZ(pos->getZ() + -1 * cos(rot->getX()) * cos(rot->getY()));
-
-	up->setX( -1 * cos((float)(rot->getX() + M_PI/2.0f)) * sin(rot->getY()));
-	up->setY(1 * sin((float)(rot->getX() + M_PI / 2.0f)));
-	up->setZ(-1 * cos((float)(rot->getX() + M_PI / 2.0f)) * cos(rot->getY()));
+	for (unsigned int i = 0; i < components.size(); i++)
+		components[i]->Update();
 }
 
 void Camera::OnRender()
@@ -118,15 +103,18 @@ void Camera::OnRender()
 	glUniform1f(widthPos, width);
 	glUniform1f(heightPos, height);
 
-	glUniform3fv(lookAtPos, 1, lookAt->getAsArray());
+	glUniform3fv(lookAtPos, 1, transform->getForward().getAsArray());
 	glUniform3fv(eyePointPos, 1, transform->getPosition()->getAsArray());
-	glUniform3fv(upPos, 1, up->getAsArray());
+	glUniform3fv(upPos, 1, transform->getUp().getAsArray());
 
 	for (unsigned int i = 0; i < components.size(); i++)
 		components[i]->Render();
 
 	//Look through the rendering octree, see which octents collide with the camera's frustrum and then render objects in those nodes
 	vector<OctreeNode*> collidingNodes = renderingOctree->getCollidingChildren(collider);
+	vector<GameObject*> alreadyRendered;
+
+	int drawCalls = 0;
 
 	for (unsigned int i = 0; i < collidingNodes.size(); i++)
 	{
@@ -134,9 +122,33 @@ void Camera::OnRender()
 		vector<GameObject*> nodeObjects = node->getObjects();
 		for (unsigned int j = 0; j < nodeObjects.size(); j++)
 		{
-			nodeObjects[j]->OnRender();
+			GameObject* object = nodeObjects[j];
+			MeshRenderer* objectMesh = object->getComponent<MeshRenderer>();
+			Bounds* meshBounds = objectMesh->getBounds();
+
+			bool isColliding = collider->isColliding(meshBounds);
+
+			if (isColliding)
+			{
+				bool rendered = false;
+
+				for (unsigned int j = 0; j < alreadyRendered.size(); j++)
+				{
+					if (object == alreadyRendered[j])
+						rendered = true;
+				}
+
+				if (rendered == false)
+				{
+					object->OnRender();
+					drawCalls++;
+					alreadyRendered.push_back(object);
+				}
+			}
 		}
 	}
+
+	std::cout << collidingNodes.size() << " , " << drawCalls << " , " << renderingOctree->nodeCount << std::endl;
 
 	glUseProgram(0);
 }

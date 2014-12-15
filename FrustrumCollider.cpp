@@ -5,36 +5,48 @@
 #include "Bounds.h"
 #include "Camera.h"
 
+#include "GameObject.h"
+
 FrustrumCollider::FrustrumCollider(float zNear, float zFar, float FoV, float aspectRatio)
 {
-	float frustrumNearHeight = 2.0f * zNear * tanf(FoV * 0.5f * (float)(M_PI / 180.0f));
-	float frustrumNearWidth = frustrumNearHeight * aspectRatio;
+	this->zNear = zNear;
+	this->zFar = zFar;
 
-	float frustrumFarHeight = 2.0f * zNear * tanf(FoV * 0.5f * (float)(M_PI / 180.0f));
-	float frustrumFarWidth = frustrumFarHeight * aspectRatio;
+	frustrumNearHeight = 2.0f * zNear * tanf((FoV/2.0f) * (float)(M_PI / 180.0f));
+	frustrumNearWidth = frustrumNearHeight * aspectRatio;
 
-	nearBottomLeft = new Vector3(frustrumNearWidth / -2, frustrumNearHeight / -2, zNear);
-	nearBottomRight = new Vector3(frustrumNearWidth / 2, frustrumNearHeight / -2, zNear);
-	nearTopLeft = new Vector3(frustrumNearWidth / -2, frustrumNearHeight / 2, zNear);
-	nearTopRight = new Vector3(frustrumNearWidth / 2, frustrumNearHeight / 2, zNear);
-
-	farBottomLeft = new Vector3(frustrumFarWidth / -2, frustrumFarHeight / -2, zFar);
-	farBottomRight = new Vector3(frustrumFarWidth / 2, frustrumFarHeight / -2, zFar);
-	farTopLeft = new Vector3(frustrumFarWidth / -2, frustrumFarHeight / 2, zFar);
-	farTopRight = new Vector3(frustrumFarWidth / 2, frustrumFarHeight / 2, zFar);
+	frustrumFarHeight = 2.0f * zFar * tanf((FoV/2.0f) * (float)(M_PI / 180.0f));
+	frustrumFarWidth = frustrumFarHeight * aspectRatio;
 }
 
 void FrustrumCollider::Update()
 {
-	nearBottomLeft = &(getGameObject()->getTransform()->getModelMatrix() * (*nearBottomLeft));
-	nearBottomRight = &(getGameObject()->getTransform()->getModelMatrix() * (*nearBottomRight));
-	nearTopLeft = &(getGameObject()->getTransform()->getModelMatrix() * (*nearTopLeft));
-	nearTopRight = &(getGameObject()->getTransform()->getModelMatrix() * (*nearTopRight));
+	nearBottomLeft = getGameObject()->getTransform()->getModelMatrix() * Vector3(frustrumNearWidth / -2, frustrumNearHeight / -2, zNear);
+	nearBottomRight = getGameObject()->getTransform()->getModelMatrix() * Vector3(frustrumNearWidth / 2, frustrumNearHeight / -2, zNear);
+	nearTopLeft = getGameObject()->getTransform()->getModelMatrix() * Vector3(frustrumNearWidth / -2, frustrumNearHeight / 2, zNear);
+	nearTopRight = getGameObject()->getTransform()->getModelMatrix() * Vector3(frustrumNearWidth / 2, frustrumNearHeight / 2, zNear);
 	
-	farBottomLeft = &(getGameObject()->getTransform()->getModelMatrix() * (*farBottomLeft));
-	farBottomRight = &(getGameObject()->getTransform()->getModelMatrix() * (*farBottomRight));
-	farTopLeft = &(getGameObject()->getTransform()->getModelMatrix() * (*farTopLeft));
-	farTopRight = &(getGameObject()->getTransform()->getModelMatrix() * (*farTopRight));
+	farBottomLeft = getGameObject()->getTransform()->getModelMatrix() * Vector3(frustrumFarWidth / -2, frustrumFarHeight / -2, zFar);
+	farBottomRight = getGameObject()->getTransform()->getModelMatrix() * Vector3(frustrumFarWidth / 2, frustrumFarHeight / -2, zFar);
+	farTopLeft = getGameObject()->getTransform()->getModelMatrix() * Vector3(frustrumFarWidth / -2, frustrumFarHeight / 2, zFar);
+	farTopRight = getGameObject()->getTransform()->getModelMatrix() * Vector3(frustrumFarWidth / 2, frustrumFarHeight / 2, zFar);						 
+}
+
+void FrustrumCollider::Render()
+{
+	GameObject* topLeft = new GameObject();
+	topLeft->getTransform()->setPosition(&farTopRight);
+
+	Shape sphere(PrimitiveType::SPHERE, 10, 10, 3.0f);
+	Mesh sphereMesh(getGameObject()->getComponent<Material>()->getShaderProgram(), sphere, "Textures/stoneTexture.png");
+	MeshRenderer renderer(&sphereMesh);
+
+	topLeft->addComponent(&renderer);
+	topLeft->addComponent(getGameObject()->getComponent<Material>());
+
+	topLeft->Start();
+	topLeft->Update();
+	topLeft->OnRender();
 }
 
 //We don't really care about this
@@ -57,18 +69,20 @@ bool FrustrumCollider::isCollidingWithBounds(Bounds* other)
 	Vector3 max = other->getMaxBound();
 
 	//Derive the 6 normals of the 6 planes of the frustrum
-	Vector3 nearNorm = Vector3::Normalize(Vector3::Cross((*nearBottomLeft - *nearBottomRight), (*nearBottomRight - *nearTopRight)));
-	Vector3 farNorm = Vector3::Normalize(Vector3::Cross((*farBottomLeft - *farBottomRight), (*farBottomRight - *farTopRight)));
-	Vector3 leftNorm = Vector3::Normalize(Vector3::Cross((*nearBottomLeft - *farBottomLeft), (*farBottomLeft - *farTopLeft)));
-	Vector3 rightNorm = Vector3::Normalize(Vector3::Cross((*nearBottomRight - *farBottomRight), (*farBottomRight - *farTopRight)));
-	Vector3 upNorm = Vector3::Normalize(Vector3::Cross((*nearTopLeft - *nearTopRight), (*nearTopRight - *farTopRight)));
-	Vector3 downNorm = Vector3::Normalize(Vector3::Cross((*nearBottomLeft - *nearBottomRight), (*nearBottomRight - *farBottomRight)));
+	Vector3 nearNorm = Vector3::Normalize(Vector3::Cross((nearBottomRight - nearBottomLeft), (nearBottomLeft - nearTopLeft)));
+	Vector3 farNorm = Vector3::Normalize(Vector3::Cross((farTopLeft - farBottomLeft), (farBottomLeft - farBottomRight)));
+	Vector3 leftNorm = Vector3::Normalize(Vector3::Cross((farTopLeft - farBottomLeft), (farBottomLeft - nearBottomLeft)));
+	Vector3 rightNorm = Vector3::Normalize(Vector3::Cross((nearTopRight - nearBottomRight), (nearBottomRight - farBottomRight)));
+	Vector3 upNorm = Vector3::Normalize(Vector3::Cross((farTopRight - nearTopRight), (nearTopRight - nearTopLeft)));
+	Vector3 downNorm = Vector3::Normalize(Vector3::Cross((nearBottomRight - farBottomRight), (farBottomRight - farBottomLeft)));
 
 	Vector3 normals[] = { nearNorm, farNorm, leftNorm, rightNorm, upNorm, downNorm };
+	Vector3 points[] = {nearBottomLeft, farBottomLeft, nearBottomLeft, nearBottomRight, nearTopLeft, nearBottomLeft};
 
 	for (int i = 0; i < 6; i++)
 	{
 		Vector3 normal = normals[i];
+		Vector3 point = points[i];
 
 		//Determine the closest and furthest points from this normal
 		Vector3 positive(min);
@@ -90,9 +104,12 @@ bool FrustrumCollider::isCollidingWithBounds(Bounds* other)
 			negative.setZ(min.getZ());
 		}
 
+		Vector3 positiveDistanceToCenter = positive - point;
+		Vector3 negativeDistanceToCenter = negative - point;
+
 		//If the positive and negative verts are in front of a normal than it is not inside of the frustrum
 		//Return false
-		if (Vector3::Dot(normals[i], positive) >= 0 && Vector3::Dot(normals[i], negative) >= 0)
+		if (Vector3::Dot(normals[i], positiveDistanceToCenter) >= 0 && Vector3::Dot(normals[i], negativeDistanceToCenter) >= 0)
 			return false;
 		else
 			continue;

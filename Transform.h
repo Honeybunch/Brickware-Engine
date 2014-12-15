@@ -29,6 +29,10 @@ public:
 	Vector3* getRotation();
 	Vector3* getScale();
 
+	Vector3 getForward();
+	Vector3 getRight();
+	Vector3 getUp();
+
 	Matrix4 getModelMatrix();
 	
 	//Mutators
@@ -46,6 +50,10 @@ private:
 	Vector3* position;
 	Vector3* rotation;
 	Vector3* scale;
+
+	Vector3 forward;
+	Vector3 right;
+	Vector3 up;
 
 	Matrix4 modelMatrix;
 };

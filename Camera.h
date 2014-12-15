@@ -33,8 +33,6 @@ public:
 	void moveLeft();
 	void moveRight();
 
-	Vector3* getLookAt();
-
 	virtual void Start() override;
 	virtual void Update() override;
 	virtual void OnRender() override;	
@@ -47,9 +45,6 @@ private:
 	GLfloat zFar;
 
 	GLfloat speed;
-
-	Vector3* lookAt;
-	Vector3* up;
 
 	GLint FoVPos;
 	GLint widthPos;

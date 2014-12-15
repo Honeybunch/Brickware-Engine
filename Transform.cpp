@@ -13,6 +13,10 @@ Vector3* Transform::getPosition(){ return position; }
 Vector3* Transform::getRotation(){ return rotation; }
 Vector3* Transform::getScale(){ return scale; }
 
+Vector3 Transform::getForward(){ return forward; }
+Vector3 Transform::getRight(){ return right; }
+Vector3 Transform::getUp(){ return up; }
+
 Matrix4 Transform::getModelMatrix(){ return modelMatrix; }
 
 //Mutators
@@ -24,6 +28,7 @@ void Transform::setScale(Vector3* newScale){ scale = newScale; }
 
 void Transform::Update()
 {
+	//Calculate Model Matrix
 	Matrix4 rotationX(1.0f, 0.0f, 0.0f, 0.0f,
 					  0.0f, cosf(rotation->getX()), sinf(rotation->getX()), 0.0f,
 					  0.0f, -sinf(rotation->getX()), cosf(rotation->getX()), 0.0f,
@@ -50,6 +55,20 @@ void Transform::Update()
 					 0.0f, 0.0f, 0.0f, 1.0f);
 
 	modelMatrix = translationMat * rotationMat * scaleMat;
+
+	//Recalculate forward, right and up
+	Vector3 forwardTest = modelMatrix * Vector3(0, 0, 1);
+	Vector3 rightTest = modelMatrix * Vector3(1, 0, 0);
+	Vector3 upTest = modelMatrix * Vector3(0, 1, 0);
+
+	forward.setX(position->getX() - 1*cos(rotation->getX())*sin(rotation->getY()));
+	forward.setY(position->getY() + 1 * sin(rotation->getX()));
+	forward.setZ(position->getZ() + -1 * cos(rotation->getX()) * cos(rotation->getY()));
+	up.setX( -1 * cos((float)(rotation->getX() + M_PI/2.0f)) * sin(rotation->getY()));
+	up.setY(1 * sin((float)(rotation->getX() + M_PI / 2.0f)));
+	up.setZ(-1 * cos((float)(rotation->getX() + M_PI / 2.0f)) * cos(rotation->getY()));
+
+	std::cout << "(" << forward.getX() << " , " << forward.getY() << " , " << forward.getX() << ")" << "(" << up.getX() << " , " << up.getY() << " , " << up.getX() << ")" << endl;
 }
 
 void Transform::Render()
@@ -66,7 +85,5 @@ void Transform::Render()
 
 Transform::~Transform()
 {
-	delete position;
-	delete rotation;
-	delete scale;
+
 }

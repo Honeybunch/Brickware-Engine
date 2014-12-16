@@ -23,9 +23,9 @@ void FrustrumCollider::Update()
 {
 	Transform* transform = getGameObject()->getTransform();
 	Vector3 position = *(transform->getPosition());
-	Vector3 forward = Vector3::Normalize(transform->getForward());
+	Vector3 forward = Vector3::Normalize(transform->getForward() - position);
 	Vector3 right = Vector3::Normalize(transform->getRight());
-	Vector3 up = transform->getUp();
+	Vector3 up = Vector3::Normalize(transform->getUp());
 
 	Vector3 farCenter = position + (forward * zFar);
 	Vector3 nearCenter = position + (forward * zNear);
@@ -43,7 +43,24 @@ void FrustrumCollider::Update()
 
 void FrustrumCollider::Render()
 {
-	//Maybe one day I'll render the collider 
+	Transform* transform = getGameObject()->getTransform();
+	Vector3 position = *(transform->getPosition());
+	Vector3 forward = Vector3::Normalize(transform->getForward() - position);
+
+	//Maybe one day I'll render the collider
+	GameObject* topLeft = new GameObject();
+	topLeft->getTransform()->setPosition(&(position + (forward * zFar)));
+	
+	Shape sphere(PrimitiveType::SPHERE, 10, 10, 2.0f);
+	Mesh sphereMesh(getGameObject()->getComponent<Material>()->getShaderProgram(), sphere, "Textures/stoneTexture.png");
+	MeshRenderer renderer(&sphereMesh);
+	
+	topLeft->addComponent(&renderer);
+	topLeft->addComponent(getGameObject()->getComponent<Material>());
+	
+	topLeft->Start();
+	topLeft->Update();
+	topLeft->OnRender();
 }
 
 //We don't really care about this

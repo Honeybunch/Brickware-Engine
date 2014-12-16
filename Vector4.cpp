@@ -66,5 +66,8 @@ istream& operator>> (istream& input, Vector4& v4)
 
 Vector4::operator Vector3()
 {
+	if (w == 0)
+		w = 1.0f;
+
 	return Vector3(x / w, y / w, z / w);
 }

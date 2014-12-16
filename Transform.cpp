@@ -57,18 +57,16 @@ void Transform::Update()
 	modelMatrix = translationMat * rotationMat * scaleMat;
 
 	//Recalculate forward, right and up
-	Vector3 forwardTest = modelMatrix * Vector3(0, 0, 1);
-	Vector3 rightTest = modelMatrix * Vector3(1, 0, 0);
-	Vector3 upTest = modelMatrix * Vector3(0, 1, 0);
+	
+	forward.setX(position->getX() - 1*cosf(rotation->getX())*sinf(rotation->getY()));
+	forward.setY(position->getY() + 1 * sinf(rotation->getX()));
+	forward.setZ(position->getZ() + -1 * cosf(rotation->getX()) * cosf(rotation->getY()));
 
-	forward.setX(position->getX() - 1*cos(rotation->getX())*sin(rotation->getY()));
-	forward.setY(position->getY() + 1 * sin(rotation->getX()));
-	forward.setZ(position->getZ() + -1 * cos(rotation->getX()) * cos(rotation->getY()));
-	up.setX( -1 * cos((float)(rotation->getX() + M_PI/2.0f)) * sin(rotation->getY()));
-	up.setY(1 * sin((float)(rotation->getX() + M_PI / 2.0f)));
-	up.setZ(-1 * cos((float)(rotation->getX() + M_PI / 2.0f)) * cos(rotation->getY()));
+	up.setX( -1 * cosf((float)(rotation->getX() + M_PI/2.0f)) * sinf(rotation->getY()));
+	up.setY(1 * sinf((float)(rotation->getX() + M_PI / 2.0f)));
+	up.setZ(-1 * cosf((float)(rotation->getX() + M_PI / 2.0f)) * cosf(rotation->getY()));
 
-	std::cout << "(" << forward.getX() << " , " << forward.getY() << " , " << forward.getX() << ")" << "(" << up.getX() << " , " << up.getY() << " , " << up.getX() << ")" << endl;
+	right = Vector3::Cross(Vector3::Normalize(forward), Vector3::Normalize(up));
 }
 
 void Transform::Render()

@@ -21,32 +21,29 @@ FrustrumCollider::FrustrumCollider(float zNear, float zFar, float FoV, float asp
 
 void FrustrumCollider::Update()
 {
-	nearBottomLeft = getGameObject()->getTransform()->getModelMatrix() * Vector3(frustrumNearWidth / -2, frustrumNearHeight / -2, zNear);
-	nearBottomRight = getGameObject()->getTransform()->getModelMatrix() * Vector3(frustrumNearWidth / 2, frustrumNearHeight / -2, zNear);
-	nearTopLeft = getGameObject()->getTransform()->getModelMatrix() * Vector3(frustrumNearWidth / -2, frustrumNearHeight / 2, zNear);
-	nearTopRight = getGameObject()->getTransform()->getModelMatrix() * Vector3(frustrumNearWidth / 2, frustrumNearHeight / 2, zNear);
-	
-	farBottomLeft = getGameObject()->getTransform()->getModelMatrix() * Vector3(frustrumFarWidth / -2, frustrumFarHeight / -2, zFar);
-	farBottomRight = getGameObject()->getTransform()->getModelMatrix() * Vector3(frustrumFarWidth / 2, frustrumFarHeight / -2, zFar);
-	farTopLeft = getGameObject()->getTransform()->getModelMatrix() * Vector3(frustrumFarWidth / -2, frustrumFarHeight / 2, zFar);
-	farTopRight = getGameObject()->getTransform()->getModelMatrix() * Vector3(frustrumFarWidth / 2, frustrumFarHeight / 2, zFar);						 
+	Transform* transform = getGameObject()->getTransform();
+	Vector3 position = *(transform->getPosition());
+	Vector3 forward = Vector3::Normalize(transform->getForward());
+	Vector3 right = Vector3::Normalize(transform->getRight());
+	Vector3 up = transform->getUp();
+
+	Vector3 farCenter = position + (forward * zFar);
+	Vector3 nearCenter = position + (forward * zNear);
+
+	farTopLeft = farCenter + (up * (frustrumFarHeight / 2)) - (right * (frustrumFarWidth / 2));
+	farTopRight = farCenter + (up * (frustrumFarHeight / 2)) + (right * (frustrumFarWidth / 2));
+	farBottomLeft = farCenter - (up * (frustrumFarHeight / 2)) - (right * (frustrumFarWidth / 2));
+	farBottomRight = farCenter - (up * (frustrumFarHeight / 2)) + (right * (frustrumFarWidth / 2));
+
+	nearTopLeft = nearCenter + (up * (frustrumNearHeight / 2)) - (right * (frustrumNearWidth / 2));
+	nearTopRight = nearCenter + (up * (frustrumNearHeight / 2)) + (right * (frustrumNearWidth / 2));
+	nearBottomLeft = nearCenter - (up * (frustrumNearHeight / 2)) - (right * (frustrumNearWidth / 2));
+	nearBottomRight = nearCenter - (up * (frustrumNearHeight / 2)) + (right * (frustrumNearWidth / 2));
 }
 
 void FrustrumCollider::Render()
 {
-	GameObject* topLeft = new GameObject();
-	topLeft->getTransform()->setPosition(&farTopRight);
-
-	Shape sphere(PrimitiveType::SPHERE, 10, 10, 3.0f);
-	Mesh sphereMesh(getGameObject()->getComponent<Material>()->getShaderProgram(), sphere, "Textures/stoneTexture.png");
-	MeshRenderer renderer(&sphereMesh);
-
-	topLeft->addComponent(&renderer);
-	topLeft->addComponent(getGameObject()->getComponent<Material>());
-
-	topLeft->Start();
-	topLeft->Update();
-	topLeft->OnRender();
+	//Maybe one day I'll render the collider 
 }
 
 //We don't really care about this
@@ -79,6 +76,8 @@ bool FrustrumCollider::isCollidingWithBounds(Bounds* other)
 	Vector3 normals[] = { nearNorm, farNorm, leftNorm, rightNorm, upNorm, downNorm };
 	Vector3 points[] = {nearBottomLeft, farBottomLeft, nearBottomLeft, nearBottomRight, nearTopLeft, nearBottomLeft};
 
+	bool result = true;
+
 	for (int i = 0; i < 6; i++)
 	{
 		Vector3 normal = normals[i];
@@ -109,15 +108,15 @@ bool FrustrumCollider::isCollidingWithBounds(Bounds* other)
 
 		//If the positive and negative verts are in front of a normal than it is not inside of the frustrum
 		//Return false
-		if (Vector3::Dot(normals[i], positiveDistanceToCenter) >= 0 && Vector3::Dot(normals[i], negativeDistanceToCenter) >= 0)
-			return false;
-		else
-			continue;
+		if (Vector3::Dot(normals[i], positiveDistanceToCenter) < 0)
+			result = false;
+		else if (Vector3::Dot(normals[i], negativeDistanceToCenter) < 0)
+			result = true;
 	}
 
 	//If we check against every plane and it's never completely in front of a plane than it has intersected at some point 
 	//And we can return a collission
-	return true;
+	return result;
 }
 
 //We don't really care about this 

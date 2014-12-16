@@ -8,6 +8,7 @@ class Matrix4
 {
 public:
 	Matrix4();
+	Matrix4(float rawArray[]);
 	Matrix4(float x0, float y0, float z0, float w0,
 			float x1, float y1, float z1, float w1,
 			float x2, float y2, float z2, float w2,

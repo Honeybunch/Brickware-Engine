@@ -1,10 +1,10 @@
-﻿Build started 12/15/2014 5:03:14 PM.
-     1>Project "Z:\cygwin64\home\amt3824\Git\Brickware-Engine\Brickware-Engine.vcxproj" on node 2 (Build target(s)).
+﻿Build started 12/16/2014 1:19:31 AM.
+     1>Project "C:\Cygwin\home\arsen_000\Git\Brickware-Engine\Brickware-Engine.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"Z:\cygwin64\home\amt3824\Git\Brickware-Engine\\SOIL\include\\" /I"Z:\cygwin64\home\amt3824\Git\Brickware-Engine\\GLFW\include\\" /I"Z:\cygwin64\home\amt3824\Git\Brickware-Engine\\GL\include\\" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Transform.cpp
-         Transform.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Cygwin\home\arsen_000\Git\Brickware-Engine\\SOIL\include\\" /I"C:\Cygwin\home\arsen_000\Git\Brickware-Engine\\GLFW\include\\" /I"C:\Cygwin\home\arsen_000\Git\Brickware-Engine\\GL\include\\" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt FrustrumCollider.cpp
+         FrustrumCollider.cpp
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"Z:\cygwin64\home\amt3824\Git\Brickware-Engine\Debug\Brickware-Engine.exe" /INCREMENTAL /NOLOGO /LIBPATH:"Z:\cygwin64\home\amt3824\Git\Brickware-Engine\\SOIL\lib" /LIBPATH:"Z:\cygwin64\home\amt3824\Git\Brickware-Engine\\GLFW\lib\Win32" /LIBPATH:"Z:\cygwin64\home\amt3824\Git\Brickware-Engine\\GL\lib\Win32" SOIL.lib glfw3dll.lib glew32.lib kernel32.lib user32.lib opengl32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"Z:\cygwin64\home\amt3824\Git\Brickware-Engine\Debug\Brickware-Engine.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"Z:\cygwin64\home\amt3824\Git\Brickware-Engine\Debug\Brickware-Engine.lib" /MACHINE:X86 Debug\Bounds.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Cygwin\home\arsen_000\Git\Brickware-Engine\Debug\Brickware-Engine.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Cygwin\home\arsen_000\Git\Brickware-Engine\\SOIL\lib" /LIBPATH:"C:\Cygwin\home\arsen_000\Git\Brickware-Engine\\GLFW\lib\Win32" /LIBPATH:"C:\Cygwin\home\arsen_000\Git\Brickware-Engine\\GL\lib\Win32" SOIL.lib glfw3dll.lib glew32.lib kernel32.lib user32.lib opengl32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Cygwin\home\arsen_000\Git\Brickware-Engine\Debug\Brickware-Engine.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Cygwin\home\arsen_000\Git\Brickware-Engine\Debug\Brickware-Engine.lib" /MACHINE:X86 Debug\Bounds.obj
          Debug\BoxCollider.obj
          Debug\Camera.obj
          Debug\Collider.obj
@@ -29,9 +29,9 @@
          Debug\Vector2.obj
          Debug\Vector3.obj
          Debug\Vector4.obj
-         Brickware-Engine.vcxproj -> Z:\cygwin64\home\amt3824\Git\Brickware-Engine\Debug\Brickware-Engine.exe
-     1>Done Building Project "Z:\cygwin64\home\amt3824\Git\Brickware-Engine\Brickware-Engine.vcxproj" (Build target(s)).
+         Brickware-Engine.vcxproj -> C:\Cygwin\home\arsen_000\Git\Brickware-Engine\Debug\Brickware-Engine.exe
+     1>Done Building Project "C:\Cygwin\home\arsen_000\Git\Brickware-Engine\Brickware-Engine.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:01:26.83
+Time Elapsed 00:00:01.59

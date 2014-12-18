@@ -103,7 +103,7 @@ void spawnSphere()
 	newSphere->addComponent(new MeshRenderer(sphereMesh));
 	newSphere->addComponent(new SphereCollider(new Vector3(), 0.1f));
 
-	Vector3* spherePos = new Vector3((camera->getTransform()->getForward()));
+	Vector3* spherePos = new Vector3(*(camera->getLookAt()));
 
 	newSphere->getTransform()->setPosition(spherePos);
 	newSphere->getTransform()->setScale(new Vector3(0.1f, 0.1f, 0.1f));

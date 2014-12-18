@@ -57,21 +57,10 @@ void Transform::Update()
 	modelMatrix = scaleMat * rotationMat * translationMat;
 
 	//Recalculate forward, right and up
-	//Vector3 f, u, r;
 
-	forward.setX(position->getX() - 1 * cosf(rotation->getX())*sinf(rotation->getY()));
-	forward.setY(position->getY() + 1 * sinf(rotation->getX()));
-	forward.setZ(position->getZ() + -1 * cosf(rotation->getX()) * cosf(rotation->getY()));
-
-	up.setX( -1 * cosf((float)(rotation->getX() + M_PI/2.0f)) * sinf(rotation->getY()));
-	up.setY(1 * sinf((float)(rotation->getX() + M_PI / 2.0f)));
-	up.setZ(-1 * cosf((float)(rotation->getX() + M_PI / 2.0f)) * cosf(rotation->getY()));
-
-	right = Vector3::Cross(Vector3::Normalize(forward), Vector3::Normalize(up));
-
-	//forward = modelMatrix * Vector3(0, 0, -1);
-	//right = modelMatrix * Vector3(1, 0, 0);
-	//up = modelMatrix * Vector3(0, -1, 0);
+	forward = Vector3::Normalize((modelMatrix * Vector3(0, 0, -1) - *position));
+	right = Vector3::Normalize((modelMatrix * Vector3(1, 0, 0) - *position));
+	up = Vector3::Normalize((modelMatrix * Vector3(0, 1, 0) - *position));
 }
 
 void Transform::Render()

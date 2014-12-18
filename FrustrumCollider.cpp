@@ -23,9 +23,9 @@ void FrustrumCollider::Update()
 {
 	Transform* transform = getGameObject()->getTransform();
 	Vector3 position = *(transform->getPosition());
-	Vector3 forward = Vector3::Normalize(transform->getForward() - position);
-	Vector3 right = Vector3::Normalize(transform->getRight());
-	Vector3 up = Vector3::Normalize(transform->getUp());
+	Vector3 forward = transform->getForward();
+	Vector3 right = transform->getRight();
+	Vector3 up = transform->getUp();
 
 	Vector3 farCenter = position + (forward * zFar);
 	Vector3 nearCenter = position + (forward * zNear);
@@ -43,15 +43,17 @@ void FrustrumCollider::Update()
 
 void FrustrumCollider::Render()
 {
+	//Maybe one day I'll render the collider
+
+	/*
 	Transform* transform = getGameObject()->getTransform();
 	Vector3 position = *(transform->getPosition());
-	Vector3 forward = Vector3::Normalize(transform->getForward() - position);
+	Vector3 forward = transform->getForward();
 
-	//Maybe one day I'll render the collider
 	GameObject* topLeft = new GameObject();
-	topLeft->getTransform()->setPosition(&(position + (forward * zFar)));
+	topLeft->getTransform()->setPosition(&nearTopRight);
 	
-	Shape sphere(PrimitiveType::SPHERE, 10, 10, 2.0f);
+	Shape sphere(PrimitiveType::SPHERE, 10, 10, 0.01f);
 	Mesh sphereMesh(getGameObject()->getComponent<Material>()->getShaderProgram(), sphere, "Textures/stoneTexture.png");
 	MeshRenderer renderer(&sphereMesh);
 	
@@ -61,6 +63,7 @@ void FrustrumCollider::Render()
 	topLeft->Start();
 	topLeft->Update();
 	topLeft->OnRender();
+	*/
 }
 
 //We don't really care about this
@@ -81,6 +84,9 @@ bool FrustrumCollider::isCollidingWithBounds(Bounds* other)
 	//Get the bounds of the box in a form that easily allows operators
 	Vector3 min = other->getMinBound();
 	Vector3 max = other->getMaxBound();
+	Vector3 center = other->getCenter();
+
+	Vector3 position = *getGameObject()->getTransform()->getPosition();
 
 	//Derive the 6 normals of the 6 planes of the frustrum
 	Vector3 nearNorm = Vector3::Normalize(Vector3::Cross((nearBottomRight - nearBottomLeft), (nearBottomLeft - nearTopLeft)));
@@ -93,47 +99,36 @@ bool FrustrumCollider::isCollidingWithBounds(Bounds* other)
 	Vector3 normals[] = { nearNorm, farNorm, leftNorm, rightNorm, upNorm, downNorm };
 	Vector3 points[] = {nearBottomLeft, farBottomLeft, nearBottomLeft, nearBottomRight, nearTopLeft, nearBottomLeft};
 
-	bool result = true;
-
 	for (int i = 0; i < 6; i++)
 	{
+		//Get normal and point that describe plane
 		Vector3 normal = normals[i];
 		Vector3 point = points[i];
 
-		//Determine the closest and furthest points from this normal
-		Vector3 positive(min);
-		Vector3 negative(max);
+		float d = Vector3::Dot(normal, point) * -1.0f;
 
-		if (normal.getX() >= 0)
-		{
-			positive.setX(max.getX());
-			negative.setX(min.getX());
-		}
-		if (normal.getY() >= 0)
-		{
-			positive.setY(max.getY());
-			negative.setY(min.getY());
-		}
-		if (normal.getZ() >= 0)
-		{
-			positive.setZ(max.getZ());
-			negative.setZ(min.getZ());
-		}
+		//Get most positive vector along the normal
+		Vector3 positive = other->getPositive(normal);
 
-		Vector3 positiveDistanceToCenter = positive - point;
-		Vector3 negativeDistanceToCenter = negative - point;
+		float dist = d + Vector3::Dot(normal, positive);
 
-		//If the positive and negative verts are in front of a normal than it is not inside of the frustrum
-		//Return false
-		if (Vector3::Dot(normals[i], positiveDistanceToCenter) < 0)
-			result = false;
-		else if (Vector3::Dot(normals[i], negativeDistanceToCenter) < 0)
-			result = true;
+		if (dist < 0)
+			return false;
+
+		/*
+		//Get difference between box point and plane point
+		Vector3 difference = Vector3::Normalize(positive - point);
+
+		//If dot product between the difference and the normal is less than 0, the box is behind the plane
+		float distance = Vector3::Dot(normal, difference);
+		if (distance < 0)
+			return false;
+			*/
 	}
 
 	//If we check against every plane and it's never completely in front of a plane than it has intersected at some point 
 	//And we can return a collission
-	return result;
+	return true;
 }
 
 //We don't really care about this 

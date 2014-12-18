@@ -17,6 +17,8 @@ Camera::Camera(float FoV = 50, float width = 0.1f, float height = 0.1f, float zN
 	//Setup speed and velocity
 	speed = 0.1f;
 
+	lookAt = new Vector3();
+
 	addComponent(new FrustrumCollider(zNear, zFar, FoV, width/height));
 }
 
@@ -38,6 +40,9 @@ void Camera::Start()
 
 	GameObject::Start();
 }
+
+Vector3* Camera::getLookAt(){ return lookAt; }
+void Camera::setLookAt(Vector3* lookAt){ this->lookAt = lookAt; }
 
 void Camera::moveForward()
 {
@@ -80,6 +85,16 @@ void Camera::Update()
 {
 	for (unsigned int i = 0; i < components.size(); i++)
 		components[i]->Update();
+
+	//Recalculate lookAt
+	Vector3 position = *transform->getPosition();
+	Vector3 forward = transform->getForward();
+
+	Vector3 newLookAt = position + forward;
+	
+	lookAt->setX(newLookAt.getX());
+	lookAt->setY(newLookAt.getY());
+	lookAt->setZ(newLookAt.getZ());
 }
 
 void Camera::OnRender()
@@ -103,7 +118,7 @@ void Camera::OnRender()
 	glUniform1f(widthPos, width);
 	glUniform1f(heightPos, height);
 
-	glUniform3fv(lookAtPos, 1, transform->getForward().getAsArray());
+	glUniform3fv(lookAtPos, 1, lookAt->getAsArray());
 	glUniform3fv(eyePointPos, 1, transform->getPosition()->getAsArray());
 	glUniform3fv(upPos, 1, transform->getUp().getAsArray());
 

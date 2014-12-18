@@ -6,8 +6,6 @@ MeshRenderer::MeshRenderer(Mesh* mesh)
 	this->mesh = mesh;
 
 	bounds = new Bounds(Vector3(), Vector3());
-
-	calculateBounds();
 }
 
 Bounds* MeshRenderer::getBounds(){ return bounds; }
@@ -92,9 +90,20 @@ void MeshRenderer::calculateBounds()
 	Vector3 min(minX, minY, minZ);
 	Vector3 max(maxX, maxY, maxZ);
 
-	delete bounds;
+	float xWidth = max.getX() - min.getX();
+	float yWidth = max.getY() - min.getY();
+	float zWidth = max.getZ() - min.getZ();
 
-	bounds = new Bounds(min, max);
+	Vector3 center;
+
+	GameObject* gameObject = getGameObject();
+	if (gameObject)
+	{
+		Transform* transform = gameObject->getTransform();
+		
+		center = *transform->getPosition();
+	}
+	bounds = new Bounds(center, xWidth, yWidth, zWidth);
 }
 
 MeshRenderer::~MeshRenderer()

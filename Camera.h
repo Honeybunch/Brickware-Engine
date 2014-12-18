@@ -28,6 +28,9 @@ public:
 	Camera(Transform* transform, float FoV, float width, float height, float zNear, float zFar);
 	~Camera(void);
 
+	Vector3* getLookAt();
+	void setLookAt(Vector3* lookAt);
+
 	void moveForward();
 	void moveBackward();
 	void moveLeft();
@@ -45,6 +48,7 @@ private:
 	GLfloat zFar;
 
 	GLfloat speed;
+	Vector3* lookAt;
 
 	GLint FoVPos;
 	GLint widthPos;

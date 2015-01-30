@@ -68,11 +68,30 @@ void Transform::Render()
 	GameObject* go = this->getGameObject();
 	Material* material = go->getComponent<Material>();
 
+#ifdef CAN_SWITCH_CONTEXT
+	if (USE_DIRECTX)
+		renderD3D(material);
+	else
+		renderGL(material);
+#elif defined(USE_D3D_ONLY)
+	renderD3D(material);
+#else
+	renderGL(material);
+#endif
+}
+
+//Send info to GLSL Shader
+void Transform::renderGL(Material* material)
+{
 	GLuint shaderProgram = material->getShaderProgram();
 
-	glUniform3fv(material->getPositionLocation(), 1, position->getAsArray());
-	glUniform3fv(material->getRotationLocation(), 1, rotation->getAsArray());
-	glUniform3fv(material->getScaleLocation(), 1, scale->getAsArray());
+	glUniformMatrix4fv(material->getModelMatrixPos(), 1, false, modelMatrix.getAsArray());
+}
+
+//Send info to HLSL Shader
+void Transform::renderD3D(Material* material)
+{
+	//TODO
 }
 
 Transform::~Transform()

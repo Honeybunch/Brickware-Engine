@@ -8,7 +8,6 @@ class Bounds
 public:
 	Bounds(Vector3 center, float width);
 	Bounds(Vector3 center, float xWidth, float yWidth, float zWidth);
-	Bounds(Vector3 minBound, Vector3 maxBound);
 	~Bounds();
 
 	//Accessors and Mutators

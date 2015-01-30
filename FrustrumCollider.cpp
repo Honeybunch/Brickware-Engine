@@ -61,7 +61,7 @@ void FrustrumCollider::Render()
 	topLeft->addComponent(getGameObject()->getComponent<Material>());
 	
 	topLeft->Start();
-	topLeft->Update();
+	//topLeft->Update();
 	topLeft->OnRender();
 	*/
 }
@@ -127,7 +127,6 @@ bool FrustrumCollider::isCollidingWithBounds(Bounds* other)
 	}
 
 	//If we check against every plane and it's never completely in front of a plane than it has intersected at some point 
-	//And we can return a collission
 	return true;
 }
 

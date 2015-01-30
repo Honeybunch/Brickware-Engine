@@ -4,6 +4,8 @@
 #include <vector>
 #include <typeinfo>
 
+#include "Settings.h"
+
 #include "Component.h"
 #include "Transform.h"
 #include "Material.h"
@@ -51,7 +53,13 @@ protected:
 
 	//Other Components
 	vector<Component*> components;
-	int componentCount;
+	int componentCount; 
+
+	void prepRenderGL(Material* material);
+	void prepRenderD3D(Material* material);
+
+	void endRenderGL();
+	void endRenderD3D();
 };
 
 #endif

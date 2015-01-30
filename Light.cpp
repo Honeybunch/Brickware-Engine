@@ -1,52 +1,67 @@
 #include "light.h"
 
-Light::Light(GLint program)
+Light::Light()
 {
-	loadShader(program);
-
-	position[0] = 0;
-	position[1] = 0;
-	position[2] = 0;
-}
-
-Light::Light(GLint program, float x, float y, float z)
-{
-	loadShader(program);
 	
-	position[0] = x;
-	position[1] = y;
-	position[2] = z;
 }
 
-Light::Light(GLint program, Vector3 pos)
+void Light::Start()
 {
-	loadShader(program);
-	
-	position[0] = pos.getX();
-	position[1] = pos.getY();
-	position[2] = pos.getZ();
+	Material* material = getGameObject()->getComponent<Material>();
+
+#ifdef CAN_SWITCH_CONTEXT
+	if (USE_DIRECTX)
+		startD3D(material);
+	else
+		startGL(material);
+#elif defined(USE_D3D_ONLY)
+	startD3D(material);
+#else
+	startGL(material);
+#endif
 }
 
-void Light::display()
+void Light::Render()
 {
-	glUseProgram(shaderProgram);
+	Material* material = getGameObject()->getComponent<Material>();
 
-	glUniform3fv(shaderProgram, 1, position);
-
-	glUseProgram(0);
+#ifdef CAN_SWITCH_CONTEXT
+	if (USE_DIRECTX)
+		renderD3D(material);
+	else
+		renderGL(material);
+#elif defined(USE_D3D_ONLY)
+	renderD3D(material);
+#else
+	renderGL(material);
+#endif
 }
 
-void Light::loadShader(GLint program)
+void Light::startGL(Material* material)
 {
-	position = new float[3];
-
-	shaderProgram = program;
+	GLint shaderProgram = material->getShaderProgram();
 
 	glUseProgram(shaderProgram);
 
 	lightPosLocation = glGetUniformLocation(shaderProgram, "lightPosition");
 
 	glUseProgram(0);
+}
+void Light::startD3D(Material* material)
+{
+	//TODO
+}
+
+void Light::renderGL(Material* material)
+{
+	GLint shaderProgram = material->getShaderProgram();
+
+	glUniform3fv(shaderProgram, 1, getGameObject()->getTransform()->getPosition()->getAsArray());
+
+}
+void Light::renderD3D(Material* material)
+{
+	//TODO
 }
 
 

@@ -22,6 +22,9 @@ private:
 	Bounds* bounds;
 
 	void calculateBounds();
+
+	void renderGL(Material* material);
+	void renderD3D(Material* material);
 };
 
 #endif

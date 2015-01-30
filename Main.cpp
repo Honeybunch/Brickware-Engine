@@ -19,7 +19,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 
-#define _USE_MATH_DEFINES 1
+#define _USE_MATH_DEFINES
 
 #include <stdlib.h>
 #include <iostream>
@@ -34,6 +34,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #define GLFW_INCLUDE_GLU
 #include <glfw3.h>
+
+#include "Settings.h"
 
 #include "Mesh.h"
 #include "Shader.h"
@@ -56,7 +58,6 @@ int ticks;
 Shader* shader;
 
 Camera* camera;
-Light* light;
 
 Mesh* sphereMesh;
 Mesh* cubeMesh;
@@ -69,8 +70,6 @@ void createShapes()
 {
 	camera = new Camera(50, 0.1f, 0.1f, 0.1f, 100.0f);
 	camera->addComponent(new Material(shader));
-
-	light = new Light(shader->getShaderProgram(), 0, 3, -2);
 
 	Shape modelShape("Models/castle.obj");
 	Shape sphere(PrimitiveType::SPHERE, 10, 10);
@@ -85,8 +84,16 @@ void createShapes()
 
 	castle->addComponent(new Material(shader));
 	castle->addComponent(new MeshRenderer(model));
-	Camera::renderingOctree->addObject(castle);
+	
+	GameObject* light = new GameObject();
+	light->getTransform()->setPosition(new Vector3(0.0f, 3.0f, 2.0f));
 
+	light->addComponent(new Material(shader));
+	light->addComponent(new Light());
+
+	//Camera::renderingOctree->addObject(castle);
+
+	gameObjects.push_back(light);
 	gameObjects.push_back(castle);
 	gameObjects.push_back(camera);
 
@@ -151,18 +158,15 @@ void display()
 	glCullFace(GL_BACK);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-	//Make sure lights exist
-	light->display();
-
 	//Update Game Objects
 	for (unsigned int i = 0; i < gameObjects.size(); i++)
 		gameObjects[i]->Update();
 
 	//Draw Game Objects
-	//for (unsigned int i = 0; i < gameObjects.size(); i++)
-	//	gameObjects[i]->OnRender();
+	for (unsigned int i = 0; i < gameObjects.size(); i++)
+		gameObjects[i]->OnRender();
 
-	camera->OnRender();
+	//camera->OnRender();
 
 	//Swap buffers
 	glfwSwapBuffers(window);
@@ -281,6 +285,9 @@ void init()
 
 int main (int argc, char **argv)
 {
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
 	//Attempt initialization
 	if (!glfwInit())
 		return -1;

@@ -21,9 +21,7 @@ public:
 	//Accessors
 	GLuint getShaderProgram();
 
-	GLuint getPositionLocation();
-	GLuint getRotationLocation();
-	GLuint getScaleLocation();
+	GLuint getModelMatrixPos();
 
 	//Component Overrides
 	virtual void Start();
@@ -33,10 +31,7 @@ public:
 private:
 	GLuint shaderProgram;
 
-	GLuint positionLocation;
-	GLuint rotationLocation;
-	GLuint scaleLocation;
-
+	GLuint modelMatrixPos;
 };
 
 #endif

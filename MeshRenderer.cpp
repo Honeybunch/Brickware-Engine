@@ -5,7 +5,7 @@ MeshRenderer::MeshRenderer(Mesh* mesh)
 {
 	this->mesh = mesh;
 
-	bounds = new Bounds(Vector3(), Vector3());
+	bounds = new Bounds(Vector3(), 0);
 }
 
 Bounds* MeshRenderer::getBounds(){ return bounds; }

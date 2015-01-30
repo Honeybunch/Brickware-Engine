@@ -1,6 +1,7 @@
 #include "GameObject.h"
 #include "Octree.h"
 #include "Camera.h"
+#include "Settings.h"
 
 GameObject::GameObject()
 {
@@ -52,15 +53,44 @@ void GameObject::OnRender()
 		return;
 	}
 
-	GLuint shaderProgram = material->getShaderProgram();
-
-	glUseProgram(shaderProgram);
+#ifdef CAN_SWITCH_CONTEXT
+	if (USE_DIRECTX)
+		prepRenderD3D(material);
+	else
+		prepRenderGL(material);
+#elif defined(USE_D3D_ONLY)
+	prepareRenderD3D(material);
+#else
+	prepareRenderGL(material);
+#endif
 
 	for (unsigned int i = 0; i < components.size(); i++)
 		components[i]->Render();
 
-	glUseProgram(0);
+#ifdef CAN_SWITCH_CONTEXT
+	if (USE_DIRECTX)
+		endRenderD3D();
+	else
+		endRenderGL();
+#elif defined(USE_D3D_ONLY)
+	endD3D();
+#else
+	endGL();
+#endif
 }
+
+void GameObject::prepRenderGL(Material* material)
+{
+	GLuint shaderProgram = material->getShaderProgram();
+	glUseProgram(shaderProgram);
+}
+void GameObject::prepRenderD3D(Material* material)
+{
+	//TODO
+}
+
+void GameObject::endRenderGL(){ glUseProgram(0); }
+void GameObject::endRenderD3D(){ /*TODO*/ }
 
 GameObject::~GameObject()
 {

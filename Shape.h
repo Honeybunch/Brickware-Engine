@@ -1,8 +1,8 @@
 #ifndef SIMPLE_SHAPE_H
 #define SIMPLE_SHAPE_H
 
-#define _USE_MATH_DEFINES 1
-#define _CRT_SECURE_NO_WARNINGS 1
+#define _USE_MATH_DEFINES 
+#define _CRT_SECURE_NO_WARNINGS 
 
 #include <GL/glew.h>
 

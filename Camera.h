@@ -1,7 +1,7 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#define _USE_MATH_DEFINES 1
+#define _USE_MATH_DEFINES
 
 #include <iostream>
 #include <vector>
@@ -41,27 +41,37 @@ public:
 	virtual void OnRender() override;	
 
 private:
-	GLfloat FoV;
-	GLfloat width;
-	GLfloat height;
-	GLfloat zNear;
-	GLfloat zFar;
+	float FoV;
+	float width;
+	float height;
+	float zNear;
+	float zFar;
 
-	GLfloat speed;
+	Matrix4 viewMatrix;
+	Matrix4 projectionMatrix;
+
+	float speed;
 	Vector3* lookAt;
 
-	GLint FoVPos;
-	GLint widthPos;
-	GLint heightPos;
-	GLint zNearPos;
-	GLint zFarPos;
-
-	GLint yawPos;
-	GLint pitchPos;
+	GLint viewMatrixPos;
+	GLint projectionMatrixPos;
 
 	GLint lookAtPos;
 	GLint eyePointPos;
 	GLint upPos;
+
+	Matrix4 calcViewMatrix();
+	Matrix4 calcProjectionMatrix();
+
+	void startGL(Material* material);
+	void startD3D(Material* material);
+
+	void prepRenderGL(Material* material);
+	void prepRenderD3D(Material* material);
+
+	void endRenderGL();
+	void endRenderD3D();
+
 };
 
 #endif

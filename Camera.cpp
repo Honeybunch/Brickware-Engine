@@ -25,18 +25,17 @@ Camera::Camera(float FoV = 50, float width = 0.1f, float height = 0.1f, float zN
 void Camera::Start()
 {
 	Material* material = this->getComponent<Material>();
-	GLuint shaderProgram = material->getShaderProgram();
-
-	//Get the locations of the shader variables on the GPU
-	FoVPos = glGetUniformLocation(shaderProgram, "FoV");
-	widthPos = glGetUniformLocation(shaderProgram, "width");
-	heightPos = glGetUniformLocation(shaderProgram, "height");
-	zNearPos = glGetUniformLocation(shaderProgram, "zNear");
-	zFarPos = glGetUniformLocation(shaderProgram, "zFar");
-
-	lookAtPos = glGetUniformLocation(shaderProgram, "lookAt");
-	eyePointPos = glGetUniformLocation(shaderProgram, "eyePoint");
-	upPos = glGetUniformLocation(shaderProgram, "up");
+	
+#ifdef CAN_SWITCH_CONTEXT
+	if (USE_DIRECTX)
+		startD3D(material);
+	else
+		startGL(material);
+#elif defined(USE_D3D_ONLY)
+	startD3D(material);
+#else
+	startGL(material);
+#endif
 
 	GameObject::Start();
 }
@@ -95,6 +94,9 @@ void Camera::Update()
 	lookAt->setX(newLookAt.getX());
 	lookAt->setY(newLookAt.getY());
 	lookAt->setZ(newLookAt.getZ());
+
+	viewMatrix = calcViewMatrix();
+	projectionMatrix = calcProjectionMatrix();
 }
 
 void Camera::OnRender()
@@ -108,19 +110,16 @@ void Camera::OnRender()
 		return;
 	}
 
-	GLuint shaderProgram = material->getShaderProgram();
-
-	glUseProgram(shaderProgram);
-
-	glUniform1f(FoVPos, FoV);
-	glUniform1f(zNearPos, zNear);
-	glUniform1f(zFarPos, zFar);
-	glUniform1f(widthPos, width);
-	glUniform1f(heightPos, height);
-
-	glUniform3fv(lookAtPos, 1, lookAt->getAsArray());
-	glUniform3fv(eyePointPos, 1, transform->getPosition()->getAsArray());
-	glUniform3fv(upPos, 1, transform->getUp().getAsArray());
+#ifdef CAN_SWITCH_CONTEXT
+	if (USE_DIRECTX)
+		prepRenderD3D(material);
+	else
+		prepRenderGL(material);
+#elif defined(USE_D3D_ONLY)
+	prepRenderD3D(material);
+#else
+	prepRenderGL(material);
+#endif
 
 	for (unsigned int i = 0; i < components.size(); i++)
 		components[i]->Render();
@@ -139,6 +138,19 @@ void Camera::OnRender()
 		{
 			GameObject* object = nodeObjects[j];
 			MeshRenderer* objectMesh = object->getComponent<MeshRenderer>();
+
+			//If there is no mesh renderer just render
+			/*
+			if (objectMesh == NULL)
+			{
+				object->OnRender();
+				drawCalls++;
+				alreadyRendered.push_back(object);
+
+				return;
+			}
+			*/
+
 			Bounds* meshBounds = objectMesh->getBounds();
 
 			bool isColliding = collider->isColliding(meshBounds);
@@ -165,7 +177,106 @@ void Camera::OnRender()
 
 	std::cout << collidingNodes.size() << " , " << drawCalls << " , " << renderingOctree->nodeCount << std::endl;
 
+#ifdef CAN_SWITCH_CONTEXT
+	if (USE_DIRECTX)
+		endRenderD3D();
+	else
+		endRenderGL();
+#elif defined(USE_D3D_ONLY)
+	endRenderD3D();
+#else
+	endRenderGL();
+#endif
+}
+
+Matrix4 Camera::calcViewMatrix()
+{
+	Vector3 position = *transform->getPosition();
+
+	//Calculate axes 
+	Vector3 zAxis = Vector3::Normalize((position - *lookAt));
+	Vector3 xAxis = Vector3::Normalize(Vector3::Cross(transform->getUp(), zAxis));
+	Vector3 yAxis = Vector3::Cross(zAxis, xAxis);
+
+	//Create view matrix;
+	Matrix4 view(xAxis.getX(), yAxis.getX(), zAxis.getX(), 0, 
+				 xAxis.getY(), yAxis.getY(), zAxis.getY(), 0,
+				 xAxis.getZ(), yAxis.getZ(), zAxis.getZ(), 0,
+				 Vector3::Dot(xAxis * -1, position),
+				 Vector3::Dot(yAxis * -1, position),
+				 Vector3::Dot(zAxis * -1, position), 
+				 1);
+
+	return view;
+}
+
+Matrix4 Camera::calcProjectionMatrix()
+{
+	float aspectRatio = width / height;
+
+	float top = zNear * tanf(((float)M_PI / 180.0f) * (FoV * 2.0f));
+	float bottom = -top;
+	float right = top * aspectRatio;
+	float left = -right;
+
+	float depth = zFar - zNear;
+	float q = -(zFar + zNear) / depth;
+	float qn = -2 * (zFar * zNear) / depth;
+
+	float w = 2 * zNear / width;
+	w /= aspectRatio;
+	float h = 2 * zNear / height;
+
+	Matrix4 projection(w, 0, 0, 0,
+					   0, h, 0, 0,
+					   0, 0, q, qn,
+					   0, 0, -1, 0);
+
+	return projection;
+}
+
+void Camera::startGL(Material* material)
+{
+	GLuint shaderProgram = material->getShaderProgram();
+
+	//Get the locations of the shader variables on the GPU
+	viewMatrixPos = glGetUniformLocation(shaderProgram, "viewMatrix");
+	projectionMatrixPos = glGetUniformLocation(shaderProgram, "projectionMatrix");
+
+	lookAtPos = glGetUniformLocation(shaderProgram, "lookAt");
+	eyePointPos = glGetUniformLocation(shaderProgram, "eyePoint");
+	upPos = glGetUniformLocation(shaderProgram, "up");
+}
+void Camera::startD3D(Material* material)
+{
+	//TODO
+}
+
+void Camera::prepRenderGL(Material* material)
+{
+	GLuint shaderProgram = material->getShaderProgram();
+
+	glUseProgram(shaderProgram);
+
+	glUniformMatrix4fv(viewMatrixPos, 1, false, viewMatrix.getAsArray());
+	glUniformMatrix4fv(projectionMatrixPos, 1, true, projectionMatrix.getAsArray());
+
+	glUniform3fv(lookAtPos, 1, lookAt->getAsArray());
+	glUniform3fv(eyePointPos, 1, transform->getPosition()->getAsArray());
+	glUniform3fv(upPos, 1, transform->getUp().getAsArray());
+}
+void Camera::prepRenderD3D(Material* material)
+{
+	//TODO
+}
+
+void Camera::endRenderGL()
+{
 	glUseProgram(0);
+}
+void Camera::endRenderD3D()
+{
+	//TODO
 }
 
 Camera::~Camera(void)

@@ -104,6 +104,9 @@
     <ClInclude Include="Bounds.h">
       <Filter>Headers\Colliders</Filter>
     </ClInclude>
+    <ClInclude Include="Settings.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">

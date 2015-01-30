@@ -26,18 +26,6 @@ Bounds::Bounds(Vector3 center, float xWidth, float yWidth, float zWidth)
 	maxBound = Vector3(center.getX() + xWidth/2, center.getY() + yWidth/2, center.getZ() + zWidth/2);
 }
 
-Bounds::Bounds(Vector3 minBound, Vector3 maxBound)
-{
-	xWidth = maxBound.getX() - minBound.getX();
-	yWidth = maxBound.getY() - minBound.getY();
-	zWidth = maxBound.getZ() - minBound.getZ();
-
-	this->center = Vector3(xWidth/2, yWidth/2, zWidth/2);
-
-	this->minBound = minBound;
-	this->maxBound = maxBound;
-}
-
 //Accessors and Mutators
 float Bounds::getXWidth(){ return xWidth; }
 float Bounds::getYWidth(){ return yWidth; }

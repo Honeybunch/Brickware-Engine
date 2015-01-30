@@ -1,6 +1,8 @@
 #ifndef LIGHT_H
 #define LIGHT_H
 
+#include "GameObject.h"
+
 #include "Vector3.h"
 
 #include <GL/glew.h>
@@ -12,26 +14,24 @@
 #define GLFW_INCLUDE_GLU
 #include <glfw3.h>
 
-class Light
+class Light : public Component
 {
 public:
-	Light(GLint program);
-	Light(GLint program, Vector3 pos);
-	Light(GLint program, float x, float y, float z);
+	Light();
 
-	virtual void display();
+	virtual void Start();
+	virtual void Render();
 
 	~Light(void);
 
 private:
-	GLint shaderProgram;
-
 	GLuint lightPosLocation;
 
-	float* position;
+	void startGL(Material* material);
+	void startD3D(Material* material);
 
-	void loadShader(GLint program);
-
+	void renderGL(Material* material);
+	void renderD3D(Material* material);
 };
 
 #endif

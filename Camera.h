@@ -19,10 +19,10 @@
 #include "GameObject.h"
 #include "Octree.h"
 
-class Camera : public GameObject
+class Camera : public Component
 {
 public:
-	static Octree* Camera::renderingOctree;
+	Octree* renderingOctree;
 
 	Camera(float FoV, float width, float height, float zNear, float zFar);
 	Camera(Transform* transform, float FoV, float width, float height, float zNear, float zFar);
@@ -38,7 +38,7 @@ public:
 
 	virtual void Start() override;
 	virtual void Update() override;
-	virtual void OnRender() override;	
+	virtual void Render() override;	
 
 private:
 	float FoV;
@@ -66,12 +66,8 @@ private:
 	void startGL(Material* material);
 	void startD3D(Material* material);
 
-	void prepRenderGL(Material* material);
-	void prepRenderD3D(Material* material);
-
-	void endRenderGL();
-	void endRenderD3D();
-
+	void renderGL(Material* material);
+	void renderD3D(Material* material);
 };
 
 #endif

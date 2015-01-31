@@ -1,12 +1,9 @@
 #include "Camera.h"
 #include "FrustrumCollider.h"
 
-Octree* Camera::renderingOctree;
-
 Camera::Camera(float FoV = 50, float width = 0.1f, float height = 0.1f, float zNear = 0.1f, float zFar = 100.0f)
 {
-	if (!renderingOctree)
-		renderingOctree = new Octree(3, 8, Vector3(), zFar);
+	renderingOctree = new Octree(3, 8, Vector3(), zFar);
 
 	this->FoV = FoV;
 	this->width = width;
@@ -18,13 +15,13 @@ Camera::Camera(float FoV = 50, float width = 0.1f, float height = 0.1f, float zN
 	speed = 0.1f;
 
 	lookAt = new Vector3();
-
-	addComponent(new FrustrumCollider(zNear, zFar, FoV, width/height));
 }
 
 void Camera::Start()
 {
-	Material* material = this->getComponent<Material>();
+	getGameObject()->addComponent(new FrustrumCollider(zNear, zFar, FoV, width / height));
+
+	Material* material = getGameObject()->getComponent<Material>();
 	
 #ifdef CAN_SWITCH_CONTEXT
 	if (USE_DIRECTX)
@@ -36,8 +33,6 @@ void Camera::Start()
 #else
 	startGL(material);
 #endif
-
-	GameObject::Start();
 }
 
 Vector3* Camera::getLookAt(){ return lookAt; }
@@ -45,8 +40,8 @@ void Camera::setLookAt(Vector3* lookAt){ this->lookAt = lookAt; }
 
 void Camera::moveForward()
 {
-	Vector3* pos = this->transform->getPosition();
-	Vector3* rot = this->transform->getRotation();
+	Vector3* pos = getGameObject()->getTransform()->getPosition();
+	Vector3* rot = getGameObject()->getTransform()->getRotation();
 
 	pos->setX(pos->getX() - speed * sin(rot->getY()));
 	pos->setY(pos->getY() + speed * sin(rot->getX()));
@@ -55,8 +50,8 @@ void Camera::moveForward()
 
 void Camera::moveBackward()
 {
-	Vector3* pos = this->transform->getPosition();
-	Vector3* rot = this->transform->getRotation();
+	Vector3* pos = getGameObject()->getTransform()->getPosition();
+	Vector3* rot = getGameObject()->getTransform()->getRotation();
 
 	pos->setX(pos->getX() + speed * sin(rot->getY()));
 	pos->setZ(pos->getZ() + speed * cos(rot->getY()));
@@ -64,8 +59,8 @@ void Camera::moveBackward()
 
 void Camera::moveLeft()
 {
-	Vector3* pos = this->transform->getPosition();
-	Vector3* rot = this->transform->getRotation();
+	Vector3* pos = getGameObject()->getTransform()->getPosition();
+	Vector3* rot = getGameObject()->getTransform()->getRotation();
 
 	pos->setX(pos->getX() - speed * cos(rot->getY()));
 	pos->setZ(pos->getZ() + speed * sin(rot->getY()));
@@ -73,8 +68,8 @@ void Camera::moveLeft()
 
 void Camera::moveRight()
 {
-	Vector3* pos = this->transform->getPosition();
-	Vector3* rot = this->transform->getRotation();
+	Vector3* pos = getGameObject()->getTransform()->getPosition();
+	Vector3* rot = getGameObject()->getTransform()->getRotation();
 
 	pos->setX(pos->getX() + speed * cos(rot->getY()));
 	pos->setZ(pos->getZ() - speed * sin(rot->getY()));
@@ -82,12 +77,9 @@ void Camera::moveRight()
 
 void Camera::Update()
 {
-	for (unsigned int i = 0; i < components.size(); i++)
-		components[i]->Update();
-
 	//Recalculate lookAt
-	Vector3 position = *transform->getPosition();
-	Vector3 forward = transform->getForward();
+	Vector3 position = *getGameObject()->getTransform()->getPosition();
+	Vector3 forward = getGameObject()->getTransform()->getForward();
 
 	Vector3 newLookAt = position + forward;
 	
@@ -99,30 +91,21 @@ void Camera::Update()
 	projectionMatrix = calcProjectionMatrix();
 }
 
-void Camera::OnRender()
+void Camera::Render()
 {	
-	Material* material = this->getComponent<Material>();
-	FrustrumCollider* collider = this->getComponent<FrustrumCollider>();
-
-	if (material == NULL)
-	{
-		cerr << "Error in Transform; no attached shader component" << endl;
-		return;
-	}
+	Material* material = getGameObject()->getComponent<Material>();
+	FrustrumCollider* collider = getGameObject()->getComponent<FrustrumCollider>();
 
 #ifdef CAN_SWITCH_CONTEXT
 	if (USE_DIRECTX)
-		prepRenderD3D(material);
+		renderD3D(material);
 	else
-		prepRenderGL(material);
+		renderGL(material);
 #elif defined(USE_D3D_ONLY)
-	prepRenderD3D(material);
+	renderD3D(material);
 #else
-	prepRenderGL(material);
+	renderGL(material);
 #endif
-
-	for (unsigned int i = 0; i < components.size(); i++)
-		components[i]->Render();
 
 	//Look through the rendering octree, see which octents collide with the camera's frustrum and then render objects in those nodes
 	vector<OctreeNode*> collidingNodes = renderingOctree->getCollidingChildren(collider);
@@ -176,26 +159,15 @@ void Camera::OnRender()
 	}
 
 	std::cout << collidingNodes.size() << " , " << drawCalls << " , " << renderingOctree->nodeCount << std::endl;
-
-#ifdef CAN_SWITCH_CONTEXT
-	if (USE_DIRECTX)
-		endRenderD3D();
-	else
-		endRenderGL();
-#elif defined(USE_D3D_ONLY)
-	endRenderD3D();
-#else
-	endRenderGL();
-#endif
 }
 
 Matrix4 Camera::calcViewMatrix()
 {
-	Vector3 position = *transform->getPosition();
+	Vector3 position = *getGameObject()->getTransform()->getPosition();
 
 	//Calculate axes 
 	Vector3 zAxis = Vector3::Normalize((position - *lookAt));
-	Vector3 xAxis = Vector3::Normalize(Vector3::Cross(transform->getUp(), zAxis));
+	Vector3 xAxis = Vector3::Normalize(Vector3::Cross(getGameObject()->getTransform()->getUp(), zAxis));
 	Vector3 yAxis = Vector3::Cross(zAxis, xAxis);
 
 	//Create view matrix;
@@ -252,7 +224,7 @@ void Camera::startD3D(Material* material)
 	//TODO
 }
 
-void Camera::prepRenderGL(Material* material)
+void Camera::renderGL(Material* material)
 {
 	GLuint shaderProgram = material->getShaderProgram();
 
@@ -262,19 +234,10 @@ void Camera::prepRenderGL(Material* material)
 	glUniformMatrix4fv(projectionMatrixPos, 1, true, projectionMatrix.getAsArray());
 
 	glUniform3fv(lookAtPos, 1, lookAt->getAsArray());
-	glUniform3fv(eyePointPos, 1, transform->getPosition()->getAsArray());
-	glUniform3fv(upPos, 1, transform->getUp().getAsArray());
+	glUniform3fv(eyePointPos, 1, getGameObject()->getTransform()->getPosition()->getAsArray());
+	glUniform3fv(upPos, 1, getGameObject()->getTransform()->getUp().getAsArray());
 }
-void Camera::prepRenderD3D(Material* material)
-{
-	//TODO
-}
-
-void Camera::endRenderGL()
-{
-	glUseProgram(0);
-}
-void Camera::endRenderD3D()
+void Camera::renderD3D(Material* material)
 {
 	//TODO
 }

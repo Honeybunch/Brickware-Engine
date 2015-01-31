@@ -57,10 +57,10 @@ int ticks;
 
 Shader* shader;
 
-Camera* camera;
-
 Mesh* sphereMesh;
 Mesh* cubeMesh;
+
+GameObject* camera;
 
 vector<GameObject*> gameObjects;
 
@@ -68,9 +68,11 @@ GLFWwindow* window;
 
 void createShapes()
 {
-	camera = new Camera(50, 0.1f, 0.1f, 0.1f, 100.0f);
+	camera = new GameObject();
+		
 	camera->addComponent(new Material(shader));
-
+	camera->addComponent(new Camera(50, 0.1f, 0.1f, 0.1f, 100.0f));
+	
 	Shape modelShape("Models/castle.obj");
 	Shape sphere(PrimitiveType::SPHERE, 10, 10);
 	Shape cube(PrimitiveType::CUBE, 3, 3);
@@ -110,7 +112,7 @@ void spawnSphere()
 	newSphere->addComponent(new MeshRenderer(sphereMesh));
 	newSphere->addComponent(new SphereCollider(new Vector3(), 0.1f));
 
-	Vector3* spherePos = new Vector3(*(camera->getLookAt()));
+	Vector3* spherePos = new Vector3(*(camera->getComponent<Camera>()->getLookAt()));
 
 	newSphere->getTransform()->setPosition(spherePos);
 	newSphere->getTransform()->setScale(new Vector3(0.1f, 0.1f, 0.1f));
@@ -147,7 +149,7 @@ void spawnSphere()
 	else
 	{
 		gameObjects.push_back(newSphere);
-		Camera::renderingOctree->addObject(newSphere);
+		camera->getComponent<Camera>()->renderingOctree->addObject(newSphere);
 	}
 }
 
@@ -200,17 +202,19 @@ void handleInput()
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		running = false;
 
+	Camera* cameraComponent = camera->getComponent<Camera>();
+
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_W) == GLFW_REPEAT)
-		camera->moveForward();
+		cameraComponent->moveForward();
 
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_A) == GLFW_REPEAT)
-		camera->moveLeft();
+		cameraComponent->moveLeft();
 
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_S) == GLFW_REPEAT)
-		camera->moveBackward();
+		cameraComponent->moveBackward();
 
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_D) == GLFW_REPEAT)
-		camera->moveRight();
+		cameraComponent->moveRight();
 
 	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS || glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_REPEAT)
 		spawnSphere();

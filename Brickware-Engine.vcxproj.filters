@@ -22,6 +22,12 @@
     <Filter Include="Headers\Colliders">
       <UniqueIdentifier>{68a8d2e6-9800-4eed-a372-c6a0bfff5fff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Headers\Components">
+      <UniqueIdentifier>{c88fa08d-7799-4558-9468-41c93122421e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sources\Components">
+      <UniqueIdentifier>{945460ad-a8cf-4974-8534-9024ccc4a608}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\fshader.glsl">
@@ -32,13 +38,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Camera.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Light.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
@@ -48,9 +48,6 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Shape.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Triangle.h">
@@ -71,20 +68,8 @@
     <ClInclude Include="SphereCollider.h">
       <Filter>Headers\Colliders</Filter>
     </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="Collider.h">
       <Filter>Headers\Colliders</Filter>
-    </ClInclude>
-    <ClInclude Include="Rigidbody.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Material.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshRenderer.h">
-      <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Octree.h">
       <Filter>Headers</Filter>
@@ -107,18 +92,30 @@
     <ClInclude Include="Settings.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Headers\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Headers\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Headers\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Headers\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshRenderer.h">
+      <Filter>Headers\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Rigidbody.h">
+      <Filter>Headers\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Headers\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Light.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
@@ -131,9 +128,6 @@
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Shape.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Transform.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Triangle.cpp">
@@ -157,15 +151,6 @@
     <ClCompile Include="SphereCollider.cpp">
       <Filter>Sources\Colliders</Filter>
     </ClCompile>
-    <ClCompile Include="Rigidbody.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Material.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshRenderer.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
     <ClCompile Include="Octree.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
@@ -183,6 +168,27 @@
     </ClCompile>
     <ClCompile Include="Bounds.cpp">
       <Filter>Sources\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Sources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Sources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Sources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Sources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshRenderer.cpp">
+      <Filter>Sources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Rigidbody.cpp">
+      <Filter>Sources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Sources\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

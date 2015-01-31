@@ -66,6 +66,9 @@ private:
 	//Buffer IDs
 	GLuint vbo; //Vertex Buffer Object
 	GLuint ibo; //Index Buffer Object
+
+	void bufferGL(GLint shaderProgram, char* textureFileName);
+	void bufferD3D();
 };
 
 #endif

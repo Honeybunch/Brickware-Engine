@@ -7,6 +7,7 @@
 #include <vector>
 #include <math.h>
 
+#ifndef USE_D3D_ONLY
 #include <GL/glew.h>
 
 #ifdef _WIN32
@@ -15,6 +16,7 @@
 
 #define GLFW_INCLUDE_GLU
 #include <glfw3.h>
+#endif
 
 #include "GameObject.h"
 #include "Octree.h"

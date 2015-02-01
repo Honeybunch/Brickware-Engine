@@ -36,6 +36,7 @@
     <ClInclude Include="Settings.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Shape.h" />
+    <ClInclude Include="Spawner.h" />
     <ClInclude Include="SphereCollider.h" />
     <ClInclude Include="TestGame.h" />
     <ClInclude Include="Transform.h" />
@@ -67,6 +68,7 @@
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Shape.cpp" />
+    <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="TestGame.cpp" />
     <ClCompile Include="Transform.cpp" />

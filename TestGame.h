@@ -18,8 +18,6 @@ private:
 	Mesh* sphereMesh;
 	Mesh* cubeMesh;
 
-	GameObject* camera;
-
 	virtual void updateScene() override;
 	virtual void renderScene() override;
 };

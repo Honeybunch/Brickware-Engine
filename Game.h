@@ -32,12 +32,14 @@
 #include "SphereCollider.h"
 #include "BoxCollider.h"
 #include "MeshRenderer.h"
+#include "Spawner.h"
 
 using namespace std;
 
 class Game
 {
 	friend class Input;
+	friend class GameObject;
 
 public:
 	Game(int windowWidth, int windowHeight);
@@ -53,7 +55,7 @@ public:
 	virtual ~Game();
 
 protected:
-	vector<GameObject*> gameObjects;
+	static vector<GameObject*> gameObjects;
 	bool running;
 
 private:

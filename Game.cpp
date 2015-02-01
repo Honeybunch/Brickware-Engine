@@ -5,6 +5,8 @@
 GLFWwindow* Game::glWindow;
 #endif
 
+vector<GameObject*> Game::gameObjects;
+
 Game::Game(int windowWidth, int windowHeight)
 {
 	Screen::width = windowWidth;
@@ -287,6 +289,11 @@ void Game::handleInputGLFW()
 		Input::keys[KeyCode::escape] = true;
 	else
 		Input::keys[KeyCode::escape] = false;
+
+	if (glfwGetKey(glWindow, GLFW_KEY_SPACE) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_SPACE) == GLFW_REPEAT)
+		Input::keys[KeyCode::space] = true;
+	else
+		Input::keys[KeyCode::space] = false;
 }
 
 void Game::startRenderGL()

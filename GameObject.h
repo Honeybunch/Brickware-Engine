@@ -20,6 +20,8 @@ public:
 	GameObject();
 	GameObject(Transform* transform);
 
+	static vector<GameObject*> getGameObjects();
+
 	//Accessors
 	Transform* getTransform();
 

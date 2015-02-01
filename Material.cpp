@@ -2,7 +2,7 @@
 
 Material::Material(Shader* shader)
 {
-	shaderProgram = shader->getShaderProgram();
+	shaderProgram = shader->getGLShaderProgram();
 }
 
 //Accessors

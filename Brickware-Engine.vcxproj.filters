@@ -30,14 +30,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\fshader.glsl">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Shaders\vshader.glsl">
-      <Filter>Shaders</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="GameObject.h">
       <Filter>Headers</Filter>
     </ClInclude>
@@ -127,6 +119,9 @@
     </ClInclude>
     <ClInclude Include="Spawner.h">
       <Filter>Headers\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="dxerr.h">
+      <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -220,5 +215,16 @@
     <ClCompile Include="Spawner.cpp">
       <Filter>Sources\Components</Filter>
     </ClCompile>
+    <ClCompile Include="dxerr.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\PixelShader.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\VertexShader.glsl">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

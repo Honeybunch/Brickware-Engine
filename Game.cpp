@@ -5,12 +5,38 @@
 GLFWwindow* Game::glWindow;
 #endif
 
+#ifdef D3D_SUPPORT
+ID3D11Device* Game::device;
+
+//Rip the HINSTANCE of the exe out of the MS linker
+//Super hack!
+EXTERN_C IMAGE_DOS_HEADER __ImageBase;
+#define HINST ((HINSTANCE)&__ImageBase);
+#endif
+
 vector<GameObject*> Game::gameObjects;
 
 Game::Game(int windowWidth, int windowHeight)
 {
 	Screen::width = windowWidth;
 	Screen::height = windowHeight;
+
+#ifdef D3D_SUPPORT
+	hAppInst = HINST;
+	driverType = D3D_DRIVER_TYPE_HARDWARE;
+	enable4xMsaa = false;
+	hMainWind = 0;
+	msaa4xQuality = 0;
+
+	device = 0;
+	deviceContext = 0;
+	swapChain = 0;
+	depthStencilBuffer = 0;
+	renderTargetView = 0;
+	depthStencilView = 0;
+
+	ZeroMemory(&viewport, sizeof(D3D11_VIEWPORT));
+#endif
 }
 
 int Game::run()
@@ -317,6 +343,12 @@ void Game::endGL()
 #endif
 
 #ifdef D3D_SUPPORT
+bool Game::initD3DWindow()
+{
+	WNDCLASS wc;
+
+}
+
 bool Game::initD3D()
 {
 	return true;

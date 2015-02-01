@@ -1,6 +1,5 @@
 #include "MeshRenderer.h"
 
-
 MeshRenderer::MeshRenderer(Mesh* mesh)
 {
 	this->mesh = mesh;
@@ -68,12 +67,12 @@ void MeshRenderer::calculateBounds()
 			maxZ = testZ;
 	}
 
-	Vector3 min(minX, minY, minZ);
-	Vector3 max(maxX, maxY, maxZ);
+	Vector3 minPoint(minX, minY, minZ);
+	Vector3 maxPoint(maxX, maxY, maxZ);
 
-	float xWidth = max.getX() - min.getX();
-	float yWidth = max.getY() - min.getY();
-	float zWidth = max.getZ() - min.getZ();
+	float xWidth = maxPoint.getX() - minPoint.getX();
+	float yWidth = maxPoint.getY() - minPoint.getY();
+	float zWidth = maxPoint.getZ() - minPoint.getZ();
 
 	Vector3 center;
 

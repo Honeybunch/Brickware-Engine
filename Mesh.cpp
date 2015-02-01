@@ -2,7 +2,7 @@
 
 //Constructor
 //Take in the GPU program ID and the vertex data and buffer that data into the VBO and IBO
-Mesh::Mesh(GLuint shaderProgram, Shape shape, char* textureFileName)
+Mesh::Mesh(Shader* shader, Shape shape, char* textureFileName)
 {
 	//Store data from shape
 	points = shape.getPoints();
@@ -19,13 +19,13 @@ Mesh::Mesh(GLuint shaderProgram, Shape shape, char* textureFileName)
 
 #ifdef CAN_SWITCH_CONTEXT
 	if (USE_DIRECTX)
-		bufferD3D();
+		bufferD3D(shader, textureFileName);
 	else
-		bufferGL(shaderProgram, textureFileName);
+		bufferGL(shader, textureFileName);
 #elif defined(USE_D3D_ONLY)
-	bufferD3D();
+	bufferD3D(shader, textureFileName);
 #else
-	bufferGL(shaderProgram, textureFileName);
+	bufferGL(shader, textureFileName);
 #endif
 }
 
@@ -45,10 +45,10 @@ GLuint Mesh::getIBO(){ return ibo; }
 
 //Private functions
 
-void Mesh::bufferGL(GLint shaderProgram, char* textureFileName)
+void Mesh::bufferGL(Shader* shader, char* textureFileName)
 {
 	//Use the shader program
-	glUseProgram(shaderProgram);
+	glUseProgram(shader->getGLShaderProgram());
 
 	//Setup the VBO
 	glGenBuffers(1, &vbo);
@@ -72,7 +72,7 @@ void Mesh::bufferGL(GLint shaderProgram, char* textureFileName)
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
-void Mesh::bufferD3D()
+void Mesh::bufferD3D(Shader* shader, char* textureFileName)
 {
 	//TODO
 }

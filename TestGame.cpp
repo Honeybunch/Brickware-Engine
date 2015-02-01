@@ -11,15 +11,15 @@ bool TestGame::init()
 	if (!good)
 		return false;
 
-	shader = new Shader("Shaders/vshader.glsl", "Shaders/fshader.glsl");
+	shader = new Shader("Shaders/VertexShader", "Shaders/PixelShader");
 
 	Shape modelShape("Models/castle.obj");
 	Shape sphere(PrimitiveType::SPHERE, 10, 10);
 	Shape cube(PrimitiveType::CUBE, 3, 3);
 
-	Mesh* model = new Mesh(shader->getShaderProgram(), modelShape, "Textures/castleAOTexture.png");
-	sphereMesh = new Mesh(shader->getShaderProgram(), sphere, "Textures/brickTexture.png");
-	cubeMesh = new Mesh(shader->getShaderProgram(), cube, "Textures/stoneTexture.png");
+	Mesh* model = new Mesh(shader, modelShape, "Textures/castleAOTexture.png");
+	sphereMesh = new Mesh(shader, sphere, "Textures/brickTexture.png");
+	cubeMesh = new Mesh(shader, cube, "Textures/stoneTexture.png");
 
 	GameObject* camera = new GameObject();
 

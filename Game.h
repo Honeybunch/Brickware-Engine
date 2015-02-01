@@ -40,6 +40,7 @@ class Game
 {
 	friend class Input;
 	friend class GameObject;
+	friend class Shader;
 
 public:
 	Game(int windowWidth, int windowHeight);
@@ -47,8 +48,7 @@ public:
 	int run();
 
 	virtual bool init();
-	//virtual void onResize();
-	
+
 	virtual void updateScene() = 0;
 	virtual void renderScene() = 0;
 
@@ -77,8 +77,27 @@ private:
 #endif
 
 //D3D vars and methods
-#ifdef D3D_SUPPORT
+#ifdef _WIN32
+	HINSTANCE hAppInst;
+	HWND hMainWind;
+#endif
 
+#ifdef D3D_SUPPORT
+	static ID3D11Device* device;
+
+	bool enable4xMsaa;
+	UINT msaa4xQuality;
+
+	ID3D11DeviceContext* deviceContext;
+	IDXGISwapChain* swapChain;
+	ID3D11Texture2D* depthStencilBuffer;
+	ID3D11RenderTargetView* renderTargetView;
+	ID3D11DepthStencilView* depthStencilView;
+	D3D11_VIEWPORT viewport;
+	D3D_DRIVER_TYPE driverType;
+	D3D_FEATURE_LEVEL featureLevel;
+
+	bool initD3DWindow();
 	bool initD3D();
 	void handleInputWindows();
 	void startRenderD3D();

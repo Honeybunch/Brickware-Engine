@@ -5,6 +5,13 @@
 #ifndef MESH_H
 #define MESH_H
 
+#include "Settings.h"
+
+#ifdef D3D_SUPPORT
+#include <windows.h>
+#endif
+
+#ifndef USE_D3D_ONLY
 #include <SOIL.h>
 
 #include <GL/glew.h>
@@ -15,6 +22,7 @@
 
 #define GLFW_INCLUDE_GLU
 #include <glfw3.h>
+#endif
 
 #include <vector>
 #include <iostream>
@@ -31,7 +39,7 @@ using namespace std;
 class Mesh
 {
 public :
-	Mesh(GLuint shaderProgram, Shape shape, char* textureFileName = "");
+	Mesh(Shader* shader, Shape shape, char* textureFileName = "");
 
 	float* getPoints();
 
@@ -67,8 +75,8 @@ private:
 	GLuint vbo; //Vertex Buffer Object
 	GLuint ibo; //Index Buffer Object
 
-	void bufferGL(GLint shaderProgram, char* textureFileName);
-	void bufferD3D();
+	void bufferGL(Shader* shader, char* textureFileName);
+	void bufferD3D(Shader* shader, char* textureFileName);
 };
 
 #endif

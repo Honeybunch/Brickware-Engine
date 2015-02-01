@@ -87,6 +87,7 @@ int Utils::textFileWrite(char *fileName, char *stringToWrite)
 	return(status);
 }
 
+#ifndef USE_D3D_ONLY
 void Utils::printShaderInfoLog(GLuint obj)
 {
 	GLint infologLength = 0;
@@ -123,6 +124,20 @@ void Utils::printProgramInfoLog(GLuint obj)
 		delete infoLog;
 	}
 }
+#endif
+
+#ifdef D3D_SUPPORT
+WCHAR* Utils::stringToWideString(char* string)
+{
+	int stringSize = strlen(string);
+
+	WCHAR* wideString = new WCHAR[stringSize];
+
+	MultiByteToWideChar(0, 0, string, 5, wideString, stringSize);
+
+	return wideString;
+}
+#endif
 
 /*
 	Private Functions

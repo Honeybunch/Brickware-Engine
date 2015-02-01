@@ -19,37 +19,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 */
 
 
-#define _USE_MATH_DEFINES
-
-#include <stdlib.h>
-#include <iostream>
-#include <vector>
-#include <math.h>
-
-#include <GL/glew.h>
-
-#ifdef _WIN32
-#define GLFW_DLL
-#endif
-
-#define GLFW_INCLUDE_GLU
-#include <glfw3.h>
-
-#include "Settings.h"
-
-#include "Mesh.h"
-#include "Shader.h"
-#include "GameObject.h"
-#include "Transform.h"
-#include "Camera.h"
-#include "Vector3.h"
-#include "Light.h"
-#include "Material.h"
-#include "SphereCollider.h"
-#include "BoxCollider.h"
-#include "MeshRenderer.h"
-
-using namespace std;
+#include "TestGame.h"
 
 bool running;
 float interpolation;
@@ -289,6 +259,7 @@ void init()
 
 int main (int argc, char **argv)
 {
+	/*
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
@@ -315,5 +286,12 @@ int main (int argc, char **argv)
 	run();
 
 	glfwTerminate();
-    return 0;
+	*/
+
+	TestGame game;
+
+	if (!game.init())
+		return -1;
+
+	return game.run();
 }

@@ -113,6 +113,10 @@
     <ClInclude Include="Transform.h">
       <Filter>Headers\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="TestGame.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -190,5 +194,9 @@
     <ClCompile Include="Transform.cpp">
       <Filter>Sources\Components</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="TestGame.cpp" />
   </ItemGroup>
 </Project>

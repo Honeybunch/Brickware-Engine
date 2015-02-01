@@ -2,6 +2,8 @@
 #define COMPONENT_H
 
 #include "Settings.h"
+#include "Input.h"
+#include "Screen.h"
 
 class GameObject;
 

@@ -18,6 +18,8 @@
 #include <glfw3.h>
 
 #include "Settings.h"
+#include "Input.h"
+#include "Screen.h"
 
 #include "Mesh.h"
 #include "Shader.h"
@@ -35,6 +37,8 @@ using namespace std;
 
 class Game
 {
+	friend class Input;
+
 public:
 	Game(int windowWidth, int windowHeight);
 	
@@ -50,12 +54,9 @@ public:
 
 protected:
 	vector<GameObject*> gameObjects;
+	bool running;
 
 private:
-	int windowWidth;
-	int windowHeight;
-
-	bool running;
 	float interpolation;
 	int ticks;
 
@@ -64,7 +65,7 @@ private:
 
 //OpenGL / GLFW3 vars and methods
 #ifndef USE_D3D_ONLY
-	GLFWwindow* glWindow;
+	static GLFWwindow* glWindow;
 
 	bool initGL();
 	void handleInputGLFW();

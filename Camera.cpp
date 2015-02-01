@@ -89,6 +89,34 @@ void Camera::Update()
 
 	viewMatrix = calcViewMatrix();
 	projectionMatrix = calcProjectionMatrix();
+
+	//Handle Input
+	if (Input::getKeyDown(KeyCode::w))
+		moveForward();
+
+	if (Input::getKeyDown(KeyCode::a))
+		moveLeft();
+
+	if (Input::getKeyDown(KeyCode::s))
+		moveBackward();
+
+	if (Input::getKeyDown(KeyCode::d))
+		moveRight();
+
+	float screenCenterX = Screen::getWidth() / 2.0f;
+	float screenCenterY = Screen::getHeight() / 2.0f;
+
+	//Adjust yaw and pitch based on how much we've deviated from the center
+	float yawDiff = (screenCenterX - Input::getMousePosition().getX()) / Screen::getWidth();
+	float pitchDiff = (screenCenterY - Input::getMousePosition().getY()) / Screen::getHeight();
+
+	Transform* cameraTransform = getGameObject()->getTransform();
+	Vector3* cameraRot = cameraTransform->getRotation();
+
+	cameraTransform->getRotation()->setX(cameraRot->getX() + pitchDiff);
+	cameraTransform->getRotation()->setY(cameraRot->getY() + yawDiff);
+
+	Input::setMousePosition(Vector2(screenCenterX, screenCenterY));
 }
 
 void Camera::Render()
@@ -158,7 +186,7 @@ void Camera::Render()
 		}
 	}
 
-	std::cout << collidingNodes.size() << " , " << drawCalls << " , " << renderingOctree->nodeCount << std::endl;
+	//std::cout << collidingNodes.size() << " , " << drawCalls << " , " << renderingOctree->nodeCount << std::endl;
 }
 
 Matrix4 Camera::calcViewMatrix()

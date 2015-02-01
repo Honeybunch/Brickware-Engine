@@ -1,9 +1,14 @@
 #include "Game.h"
 
+//Window is static so that it can be easily accessed by static friends like Input and Screen
+#ifndef USE_D3D_ONLY
+GLFWwindow* Game::glWindow;
+#endif
+
 Game::Game(int windowWidth, int windowHeight)
 {
-	this->windowWidth = windowWidth;
-	this->windowHeight = windowHeight;
+	Screen::width = windowWidth;
+	Screen::height = windowHeight;
 }
 
 int Game::run()
@@ -25,11 +30,13 @@ int Game::run()
 
 		handleInput();
 
-		//Update logic 25 times per second
+		updateScene();
+
+		//Update physics 25 times per second
 		loops = 0;
 		while (ticks > nextGameTick && loops < maxFrameskip)
 		{
-			updateScene();
+			//physics go here
 
 			nextGameTick += skipTicks;
 			loops++;
@@ -118,7 +125,7 @@ bool Game::initGL()
 		return false;
 
 	//Create window
-	glWindow = glfwCreateWindow(windowWidth, windowHeight, "Brickware-Test", NULL, NULL);
+	glWindow = glfwCreateWindow(Screen::width, Screen::height, "Brickware-Test", NULL, NULL);
 
 	if (!glWindow)
 	{
@@ -147,6 +154,139 @@ bool Game::initGL()
 void Game::handleInputGLFW()
 {
 	glfwPollEvents();
+
+	double mouseX, mouseY;
+
+	//Mouse position
+	glfwGetCursorPos(glWindow, &mouseX, &mouseY);
+	Input::mousePosition = Vector2((float)mouseX, (float)mouseY);
+
+	//Keyboard letters
+	if (glfwGetKey(glWindow, GLFW_KEY_A) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_A) == GLFW_REPEAT)
+		Input::keys[KeyCode::a] = true;
+	else
+		Input::keys[KeyCode::a] = false;
+
+	if (glfwGetKey(glWindow, GLFW_KEY_B) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_B) == GLFW_REPEAT)
+		Input::keys[KeyCode::b] = true;
+	else
+		Input::keys[KeyCode::b] = false;
+
+	if (glfwGetKey(glWindow, GLFW_KEY_C) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_C) == GLFW_REPEAT)
+		Input::keys[KeyCode::c] = true;
+	else
+		Input::keys[KeyCode::c] = false;
+
+	if (glfwGetKey(glWindow, GLFW_KEY_D) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_D) == GLFW_REPEAT)
+		Input::keys[KeyCode::d] = true;
+	else
+		Input::keys[KeyCode::d] = false;
+
+	if (glfwGetKey(glWindow, GLFW_KEY_E) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_E) == GLFW_REPEAT)
+		Input::keys[KeyCode::e] = true;
+	else
+		Input::keys[KeyCode::e] = false;
+
+	if (glfwGetKey(glWindow, GLFW_KEY_F) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_F) == GLFW_REPEAT)
+		Input::keys[KeyCode::g] = true;
+	else
+		Input::keys[KeyCode::g] = false;
+
+	if (glfwGetKey(glWindow, GLFW_KEY_H) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_H) == GLFW_REPEAT)
+		Input::keys[KeyCode::h] = true;
+	else
+		Input::keys[KeyCode::h] = false;
+
+	if (glfwGetKey(glWindow, GLFW_KEY_I) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_I) == GLFW_REPEAT)
+		Input::keys[KeyCode::i] = true;
+	else
+		Input::keys[KeyCode::i] = false;
+
+	if (glfwGetKey(glWindow, GLFW_KEY_J) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_J) == GLFW_REPEAT)
+		Input::keys[KeyCode::j] = true;
+	else
+		Input::keys[KeyCode::j] = false;
+
+	if (glfwGetKey(glWindow, GLFW_KEY_K) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_K) == GLFW_REPEAT)
+		Input::keys[KeyCode::k] = true;
+	else
+		Input::keys[KeyCode::k] = false;
+
+	if (glfwGetKey(glWindow, GLFW_KEY_L) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_L) == GLFW_REPEAT)
+		Input::keys[KeyCode::l] = true;
+	else
+		Input::keys[KeyCode::l] = false;
+
+	if (glfwGetKey(glWindow, GLFW_KEY_M) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_M) == GLFW_REPEAT)
+		Input::keys[KeyCode::m] = true;
+	else
+		Input::keys[KeyCode::m] = false;
+
+	if (glfwGetKey(glWindow, GLFW_KEY_N) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_N) == GLFW_REPEAT)
+		Input::keys[KeyCode::n] = true;
+	else
+		Input::keys[KeyCode::n] = false;
+
+	if (glfwGetKey(glWindow, GLFW_KEY_O) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_O) == GLFW_REPEAT)
+		Input::keys[KeyCode::p] = true;
+	else
+		Input::keys[KeyCode::p] = false;
+
+	if (glfwGetKey(glWindow, GLFW_KEY_Q) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_Q) == GLFW_REPEAT)
+		Input::keys[KeyCode::q] = true;
+	else
+		Input::keys[KeyCode::q] = false;
+
+	if (glfwGetKey(glWindow, GLFW_KEY_R) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_R) == GLFW_REPEAT)
+		Input::keys[KeyCode::r] = true;
+	else
+		Input::keys[KeyCode::r] = false;
+
+	if (glfwGetKey(glWindow, GLFW_KEY_S) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_S) == GLFW_REPEAT)
+		Input::keys[KeyCode::s] = true;
+	else
+		Input::keys[KeyCode::s] = false;
+
+	if (glfwGetKey(glWindow, GLFW_KEY_T) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_T) == GLFW_REPEAT)
+		Input::keys[KeyCode::t] = true;
+	else
+		Input::keys[KeyCode::t] = false;
+
+	if (glfwGetKey(glWindow, GLFW_KEY_U) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_U) == GLFW_REPEAT)
+		Input::keys[KeyCode::u] = true;
+	else
+		Input::keys[KeyCode::u] = false;
+
+	if (glfwGetKey(glWindow, GLFW_KEY_V) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_V) == GLFW_REPEAT)
+		Input::keys[KeyCode::v] = true;
+	else
+		Input::keys[KeyCode::v] = false;
+
+	if (glfwGetKey(glWindow, GLFW_KEY_W) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_W) == GLFW_REPEAT)
+		Input::keys[KeyCode::w] = true;
+	else
+		Input::keys[KeyCode::w] = false;
+
+	if (glfwGetKey(glWindow, GLFW_KEY_X) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_X) == GLFW_REPEAT)
+		Input::keys[KeyCode::x] = true;
+	else
+		Input::keys[KeyCode::x] = false;
+
+	if (glfwGetKey(glWindow, GLFW_KEY_Y) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_Y) == GLFW_REPEAT)
+		Input::keys[KeyCode::y] = true;
+	else
+		Input::keys[KeyCode::y] = false;
+
+	if (glfwGetKey(glWindow, GLFW_KEY_Z) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_Z) == GLFW_REPEAT)
+		Input::keys[KeyCode::z] = true;
+	else
+		Input::keys[KeyCode::z] = false;
+
+	//Special Keys
+	if (glfwGetKey(glWindow, GLFW_KEY_ESCAPE) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_ESCAPE) == GLFW_REPEAT)
+		Input::keys[KeyCode::escape] = true;
+	else
+		Input::keys[KeyCode::escape] = false;
 }
 
 void Game::startRenderGL()

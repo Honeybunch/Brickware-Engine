@@ -116,7 +116,15 @@
     <ClInclude Include="Game.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="TestGame.h" />
+    <ClInclude Include="TestGame.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -197,6 +205,14 @@
     <ClCompile Include="Game.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
-    <ClCompile Include="TestGame.cpp" />
+    <ClCompile Include="TestGame.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

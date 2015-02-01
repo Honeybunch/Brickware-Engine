@@ -32,6 +32,7 @@
     <ClInclude Include="Octree.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="Rigidbody.h" />
+    <ClInclude Include="Screen.h" />
     <ClInclude Include="Settings.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Shape.h" />
@@ -63,6 +64,7 @@
     <ClCompile Include="Octree.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="Rigidbody.cpp" />
+    <ClCompile Include="Screen.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="SphereCollider.cpp" />

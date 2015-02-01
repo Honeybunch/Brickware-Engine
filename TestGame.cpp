@@ -53,6 +53,9 @@ bool TestGame::init()
 
 void TestGame::updateScene()
 {
+	if (Input::getKeyDown(KeyCode::escape))
+		running = false;
+
 	for (unsigned int i = 0; i < gameObjects.size(); i++)
 		gameObjects[i]->Update();
 }

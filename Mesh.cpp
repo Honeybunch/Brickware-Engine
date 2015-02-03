@@ -48,7 +48,7 @@ GLuint Mesh::getIBO(){ return ibo; }
 void Mesh::bufferGL(Shader* shader, char* textureFileName)
 {
 	//Use the shader program
-	glUseProgram(shader->getGLShaderProgram());
+	shader->bindShader();
 
 	//Setup the VBO
 	glGenBuffers(1, &vbo);
@@ -68,7 +68,7 @@ void Mesh::bufferGL(Shader* shader, char* textureFileName)
 		texture = SOIL_load_OGL_texture(textureFileName, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
 
 	//Unbind everything
-	glUseProgram(0);
+	shader->freeShader();
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }

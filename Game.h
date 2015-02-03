@@ -8,6 +8,11 @@
 #include <vector>
 #include <math.h>
 
+#include "Settings.h"
+#include "Input.h"
+#include "Screen.h"
+
+#ifndef USE_D3D_ONLY
 #include <GL/glew.h>
 
 #ifdef _WIN32
@@ -16,10 +21,14 @@
 
 #define GLFW_INCLUDE_GLU
 #include <glfw3.h>
+#endif
 
-#include "Settings.h"
-#include "Input.h"
-#include "Screen.h"
+#ifdef D3D_SUPPORT
+#include <windows.h>
+#include <WindowsX.h>
+#include <d3d11.h>
+#include <assert.h>
+#endif
 
 #include "Mesh.h"
 #include "Shader.h"
@@ -51,6 +60,10 @@ public:
 
 	virtual void updateScene() = 0;
 	virtual void renderScene() = 0;
+
+#ifdef D3D_SUPPORT
+	LRESULT MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+#endif
 
 	virtual ~Game();
 
@@ -97,7 +110,10 @@ private:
 	D3D_DRIVER_TYPE driverType;
 	D3D_FEATURE_LEVEL featureLevel;
 
+	//D3D Required methods
 	bool initD3DWindow();
+	void onResize();
+
 	bool initD3D();
 	void handleInputWindows();
 	void startRenderD3D();

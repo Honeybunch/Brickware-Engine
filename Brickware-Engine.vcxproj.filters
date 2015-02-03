@@ -227,4 +227,12 @@
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shaders\PixelShader.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\VertexShader.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+  </ItemGroup>
 </Project>

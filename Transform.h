@@ -1,14 +1,22 @@
 #ifndef TRANSFORM_H
 #define TRANSFORM_H
 
-#include <GL/glew.h>
+#include "Settings.h"
 
-#ifdef _WIN32
-#define GLFW_DLL
+#ifdef D3D_SUPPORT
+	#include <windows.h>
 #endif
 
-#define GLFW_INCLUDE_GLU
-#include <glfw3.h>
+#ifndef USE_D3D_ONLY
+	#include <GL/glew.h>
+
+	#ifdef _WIN32
+		#define GLFW_DLL
+	#endif
+
+	#define GLFW_INCLUDE_GLU
+	#include <glfw3.h>
+#endif
 
 class GameObject;
 

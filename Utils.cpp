@@ -87,6 +87,32 @@ int Utils::textFileWrite(char *fileName, char *stringToWrite)
 	return(status);
 }
 
+char* Utils::trimToLastChar(char* string, char lastChar)
+{
+	unsigned int stringLength = strlen(string);
+	int lastIndex = 0;
+
+	//Get the index that we want to trim the string at
+	for (unsigned int i = 0; i < stringLength; i++)
+	{
+		char indexedChar = string[i];
+		if (indexedChar == lastChar)
+			lastIndex = i;
+	}
+
+	//Return everything after that index
+	unsigned int returnedStringLength = stringLength - lastIndex;
+	char* toReturn = new char[returnedStringLength + 1];
+
+	//Manual copy
+	for (unsigned int i = 0; i < returnedStringLength; i++)
+		toReturn[i] = string[i + lastIndex + 1];
+
+	toReturn[returnedStringLength] = 0;
+	
+	return toReturn;
+}
+
 #ifndef USE_D3D_ONLY
 void Utils::printShaderInfoLog(GLuint obj)
 {
@@ -129,11 +155,11 @@ void Utils::printProgramInfoLog(GLuint obj)
 #ifdef D3D_SUPPORT
 WCHAR* Utils::stringToWideString(char* string)
 {
-	int stringSize = strlen(string);
+	int stringSize = strlen(string) + 1;
 
 	WCHAR* wideString = new WCHAR[stringSize];
 
-	MultiByteToWideChar(0, 0, string, 5, wideString, stringSize);
+	swprintf(wideString, stringSize, L"%hs", string);
 
 	return wideString;
 }

@@ -18,6 +18,7 @@ static bool USE_DIRECTX = false;
 #if defined(_WIN32) && defined(D3D_SUPPORT)
 
 #include "Windows.h"
+#include "dxerr.h"
 #include <string>
 #include <d3d11.h>
 #include <assert.h>

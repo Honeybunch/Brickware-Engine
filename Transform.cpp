@@ -83,7 +83,8 @@ void Transform::Render()
 //Send info to GLSL Shader
 void Transform::renderGL(Material* material)
 {
-	GLuint shaderProgram = material->getShaderProgram();
+	GLint shaderProgram;
+	glGetIntegerv(GL_CURRENT_PROGRAM, &shaderProgram);
 
 	glUniformMatrix4fv(material->getModelMatrixPos(), 1, false, modelMatrix.getAsArray());
 }

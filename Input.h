@@ -1,6 +1,12 @@
 #ifndef INPUT_H
 #define INPUT_H
 
+#include "Settings.h"
+
+#ifdef D3D_SUPPORT
+	#include <windows.h>
+#endif
+
 #ifndef USE_D3D_ONLY
 #include <GL/glew.h>
 
@@ -11,8 +17,6 @@
 #define GLFW_INCLUDE_GLU
 #include <glfw3.h>
 #endif
-
-#include "Settings.h"
 
 #include "Vector2.h"
 

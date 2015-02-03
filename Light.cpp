@@ -39,13 +39,10 @@ void Light::Render()
 
 void Light::startGL(Material* material)
 {
-	GLint shaderProgram = material->getShaderProgram();
-
-	glUseProgram(shaderProgram);
+	GLint shaderProgram;
+	glGetIntegerv(GL_CURRENT_PROGRAM, &shaderProgram);
 
 	lightPosLocation = glGetUniformLocation(shaderProgram, "lightPosition");
-
-	glUseProgram(0);
 }
 void Light::startD3D(Material* material)
 {
@@ -54,10 +51,7 @@ void Light::startD3D(Material* material)
 
 void Light::renderGL(Material* material)
 {
-	GLint shaderProgram = material->getShaderProgram();
-
-	glUniform3fv(shaderProgram, 1, getGameObject()->getTransform()->getPosition()->getAsArray());
-
+	glUniform3fv(lightPosLocation, 1, getGameObject()->getTransform()->getPosition()->getAsArray());
 }
 void Light::renderD3D(Material* material)
 {

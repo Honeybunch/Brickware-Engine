@@ -33,6 +33,8 @@ public:
 	static char* textFileRead(char *fn);
 	static int textFileWrite(char *fn, char *s);
 
+	static char* trimToLastChar(char* string, char lastChar);
+
 #ifndef USE_D3D_ONLY
 	static void printShaderInfoLog(GLuint obj);
 	static void printProgramInfoLog(GLuint obj);

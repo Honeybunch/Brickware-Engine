@@ -4,14 +4,20 @@
 #define _USE_MATH_DEFINES 
 #define _CRT_SECURE_NO_WARNINGS 
 
-#include <GL/glew.h>
-
-#ifdef _WIN32
-#define GLFW_DLL
+#ifdef D3D_SUPPORT
+	#include <windows.h>
 #endif
 
-#define GLFW_INCLUDE_GLU
-#include <glfw3.h>
+#ifndef USE_D3D_ONLY
+	#include <GL/glew.h>
+
+	#ifdef _WIN32
+		#define GLFW_DLL
+	#endif
+
+	#define GLFW_INCLUDE_GLU
+	#include <glfw3.h>
+#endif
 
 #include <vector>
 #include <iostream>

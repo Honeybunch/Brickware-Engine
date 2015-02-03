@@ -1,16 +1,19 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
 
-#include <GL/glew.h>
+#include "Shader.h"
 
-#ifdef _WIN32
-#define GLFW_DLL
+#ifndef USE_D3D_ONLY
+	#include <GL/glew.h>
+
+	#ifdef _WIN32
+		#define GLFW_DLL
+	#endif
+
+	#define GLFW_INCLUDE_GLU
+	#include <glfw3.h>
 #endif
 
-#define GLFW_INCLUDE_GLU
-#include <glfw3.h>
-
-#include "Shader.h"
 #include "Component.h"
 
 class Material : public Component
@@ -18,10 +21,11 @@ class Material : public Component
 public:
 	Material(Shader* shader);
 
-	//Accessors
-	GLuint getShaderProgram();
-
+	//TODO: replace this
 	GLuint getModelMatrixPos();
+
+	void bindShader();
+	void freeShader();
 
 	//Component Overrides
 	virtual void Start();
@@ -29,7 +33,10 @@ public:
 	~Material();
 
 private:
-	GLuint shaderProgram;
+	Shader* shader;
+
+	void startGL();
+	void startD3D();
 
 	GLuint modelMatrixPos;
 };

@@ -1,3 +1,8 @@
+/*
+	The base of everything in the engine. GameObjects can have specialized behaviour 
+	when components are attached to them.
+*/
+
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
@@ -56,12 +61,6 @@ protected:
 	//Other Components
 	vector<Component*> components;
 	int componentCount; 
-
-	void prepRenderGL(Material* material);
-	void prepRenderD3D(Material* material);
-
-	void endRenderGL();
-	void endRenderD3D();
 };
 
 #endif

@@ -12,6 +12,15 @@ ID3D11Device* Game::device;
 //Super hack!
 EXTERN_C IMAGE_DOS_HEADER __ImageBase;
 #define HINST ((HINSTANCE)&__ImageBase);
+
+//Setup a Global Window Callback for the windows api
+namespace { Game* game = 0; }
+
+LRESULT CALLBACK MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+	return game->MsgProc(hwnd, msg, wParam, lParam);
+}
+
 #endif
 
 vector<GameObject*> Game::gameObjects;
@@ -36,11 +45,17 @@ Game::Game(int windowWidth, int windowHeight)
 	depthStencilView = 0;
 
 	ZeroMemory(&viewport, sizeof(D3D11_VIEWPORT));
+
+	game = this;
 #endif
 }
 
 int Game::run()
 {
+#ifdef D3D_SUPPORT
+	MSG msg = { 0 };
+#endif
+
 	float ticksPerSecond = 25.0f;
 	int skipTicks = (int)(1000.0f / ticksPerSecond);
 	float maxFrameskip = 5;
@@ -55,6 +70,21 @@ int Game::run()
 	while (running)
 	{
 		ticks++;
+
+		//Handle windows messages
+#ifdef D3D_SUPPORT
+		if (msg.message == WM_QUIT)
+		{
+			running = false;
+			break;
+		}
+
+		if (PeekMessage(&msg, 0, 0, 0, PM_REMOVE))
+		{
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+#endif
 
 		handleInput();
 
@@ -345,13 +375,175 @@ void Game::endGL()
 #ifdef D3D_SUPPORT
 bool Game::initD3DWindow()
 {
-	WNDCLASS wc;
+	//Call our defined hack to rip the hInstance out of the linker
+	hAppInst = HINST;
 
+	WNDCLASS wc;
+	wc.style = CS_HREDRAW | CS_VREDRAW;
+	wc.lpfnWndProc = MainWndProc;
+	wc.cbClsExtra = 0;
+	wc.cbWndExtra = 0;
+	wc.hInstance = hAppInst;
+	wc.hIcon = LoadIcon(0, IDI_APPLICATION);
+	wc.hCursor = LoadCursor(0, IDC_ARROW);
+	wc.hbrBackground = (HBRUSH)GetStockObject(NULL_BRUSH);
+	wc.lpszMenuName = 0;
+	wc.lpszClassName = L"D3DWindow";
+
+	if (!RegisterClass(&wc))
+	{
+		MessageBox(0, L"RegisterClass Failed.", 0, 0);
+		return false;
+	}
+
+	//Calculate some window dimensions
+	RECT windowRect = { 0, 0, Screen::getWidth(), Screen::getHeight() };
+	AdjustWindowRect(&windowRect, WS_OVERLAPPEDWINDOW, false);
+	int width = windowRect.right - windowRect.left;
+	int height = windowRect.bottom - windowRect.top;
+
+	hMainWind = CreateWindow(L"D3DWindow", L"DirectX Brickware-Engine Magic",
+		WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, width, height, 0, 0, hAppInst, 0);
+
+	if (!hMainWind)
+	{
+		MessageBox(0, L"Failed to Create DirectX Window.", 0, 0);
+		return false;
+	}
+
+	ShowWindow(hMainWind, SW_SHOW);
+	UpdateWindow(hMainWind);
+	
+	return true;
+}
+
+LRESULT Game::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+	return DefWindowProc(hwnd, msg, wParam, lParam);
 }
 
 bool Game::initD3D()
 {
+	if (!initD3DWindow())
+	{
+		cerr << "Error creating D3D Window!" << endl;
+		return false;
+	}
+
+	UINT createDeviceFlags = 0;
+
+	// Do we want a debug device?
+#if defined(DEBUG) || defined(_DEBUG)
+	createDeviceFlags |= D3D11_CREATE_DEVICE_DEBUG;
+#endif
+
+	//Setup a swap chain desc
+	DXGI_SWAP_CHAIN_DESC swapChainDesc;
+	swapChainDesc.BufferDesc.Width = Screen::getWidth();
+	swapChainDesc.BufferDesc.Height = Screen::getHeight();
+	swapChainDesc.BufferDesc.RefreshRate.Numerator = 60;
+	swapChainDesc.BufferDesc.RefreshRate.Denominator = 1;
+	swapChainDesc.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	swapChainDesc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
+	swapChainDesc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
+	swapChainDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+	swapChainDesc.BufferCount = 1;
+	swapChainDesc.OutputWindow = hMainWind;
+	swapChainDesc.Windowed = true;
+	swapChainDesc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
+	swapChainDesc.Flags = 0;
+	if (enable4xMsaa)
+	{
+		// Set up 4x MSAA
+		swapChainDesc.SampleDesc.Count = 4;
+		swapChainDesc.SampleDesc.Quality = msaa4xQuality - 1;
+	}
+	else
+	{
+		// No MSAA
+		swapChainDesc.SampleDesc.Count = 1;
+		swapChainDesc.SampleDesc.Quality = 0;
+	}
+
+	//Create device and swap chain 
+	featureLevel = D3D_FEATURE_LEVEL_9_1;//about to be overwritten
+	HRESULT hr = D3D11CreateDeviceAndSwapChain(
+		0, driverType, 0, createDeviceFlags,
+		0, 0, D3D11_SDK_VERSION, 
+		&swapChainDesc, &swapChain, 
+		&device, &featureLevel, &deviceContext);
+
+	if (FAILED(hr))
+	{
+		MessageBox(0, L"D3D11CreateDevice Failed!", 0, 0);
+		return false;
+	}
+
+	HR(device->CheckMultisampleQualityLevels(
+		DXGI_FORMAT_R8G8B8A8_UNORM, 4, &msaa4xQuality));
+	assert(msaa4xQuality > 0);
+
+	onResize();
+
 	return true;
+}
+
+void Game::onResize()
+{
+	ReleaseMacro(renderTargetView);
+	ReleaseMacro(depthStencilView);
+	ReleaseMacro(depthStencilBuffer);
+
+	//Resize swap chain
+	HR(swapChain->ResizeBuffers(
+		1, Screen::getWidth(), Screen::getHeight(),
+		DXGI_FORMAT_R8G8B8A8_UNORM, 0));
+	ID3D11Texture2D* backBuffer;
+	HR(swapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&backBuffer)));
+	HR(device->CreateRenderTargetView(backBuffer, 0, &renderTargetView));
+	ReleaseMacro(backBuffer);
+
+	//Need a description of texture for the depth stencil
+	D3D11_TEXTURE2D_DESC depthStencilDesc;
+	depthStencilDesc.Width = Screen::getWidth();
+	depthStencilDesc.Height = Screen::getHeight();
+	depthStencilDesc.MipLevels = 1;
+	depthStencilDesc.ArraySize = 1;
+	depthStencilDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	depthStencilDesc.Usage = D3D11_USAGE_DEFAULT;
+	depthStencilDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+	depthStencilDesc.CPUAccessFlags = 0;
+	depthStencilDesc.MiscFlags = 0;
+	if (enable4xMsaa)
+	{
+		// Turn on 4x MultiSample Anti Aliasing
+		// This must match swap chain MSAA values
+		depthStencilDesc.SampleDesc.Count = 4;
+		depthStencilDesc.SampleDesc.Quality = msaa4xQuality - 1;
+	}
+	else
+	{
+		// No MSAA
+		depthStencilDesc.SampleDesc.Count = 1;
+		depthStencilDesc.SampleDesc.Quality = 0;
+	}
+
+	// Create the depth/stencil buffer and corresponding view
+	HR(device->CreateTexture2D(&depthStencilDesc, 0, &depthStencilBuffer));
+	HR(device->CreateDepthStencilView(depthStencilBuffer, 0, &depthStencilView));
+
+	// Bind these views to the pipeline, so rendering actually
+	// uses the underlying textures
+	deviceContext->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
+
+	// Update the viewport and set it on the device
+	viewport.TopLeftX = 0;
+	viewport.TopLeftY = 0;
+	viewport.Width = (float)Screen::getWidth();
+	viewport.Height = (float)Screen::getHeight();
+	viewport.MinDepth = 0.0f;
+	viewport.MaxDepth = 1.0f;
+	deviceContext->RSSetViewports(1, &viewport);
 }
 
 void Game::handleInputWindows()
@@ -361,12 +553,18 @@ void Game::handleInputWindows()
 
 void Game::startRenderD3D()
 {
+	//Clear the device context and setup the depth stencil
+	const float cornflowerBlue[4] = { 0.4f, 0.6f, 0.75f, 0.0f };
 
+	deviceContext->ClearRenderTargetView(renderTargetView, cornflowerBlue);
+	deviceContext->ClearDepthStencilView(depthStencilView,
+		D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL,
+		1.0f, 0);
 }
 
 void Game::swapBuffersD3D()
 {
-
+	HR(swapChain->Present(0, 0));
 }
 
 void Game::endD3D()

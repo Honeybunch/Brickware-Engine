@@ -40,64 +40,45 @@ void GameObject::addComponent(Component* newComponent)
 
 void GameObject::Start()
 {
+	Material* material = getComponent<Material>();
+
+	if (material)
+		material->bindShader();
+
 	for (unsigned int i = 0; i < components.size(); i++)
 		components[i]->Start();
+
+	if (material)
+		material->freeShader();
 }
 
 void GameObject::Update()
 {
+	Material* material = getComponent<Material>();
+
+	if (material)
+		material->bindShader();
+
 	for (unsigned int i = 0; i < components.size(); i++)
 		components[i]->Update();
+
+	if (material)
+		material->freeShader();
 }
 
 void GameObject::OnRender()
 {
-	Material* material = this->getComponent<Material>();
+	Material* material = getComponent<Material>();
 
-	if (material == NULL)
-	{
-		cerr << "Error in Transform; no attached shader component" << endl;
-		return;
-	}
-
-#ifdef CAN_SWITCH_CONTEXT
-	if (USE_DIRECTX)
-		prepRenderD3D(material);
-	else
-		prepRenderGL(material);
-#elif defined(USE_D3D_ONLY)
-	prepareRenderD3D(material);
-#else
-	prepareRenderGL(material);
-#endif
+	if (material)
+		material->bindShader();
 
 	for (unsigned int i = 0; i < components.size(); i++)
 		components[i]->Render();
 
-#ifdef CAN_SWITCH_CONTEXT
-	if (USE_DIRECTX)
-		endRenderD3D();
-	else
-		endRenderGL();
-#elif defined(USE_D3D_ONLY)
-	endD3D();
-#else
-	endGL();
-#endif
+	if (material)
+		material->freeShader();
 }
-
-void GameObject::prepRenderGL(Material* material)
-{
-	GLuint shaderProgram = material->getShaderProgram();
-	glUseProgram(shaderProgram);
-}
-void GameObject::prepRenderD3D(Material* material)
-{
-	//TODO
-}
-
-void GameObject::endRenderGL(){ glUseProgram(0); }
-void GameObject::endRenderD3D(){ /*TODO*/ }
 
 GameObject::~GameObject()
 {

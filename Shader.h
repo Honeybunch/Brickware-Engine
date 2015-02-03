@@ -3,25 +3,21 @@
 
 #include "Settings.h"
 
-#define _CRT_SECURE_NO_WARNINGS
-
 #ifdef D3D_SUPPORT
-#include <windows.h>
-#include <d3d11.h>
-#include <d3dcompiler.h>
-
-#include "Game.h"
+	#include <windows.h>
+	#include <d3d11.h>
+	#include <d3dcompiler.h>
 #endif
 
 #ifndef USE_D3D_ONLY
-#include <GL/glew.h>
+	#include <GL/glew.h>
 
-#ifdef _WIN32
-#define GLFW_DLL
-#endif
+	#ifdef _WIN32
+		#define GLFW_DLL
+	#endif
 
-#define GLFW_INCLUDE_GLU
-#include <glfw3.h>
+	#define GLFW_INCLUDE_GLU
+	#include <glfw3.h>
 #endif
 
 class Shader
@@ -45,8 +41,9 @@ private:
 #endif
 
 #ifdef D3D_SUPPORT
-	ID3D11VertexShader* vertexShader;
-	ID3D11PixelShader* pixelShader;
+	ID3D11VertexShader* vertexShader = 0;
+	ID3D11PixelShader* pixelShader = 0;
+	ID3D11InputLayout* inputLayout = 0;
 
 	void bindHLSL();
 	void freeHLSL();

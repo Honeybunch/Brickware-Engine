@@ -237,7 +237,8 @@ Matrix4 Camera::calcProjectionMatrix()
 
 void Camera::startGL(Material* material)
 {
-	GLuint shaderProgram = material->getShaderProgram();
+	GLint shaderProgram;
+	glGetIntegerv(GL_CURRENT_PROGRAM, &shaderProgram);
 
 	//Get the locations of the shader variables on the GPU
 	viewMatrixPos = glGetUniformLocation(shaderProgram, "viewMatrix");
@@ -254,10 +255,6 @@ void Camera::startD3D(Material* material)
 
 void Camera::renderGL(Material* material)
 {
-	GLuint shaderProgram = material->getShaderProgram();
-
-	glUseProgram(shaderProgram);
-
 	glUniformMatrix4fv(viewMatrixPos, 1, false, viewMatrix.getAsArray());
 	glUniformMatrix4fv(projectionMatrixPos, 1, true, projectionMatrix.getAsArray());
 

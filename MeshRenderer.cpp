@@ -89,7 +89,8 @@ void MeshRenderer::calculateBounds()
 //Private methods
 void MeshRenderer::renderGL(Material* material)
 {
-	GLuint shaderProgram = material->getShaderProgram();
+	GLint shaderProgram;
+	glGetIntegerv(GL_CURRENT_PROGRAM, &shaderProgram);
 
 	if (mesh->getTexture() != NULL)
 		glBindTexture(GL_TEXTURE_2D, mesh->getTexture());
@@ -116,6 +117,7 @@ void MeshRenderer::renderGL(Material* material)
 	glDrawElements(GL_TRIANGLES, mesh->getNumberOfVerts(), GL_UNSIGNED_SHORT, (void *)0);
 
 	//Unbind
+	//TODO - move all this unbinding into the shader / material system
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindTexture(GL_TEXTURE_2D, 0);

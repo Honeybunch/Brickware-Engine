@@ -80,6 +80,16 @@
     <None Include="Shaders\PixelShader.glsl" />
     <None Include="Shaders\VertexShader.glsl" />
   </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shaders\PixelShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0_level_9_1</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Shaders\VertexShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0_level_9_1</ShaderModel>
+    </FxCompile>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{218AD6C5-0027-4BD1-ABAC-F97C3DC43F6A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -90,7 +100,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -165,7 +175,7 @@
       </Command>
     </PostBuildEvent>
     <Link>
-      <AdditionalDependencies>SOIL.lib;glfw3dll.lib;glew32.lib;kernel32.lib;user32.lib;opengl32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;SOIL.lib;glfw3dll.lib;glew32.lib;kernel32.lib;user32.lib;opengl32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)\SOIL\lib;$(SolutionDir)\GLFW\lib\Win32;$(SolutionDir)\GL\lib\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <ClCompile>

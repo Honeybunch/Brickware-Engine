@@ -1,18 +1,24 @@
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "Shader.h"
 #include "Utils.h"
 #include "GameObject.h"
 
+#include "Game.h"
+
 Shader::Shader(char* vertexShaderFileName, char* pixelShaderFileName)
 {
 	//TODO: Strip existing file extension if any
+	char* trimmedVertexFileName = Utils::trimToLastChar(vertexShaderFileName, '/');
+	char* trimmedPixelFileName = Utils::trimToLastChar(pixelShaderFileName, '/');
 
 #ifdef CAN_SWITCH_CONTEXT
 	if (USE_DIRECTX)
-		loadHLSL(vertexShaderFileName, pixelShaderFileName);
+		loadHLSL(trimmedVertexFileName, trimmedPixelFileName);
 	else
 		loadGLSL(vertexShaderFileName, pixelShaderFileName);
 #elif defined(USE_D3D_ONLY)
-	loadHLSL(vertexShaderFileName, pixelShaderFileName);
+	loadHLSL(trimmedVertexFileName, trimmedPixelFileName);
 #else
 	loadGLSL(vertexShaderFileName, pixelShaderFileName);
 #endif
@@ -54,10 +60,14 @@ void Shader::freeGLSL(){ glUseProgram(shaderProgram); }
 bool Shader::loadGLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 {
 	//Assume strings have no file extension
-	char* glslVertexFileName = new char[strlen(vertexShaderFileName) + 5];
+
+	//+5 for .glsl +1 for null terminator
+	char* glslVertexFileName = new char[strlen(vertexShaderFileName) + 6];
+	strcpy(glslVertexFileName, vertexShaderFileName);
 	strcat(glslVertexFileName, ".glsl");
 
-	char* glslPixelFileName = new char[strlen(pixelShaderFileName) + 5];
+	char* glslPixelFileName = new char[strlen(pixelShaderFileName) + 6];
+	strcpy(glslPixelFileName, pixelShaderFileName);
 	strcat(glslPixelFileName, ".glsl");
 
 	// Read in shader source
@@ -71,15 +81,15 @@ bool Shader::loadGLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 	GLuint program;
 
 	// Read in shader source
-	vertexShaderSource = Utils::textFileRead(vertexShaderFileName);
+	vertexShaderSource = Utils::textFileRead(glslVertexFileName);
 	if (!vertexShaderSource) {
-		cerr << "Error reading vertex shader " << vertexShaderFileName << endl;
+		cerr << "Error reading vertex shader " << glslVertexFileName << endl;
 		shaderProgram = 0;
 		return false;
 	}
-	pixelShaderSource = Utils::textFileRead(pixelShaderFileName);
+	pixelShaderSource = Utils::textFileRead(glslPixelFileName);
 	if (!pixelShaderSource) {
-		cerr << "Error reading fragment shader " << pixelShader << endl;
+		cerr << "Error reading fragment shader " << glslPixelFileName << endl;
 		shaderProgram = 0;
 		return false;
 	}
@@ -132,9 +142,11 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 {
 	//Assume strings have no file extension
 	char* hlslVertexFileName = new char[strlen(vertexShaderFileName) + 5];
+	strcpy(hlslVertexFileName, vertexShaderFileName);
 	strcat(hlslVertexFileName, ".cso");
 
 	char* hlslPixelFileName = new char[strlen(pixelShaderFileName) + 5];
+	strcpy(hlslPixelFileName, pixelShaderFileName);
 	strcat(hlslPixelFileName, ".cso");
 
 	//Convert to wide strings because DirectX asked nicely
@@ -149,7 +161,11 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 
 	// Load Vertex Shader --------------------------------------
 	ID3DBlob* vsBlob;
-	D3DReadFileToBlob(hlslVertexWideString, &vsBlob);
+	if (D3DReadFileToBlob(hlslVertexWideString, &vsBlob) != S_OK)
+	{
+		cerr << "Error reading vertex shader " << hlslVertexFileName << endl;
+		return false;
+	}
 
 	// Create the shader on the device
 	HR(Game::device->CreateVertexShader(
@@ -172,6 +188,11 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 	// Load Pixel Shader ---------------------------------------
 	ID3DBlob* psBlob;
 	D3DReadFileToBlob(hlslPixelWideString, &psBlob);
+	if (false)
+	{
+		cerr << "Error reading pixel shader " << hlslPixelFileName << endl;
+		return false;
+	}
 
 	// Create the shader on the device
 	HR(Game::device->CreatePixelShader(
@@ -196,4 +217,9 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 
 Shader::~Shader()
 {
+#ifdef D3D_SUPPORT
+	ReleaseMacro(vertexShader);
+	ReleaseMacro(pixelShader);
+	ReleaseMacro(inputLayout);
+#endif
 }

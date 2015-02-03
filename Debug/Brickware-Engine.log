@@ -1,4 +1,4 @@
-﻿Build started 2/2/2015 11:54:21 PM.
+﻿Build started 2/3/2015 10:02:36 AM.
      1>Project "D:\Users\amt3824\Git\Brickware-Engine\Brickware-Engine.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"D:\Users\amt3824\Git\Brickware-Engine\\SOIL\include\\" /I"D:\Users\amt3824\Git\Brickware-Engine\\GLFW\include\\" /I"D:\Users\amt3824\Git\Brickware-Engine\\GL\include\\" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt BoxCollider.cpp Camera.cpp Collider.cpp Component.cpp FrustrumCollider.cpp Game.cpp GameObject.cpp Input.cpp Light.cpp Main.cpp Material.cpp Mesh.cpp MeshRenderer.cpp Octree.cpp Rigidbody.cpp Shader.cpp Shape.cpp Spawner.cpp SphereCollider.cpp TestGame.cpp Transform.cpp Utils.cpp dxerr.cpp
@@ -69,4 +69,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:18.48
+Time Elapsed 00:00:16.53

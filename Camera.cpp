@@ -229,8 +229,8 @@ Matrix4 Camera::calcProjectionMatrix()
 
 	Matrix4 projection(w, 0, 0, 0,
 					   0, h, 0, 0,
-					   0, 0, q, qn,
-					   0, 0, -1, 0);
+					   0, 0, q, -1,
+					   0, 0, qn, 0);
 
 	return projection;
 }
@@ -256,7 +256,7 @@ void Camera::startD3D(Material* material)
 void Camera::renderGL(Material* material)
 {
 	glUniformMatrix4fv(viewMatrixPos, 1, false, viewMatrix.getAsArray());
-	glUniformMatrix4fv(projectionMatrixPos, 1, true, projectionMatrix.getAsArray());
+	glUniformMatrix4fv(projectionMatrixPos, 1, false, projectionMatrix.getAsArray());
 
 	glUniform3fv(lookAtPos, 1, lookAt->getAsArray());
 	glUniform3fv(eyePointPos, 1, getGameObject()->getTransform()->getPosition()->getAsArray());
@@ -264,7 +264,9 @@ void Camera::renderGL(Material* material)
 }
 void Camera::renderD3D(Material* material)
 {
-	//TODO
+	ID3D11Buffer* constantBuffer = material->getConstantBuffer();
+
+	
 }
 
 Camera::~Camera(void)

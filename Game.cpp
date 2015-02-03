@@ -6,7 +6,9 @@ GLFWwindow* Game::glWindow;
 #endif
 
 #ifdef D3D_SUPPORT
+//Statics
 ID3D11Device* Game::device;
+ID3D11DeviceContext* Game::deviceContext;
 
 //Rip the HINSTANCE of the exe out of the MS linker
 //Super hack!

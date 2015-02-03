@@ -16,13 +16,16 @@
 
 #include "Component.h"
 
+#include "Matrix4.h"
+#include "Vector3.h"
+#include "Vector4.h"
+
+#include <unordered_map>
+
 class Material : public Component
 {
 public:
 	Material(Shader* shader);
-
-	//TODO: replace this
-	GLuint getModelMatrixPos();
 
 	void bindShader();
 	void freeShader();
@@ -35,10 +38,18 @@ public:
 private:
 	Shader* shader;
 
-	void startGL();
-	void startD3D();
+#ifndef USE_D3D_ONLY
+	std::unordered_map<char*, GLint> uniformMap;
 
-	GLuint modelMatrixPos;
+	void startGL();
+#endif
+
+#ifdef D3D_SUPPORT
+	std::unordered_map<D3D11_INPUT_ELEMENT_DESC, char*> inputLayout;
+
+	void startD3D();
+#endif
+
 };
 
 #endif

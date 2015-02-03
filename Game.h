@@ -50,6 +50,9 @@ class Game
 	friend class Input;
 	friend class GameObject;
 	friend class Shader;
+	
+	friend class Camera;
+	friend class MeshRenderer;
 
 public:
 	Game(int windowWidth, int windowHeight);
@@ -97,11 +100,11 @@ private:
 
 #ifdef D3D_SUPPORT
 	static ID3D11Device* device;
+	static ID3D11DeviceContext* deviceContext;
 
 	bool enable4xMsaa;
 	UINT msaa4xQuality;
-
-	ID3D11DeviceContext* deviceContext;
+	
 	IDXGISwapChain* swapChain;
 	ID3D11Texture2D* depthStencilBuffer;
 	ID3D11RenderTargetView* renderTargetView;

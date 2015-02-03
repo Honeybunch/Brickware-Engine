@@ -7,6 +7,22 @@
 	#include <windows.h>
 	#include <d3d11.h>
 	#include <d3dcompiler.h>
+
+//Structs for HLSL (for now)
+struct Vertex
+{
+	float position[4];
+	float normal[4];
+	float texCoord[4];
+};
+
+struct VertexShaderConstantBufferLayout
+{
+	float model[16];
+	float view[16];
+	float projection[16];
+};
+
 #endif
 
 #ifndef USE_D3D_ONLY
@@ -28,6 +44,8 @@ public:
 	void bindShader();
 	void freeShader();
 
+	ID3D11Buffer* getConstantBuffer();
+
 	~Shader();
 
 private:
@@ -41,9 +59,11 @@ private:
 #endif
 
 #ifdef D3D_SUPPORT
-	ID3D11VertexShader* vertexShader = 0;
-	ID3D11PixelShader* pixelShader = 0;
-	ID3D11InputLayout* inputLayout = 0;
+	ID3D11VertexShader* vertexShader;
+	ID3D11PixelShader* pixelShader;
+
+	ID3D11InputLayout* inputLayout;
+	ID3D11Buffer* vsConstantBuffer;
 
 	void bindHLSL();
 	void freeHLSL();

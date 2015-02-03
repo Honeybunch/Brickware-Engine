@@ -132,9 +132,17 @@ bool Shader::loadGLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 #endif
 #ifdef D3D_SUPPORT
 
+ID3D11Buffer* Shader::getConstantBuffer(){ return vsConstantBuffer; }
+
 void Shader::bindHLSL()
 {
-	
+	//Setup input layout
+	Game::deviceContext->IASetInputLayout(inputLayout);
+	Game::deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	//Setup shaders
+	Game::deviceContext->VSSetShader(vertexShader, NULL, 0);
+	Game::deviceContext->PSSetShader(pixelShader, NULL, 0);
 }
 void Shader::freeHLSL(){}
 
@@ -204,6 +212,16 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 	// Clean up
 	ReleaseMacro(psBlob);
 
+	//Generate Constant Buffer
+	D3D11_BUFFER_DESC cBufferDesc;
+	cBufferDesc.ByteWidth = sizeof(VertexShaderConstantBufferLayout);
+	cBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	cBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	cBufferDesc.CPUAccessFlags = 0;
+	cBufferDesc.MiscFlags = 0;
+	cBufferDesc.StructureByteStride = 0;
+	HR(Game::device->CreateBuffer(&cBufferDesc, NULL, &vsConstantBuffer));
+
 	//Free unneeded data
 	delete hlslVertexFileName;
 	delete hlslPixelFileName;
@@ -221,5 +239,6 @@ Shader::~Shader()
 	ReleaseMacro(vertexShader);
 	ReleaseMacro(pixelShader);
 	ReleaseMacro(inputLayout);
+	ReleaseMacro(vsConstantBuffer);
 #endif
 }

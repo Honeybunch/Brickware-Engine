@@ -7,6 +7,7 @@
 	#include <windows.h>
 	#include <d3d11.h>
 	#include <d3dcompiler.h>
+	#include <d3d11shader.h>
 
 //Structs for HLSL (for now)
 struct Vertex
@@ -38,13 +39,13 @@ struct VertexShaderConstantBufferLayout
 
 class Shader
 {
+	friend class Material;
+
 public:
 	Shader(char* vertexShaderFileName, char* pixelShaderFileName);
 
 	void bindShader();
 	void freeShader();
-
-	ID3D11Buffer* getConstantBuffer();
 
 	~Shader();
 
@@ -59,6 +60,9 @@ private:
 #endif
 
 #ifdef D3D_SUPPORT
+	ID3DBlob* vsBlob;
+	ID3DBlob* psBlob;
+
 	ID3D11VertexShader* vertexShader;
 	ID3D11PixelShader* pixelShader;
 

@@ -131,9 +131,6 @@ bool Shader::loadGLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 
 #endif
 #ifdef D3D_SUPPORT
-
-ID3D11Buffer* Shader::getConstantBuffer(){ return vsConstantBuffer; }
-
 void Shader::bindHLSL()
 {
 	//Setup input layout
@@ -168,7 +165,6 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 	};
 
 	// Load Vertex Shader --------------------------------------
-	ID3DBlob* vsBlob;
 	if (D3DReadFileToBlob(hlslVertexWideString, &vsBlob) != S_OK)
 	{
 		cerr << "Error reading vertex shader " << hlslVertexFileName << endl;
@@ -191,10 +187,9 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 		&inputLayout));
 
 	// Clean up
-	ReleaseMacro(vsBlob);
+	//ReleaseMacro(vsBlob);
 
 	// Load Pixel Shader ---------------------------------------
-	ID3DBlob* psBlob;
 	D3DReadFileToBlob(hlslPixelWideString, &psBlob);
 	if (false)
 	{
@@ -210,7 +205,7 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 		&pixelShader));
 
 	// Clean up
-	ReleaseMacro(psBlob);
+	//ReleaseMacro(psBlob);
 
 	//Generate Constant Buffer
 	D3D11_BUFFER_DESC cBufferDesc;

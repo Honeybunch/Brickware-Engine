@@ -163,6 +163,17 @@ WCHAR* Utils::stringToWideString(char* string)
 
 	return wideString;
 }
+
+char* Utils::wideStringToString(WCHAR* wideString)
+{
+	int stringLength = wcslen(wideString);
+
+	char* string = new char[stringLength];
+
+	wcstombs(string, wideString, stringLength);
+
+	return string;
+}
 #endif
 
 /*

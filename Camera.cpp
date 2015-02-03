@@ -264,7 +264,7 @@ void Camera::renderGL(Material* material)
 }
 void Camera::renderD3D(Material* material)
 {
-	ID3D11Buffer* constantBuffer = material->getConstantBuffer();
+	
 
 	
 }

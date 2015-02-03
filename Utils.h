@@ -22,6 +22,7 @@
 
 #include <iostream>
 #include <vector>
+#include <locale>
 
 using namespace std;
 
@@ -42,6 +43,7 @@ public:
 
 #ifdef D3D_SUPPORT
 	static WCHAR* stringToWideString(char* string);
+	static char* wideStringToString(WCHAR* wideString);
 #endif
 
 private:

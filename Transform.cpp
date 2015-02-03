@@ -89,6 +89,8 @@ void Transform::renderGL(Material* material)
 
 	glUniformMatrix4fv(material->getModelMatrixPos(), 1, false, modelMatrix.getAsArray());
 	*/
+
+	material->setValue<Matrix4>("modelMatrix", modelMatrix);
 }
 
 //Send info to HLSL Shader

@@ -29,9 +29,9 @@ enum ParameterType
 	VECTOR3,
 	VECTOR2,
 
-	INT,
-	FLOAT,
-	DOUBLE,
+	SHADER_INT,
+	SHADER_FLOAT,
+	SHADER_DOUBLE,
 
 	MATRIX4,
 
@@ -46,9 +46,43 @@ public:
 	void bindShader();
 	void freeShader();
 
-	template<class T> void setValue<T>(char* valueName, T value)
+	template<class T> void setValue(char* valueName, T value)
 	{
-		
+		ParameterType type = typeToParamType<T>();
+		if (type < 0)
+			return;
+
+		//Get bound shader
+		GLint shaderProgram;
+		glGetIntegerv(GL_CURRENT_PROGRAM, &shaderProgram);
+
+		//Get uniform location
+		GLuint uniformLocation = glGetUniformLocation(shaderProgram, valueName);
+
+		switch (type)
+		{
+		case ParameterType::VECTOR4:
+			glUniform4fv(uniformLocation, 1, value.getAsArray());
+			break;
+		case ParameterType::VECTOR3:
+			glUniform4fv(uniformLocation, 1, value.getAsArray());
+			break;
+		case ParameterType::VECTOR2:
+			glUniform4fv(uniformLocation, 1, value.getAsArray());
+			break;
+		case typeid(int) :
+			glUniform1i(uniformLocation, value);
+			break;
+		case typeid(float) :
+			glUniform1f(uniformLocation, value);
+			break;
+		case typeid(double) :
+			glUniform1d(uniformLocation, value);
+			break;
+		case typeid(Matrix4) :
+			glUniformMatrix4fv(uniformLocation, 1, false, value.getAsArray());
+			break;
+		}
 	}
 
 	//Component Overrides
@@ -59,9 +93,40 @@ public:
 private:
 	Shader* shader;
 
-	template<class T> ParameterType mathTypeToParamType(T math)
+	template<class T> ParameterType typeToParamType()
 	{
-		
+		switch (typeid(T))
+		{
+		case typeid(Vector4) :
+			return ParameterType::VECTOR4;
+			break;
+		case typeid(Vector3) :
+			return ParameterType::VECTOR3;
+			break;
+		case typeid(Vector2) :
+			return ParameterType::VECTOR2;
+			break;
+		case typeid(int) :
+			return ParameterType::SHADER_INT;
+			break;
+		case typeid(float) :
+			return ParameterType::SHADER_FLOAT;
+			break;
+		case typeid(double) :
+			return ParameterType::SHADER_DOUBLE;
+			break;
+		case typeid(Matrix4) :
+			return ParameterType::MATRIX4;
+			break;
+			/*
+		case typeid(Vector4) :
+			return ParameterType::VECTOR4;
+			break;
+			*/
+		default:
+			return -1;
+			break;
+		}
 	}
 
 #ifndef USE_D3D_ONLY

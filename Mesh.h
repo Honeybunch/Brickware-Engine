@@ -56,6 +56,11 @@ public :
 	GLuint getIBO();
 #endif
 
+#ifdef D3D_SUPPORT
+	ID3D11Buffer* getVertexBuffer();
+	ID3D11Buffer* getIndexBuffer();
+#endif
+
 	~Mesh();
 
 private: 
@@ -83,6 +88,9 @@ private:
 #endif
 
 #ifdef D3D_SUPPORT
+	ID3D11Buffer* vertexBuffer;
+	ID3D11Buffer* indexBuffer;
+
 	void bufferD3D(Shader* shader, char* textureFileName);
 #endif
 };

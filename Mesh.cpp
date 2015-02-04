@@ -1,4 +1,6 @@
-#include "mesh.h"
+#include "Mesh.h"
+
+#include "Game.h"
 
 //Constructor
 //Take in the GPU program ID and the vertex data and buffer that data into the VBO and IBO
@@ -44,10 +46,18 @@ int Mesh::getIndexSize(){ return indexSize; }
 int Mesh::getNumberOfVerts(){ return numberOfVerts; }
 int Mesh::getTexCoordSize(){ return texCoordSize; }
 
+#ifndef USE_D3D_ONLY
+//Write a Texture2D class and get this outta here
 GLuint Mesh::getTexture(){ return texture; }
 
 GLuint Mesh::getVBO(){ return vbo; }
 GLuint Mesh::getIBO(){ return ibo; }
+#endif
+
+#ifdef D3D_SUPPORT
+ID3D11Buffer* Mesh::getVertexBuffer(){ return vertexBuffer; }
+ID3D11Buffer* Mesh::getIndexBuffer(){ return indexBuffer; }
+#endif
 
 //Private functions
 
@@ -73,7 +83,52 @@ void Mesh::bufferGL(Shader* shader, char* textureFileName)
 }
 void Mesh::bufferD3D(Shader* shader, char* textureFileName)
 {
-	//TODO
+	//Format data for D3D
+	float* verticies = new float[pointSize + normalSize + texCoordSize];
+
+	for (int i = 0; i < numberOfVerts ; i++)
+	{
+		verticies[i] = points[i];
+		verticies[i + 1] = points[i + 1];
+		verticies[i + 2] = points[i + 2];
+		verticies[i + 3] = points[i + 3];
+
+		verticies[i + 4] = normals[i];
+		verticies[i + 5] = normals[i + 1];
+		verticies[i + 6] = normals[i + 2];
+
+		verticies[i + 7] = texCoords[i];
+		verticies[i + 8] = texCoords[i + 1];
+	}
+
+	D3D11_BUFFER_DESC vertexBufferDesc;
+	vertexBufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
+	vertexBufferDesc.ByteWidth = pointSize + normalSize + texCoordSize;
+	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	vertexBufferDesc.CPUAccessFlags = 0;
+	vertexBufferDesc.MiscFlags = 0;
+	vertexBufferDesc.StructureByteStride = 0;
+	
+	D3D11_SUBRESOURCE_DATA vertexData;
+	vertexData.pSysMem = verticies;
+
+	//Buffer
+	HR(Game::device->CreateBuffer(&vertexBufferDesc, &vertexData, &vertexBuffer));
+
+	//Create index buffer description
+	D3D11_BUFFER_DESC indexBufferDesc;
+	indexBufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
+	indexBufferDesc.ByteWidth = sizeof(UINT) * 3; // Number of indices in the "model" you want to draw
+	indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+	indexBufferDesc.CPUAccessFlags = 0;
+	indexBufferDesc.MiscFlags = 0;
+	indexBufferDesc.StructureByteStride = 0;
+
+	D3D11_SUBRESOURCE_DATA indexData;
+	indexData.pSysMem = indicies;
+
+	//Buffer
+	HR(Game::device->CreateBuffer(&indexBufferDesc, &indexData, &indexBuffer));
 }
 
 //Destructor

@@ -50,6 +50,7 @@ class Game
 	friend class Input;
 	friend class GameObject;
 	friend class Shader;
+	friend class Mesh;
 	
 	friend class Camera;
 	friend class MeshRenderer;

@@ -1,5 +1,7 @@
 #include "MeshRenderer.h"
 
+#include "Game.h"
+
 MeshRenderer::MeshRenderer(Mesh* mesh)
 {
 	this->mesh = mesh;
@@ -118,7 +120,19 @@ void MeshRenderer::renderGL(Material* material)
 }
 void MeshRenderer::renderD3D(Material* material)
 {
-	//Todo
+	//Game::deviceContext->UpdateSubresource(material->);
+
+	//I CAN SET MORE THAN ONE BUFFER
+	//CONSIDER THIS LATER
+	UINT stride = sizeof(float) * 9;
+	ID3D11Buffer* vertexBuffer = mesh->getVertexBuffer();
+	ID3D11Buffer* indexBuffer = mesh->getIndexBuffer();
+
+	Game::deviceContext->IASetVertexBuffers(0, 1, &vertexBuffer, &stride, 0);
+	Game::deviceContext->IASetIndexBuffer(indexBuffer, DXGI_FORMAT_R32_UINT, 0);
+
+	//DRAW
+	Game::deviceContext->DrawIndexed(mesh->getNumberOfVerts(), 0, 0);
 }
 
 MeshRenderer::~MeshRenderer()

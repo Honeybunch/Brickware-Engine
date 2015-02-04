@@ -48,11 +48,7 @@ public:
 	operator Vector4();
 
 private:
-	float x;
-	float y;
-	float z;
-
-	float rawData[3];
+	float vector[3];
 };
 
 #endif

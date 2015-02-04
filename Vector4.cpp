@@ -7,18 +7,18 @@
 
 Vector4::Vector4()
 {
-	x = 0;
-	y = 0;
-	z = 0;
-	w = 0;
+	this->vector[0] = 0;
+	this->vector[1] = 0;
+	this->vector[2] = 0;
+	this->vector[3] = 0;
 }
 
 Vector4::Vector4(float x, float y, float z, float w)
 {
-	Vector4::x = x;
-	Vector4::y = y;
-	Vector4::z = z;
-	Vector4::w = w;
+	this->vector[0] = x;
+	this->vector[1] = y;
+	this->vector[2] = z;
+	this->vector[3] = w;
 }
 
 /*
@@ -34,15 +34,17 @@ Vector4::~Vector4()
 	Accessors and Mutators
 */
 
-float Vector4::getX(){return x;}
-float Vector4::getY(){return y;}
-float Vector4::getZ(){return z;}
-float Vector4::getW(){return w;}
+float Vector4::getX(){ return vector[0]; }
+float Vector4::getY(){ return vector[1]; }
+float Vector4::getZ(){ return vector[2]; }
+float Vector4::getW(){ return vector[3]; }
 
-void Vector4::setX(float x){Vector4::x = x;}
-void Vector4::setY(float y){Vector4::y = y;}
-void Vector4::setZ(float z){Vector4::z = z;}
-void Vector4::setW(float w){Vector4::w = w;}
+float* Vector4::getAsArray(){ return vector; }
+
+void Vector4::setX(float x){ this->vector[0] = x; }
+void Vector4::setY(float y){ this->vector[1] = y; }
+void Vector4::setZ(float z){ this->vector[2] = z; }
+void Vector4::setW(float w){ this->vector[3] = w; }
 
 /*
 	Operators
@@ -58,7 +60,7 @@ ostream& operator<<(ostream& output, Vector4& v4)
 //Insertion
 istream& operator>> (istream& input, Vector4& v4)
 {
-	input >> v4.x >> v4.y >> v4.z >> v4.w;
+	input >> v4.vector[0] >> v4.vector[1] >> v4.vector[2] >> v4.vector[3];
 	return input;
 }
 
@@ -66,8 +68,8 @@ istream& operator>> (istream& input, Vector4& v4)
 
 Vector4::operator Vector3()
 {
-	if (w == 0)
-		w = 1.0f;
+	if (vector[3] == 0)
+		vector[3] = 1.0f;
 
-	return Vector3(x / w, y / w, z / w);
+	return Vector3(vector[0] / vector[3], vector[1] / vector[3], vector[2] / vector[3]);
 }

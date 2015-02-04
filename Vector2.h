@@ -21,6 +21,8 @@ public:
 	float getX();
 	float getY();
 
+	float* getAsArray();
+
 	void setX(float x);
 	void setY(float y);
 
@@ -39,8 +41,7 @@ public:
 	friend istream& operator>> (istream& input, Vector2& h);
 
 private:
-	float x;
-	float y;
+	float vector[2];
 };
 
 #endif

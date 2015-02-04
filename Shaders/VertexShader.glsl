@@ -18,7 +18,7 @@ uniform sampler2D tex;
 
 uniform vec3 lookAt;
 uniform vec3 eyePoint;
-uniform vec3 up;
+//uniform vec3 up;
 
 //To be passed to the fragment shader
 out vec3 L;
@@ -27,18 +27,6 @@ out vec3 H;
 out vec3 N;
 
 out vec2 texCoord;
-
-//Locals
-mat4 translation;
-mat4 rotation;
-mat4 scales;
-
-
-float zNear = 0.1f;
-float zFar = 100.0f;
-float height = 0.1f;
-float width = 0.1f;
-float FoV = 50;
 
 void main()
 {

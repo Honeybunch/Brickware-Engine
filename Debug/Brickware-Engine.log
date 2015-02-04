@@ -1,49 +1,5 @@
-﻿Build started 2/3/2015 4:51:26 PM.
-     1>Project "D:\Users\amt3824\Git\Brickware-Engine\Brickware-Engine.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"D:\Users\amt3824\Git\Brickware-Engine\\SOIL\include\\" /I"D:\Users\amt3824\Git\Brickware-Engine\\GLFW\include\\" /I"D:\Users\amt3824\Git\Brickware-Engine\\GL\include\\" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt BoxCollider.cpp Camera.cpp FrustrumCollider.cpp Game.cpp GameObject.cpp Input.cpp Light.cpp Main.cpp Material.cpp Mesh.cpp MeshRenderer.cpp Octree.cpp Shader.cpp Spawner.cpp SphereCollider.cpp TestGame.cpp Transform.cpp
-         Transform.cpp
-     1>d:\users\amt3824\git\brickware-engine\material.h(67): error C2051: case expression not constant
-                 d:\users\amt3824\git\brickware-engine\transform.cpp(93) : see reference to function template instantiation 'void Material::setValue<Matrix4>(char *,T)' being compiled
-                 with
-                 [
-                     T=Matrix4
-                 ]
-     1>d:\users\amt3824\git\brickware-engine\material.h(70): error C2051: case expression not constant
-     1>d:\users\amt3824\git\brickware-engine\material.h(73): error C2051: case expression not constant
-     1>d:\users\amt3824\git\brickware-engine\material.h(74): error C2664: 'void (GLint,GLint)' : cannot convert argument 2 from 'Matrix4' to 'GLint'
-                 No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-     1>d:\users\amt3824\git\brickware-engine\material.h(76): error C2051: case expression not constant
-     1>d:\users\amt3824\git\brickware-engine\material.h(77): error C2664: 'void (GLint,GLfloat)' : cannot convert argument 2 from 'Matrix4' to 'GLfloat'
-                 No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-     1>d:\users\amt3824\git\brickware-engine\material.h(79): error C2051: case expression not constant
-     1>d:\users\amt3824\git\brickware-engine\material.h(80): error C2664: 'void (GLint,GLdouble)' : cannot convert argument 2 from 'Matrix4' to 'GLdouble'
-                 No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-     1>d:\users\amt3824\git\brickware-engine\material.h(82): error C2051: case expression not constant
-     1>d:\users\amt3824\git\brickware-engine\material.h(83): error C3861: 'glUniformmatrix4fv': identifier not found
-         Generating Code...
-         Compiling...
-         BoxCollider.cpp
-         Generating Code...
-         Compiling...
-         TestGame.cpp
-         SphereCollider.cpp
-         Spawner.cpp
-         Shader.cpp
-         Octree.cpp
-         MeshRenderer.cpp
-         Mesh.cpp
-         Material.cpp
-         Main.cpp
-         Light.cpp
-         Input.cpp
-         GameObject.cpp
-         Game.cpp
-         FrustrumCollider.cpp
-         Camera.cpp
-         Generating Code...
-     1>Done Building Project "D:\Users\amt3824\Git\Brickware-Engine\Brickware-Engine.vcxproj" (Build target(s)) -- FAILED.
+﻿Build started 2/3/2015 11:30:31 PM.
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:17.71
+Time Elapsed 00:00:01.15

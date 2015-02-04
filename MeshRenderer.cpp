@@ -115,12 +115,6 @@ void MeshRenderer::renderGL(Material* material)
 
 	// draw your shape
 	glDrawElements(GL_TRIANGLES, mesh->getNumberOfVerts(), GL_UNSIGNED_SHORT, (void *)0);
-
-	//Unbind
-	//TODO - move all this unbinding into the shader / material system
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindTexture(GL_TEXTURE_2D, 0);
 }
 void MeshRenderer::renderD3D(Material* material)
 {

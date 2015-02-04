@@ -150,18 +150,6 @@ void Camera::Render()
 			GameObject* object = nodeObjects[j];
 			MeshRenderer* objectMesh = object->getComponent<MeshRenderer>();
 
-			//If there is no mesh renderer just render
-			/*
-			if (objectMesh == NULL)
-			{
-				object->OnRender();
-				drawCalls++;
-				alreadyRendered.push_back(object);
-
-				return;
-			}
-			*/
-
 			Bounds* meshBounds = objectMesh->getBounds();
 
 			bool isColliding = collider->isColliding(meshBounds);
@@ -237,16 +225,7 @@ Matrix4 Camera::calcProjectionMatrix()
 
 void Camera::startGL(Material* material)
 {
-	GLint shaderProgram;
-	glGetIntegerv(GL_CURRENT_PROGRAM, &shaderProgram);
 
-	//Get the locations of the shader variables on the GPU
-	viewMatrixPos = glGetUniformLocation(shaderProgram, "viewMatrix");
-	projectionMatrixPos = glGetUniformLocation(shaderProgram, "projectionMatrix");
-
-	lookAtPos = glGetUniformLocation(shaderProgram, "lookAt");
-	eyePointPos = glGetUniformLocation(shaderProgram, "eyePoint");
-	upPos = glGetUniformLocation(shaderProgram, "up");
 }
 void Camera::startD3D(Material* material)
 {
@@ -255,12 +234,12 @@ void Camera::startD3D(Material* material)
 
 void Camera::renderGL(Material* material)
 {
-	glUniformMatrix4fv(viewMatrixPos, 1, false, viewMatrix.getAsArray());
-	glUniformMatrix4fv(projectionMatrixPos, 1, false, projectionMatrix.getAsArray());
+	material->setMatrix4("viewMatrix", viewMatrix);
+	material->setMatrix4("projectionMatrix", projectionMatrix);
 
-	glUniform3fv(lookAtPos, 1, lookAt->getAsArray());
-	glUniform3fv(eyePointPos, 1, getGameObject()->getTransform()->getPosition()->getAsArray());
-	glUniform3fv(upPos, 1, getGameObject()->getTransform()->getUp().getAsArray());
+	material->setVector3("lookAt", *lookAt);
+	material->setVector3("eyePoint", *getGameObject()->getTransform()->getPosition());
+	material->setVector3("up", getGameObject()->getTransform()->getUp());
 }
 void Camera::renderD3D(Material* material)
 {

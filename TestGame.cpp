@@ -39,10 +39,6 @@ bool TestGame::init()
 	light->addComponent(new Material(shader));
 	light->addComponent(new Light());
 
-	gameObjects.push_back(light);
-	gameObjects.push_back(castle);
-	gameObjects.push_back(camera);
-
 	for (unsigned int i = 0; i < gameObjects.size(); i++)
 		gameObjects[i]->Start();
 

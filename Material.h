@@ -14,6 +14,36 @@
 	#include <glfw3.h>
 #endif
 
+#ifdef D3D_SUPPORT
+struct ConstantShaderBuffer
+{
+	unsigned int registerIndex;
+	LPCSTR name;
+	ID3D11ShaderReflectionConstantBuffer* buffer;
+	D3D11_SHADER_BUFFER_DESC* bufferDesc;
+
+	ConstantShaderBuffer(unsigned int registerIndex, LPCSTR name, 
+		ID3D11ShaderReflectionConstantBuffer* buffer,
+		D3D11_SHADER_BUFFER_DESC* bufferDesc)
+	{
+		this->registerIndex = registerIndex;
+		this->name = name;
+		this->buffer = buffer;
+		this->bufferDesc = bufferDesc;
+	}
+};
+
+struct ConstantBufferVariable
+{
+	LPCSTR name;
+	int length;
+	int offset;
+
+	ConstantBufferVariable(){}
+};
+
+#endif
+
 #include "Component.h"
 #include "Utils.h"
 
@@ -21,22 +51,7 @@
 #include "Vector3.h"
 #include "Vector4.h"
 
-#include <unordered_map>
-
-enum ParameterType
-{
-	VECTOR4,
-	VECTOR3,
-	VECTOR2,
-
-	SHADER_INT,
-	SHADER_FLOAT,
-	SHADER_DOUBLE,
-
-	MATRIX4,
-
-	TEXTURE2D
-};
+#include <map>
 
 class Material : public Component
 {
@@ -46,44 +61,15 @@ public:
 	void bindShader();
 	void freeShader();
 
-	template<class T> void setValue(char* valueName, T value)
-	{
-		ParameterType type = typeToParamType<T>();
-		if (type < 0)
-			return;
+	void setVector4(char* valueName, Vector4 value);
+	void setVector3(char* valueName, Vector3 value);
+	void setVector2(char* valueName, Vector2 value);
 
-		//Get bound shader
-		GLint shaderProgram;
-		glGetIntegerv(GL_CURRENT_PROGRAM, &shaderProgram);
+	void setInt(char* valueName, int value);
+	void setFloat(char* valueName, float value);
+	void setDouble(char* valueName, double value);
 
-		//Get uniform location
-		GLuint uniformLocation = glGetUniformLocation(shaderProgram, valueName);
-
-		switch (type)
-		{
-		case ParameterType::VECTOR4:
-			glUniform4fv(uniformLocation, 1, value.getAsArray());
-			break;
-		case ParameterType::VECTOR3:
-			glUniform4fv(uniformLocation, 1, value.getAsArray());
-			break;
-		case ParameterType::VECTOR2:
-			glUniform4fv(uniformLocation, 1, value.getAsArray());
-			break;
-		case typeid(int) :
-			glUniform1i(uniformLocation, value);
-			break;
-		case typeid(float) :
-			glUniform1f(uniformLocation, value);
-			break;
-		case typeid(double) :
-			glUniform1d(uniformLocation, value);
-			break;
-		case typeid(Matrix4) :
-			glUniformMatrix4fv(uniformLocation, 1, false, value.getAsArray());
-			break;
-		}
-	}
+	void setMatrix4(char* valueName, Matrix4 value);
 
 	//Component Overrides
 	virtual void Start();
@@ -93,52 +79,41 @@ public:
 private:
 	Shader* shader;
 
-	template<class T> ParameterType typeToParamType()
-	{
-		switch (typeid(T))
-		{
-		case typeid(Vector4) :
-			return ParameterType::VECTOR4;
-			break;
-		case typeid(Vector3) :
-			return ParameterType::VECTOR3;
-			break;
-		case typeid(Vector2) :
-			return ParameterType::VECTOR2;
-			break;
-		case typeid(int) :
-			return ParameterType::SHADER_INT;
-			break;
-		case typeid(float) :
-			return ParameterType::SHADER_FLOAT;
-			break;
-		case typeid(double) :
-			return ParameterType::SHADER_DOUBLE;
-			break;
-		case typeid(Matrix4) :
-			return ParameterType::MATRIX4;
-			break;
-			/*
-		case typeid(Vector4) :
-			return ParameterType::VECTOR4;
-			break;
-			*/
-		default:
-			return -1;
-			break;
-		}
-	}
-
 #ifndef USE_D3D_ONLY
-	std::unordered_map<char*, GLenum> uniformMap;
+	//MUST use a string otherwise it will compare char*s as integer values and insert garbage data
+	std::map<std::string, GLuint> uniformMap;	
 
 	void startGL();
+
+	void setVector4GL(char* valueName, Vector4 value);
+	void setVector3GL(char* valueName, Vector3 value);
+	void setVector2GL(char* valueName, Vector2 value);
+
+	void setIntGL(char* valueName, int value);
+	void setFloatGL(char* valueName, float value);
+	void setDoubleGL(char* valueName, double value);
+
+	void setMatrix4GL(char* valueName, Matrix4 value);
 #endif
 
 #ifdef D3D_SUPPORT
-	std::unordered_map<char*,D3D11_INPUT_ELEMENT_DESC> inputLayout;
+	std::map<std::string, D3D11_INPUT_ELEMENT_DESC> inputLayout;
+
+	//These are essentially mapped to each other
+	std::vector<ConstantShaderBuffer*> constantBuffers;
+	std::vector<std::vector<ConstantBufferVariable*>> constantBufferVars;
 
 	void startD3D();
+
+	void setVector4D3D(char* valueName, Vector4 value);
+	void setVector3D3D(char* valueName, Vector3 value);
+	void setVector2D3D(char* valueName, Vector2 value);
+
+	void setIntD3D(char* valueName, int value);
+	void setFloatD3D(char* valueName, float value);
+	void setDoubleD3D(char* valueName, double value);
+
+	void setMatrix4D3D(char* valueName, Matrix4 value);
 #endif
 
 };

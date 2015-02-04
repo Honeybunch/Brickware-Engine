@@ -5,6 +5,8 @@
 #define D3D_SUPPORT 
 #define GL_SUPPORT
 
+#define BUFFER_OFFSET(i) ((char *)NULL + (i))
+
 #if defined(_WIN32) && defined(D3D_SUPPORT) && defined(GL_SUPPORT)
 //If we are on windows and we have asked for GL and D3D support then we can define non const bools that will allow for context switching
 static bool USE_DIRECTX = true;

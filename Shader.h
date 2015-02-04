@@ -3,6 +3,8 @@
 
 #include "Settings.h"
 
+#include <vector>
+
 #ifdef D3D_SUPPORT
 	#include <windows.h>
 	#include <d3d11.h>
@@ -47,14 +49,19 @@ public:
 	void bindShader();
 	void freeShader();
 
+	void bindVertexData();
+
 	~Shader();
 
 private:
 #ifndef USE_D3D_ONLY
 	GLuint shaderProgram;
+	std::vector<GLuint> attributes;
 
 	void bindGLSL();
 	void freeGLSL();
+
+	void bindAttributes();
 
 	bool loadGLSL(char* vertexShaderFileName, char* pixelShaderFileName);
 #endif

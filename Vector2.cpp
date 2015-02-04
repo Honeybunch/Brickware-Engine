@@ -5,20 +5,20 @@
 */
 Vector2::Vector2()
 {
-	Vector2::x = 0;
-	Vector2::y = 0;
+	this->vector[0] = 0;
+	this->vector[1] = 0;
 }
 
 Vector2::Vector2(float x, float y)
 {
-	Vector2::x = x;
-	Vector2::y = y;
+	this->vector[0] = x;
+	this->vector[1] = y;
 }
 
 Vector2::Vector2(const Vector2& other)
 {
-	Vector2::x = other.x;
-	Vector2::y = other.y;
+	this->vector[0] = other.vector[0];
+	this->vector[1] = other.vector[1];
 }
 
 
@@ -35,11 +35,13 @@ Vector2::~Vector2()
 	Accessors & Mutators
 */
 
-float Vector2::getX(){return x;}
-float Vector2::getY(){return y;}
+float Vector2::getX(){ return vector[0]; }
+float Vector2::getY(){ return vector[1]; }
 
-void Vector2::setX(float x){Vector2::x = x;}
-void Vector2::setY(float y){Vector2::y = y;}
+float* Vector2::getAsArray(){ return vector; }
+
+void Vector2::setX(float x){ vector[0] = x; }
+void Vector2::setY(float y){ vector[1] = y; }
 
 /*
 	Static Functions
@@ -78,10 +80,10 @@ Vector2 Vector2::ScalarProduct(Vector2 v, float s)
 //Normalize a vector
 Vector2 Vector2::Normalize(Vector2 v)
 {
-	float magnitude = sqrt((v.x*v.x) + (v.y*v.y));
+	float magnitude = sqrt((v.vector[0] * v.vector[0]) + (v.vector[1] * v.vector[1]));
 
-	Vector2 normalizedVec(v.x / magnitude, 
-						  v.y / magnitude);
+	Vector2 normalizedVec(v.vector[0] / magnitude,
+						  v.vector[1] / magnitude);
 
 	return normalizedVec;
 }
@@ -93,19 +95,19 @@ Vector2 Vector2::Normalize(Vector2 v)
 //Vector product
 float Vector2::operator* (Vector2 u)
 {
-	return (x * u.x + y * u.y);
+	return (vector[0] * u.vector[0] + vector[1] * u.vector[1]);
 }
 
 //Scalar product
 Vector2 Vector2::operator*(float s)
 {
-	return Vector2(s * x, s * y);
+	return Vector2(s * vector[0], s * vector[1]);
 }
 
 //Sum
 Vector2 Vector2::operator+(Vector2 u)
 {
-	return Vector2(x + u.x, y + u.y);
+	return Vector2(vector[0] + u.vector[0], vector[1] + u.vector[1]);
 }
 
 //Extraction
@@ -118,6 +120,6 @@ ostream& operator<<(ostream& output, Vector2& v)
 //Insertion
 istream& operator>>(istream& input, Vector2& v)
 {
-	input >> v.x >> v.y;
+	input >> v.vector[0] >> v.vector[1];
 	return input;
 }

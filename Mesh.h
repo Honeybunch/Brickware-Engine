@@ -49,17 +49,19 @@ public :
 	int getNumberOfVerts();
 	int getTexCoordSize();
 
+#ifndef USE_D3D_ONLY
 	GLuint getTexture();
 
 	GLuint getVBO();
 	GLuint getIBO();
+#endif
 
 	~Mesh();
 
 private: 
 	float* points;
 	float* normals;
-	GLushort* indicies;
+	unsigned short* indicies;
 	float* texCoords;
 
 	int pointSize;
@@ -68,15 +70,21 @@ private:
 	int numberOfVerts;
 	int texCoordSize;
 
+#ifndef USE_D3D_ONLY
 	//Texture info
 	GLuint texture;
 
 	//Buffer IDs
-	GLuint vbo; //Vertex Buffer Object
-	GLuint ibo; //Index Buffer Object
+	GLuint vbo;
+	GLuint ibo; 
 
 	void bufferGL(Shader* shader, char* textureFileName);
+
+#endif
+
+#ifdef D3D_SUPPORT
 	void bufferD3D(Shader* shader, char* textureFileName);
+#endif
 };
 
 #endif

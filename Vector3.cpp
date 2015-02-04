@@ -5,30 +5,30 @@
 */
 Vector3::Vector3()
 {
-	Vector3::x = 0;
-	Vector3::y = 0;
-	Vector3::z = 0;
+	this->vector[0] = 0;
+	this->vector[1] = 0;
+	this->vector[2] = 0;
 }
 
 Vector3::Vector3(float x, float y, float z)
 {
-	Vector3::x = x;
-	Vector3::y = y;
-	Vector3::z = z;
+	this->vector[0] = x;
+	this->vector[1] = y;
+	this->vector[2] = z;
 }
 
 Vector3::Vector3(const Vector3& other)
 {
-	Vector3::x = other.x;
-	Vector3::y = other.y;
-	Vector3::z = other.z;
+	this->vector[0] = other.vector[0];
+	this->vector[1] = other.vector[1];
+	this->vector[2] = other.vector[2];
 }
 
 Vector3::Vector3(Vector4& v4)
 {
-	Vector3::x = v4.getX() / v4.getW();
-	Vector3::y = v4.getY() / v4.getW();
-	Vector3::z = v4.getZ() / v4.getW();
+	this->vector[0] = v4.getX() / v4.getW();
+	this->vector[1] = v4.getY() / v4.getW();
+	this->vector[2] = v4.getZ() / v4.getW();
 }
 
 
@@ -46,22 +46,15 @@ Vector3::~Vector3()
 	Accessors & Mutators
 */
 
-float Vector3::getX(){return x;}
-float Vector3::getY(){return y;}
-float Vector3::getZ(){return z;}
+float Vector3::getX(){ return vector[0]; }
+float Vector3::getY(){ return vector[1]; }
+float Vector3::getZ(){ return vector[2];}
 
-float* Vector3::getAsArray()
-{
-	rawData[0] = Vector3::x;
-	rawData[1] = Vector3::y;
-	rawData[2] = Vector3::z;
+float* Vector3::getAsArray(){ return vector; }
 
-	return rawData;
-}
-
-void Vector3::setX(float x){Vector3::x = x;}
-void Vector3::setY(float y){Vector3::y = y;}
-void Vector3::setZ(float z){Vector3::z = z;}
+void Vector3::setX(float x){ Vector3::vector[0] = x; }
+void Vector3::setY(float y){ Vector3::vector[1] = y; }
+void Vector3::setZ(float z){ Vector3::vector[2] = z; }
 
 /*
 	Static Functions
@@ -72,9 +65,9 @@ Vector3 Vector3::Cross(Vector3 v, Vector3 u)
 {
 	Vector3 output;
 
-	output.x = v.y * u.z - v.z * u.y;
-	output.y = v.z * u.x - v.x * u.z;
-	output.z = v.x * u.y - v.y * u.x;
+	output.vector[0] = v.vector[1] * u.vector[2] - v.vector[2] * u.vector[1];
+	output.vector[1] = v.vector[2] * u.vector[0] - v.vector[0] * u.vector[2];
+	output.vector[2] = v.vector[0] * u.vector[1] - v.vector[1] * u.vector[0];
 
 	return output;
 }
@@ -112,11 +105,11 @@ Vector3 Vector3::ScalarProduct(Vector3 v, float s)
 //Normalize a vector
 Vector3 Vector3::Normalize(Vector3 v)
 {
-	float magnitude = sqrt((v.x*v.x) + (v.y*v.y) + (v.z*v.z));
+	float magnitude = sqrt((v.vector[0] * v.vector[0]) + (v.vector[1] * v.vector[1]) + (v.vector[2] * v.vector[2]));
 
-	Vector3 normalizedVec(v.x / magnitude, 
-						  v.y / magnitude,
-						  v.z / magnitude);
+	Vector3 normalizedVec(v.vector[0] / magnitude,
+					      v.vector[1] / magnitude,
+					      v.vector[2] / magnitude);
 
 	return normalizedVec;
 }
@@ -128,25 +121,25 @@ Vector3 Vector3::Normalize(Vector3 v)
 //Vector product
 float Vector3::operator* (Vector3 u)
 {
-	return (x * u.x + y * u.y + z * u.z);
+	return (vector[0] * u.vector[0] + vector[1] * u.vector[1] + vector[2] * u.vector[2]);
 }
 
 //Scalar product
 Vector3 Vector3::operator*(float s)
 {
-	return Vector3(s * x, s * y, s * z);
+	return Vector3(s * vector[0], s * vector[1], s * vector[2]);
 }
 
 //Sum
 Vector3 Vector3::operator+(Vector3 u)
 {
-	return Vector3(x + u.x, y + u.y, z + u.z);
+	return Vector3(vector[0] + u.vector[0], vector[1] + u.vector[1], vector[2] + u.vector[2]);
 }
 
 //Difference
 Vector3 Vector3::operator-(Vector3 u)
 {
-	return Vector3(x - u.x, y - u.y, z - u.z);
+	return Vector3(vector[0] - u.vector[0], vector[1] - u.vector[1], vector[2] - u.vector[2]);
 }
 
 //Extraction
@@ -159,12 +152,12 @@ ostream& operator<<(ostream& output, Vector3& v)
 //Insertion
 istream& operator>>(istream& input, Vector3& v)
 {
-	input >> v.x >> v.y >> v.z;
+	input >> v.vector[0] >> v.vector[1] >> v.vector[2];
 	return input;
 }
 
 //Casting to Vector4
 Vector3::operator Vector4()
 {
-	return Vector4(x, y, z, 1.0f);
+	return Vector4(vector[0], vector[1], vector[2], 1.0f);
 }

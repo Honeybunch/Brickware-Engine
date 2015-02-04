@@ -4,6 +4,8 @@
 #define _USE_MATH_DEFINES 
 #define _CRT_SECURE_NO_WARNINGS 
 
+#include "Settings.h"
+
 #ifdef D3D_SUPPORT
 	#include <windows.h>
 #endif

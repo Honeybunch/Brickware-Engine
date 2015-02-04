@@ -17,6 +17,9 @@ Mesh::Mesh(Shader* shader, Shape shape, char* textureFileName)
 	indexSize = numberOfVerts * sizeof(GLushort);
 	texCoordSize = shape.getTexCoordSize() * sizeof(float);
 
+	//Use the shader program
+	shader->bindShader();
+
 #ifdef CAN_SWITCH_CONTEXT
 	if (USE_DIRECTX)
 		bufferD3D(shader, textureFileName);
@@ -27,6 +30,9 @@ Mesh::Mesh(Shader* shader, Shape shape, char* textureFileName)
 #else
 	bufferGL(shader, textureFileName);
 #endif
+
+	//Unbind everything
+	shader->freeShader();
 }
 
 //Accessors
@@ -47,12 +53,10 @@ GLuint Mesh::getIBO(){ return ibo; }
 
 void Mesh::bufferGL(Shader* shader, char* textureFileName)
 {
-	//Use the shader program
-	shader->bindShader();
-
 	//Setup the VBO
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+
 	glBufferData(GL_ARRAY_BUFFER, pointSize + normalSize + texCoordSize, NULL, GL_STATIC_DRAW);
 	glBufferSubData(GL_ARRAY_BUFFER, 0, pointSize, points);
 	glBufferSubData(GL_ARRAY_BUFFER, pointSize, normalSize, normals);
@@ -66,11 +70,6 @@ void Mesh::bufferGL(Shader* shader, char* textureFileName)
 	//Load texture with SOIL
 	if (textureFileName != "" && textureFileName != NULL)
 		texture = SOIL_load_OGL_texture(textureFileName, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
-
-	//Unbind everything
-	shader->freeShader();
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 void Mesh::bufferD3D(Shader* shader, char* textureFileName)
 {

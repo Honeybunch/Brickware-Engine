@@ -22,6 +22,8 @@ public:
 	float getZ();
 	float getW();
 
+	float* getAsArray();
+
 	void setX(float x);
 	void setY(float y);
 	void setZ(float z);
@@ -33,7 +35,7 @@ public:
 	operator Vector3();
 
 private:
-	float x, y, z, w;
+	float vector[4];
 
 };
 

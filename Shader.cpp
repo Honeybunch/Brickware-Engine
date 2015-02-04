@@ -52,10 +52,41 @@ void Shader::freeShader()
 #endif
 }
 
+void Shader::bindVertexData()
+{
+#ifdef CAN_SWITCH_CONTEXT
+	if (USE_DIRECTX)
+		freeHLSL();
+	else
+		bindAttributes();
+#elif defined(USE_D3D_ONLY)
+	//freeHLSL();
+#else
+	bindAttributes();
+#endif
+}
+
 #ifndef USE_D3D_ONLY
 
-void Shader::bindGLSL(){ glUseProgram(shaderProgram); }
-void Shader::freeGLSL(){ glUseProgram(shaderProgram); }
+void Shader::bindGLSL()
+{ 
+	glUseProgram(shaderProgram); 
+}
+void Shader::freeGLSL()
+{ 
+	glUseProgram(0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void Shader::bindAttributes()
+{
+	for (unsigned int i = 0; i < attributes.size(); i++)
+	{
+		glVertexAttribPointer(i, 4, GL_FLOAT, GL_FALSE, 0, 0);
+	}
+}
 
 bool Shader::loadGLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 {
@@ -117,6 +148,27 @@ bool Shader::loadGLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 	glLinkProgram(program);
 	Utils::printProgramInfoLog(program);
 
+	glUseProgram(program);
+
+	//Get positions of Attributes
+	int totalAttributes;
+	glGetProgramiv(shaderProgram, GL_ACTIVE_ATTRIBUTES, &totalAttributes);
+
+	//Build a vector for all attribute locations
+	for (int i = 0; i < totalAttributes; i++)
+	{
+		int nameLength, num;
+		GLenum type = GL_ZERO;
+		char* name = new char[100];
+
+		glGetActiveAttrib(shaderProgram, (GLuint)i, 99,
+			&nameLength, &num, &type, name);
+
+		attributes[i] = i;
+	}
+
+	glUseProgram(0);
+
 	//Delete unneeded strings
 	delete vertexShaderSource;
 	delete pixelShaderSource;
@@ -161,7 +213,8 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 	D3D11_INPUT_ELEMENT_DESC vertexDesc[] =
 	{
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 16, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 28, D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
 
 	// Load Vertex Shader --------------------------------------

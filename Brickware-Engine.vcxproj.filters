@@ -218,6 +218,12 @@
     <ClCompile Include="dxerr.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="MaterialGL.cpp">
+      <Filter>Sources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="MaterialD3D.cpp">
+      <Filter>Sources\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\PixelShader.glsl">

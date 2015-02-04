@@ -85,6 +85,7 @@ GameObject::~GameObject()
 	for (unsigned int i = 0; i < components.size(); i++)
 		delete components[i];
 
+	//Before the GameObject is deleted make sure to remove it from the collection
 	for (unsigned int i = 0; i < Game::gameObjects.size(); i++)
 	{
 		if (Game::gameObjects[i] == this)

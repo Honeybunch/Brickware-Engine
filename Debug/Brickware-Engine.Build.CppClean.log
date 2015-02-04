@@ -2,8 +2,6 @@ d:\users\amt3824\git\brickware-engine\debug\pixelshader.cso
 d:\users\amt3824\git\brickware-engine\debug\vertexshader.cso
 d:\users\amt3824\git\brickware-engine\debug\vc120.pdb
 d:\users\amt3824\git\brickware-engine\debug\vc120.idb
-d:\users\amt3824\git\brickware-engine\debug\materiald3d.obj
-d:\users\amt3824\git\brickware-engine\debug\materialgl.obj
 d:\users\amt3824\git\brickware-engine\debug\matrix4.obj
 d:\users\amt3824\git\brickware-engine\debug\mesh.obj
 d:\users\amt3824\git\brickware-engine\debug\meshrenderer.obj
@@ -34,7 +32,9 @@ d:\users\amt3824\git\brickware-engine\debug\gameobject.obj
 d:\users\amt3824\git\brickware-engine\debug\input.obj
 d:\users\amt3824\git\brickware-engine\debug\light.obj
 d:\users\amt3824\git\brickware-engine\debug\main.obj
+d:\users\amt3824\git\brickware-engine\debug\materiald3d.obj
 d:\users\amt3824\git\brickware-engine\debug\material.obj
+d:\users\amt3824\git\brickware-engine\debug\materialgl.obj
 d:\users\amt3824\git\brickware-engine\debug\brickware-engine.ilk
 d:\users\amt3824\git\brickware-engine\debug\brickware-engine.exe
 d:\users\amt3824\git\brickware-engine\debug\brickware-engine.pdb

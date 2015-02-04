@@ -3,7 +3,7 @@
 #define pi 3.141592653589793238462643383279
 
 //Attributes
-in vec4 vPosition;
+in vec3 vPosition;
 in vec3 vNormal;
 in vec2 vTexCoord;
 
@@ -30,10 +30,10 @@ out vec2 texCoord;
 
 void main()
 {
-    gl_Position = (projectionMatrix * viewMatrix * modelMatrix) * vPosition;
+    gl_Position = (projectionMatrix * viewMatrix * modelMatrix) * vec4(vPosition, 1.0f);
 
 	//Shading
-	vec4 worldCoord4v = modelMatrix * vPosition;
+	vec4 worldCoord4v = modelMatrix * vec4(vPosition, 1.0f);
 	vec3 worldCoord3v = vec3(worldCoord4v.x / worldCoord4v.w,
 							 worldCoord4v.y / worldCoord4v.w,
 							 worldCoord4v.z / worldCoord4v.w);

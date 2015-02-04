@@ -15,31 +15,11 @@
 #endif
 
 #ifdef D3D_SUPPORT
-struct ConstantShaderBuffer
+struct ConstantBufferLayout
 {
-	unsigned int registerIndex;
-	LPCSTR name;
-	ID3D11ShaderReflectionConstantBuffer* buffer;
-	D3D11_SHADER_BUFFER_DESC* bufferDesc;
-
-	ConstantShaderBuffer(unsigned int registerIndex, LPCSTR name, 
-		ID3D11ShaderReflectionConstantBuffer* buffer,
-		D3D11_SHADER_BUFFER_DESC* bufferDesc)
-	{
-		this->registerIndex = registerIndex;
-		this->name = name;
-		this->buffer = buffer;
-		this->bufferDesc = bufferDesc;
-	}
-};
-
-struct ConstantBufferVariable
-{
-	LPCSTR name;
-	int length;
-	int offset;
-
-	ConstantBufferVariable(){}
+	D3D11_SHADER_BUFFER_DESC description;
+	std::vector<D3D11_SHADER_VARIABLE_DESC> variables;
+	std::vector<D3D11_SHADER_TYPE_DESC> types;
 };
 
 #endif
@@ -97,11 +77,10 @@ private:
 #endif
 
 #ifdef D3D_SUPPORT
-	std::map<std::string, D3D11_INPUT_ELEMENT_DESC> inputLayout;
+	std::vector<ConstantBufferLayout> constantBufferLayouts;
+	
 
-	//These are essentially mapped to each other
-	std::vector<ConstantShaderBuffer*> constantBuffers;
-	std::vector<std::vector<ConstantBufferVariable*>> constantBufferVars;
+	D3D11_SHADER_VARIABLE_DESC* getVariableByName(char* valueName);
 
 	void startD3D();
 

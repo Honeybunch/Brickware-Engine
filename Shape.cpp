@@ -21,9 +21,9 @@ Shape::Shape(PrimitiveType type, int division1, int division2, float radius)
 			break;
     }
 
-	pointElements = new float[triangles.size() * 12];
+	pointElements = new float[triangles.size() * 9];
 	normalElements = new float[triangles.size() * 9];
-	indicies = new GLushort[triangles.size() * 12];
+	indicies = new GLushort[triangles.size() * 9];
 	texCoords = new float[triangles.size() * 6];
 }
 
@@ -55,26 +55,23 @@ float* Shape::getPoints()
 {
 	for(unsigned int i=0; i < triangles.size(); i++)
 	{
-		Vector4 point1 = triangles[i].points[0];
-		Vector4 point2 = triangles[i].points[1];
-		Vector4 point3 = triangles[i].points[2];
+		Vector3 point1 = triangles[i].points[0];
+		Vector3 point2 = triangles[i].points[1];
+		Vector3 point3 = triangles[i].points[2];
 
-		int index = i * 12;
+		int index = i * 9;
 
 		pointElements[index] = point1.getX();
 		pointElements[index+1] = point1.getY();
 		pointElements[index+2] = point1.getZ();
-		pointElements[index+3] = point1.getW();
 
-		pointElements[index+4] = point2.getX();
-		pointElements[index+5] = point2.getY();
-		pointElements[index+6] = point2.getZ();
-		pointElements[index+7] = point2.getW();
+		pointElements[index+3] = point2.getX();
+		pointElements[index+4] = point2.getY();
+		pointElements[index+5] = point2.getZ();
 
-		pointElements[index+8] = point3.getX();
-		pointElements[index+9] = point3.getY();
-		pointElements[index+10] = point3.getZ();
-		pointElements[index+11] = point3.getW();
+		pointElements[index+6] = point3.getX();
+		pointElements[index+7] = point3.getY();
+		pointElements[index+8] = point3.getZ();
 	}
 
 	return pointElements;
@@ -113,7 +110,7 @@ float* Shape::getNormals()
 
 GLushort* Shape::getIndicies()
 {
-	for(unsigned int i=0; i < triangles.size() * 12; i++)
+	for(unsigned int i=0; i < triangles.size() * 9; i++)
 	{
 		indicies[i] = i;
 	}
@@ -148,7 +145,7 @@ float* Shape::getTexCoords()
 
 int Shape::getPointCount()
 {
-	return triangles.size() * 12;
+	return triangles.size() * 9;
 }
 
 int Shape::getNormalCount()

@@ -109,7 +109,7 @@ void MeshRenderer::renderGL(Material* material)
 	int texCoordOffset = normalOffset + mesh->getNormalSize();
 
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->getVBO());
-	glVertexAttribPointer(vPosition, 4, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
+	glVertexAttribPointer(vPosition, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
 	glVertexAttribPointer(vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(normalOffset));
 	glVertexAttribPointer(vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(texCoordOffset));
 
@@ -124,7 +124,7 @@ void MeshRenderer::renderD3D(Material* material)
 
 	//I CAN SET MORE THAN ONE BUFFER
 	//CONSIDER THIS LATER
-	UINT stride = sizeof(float) * 9;
+	UINT stride = sizeof(float) * 8;
 	ID3D11Buffer* vertexBuffer = mesh->getVertexBuffer();
 	ID3D11Buffer* indexBuffer = mesh->getIndexBuffer();
 

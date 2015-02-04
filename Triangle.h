@@ -29,7 +29,7 @@ public:
 
 	~Triangle(void);
 
-	Vector4* points;
+	Vector3* points;
 	Vector3* normals;
 	Vector2* uvs;
 

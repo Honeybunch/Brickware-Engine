@@ -13,7 +13,7 @@ Mesh::Mesh(Shader* shader, Shape shape, char* textureFileName)
 	texCoords = shape.getTexCoords();
 
 	//Store sizes
-	numberOfVerts = shape.getPointCount() / 4;
+	numberOfVerts = shape.getPointCount() / 3;
 	pointSize = shape.getPointCount() * sizeof (float);
 	normalSize = shape.getNormalCount() * sizeof(float);
 	indexSize = numberOfVerts * sizeof(GLushort);
@@ -91,14 +91,13 @@ void Mesh::bufferD3D(Shader* shader, char* textureFileName)
 		verticies[i] = points[i];
 		verticies[i + 1] = points[i + 1];
 		verticies[i + 2] = points[i + 2];
-		verticies[i + 3] = points[i + 3];
 
-		verticies[i + 4] = normals[i];
-		verticies[i + 5] = normals[i + 1];
-		verticies[i + 6] = normals[i + 2];
+		verticies[i + 3] = normals[i];
+		verticies[i + 4] = normals[i + 1];
+		verticies[i + 5] = normals[i + 2];
 
-		verticies[i + 7] = texCoords[i];
-		verticies[i + 8] = texCoords[i + 1];
+		verticies[i + 6] = texCoords[i];
+		verticies[i + 7] = texCoords[i + 1];
 	}
 
 	D3D11_BUFFER_DESC vertexBufferDesc;

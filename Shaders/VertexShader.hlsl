@@ -20,7 +20,7 @@ cbuffer perModel : register(b0)
 // - This should match our input layout!
 struct VertexShaderInput
 {
-	float4 position		: POSITION;
+	float3 position		: POSITION;
 	float3 normal		: NORMAL;
 	float2 texCoord		: TEXCOORD;
 };
@@ -42,7 +42,7 @@ VertexToPixel main(VertexShaderInput input)
 
 	// Calculate output position
 	matrix modelViewProj = mul(mul(modelMatrix, viewMatrix), projectionMatrix);
-	output.position = mul(float4(input.position), modelViewProj);
+	output.position = mul(float4(input.position, 1.0f), modelViewProj);
 
 	// Pass the color through - will be interpolated per-pixel by the rasterizer
 	output.color = float4(0.0f, 1.0f, 0.0f, 1.0f);

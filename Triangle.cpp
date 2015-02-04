@@ -2,33 +2,33 @@
 
 Triangle::Triangle()
 {
-	points = new Vector4[3];
+	points = new Vector3[3];
 	normals = new Vector3[3];
 	uvs = new Vector2[3];
 }
 
 Triangle::Triangle(Vector4 point1, Vector4 point2, Vector4 point3)
 {
-	points = new Vector4[3];
+	points = new Vector3[3];
 	normals = new Vector3[3];
 	uvs = new Vector2[3];
 
-	points[0] = point1;
-	points[1] = point2;
-	points[2] = point3;
+	points[0] = (Vector3)point1;
+	points[1] = (Vector3)point2;
+	points[2] = (Vector3)point3;
 
 	calculateNormal();
 }
 
 Triangle::Triangle(Vector3 point1, Vector3 point2, Vector3 point3)
 {
-	points = new Vector4[3];
+	points = new Vector3[3];
 	normals = new Vector3[3];
 	uvs = new Vector2[3];
 
-	points[0] = (Vector4)point1;
-	points[1] = (Vector4)point2;
-	points[2] = (Vector4)point3;
+	points[0] = point1;
+	points[1] = point2;
+	points[2] = point3;
 
 	calculateNormal();
 }
@@ -36,13 +36,13 @@ Triangle::Triangle(Vector3 point1, Vector3 point2, Vector3 point3)
 Triangle::Triangle(Vector4 point1, Vector4 point2, Vector4 point3,
 				   Vector2 texCoord1, Vector2 texCoord2, Vector2 texCoord3)
 {
-	points = new Vector4[3];
+	points = new Vector3[3];
 	normals = new Vector3[3];
 	uvs = new Vector2[3];
 
-	points[0] = point1;
-	points[1] = point2;
-	points[2] = point3;
+	points[0] = (Vector3)point1;
+	points[1] = (Vector3)point2;
+	points[2] = (Vector3)point3;
 
 	uvs[0] = texCoord1;
 	uvs[1] = texCoord2;
@@ -54,13 +54,13 @@ Triangle::Triangle(Vector4 point1, Vector4 point2, Vector4 point3,
 Triangle::Triangle(Vector3 point1, Vector3 point2, Vector3 point3,
 				   Vector2 texCoord1, Vector2 texCoord2, Vector2 texCoord3)
 {
-	points = new Vector4[3];
+	points = new Vector3[3];
 	normals = new Vector3[3];
 	uvs = new Vector2[3];
 
-	points[0] = (Vector4)point1;
-	points[1] = (Vector4)point2;
-	points[2] = (Vector4)point3;
+	points[0] = point1;
+	points[1] = point2;
+	points[2] = point3;
 
 	uvs[0] = texCoord1;
 	uvs[1] = texCoord2;
@@ -73,13 +73,13 @@ Triangle::Triangle(Vector4 point1, Vector4 point2, Vector4 point3,
 				   Vector2 texCoord1, Vector2 texCoord2, Vector2 texCoord3,
 				   Vector3 normal1, Vector3 normal2, Vector3 normal3)
 {
-	points = new Vector4[3];
+	points = new Vector3[3];
 	normals = new Vector3[3];
 	uvs = new Vector2[3];
 
-	points[0] = point1;
-	points[1] = point2;
-	points[2] = point3;
+	points[0] = (Vector3)point1;
+	points[1] = (Vector3)point2;
+	points[2] = (Vector3)point3;
 
 	uvs[0] = texCoord1;
 	uvs[1] = texCoord2;
@@ -94,7 +94,7 @@ Triangle::Triangle(Vector3 point1, Vector3 point2, Vector3 point3,
 				   Vector2 texCoord1, Vector2 texCoord2, Vector2 texCoord3,
 				   Vector3 normal1, Vector3 normal2, Vector3 normal3)
 {
-	points = new Vector4[3];
+	points = new Vector3[3];
 	normals = new Vector3[3];
 	uvs = new Vector2[3];
 

@@ -52,20 +52,6 @@ void Shader::freeShader()
 #endif
 }
 
-void Shader::bindVertexData()
-{
-#ifdef CAN_SWITCH_CONTEXT
-	if (USE_DIRECTX)
-		freeHLSL();
-	else
-		bindAttributes();
-#elif defined(USE_D3D_ONLY)
-	//freeHLSL();
-#else
-	bindAttributes();
-#endif
-}
-
 #ifndef USE_D3D_ONLY
 
 void Shader::bindGLSL()
@@ -78,14 +64,6 @@ void Shader::freeGLSL()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindTexture(GL_TEXTURE_2D, 0);
-}
-
-void Shader::bindAttributes()
-{
-	for (unsigned int i = 0; i < attributes.size(); i++)
-	{
-		glVertexAttribPointer(i, 4, GL_FLOAT, GL_FALSE, 0, 0);
-	}
 }
 
 bool Shader::loadGLSL(char* vertexShaderFileName, char* pixelShaderFileName)
@@ -150,21 +128,23 @@ bool Shader::loadGLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 
 	glUseProgram(program);
 
-	//Get positions of Attributes
-	int totalAttributes;
-	glGetProgramiv(shaderProgram, GL_ACTIVE_ATTRIBUTES, &totalAttributes);
+	//Get positions of Uniforms
+	int totalUniforms;
+	glGetProgramiv(program, GL_ACTIVE_UNIFORMS, &totalUniforms);
 
-	//Build a vector for all attribute locations
-	for (int i = 0; i < totalAttributes; i++)
+	//Build a map of all uniform locations
+	for (int i = 0; i < totalUniforms; i++)
 	{
 		int nameLength, num;
 		GLenum type = GL_ZERO;
 		char* name = new char[100];
 
-		glGetActiveAttrib(shaderProgram, (GLuint)i, 99,
+		glGetActiveUniform(program, (GLuint)i, 99,
 			&nameLength, &num, &type, name);
 
-		attributes[i] = i;
+		name[nameLength] = 0;
+
+		uniformMap[std::string(name)] = i;
 	}
 
 	glUseProgram(0);
@@ -213,8 +193,8 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 	D3D11_INPUT_ELEMENT_DESC vertexDesc[] =
 	{
 		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+		{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
 
 	// Load Vertex Shader --------------------------------------
@@ -239,9 +219,6 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 		vsBlob->GetBufferSize(),
 		&inputLayout));
 
-	// Clean up
-	//ReleaseMacro(vsBlob);
-
 	// Load Pixel Shader ---------------------------------------
 	D3DReadFileToBlob(hlslPixelWideString, &psBlob);
 	if (false)
@@ -257,20 +234,81 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 		NULL,
 		&pixelShader));
 
-	// Clean up
-	//ReleaseMacro(psBlob);
+	//Get the shader description
+	ID3D11ShaderReflection* vertexShaderReflection;
 
-	//Generate Constant Buffer
-	D3D11_BUFFER_DESC cBufferDesc;
-	cBufferDesc.ByteWidth = sizeof(VertexShaderConstantBufferLayout);
-	cBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	cBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-	cBufferDesc.CPUAccessFlags = 0;
-	cBufferDesc.MiscFlags = 0;
-	cBufferDesc.StructureByteStride = 0;
-	HR(Game::device->CreateBuffer(&cBufferDesc, NULL, &vsConstantBuffer));
+	//To avoid a linker error on IID_ID3D11ShaderReflection, make sure to link with dxguid.lib
+	HR(D3DReflect(vsBlob->GetBufferPointer(), vsBlob->GetBufferSize(),
+		IID_ID3D11ShaderReflection, (void**)&vertexShaderReflection));
+
+	D3D11_SHADER_DESC shaderDescription;
+	vertexShaderReflection->GetDesc(&shaderDescription);
+
+	//Find all constant buffers
+	for (unsigned int i = 0; i < shaderDescription.ConstantBuffers; i++)
+	{
+		D3D11_SHADER_BUFFER_DESC constantBufferDesc;
+		ID3D11ShaderReflectionConstantBuffer* constantBuffer =
+			vertexShaderReflection->GetConstantBufferByIndex(i);
+
+		constantBuffer->GetDesc(&constantBufferDesc);
+
+		unsigned int bufferSize = 0;
+		char* bufferData;
+
+		//Gonna map variable names to more data
+		std::map<std::string, D3D11_SHADER_VARIABLE_DESC> bufferVarMap;
+
+		//Load the description and type of each variable 
+		for (unsigned int j = 0; j < constantBufferDesc.Variables; j++)
+		{
+			//Load description
+			ID3D11ShaderReflectionVariable* variable =
+				constantBuffer->GetVariableByIndex(j);
+			D3D11_SHADER_VARIABLE_DESC variableDescription;
+			variable->GetDesc(&variableDescription);
+
+			//Add this variable to the buffer map
+			bufferVarMap[std::string(variableDescription.Name)] = variableDescription;
+
+			if (j + 1 == constantBufferDesc.Variables)
+				bufferSize = variableDescription.StartOffset + variableDescription.Size;
+		}
+
+		//bufferSize += 4;
+
+		//Setup the bufferData
+		bufferData = new char[bufferSize];
+
+		//Add the map to the map vector and the bufferData to the data vector
+		//These vectors are essentially mapped to one another
+		constantBufferData.push_back(bufferData);
+		constantBufferMaps.push_back(bufferVarMap);
+
+		//Hack to allocate space for a new constant buffer
+		ID3D11Buffer* bufferSpace = 0;
+
+		//Actually create a constant buffer object
+		D3D11_BUFFER_DESC cBufferDesc;
+		cBufferDesc.ByteWidth = bufferSize;
+		cBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+		cBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+		cBufferDesc.CPUAccessFlags = 0;
+		cBufferDesc.MiscFlags = 0;
+		cBufferDesc.StructureByteStride = 0;
+		HR(Game::device->CreateBuffer(
+			&cBufferDesc,
+			NULL,
+			&bufferSpace));
+
+		constantBuffers.push_back(bufferSpace);
+	}
 
 	//Free unneeded data
+	ReleaseMacro(vsBlob);
+	ReleaseMacro(psBlob);
+	ReleaseMacro(vertexShaderReflection);
+
 	delete hlslVertexFileName;
 	delete hlslPixelFileName;
 	delete hlslVertexWideString;
@@ -279,11 +317,32 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 	return true;
 }
 
+ConstVariableInfo Shader::getVariableInfoByName(char* valueName)
+{
+	ConstVariableInfo constVariableInfo;
+
+	//Need to get the info about the shader variable that we asked for
+	for (unsigned int i = 0; i < constantBufferMaps.size(); i++)
+	{
+		std::map<std::string, D3D11_SHADER_VARIABLE_DESC> bufferVarMap = constantBufferMaps[i];
+		if (bufferVarMap.count(std::string(valueName)))
+		{
+			constVariableInfo.bufferIndex = i;
+			constVariableInfo.variableInfo = bufferVarMap[std::string(valueName)];
+		}
+	}
+
+	return constVariableInfo;
+}
+
 #endif
 
 Shader::~Shader()
 {
 #ifdef D3D_SUPPORT
+	ReleaseMacro(vsBlob);
+	ReleaseMacro(psBlob);
+
 	ReleaseMacro(vertexShader);
 	ReleaseMacro(pixelShader);
 	ReleaseMacro(inputLayout);

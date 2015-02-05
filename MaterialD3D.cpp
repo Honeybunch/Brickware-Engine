@@ -1,112 +1,143 @@
 #include "Material.h"
 
+#include "Game.h"
+
 #ifdef D3D_SUPPORT
-void Material::startD3D()
-{
-	//Get the shader description
-	ID3D11ShaderReflection* vertexShaderReflection;
-	ID3DBlob* vsBlob = shader->vsBlob;
-
-	//To avoid a linker error on IID_ID3D11ShaderReflection, make sure to link with dxguid.lib
-	HR(D3DReflect(vsBlob->GetBufferPointer(), vsBlob->GetBufferSize(),
-		IID_ID3D11ShaderReflection, (void**)&vertexShaderReflection));
-
-	D3D11_SHADER_DESC shaderDescription;
-	vertexShaderReflection->GetDesc(&shaderDescription);
-	
-	//Find all constant buffers
-	for (unsigned int i = 0; i < shaderDescription.ConstantBuffers; i++)
-	{
-		ConstantBufferLayout bufferLayout;
-		ID3D11ShaderReflectionConstantBuffer* constantBuffer =
-			vertexShaderReflection->GetConstantBufferByIndex(i);
-		constantBuffer->GetDesc(&bufferLayout.description);
-
-		//Load the description and type of each variable 
-		for (unsigned int j = 0; j < bufferLayout.description.Variables; j++)
-		{
-			//Load description
-			ID3D11ShaderReflectionVariable* variable =
-				constantBuffer->GetVariableByIndex(j);
-			D3D11_SHADER_VARIABLE_DESC variableDescription;
-			variable->GetDesc(&variableDescription);
-
-			bufferLayout.variables.push_back(variableDescription);
-
-			//Load type
-			ID3D11ShaderReflectionType* type = variable->GetType();
-			D3D11_SHADER_TYPE_DESC typeDescription;
-			type->GetDesc(&typeDescription);
-
-			bufferLayout.types.push_back(typeDescription);
-		}
-
-		constantBufferLayouts.push_back(bufferLayout);
-	}
-
-	//LOAD REFLECTION DATA
-	//SAVE SIZES
-	//MAP VARIABLE NAMES TO OFFSETS IN A CHAR* BUFFER
-
-	ReleaseMacro(vertexShaderReflection);
-}
-
-D3D11_SHADER_VARIABLE_DESC* Material::getVariableByName(char* valueName)
-{
-	/*
-	//Loop through every constant buffer we have in reflection
-	//Find the variable with a matching name
-	for (unsigned int i = 0; i < constantBufferLayouts.size(); i++)
-	{
-		vector<ConstantBufferVariable*> bufferVars = constantBufferLayouts[i];
-
-
-	}
-	*/
-
-	return 0;
-}
+std::vector<ID3D11Buffer*> Material::getConstantBuffers(){ return shader->constantBuffers; }
+std::vector<char*> Material::getConstantBufferData(){ return shader->constantBufferData; }
 
 void Material::setVector4D3D(char* valueName, Vector4 value)
 {
-	/*
-	ConstantBufferVariable* bufferVarToSet = getVariableByName(valueName);
-	if (!bufferVarToSet)
+	ConstVariableInfo constVariableInfo = shader->getVariableInfoByName(valueName);
+
+	//We didn't find any variable with that name if the bufferIndex is still -1
+	if (constVariableInfo.bufferIndex < 0)
 		return;
-		*/
-	
 
+	//Get info about variable
+	int variableOffset = constVariableInfo.variableInfo.StartOffset;
+	int variableSize = constVariableInfo.variableInfo.Size;
 
+	float* data = value.getAsArray();
+
+	char* bufferData = shader->constantBufferData[constVariableInfo.bufferIndex];
+
+	//Copy our data into the buffer's data
+	memcpy(bufferData + variableOffset, data, variableSize);
 }
 
 void Material::setVector3D3D(char* valueName, Vector3 value)
 {
+	ConstVariableInfo constVariableInfo = shader->getVariableInfoByName(valueName);
 
+	//We didn't find any variable with that name if the bufferIndex is still -1
+	if (constVariableInfo.bufferIndex < 0)
+		return;
+
+	//Get info about variable
+	int variableOffset = constVariableInfo.variableInfo.StartOffset;
+	int variableSize = constVariableInfo.variableInfo.Size;
+
+	float* data = value.getAsArray();
+
+	char* bufferData = shader->constantBufferData[constVariableInfo.bufferIndex];
+
+	//Copy our data into the buffer's data
+	memcpy(bufferData + variableOffset, data, variableSize);
 }
 
 void Material::setVector2D3D(char* valueName, Vector2 value)
 {
+	ConstVariableInfo constVariableInfo = shader->getVariableInfoByName(valueName);
 
+	//We didn't find any variable with that name if the bufferIndex is still -1
+	if (constVariableInfo.bufferIndex < 0)
+		return;
+
+	//Get info about variable
+	int variableOffset = constVariableInfo.variableInfo.StartOffset;
+	int variableSize = constVariableInfo.variableInfo.Size;
+
+	float* data = value.getAsArray();
+
+	char* bufferData = shader->constantBufferData[constVariableInfo.bufferIndex];
+
+	//Copy our data into the buffer's data
+	memcpy(bufferData + variableOffset, data, variableSize);
 }
 
 void Material::setIntD3D(char* valueName, int value)
 {
+	ConstVariableInfo constVariableInfo = shader->getVariableInfoByName(valueName);
 
+	//We didn't find any variable with that name if the bufferIndex is still -1
+	if (constVariableInfo.bufferIndex < 0)
+		return;
+
+	//Get info about variable
+	int variableOffset = constVariableInfo.variableInfo.StartOffset;
+	int variableSize = constVariableInfo.variableInfo.Size;
+
+	char* bufferData = shader->constantBufferData[constVariableInfo.bufferIndex];
+
+	//Copy our data into the buffer's data
+	memcpy(bufferData + variableOffset, &value, sizeof(int));
 }
 
 void Material::setFloatD3D(char* valueName, float value)
 {
+	ConstVariableInfo constVariableInfo = shader->getVariableInfoByName(valueName);
 
+	//We didn't find any variable with that name if the bufferIndex is still -1
+	if (constVariableInfo.bufferIndex < 0)
+		return;
+
+	//Get info about variable
+	int variableOffset = constVariableInfo.variableInfo.StartOffset;
+	int variableSize = constVariableInfo.variableInfo.Size;
+
+	char* bufferData = shader->constantBufferData[constVariableInfo.bufferIndex];
+
+	//Copy our data into the buffer's data
+	memcpy(bufferData + variableOffset, &value, sizeof(float));
 }
 
 void Material::setDoubleD3D(char* valueName, double value)
 {
+	ConstVariableInfo constVariableInfo = shader->getVariableInfoByName(valueName);
 
+	//We didn't find any variable with that name if the bufferIndex is still -1
+	if (constVariableInfo.bufferIndex < 0)
+		return;
+
+	//Get info about variable
+	int variableOffset = constVariableInfo.variableInfo.StartOffset;
+	int variableSize = constVariableInfo.variableInfo.Size;
+
+	char* bufferData = shader->constantBufferData[constVariableInfo.bufferIndex];
+
+	//Copy our data into the buffer's data
+	memcpy(bufferData + variableOffset, &value, sizeof(double));
 }
 
 void Material::setMatrix4D3D(char* valueName, Matrix4 value)
 {
+	ConstVariableInfo constVariableInfo = shader->getVariableInfoByName(valueName);
 
+	//We didn't find any variable with that name if the bufferIndex is still -1
+	if (constVariableInfo.bufferIndex < 0)
+		return;
+
+	//Get info about variable
+	int variableOffset = constVariableInfo.variableInfo.StartOffset;
+	int variableSize = constVariableInfo.variableInfo.Size;
+
+	float* data = value.getAsArray();
+
+	char* bufferData = shader->constantBufferData[constVariableInfo.bufferIndex];
+
+	//Copy our data into the buffer's data
+	memcpy(bufferData + variableOffset, data, variableSize);
 }
 
 #endif

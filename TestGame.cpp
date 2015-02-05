@@ -11,7 +11,7 @@ bool TestGame::init()
 	if (!good)
 		return false;
 
-	shader = new Shader("Shaders/VertexShader", "Shaders/PixelShader");
+	Shader* shader = new Shader("Shaders/VertexShader", "Shaders/PixelShader");
 
 	Shape modelShape("Models/castle.obj");
 	Shape sphere(PrimitiveType::SPHERE, 10, 10);

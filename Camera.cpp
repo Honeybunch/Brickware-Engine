@@ -124,16 +124,12 @@ void Camera::Render()
 	Material* material = getGameObject()->getComponent<Material>();
 	FrustrumCollider* collider = getGameObject()->getComponent<FrustrumCollider>();
 
-#ifdef CAN_SWITCH_CONTEXT
-	if (USE_DIRECTX)
-		renderD3D(material);
-	else
-		renderGL(material);
-#elif defined(USE_D3D_ONLY)
-	renderD3D(material);
-#else
-	renderGL(material);
-#endif
+	material->setMatrix4("viewMatrix", viewMatrix);
+	material->setMatrix4("projectionMatrix", projectionMatrix);
+
+	material->setVector3("lookAt", *lookAt);
+	material->setVector3("eyePoint", *getGameObject()->getTransform()->getPosition());
+	material->setVector3("up", getGameObject()->getTransform()->getUp());
 
 	//Look through the rendering octree, see which octents collide with the camera's frustrum and then render objects in those nodes
 	vector<OctreeNode*> collidingNodes = renderingOctree->getCollidingChildren(collider);
@@ -234,12 +230,7 @@ void Camera::startD3D(Material* material)
 
 void Camera::renderGL(Material* material)
 {
-	material->setMatrix4("viewMatrix", viewMatrix);
-	material->setMatrix4("projectionMatrix", projectionMatrix);
-
-	material->setVector3("lookAt", *lookAt);
-	material->setVector3("eyePoint", *getGameObject()->getTransform()->getPosition());
-	material->setVector3("up", getGameObject()->getTransform()->getUp());
+	
 }
 void Camera::renderD3D(Material* material)
 {

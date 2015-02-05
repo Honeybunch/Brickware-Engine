@@ -1,3 +1,5 @@
+//Pack matrices so that they're all row major like GLSL
+#pragma pack_matrix(row_major)
 
 // The constant buffer that holds our "per model" data
 // - Each object you draw with this shader will probably have
@@ -8,12 +10,14 @@ cbuffer perModel : register(b0)
 	matrix viewMatrix;
 	matrix projectionMatrix;
 
+	/*
 	float3 lightPosition;
 
 	texture2D tex;
 
 	float3 lookAt;
 	float3 eyePoint;
+	*/
 };
 
 // Defines what kind of data to expect as input

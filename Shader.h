@@ -4,6 +4,8 @@
 #include "Settings.h"
 
 #include <vector>
+#include <map>
+#include <string>
 
 #ifdef D3D_SUPPORT
 	#include <windows.h>
@@ -11,21 +13,11 @@
 	#include <d3dcompiler.h>
 	#include <d3d11shader.h>
 
-//Structs for HLSL (for now)
-struct Vertex
-{
-	float position[4];
-	float normal[4];
-	float texCoord[4];
+//Quick struct to hold D3D11_SHADER_VARIABLE_DESCs and the index of the buffer it belongs to
+struct ConstVariableInfo{
+	int bufferIndex = -1;
+	D3D11_SHADER_VARIABLE_DESC variableInfo;
 };
-
-struct VertexShaderConstantBufferLayout
-{
-	float model[16];
-	float view[16];
-	float projection[16];
-};
-
 #endif
 
 #ifndef USE_D3D_ONLY
@@ -49,19 +41,17 @@ public:
 	void bindShader();
 	void freeShader();
 
-	void bindVertexData();
-
 	~Shader();
 
 private:
 #ifndef USE_D3D_ONLY
 	GLuint shaderProgram;
-	std::vector<GLuint> attributes;
+
+	//MUST use a string otherwise it will compare char*s as integer values and insert garbage data
+	std::map<std::string, GLuint> uniformMap;
 
 	void bindGLSL();
 	void freeGLSL();
-
-	void bindAttributes();
 
 	bool loadGLSL(char* vertexShaderFileName, char* pixelShaderFileName);
 #endif
@@ -75,6 +65,12 @@ private:
 
 	ID3D11InputLayout* inputLayout;
 	ID3D11Buffer* vsConstantBuffer;
+
+	std::vector<ID3D11Buffer*> constantBuffers;
+	std::vector<char*> constantBufferData;
+	std::vector<std::map<std::string, D3D11_SHADER_VARIABLE_DESC>> constantBufferMaps;
+
+	ConstVariableInfo getVariableInfoByName(char* valueName);
 
 	void bindHLSL();
 	void freeHLSL();

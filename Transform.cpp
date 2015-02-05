@@ -68,22 +68,13 @@ void Transform::Render()
 	GameObject* go = this->getGameObject();
 	Material* material = go->getComponent<Material>();
 
-#ifdef CAN_SWITCH_CONTEXT
-	if (USE_DIRECTX)
-		renderD3D(material);
-	else
-		renderGL(material);
-#elif defined(USE_D3D_ONLY)
-	renderD3D(material);
-#else
-	renderGL(material);
-#endif
+	material->setMatrix4("modelMatrix", modelMatrix);
 }
 
 //Send info to GLSL Shader
 void Transform::renderGL(Material* material)
 {
-	material->setMatrix4("modelMatrix", modelMatrix);
+	
 }
 
 //Send info to HLSL Shader

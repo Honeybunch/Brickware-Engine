@@ -88,21 +88,23 @@ void Mesh::bufferD3D(Shader* shader, char* textureFileName)
 
 	for (int i = 0; i < numberOfVerts ; i++)
 	{
-		verticies[i] = points[i];
-		verticies[i + 1] = points[i + 1];
-		verticies[i + 2] = points[i + 2];
+		int index = (i * 8);
 
-		verticies[i + 3] = normals[i];
-		verticies[i + 4] = normals[i + 1];
-		verticies[i + 5] = normals[i + 2];
-
-		verticies[i + 6] = texCoords[i];
-		verticies[i + 7] = texCoords[i + 1];
+		verticies[index] = points[i];
+		verticies[index + 1] = points[i + 1];
+		verticies[index + 2] = points[i + 2];
+				  
+		verticies[index + 3] = normals[i];
+		verticies[index + 4] = normals[i + 1];
+		verticies[index + 5] = normals[i + 2];
+				  
+		verticies[index + 6] = texCoords[i];
+		verticies[index + 7] = texCoords[i + 1];
 	}
 
 	D3D11_BUFFER_DESC vertexBufferDesc;
 	vertexBufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
-	vertexBufferDesc.ByteWidth = pointSize + normalSize + texCoordSize;
+	vertexBufferDesc.ByteWidth = numberOfVerts * sizeof(float) * 8;
 	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	vertexBufferDesc.CPUAccessFlags = 0;
 	vertexBufferDesc.MiscFlags = 0;
@@ -117,7 +119,7 @@ void Mesh::bufferD3D(Shader* shader, char* textureFileName)
 	//Create index buffer description
 	D3D11_BUFFER_DESC indexBufferDesc;
 	indexBufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
-	indexBufferDesc.ByteWidth = sizeof(UINT) * 3; // Number of indices in the "model" you want to draw
+	indexBufferDesc.ByteWidth = sizeof(UINT) * indexSize; // Number of indices in the "model" you want to draw
 	indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 	indexBufferDesc.CPUAccessFlags = 0;
 	indexBufferDesc.MiscFlags = 0;
@@ -125,6 +127,8 @@ void Mesh::bufferD3D(Shader* shader, char* textureFileName)
 
 	D3D11_SUBRESOURCE_DATA indexData;
 	indexData.pSysMem = indicies;
+
+	delete verticies;
 
 	//Buffer
 	HR(Game::device->CreateBuffer(&indexBufferDesc, &indexData, &indexBuffer));

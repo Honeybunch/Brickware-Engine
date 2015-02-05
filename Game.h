@@ -47,10 +47,12 @@ using namespace std;
 
 class Game
 {
+	//Remove more of these by having a class to store the device contexts
 	friend class Input;
 	friend class GameObject;
 	friend class Shader;
 	friend class Mesh;
+	friend class Material;
 	
 	friend class Camera;
 	friend class MeshRenderer;

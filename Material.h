@@ -14,16 +14,6 @@
 	#include <glfw3.h>
 #endif
 
-#ifdef D3D_SUPPORT
-struct ConstantBufferLayout
-{
-	D3D11_SHADER_BUFFER_DESC description;
-	std::vector<D3D11_SHADER_VARIABLE_DESC> variables;
-	std::vector<D3D11_SHADER_TYPE_DESC> types;
-};
-
-#endif
-
 #include "Component.h"
 #include "Utils.h"
 
@@ -41,6 +31,11 @@ public:
 	void bindShader();
 	void freeShader();
 
+#ifdef D3D_SUPPORT
+	std::vector<ID3D11Buffer*> getConstantBuffers();
+	std::vector<char*> getConstantBufferData();
+#endif
+
 	void setVector4(char* valueName, Vector4 value);
 	void setVector3(char* valueName, Vector3 value);
 	void setVector2(char* valueName, Vector2 value);
@@ -51,20 +46,12 @@ public:
 
 	void setMatrix4(char* valueName, Matrix4 value);
 
-	//Component Overrides
-	virtual void Start();
-
 	~Material();
 
 private:
 	Shader* shader;
 
 #ifndef USE_D3D_ONLY
-	//MUST use a string otherwise it will compare char*s as integer values and insert garbage data
-	std::map<std::string, GLuint> uniformMap;	
-
-	void startGL();
-
 	void setVector4GL(char* valueName, Vector4 value);
 	void setVector3GL(char* valueName, Vector3 value);
 	void setVector2GL(char* valueName, Vector2 value);
@@ -77,13 +64,6 @@ private:
 #endif
 
 #ifdef D3D_SUPPORT
-	std::vector<ConstantBufferLayout> constantBufferLayouts;
-	
-
-	D3D11_SHADER_VARIABLE_DESC* getVariableByName(char* valueName);
-
-	void startD3D();
-
 	void setVector4D3D(char* valueName, Vector4 value);
 	void setVector3D3D(char* valueName, Vector3 value);
 	void setVector2D3D(char* valueName, Vector2 value);

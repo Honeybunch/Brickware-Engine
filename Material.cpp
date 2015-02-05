@@ -108,19 +108,3 @@ void Material::setMatrix4(char* valueName, Matrix4 value)
 	setMatrix4GL(valueName, value);
 #endif
 }
-
-//Component Overrides
-
-void Material::Start()
-{	
-#ifdef CAN_SWITCH_CONTEXT
-	if (USE_DIRECTX)
-		startD3D();
-	else
-		startGL();
-#elif defined(USE_D3D_ONLY)
-	startD3D();
-#else
-	startGL();
-#endif
-}

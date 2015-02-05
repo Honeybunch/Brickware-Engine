@@ -125,6 +125,7 @@ void MeshRenderer::renderD3D(Material* material)
 
 	for (unsigned int i = 0; i < constantBuffers.size(); i++)
 	{
+		//Do this on variable setting
 		Game::deviceContext->UpdateSubresource(
 			constantBuffers[i],
 			0,

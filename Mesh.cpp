@@ -116,6 +116,12 @@ void Mesh::bufferD3D(Shader* shader, char* textureFileName)
 	//Buffer
 	HR(Game::device->CreateBuffer(&vertexBufferDesc, &vertexData, &vertexBuffer));
 
+	//Need to have ints rather than shorts
+	unsigned int* d3dIndices = new unsigned int[indexSize];
+
+	for (int i = 0; i < indexSize; i++)
+		d3dIndices[i] = (unsigned int)indicies[i];
+
 	//Create index buffer description
 	D3D11_BUFFER_DESC indexBufferDesc;
 	indexBufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
@@ -126,7 +132,7 @@ void Mesh::bufferD3D(Shader* shader, char* textureFileName)
 	indexBufferDesc.StructureByteStride = 0;
 
 	D3D11_SUBRESOURCE_DATA indexData;
-	indexData.pSysMem = indicies;
+	indexData.pSysMem = d3dIndices;
 
 	delete verticies;
 

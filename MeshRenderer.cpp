@@ -129,14 +129,14 @@ void MeshRenderer::renderD3D(Material* material)
 			constantBuffers[i],
 			0,
 			NULL,
-			&(constantBufferData[i]),
+			constantBufferData[i],
 			0,
 			0);
 		
 		//For checking the contents of the constant buffer
-		
-		
-		for (int j = 0; j < 60; j++)
+		/*
+		std::cout << std::endl;
+		for (int j = 0; j < 192/4; j++)
 		{
 			float* f = new float[1];
 			memcpy(f, constantBufferData[i] + (j * 4), 4);
@@ -148,8 +148,8 @@ void MeshRenderer::renderD3D(Material* material)
 		}
 		std::cout << std::endl;
 		system("cls");
+		*/
 		
-
 		Game::deviceContext->VSSetConstantBuffers(i, 1, &(constantBuffers[i])); 
 	}
 

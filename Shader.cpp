@@ -268,14 +268,17 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 			D3D11_SHADER_VARIABLE_DESC variableDescription;
 			variable->GetDesc(&variableDescription);
 
+			//variable sizes need to be factors of 16 so we may need 
+			//to add on some extra space
+			int bufferSizeAddition = 0;
+			bufferSizeAddition = variableDescription.Size;
+			bufferSizeAddition += (bufferSizeAddition % 16);
+
+			bufferSize = bufferSizeAddition;
+
 			//Add this variable to the buffer map
 			bufferVarMap[std::string(variableDescription.Name)] = variableDescription;
-
-			if (j + 1 == constantBufferDesc.Variables)
-				bufferSize = variableDescription.StartOffset + variableDescription.Size;
 		}
-
-		//bufferSize += 4;
 
 		//Setup the bufferData
 		bufferData = new char[bufferSize];

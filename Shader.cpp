@@ -257,7 +257,8 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 		char* bufferData;
 
 		//Gonna map variable names to more data
-		std::map<std::string, D3D11_SHADER_VARIABLE_DESC*> bufferVarMap;
+		std::map<std::string, D3D11_SHADER_VARIABLE_DESC*>* bufferVarMap = 
+			new std::map<std::string, D3D11_SHADER_VARIABLE_DESC*>();
 
 		//Load the description and type of each variable 
 		for (unsigned int j = 0; j < constantBufferDesc.Variables; j++)
@@ -277,7 +278,7 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 			bufferSize = bufferSizeAddition;
 
 			//Add this variable to the buffer map
-			bufferVarMap[std::string(variableDescription->Name)] = variableDescription;
+			(*bufferVarMap)[std::string(variableDescription->Name)] = variableDescription;
 		}
 
 		//Setup the bufferData
@@ -327,14 +328,16 @@ ConstVariableInfo Shader::getVariableInfoByName(char* valueName)
 	//Need to get the info about the shader variable that we asked for
 	for (unsigned int i = 0; i < constantBufferMaps.size(); i++)
 	{
-		if (constantBufferMaps[i].size() <= 0)
+		std::map<std::string, D3D11_SHADER_VARIABLE_DESC*>* bufferVarMap = constantBufferMaps[i];
+
+		if (bufferVarMap == NULL && bufferVarMap->size() <= 0)
 			return ConstVariableInfo();
 
-		std::map<std::string, D3D11_SHADER_VARIABLE_DESC*> bufferVarMap = constantBufferMaps[i];
-		if (bufferVarMap.count(std::string(valueName)))
+		
+		if (bufferVarMap->count(std::string(valueName)))
 		{
 			constVariableInfo.bufferIndex = i;
-			constVariableInfo.variableInfo = *bufferVarMap[std::string(valueName)];
+			constVariableInfo.variableInfo = (*bufferVarMap)[std::string(valueName)];
 		}
 	}
 

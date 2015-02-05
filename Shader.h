@@ -68,7 +68,7 @@ private:
 
 	std::vector<ID3D11Buffer*> constantBuffers;
 	std::vector<char*> constantBufferData;
-	std::vector<std::map<std::string, D3D11_SHADER_VARIABLE_DESC*>> constantBufferMaps;
+	std::vector<std::map<std::string, D3D11_SHADER_VARIABLE_DESC*>*> constantBufferMaps;
 
 	ConstVariableInfo getVariableInfoByName(char* valueName);
 

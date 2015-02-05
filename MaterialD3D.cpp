@@ -137,8 +137,7 @@ void Material::setMatrix4D3D(char* valueName, Matrix4 value)
 	char* bufferData = shader->constantBufferData[constVariableInfo.bufferIndex];
 
 	//Copy our data into the buffer's data
-	if (bufferData)
-		memcpy(bufferData + variableOffset, data, variableSize);
+	memcpy(bufferData + variableOffset, data, variableSize);
 }
 
 #endif

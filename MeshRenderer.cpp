@@ -125,19 +125,8 @@ void MeshRenderer::renderD3D(Material* material)
 
 	for (unsigned int i = 0; i < constantBuffers.size(); i++)
 	{
-		//Do this on variable setting
-		Game::deviceContext->UpdateSubresource(
-			constantBuffers[i],
-			0,
-			NULL,
-			constantBufferData[i],
-			0,
-			0);
-		
-		//For checking the contents of the constant buffer
-		/*
 		std::cout << std::endl;
-		for (int j = 0; j < 192/4; j++)
+		for (int j = 0; j < 192 / 4; j++)
 		{
 			float* f = new float[1];
 			memcpy(f, constantBufferData[i] + (j * 4), 4);
@@ -148,8 +137,19 @@ void MeshRenderer::renderD3D(Material* material)
 				std::cout << std::endl;
 		}
 		std::cout << std::endl;
-		system("cls");
-		*/
+		//system("cls");
+
+		//Do this on variable setting
+		Game::deviceContext->UpdateSubresource(
+			constantBuffers[i],
+			0,
+			NULL,
+			constantBufferData[i],
+			0,
+			0);
+		
+		//For checking the contents of the constant buffer
+			
 		
 		Game::deviceContext->VSSetConstantBuffers(i, 1, &(constantBuffers[i])); 
 	}

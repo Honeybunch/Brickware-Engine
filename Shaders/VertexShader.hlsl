@@ -10,14 +10,14 @@ cbuffer perModel : register(b0)
 	matrix viewMatrix;
 	matrix projectionMatrix;
 
-	/*
+	
 	float3 lightPosition;
 
 	texture2D tex;
 
 	float3 lookAt;
 	float3 eyePoint;
-	*/
+	
 };
 
 // Defines what kind of data to expect as input

@@ -271,15 +271,14 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 
 			//variable sizes need to be factors of 16 so we may need 
 			//to add on some extra space
-			int bufferSizeAddition = 0;
-			bufferSizeAddition = variableDescription->Size;
-			bufferSizeAddition += (bufferSizeAddition % 16);
 
-			bufferSize = bufferSizeAddition;
+			bufferSize += variableDescription->Size;
 
 			//Add this variable to the buffer map
 			(*bufferVarMap)[std::string(variableDescription->Name)] = variableDescription;
 		}
+		//Make sure buffer size is enough space for 16 byte alignment
+		bufferSize += 16 - (bufferSize % 16);
 
 		//Setup the bufferData
 		bufferData = new char[bufferSize];
@@ -330,14 +329,10 @@ ConstVariableInfo Shader::getVariableInfoByName(char* valueName)
 	{
 		std::map<std::string, D3D11_SHADER_VARIABLE_DESC*>* bufferVarMap = constantBufferMaps[i];
 
-		if (bufferVarMap == NULL && bufferVarMap->size() <= 0)
-			return ConstVariableInfo();
-
-		
-		if (bufferVarMap->count(std::string(valueName)))
+		if (bufferVarMap->find(std::string(valueName)) != bufferVarMap->end())
 		{
 			constVariableInfo.bufferIndex = i;
-			constVariableInfo.variableInfo = (*bufferVarMap)[std::string(valueName)];
+			constVariableInfo.variableInfo = *(*bufferVarMap)[std::string(valueName)];
 		}
 	}
 

@@ -125,6 +125,7 @@ void MeshRenderer::renderD3D(Material* material)
 
 	for (unsigned int i = 0; i < constantBuffers.size(); i++)
 	{
+		/*
 		std::cout << std::endl;
 		for (int j = 0; j < 192 / 4; j++)
 		{
@@ -137,7 +138,8 @@ void MeshRenderer::renderD3D(Material* material)
 				std::cout << std::endl;
 		}
 		std::cout << std::endl;
-		//system("cls");
+		system("cls");
+		*/
 
 		//Do this on variable setting
 		Game::deviceContext->UpdateSubresource(

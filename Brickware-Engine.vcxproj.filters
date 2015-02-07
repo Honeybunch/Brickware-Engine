@@ -123,6 +123,9 @@
     <ClInclude Include="dxerr.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="Spin.h">
+      <Filter>Headers\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -222,6 +225,9 @@
       <Filter>Sources\Components</Filter>
     </ClCompile>
     <ClCompile Include="MaterialD3D.cpp">
+      <Filter>Sources\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Spin.cpp">
       <Filter>Sources\Components</Filter>
     </ClCompile>
   </ItemGroup>

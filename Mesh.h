@@ -39,7 +39,7 @@ using namespace std;
 class Mesh
 {
 public :
-	Mesh(Shader* shader, Shape shape, char* textureFileName = "");
+	Mesh(Shape shape, char* textureFileName = "");
 
 	float* getPoints();
 
@@ -86,8 +86,7 @@ private:
 	GLuint vbo;
 	GLuint ibo; 
 
-	void bufferGL(Shader* shader, char* textureFileName);
-
+	void bufferGL(char* textureFileName);
 #endif
 
 #ifdef D3D_SUPPORT
@@ -97,7 +96,7 @@ private:
 
 	ID3D11Buffer* indexBuffer;
 
-	void bufferD3D(Shader* shader, char* textureFileName);
+	void bufferD3D();
 #endif
 };
 

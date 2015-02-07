@@ -9,7 +9,7 @@
 
 #if defined(_WIN32) && defined(D3D_SUPPORT) && defined(GL_SUPPORT)
 //If we are on windows and we have asked for GL and D3D support then we can define non const bools that will allow for context switching
-static bool USE_DIRECTX = true;
+static bool USE_DIRECTX = false;
 
 #define CAN_SWITCH_CONTEXT
 #elif _WIN32 && defined(D3D_SUPPORT)

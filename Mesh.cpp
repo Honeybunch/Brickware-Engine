@@ -4,7 +4,7 @@
 
 //Constructor
 //Take in the GPU program ID and the vertex data and buffer that data into the VBO and IBO
-Mesh::Mesh(Shader* shader, Shape shape, char* textureFileName)
+Mesh::Mesh(Shape shape, char* textureFileName)
 {
 	//Store data from shape
 	points = shape.getPoints();
@@ -19,22 +19,16 @@ Mesh::Mesh(Shader* shader, Shape shape, char* textureFileName)
 	indexSize = numberOfVerts * sizeof(GLushort);
 	texCoordSize = shape.getTexCoordSize() * sizeof(float);
 
-	//Use the shader program
-	shader->bindShader();
-
 #ifdef CAN_SWITCH_CONTEXT
 	if (USE_DIRECTX)
-		bufferD3D(shader, textureFileName);
+		bufferD3D();
 	else
-		bufferGL(shader, textureFileName);
+		bufferGL(textureFileName);
 #elif defined(USE_D3D_ONLY)
-	bufferD3D(shader, textureFileName);
+	bufferD3D();
 #else
-	bufferGL(shader, textureFileName);
+	bufferGL(textureFileName);
 #endif
-
-	//Unbind everything
-	shader->freeShader();
 }
 
 //Accessors
@@ -64,7 +58,7 @@ ID3D11Buffer* Mesh::getIndexBuffer(){ return indexBuffer; }
 
 //Private functions
 
-void Mesh::bufferGL(Shader* shader, char* textureFileName)
+void Mesh::bufferGL(char* textureFileName)
 {
 	//Setup the VBO
 	glGenBuffers(1, &vbo);
@@ -80,11 +74,12 @@ void Mesh::bufferGL(Shader* shader, char* textureFileName)
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexSize, indicies, GL_STATIC_DRAW);
 
-	//Load texture with SOIL
+	//Load texture with SOIL 
+	//TODO: REMOVE THIS AND LOAD BMP OURSELVES
 	if (textureFileName != "" && textureFileName != NULL)
 		texture = SOIL_load_OGL_texture(textureFileName, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
 }
-void Mesh::bufferD3D(Shader* shader, char* textureFileName)
+void Mesh::bufferD3D()
 {
 	//Use 3 buffers instead of one interleaved buffer
 	D3D11_BUFFER_DESC positionBufferDesc;

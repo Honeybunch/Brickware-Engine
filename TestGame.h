@@ -13,11 +13,6 @@ public:
 	~TestGame();
 
 private:
-	Shader* shader;
-
-	Mesh* sphereMesh;
-	Mesh* cubeMesh;
-
 	virtual void updateScene() override;
 	virtual void renderScene() override;
 };

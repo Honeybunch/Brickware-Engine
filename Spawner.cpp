@@ -24,10 +24,10 @@ void Spawner::spawnSphere()
 	newSphere->addComponent(new SphereCollider(new Vector3(), 0.1f));
 
 	Camera* camera = getGameObject()->getComponent<Camera>();
-	Vector3* spherePos = new Vector3(*(camera->getLookAt()));
+	Vector3 spherePos = Vector3(camera->getLookAt());
 
 	newSphere->getTransform()->setPosition(spherePos);
-	newSphere->getTransform()->setScale(new Vector3(0.1f, 0.1f, 0.1f));
+	newSphere->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
 
 	newSphere->Start();
 

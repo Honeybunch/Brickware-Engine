@@ -2,6 +2,8 @@
 #define TESTGAME_H
 
 #include "Game.h"
+#include "Spin.h"
+#include "Spawner.h"
 
 class TestGame : public Game
 {

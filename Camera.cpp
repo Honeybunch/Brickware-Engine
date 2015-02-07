@@ -14,7 +14,7 @@ Camera::Camera(float FoV = 50, float width = 0.1f, float height = 0.1f, float zN
 	//Setup speed and velocity
 	speed = 0.1f;
 
-	lookAt = new Vector3();
+	lookAt = Vector3();
 }
 
 void Camera::Start()
@@ -30,57 +30,63 @@ void Camera::Start()
 #endif
 }
 
-Vector3* Camera::getLookAt(){ return lookAt; }
-void Camera::setLookAt(Vector3* lookAt){ this->lookAt = lookAt; }
+Vector3 Camera::getLookAt(){ return lookAt; }
+void Camera::setLookAt(Vector3 lookAt){ this->lookAt = lookAt; }
 
 void Camera::moveForward()
 {
-	Vector3* pos = getGameObject()->getTransform()->getPosition();
-	Vector3* rot = getGameObject()->getTransform()->getRotation();
+	Vector3 pos = getGameObject()->getTransform()->getPosition();
+	Vector3 rot = getGameObject()->getTransform()->getRotation();
 
-	pos->setX(pos->getX() - speed * sin(rot->getY()));
-	pos->setY(pos->getY() + speed * sin(rot->getX()));
-	pos->setZ(pos->getZ() -  speed * cos(rot->getY()));
+	pos.setX(pos.getX() - speed * sin(rot.getY()));
+	pos.setY(pos.getY() + speed * sin(rot.getX()));
+	pos.setZ(pos.getZ() -  speed * cos(rot.getY()));
+
+	getGameObject()->getTransform()->setPosition(pos);
 }
 
 void Camera::moveBackward()
 {
-	Vector3* pos = getGameObject()->getTransform()->getPosition();
-	Vector3* rot = getGameObject()->getTransform()->getRotation();
+	Vector3 pos = getGameObject()->getTransform()->getPosition();
+	Vector3 rot = getGameObject()->getTransform()->getRotation();
 
-	pos->setX(pos->getX() + speed * sin(rot->getY()));
-	pos->setZ(pos->getZ() + speed * cos(rot->getY()));
+	pos.setX(pos.getX() + speed * sin(rot.getY()));
+	pos.setZ(pos.getZ() + speed * cos(rot.getY()));
+
+	getGameObject()->getTransform()->setPosition(pos);
 }
 
 void Camera::moveLeft()
 {
-	Vector3* pos = getGameObject()->getTransform()->getPosition();
-	Vector3* rot = getGameObject()->getTransform()->getRotation();
+	Vector3 pos = getGameObject()->getTransform()->getPosition();
+	Vector3 rot = getGameObject()->getTransform()->getRotation();
 
-	pos->setX(pos->getX() - speed * cos(rot->getY()));
-	pos->setZ(pos->getZ() + speed * sin(rot->getY()));
+	pos.setX(pos.getX() - speed * cos(rot.getY()));
+	pos.setZ(pos.getZ() + speed * sin(rot.getY()));
+
+	getGameObject()->getTransform()->setPosition(pos);
 }
 
 void Camera::moveRight()
 {
-	Vector3* pos = getGameObject()->getTransform()->getPosition();
-	Vector3* rot = getGameObject()->getTransform()->getRotation();
+	Vector3 pos = getGameObject()->getTransform()->getPosition();
+	Vector3 rot = getGameObject()->getTransform()->getRotation();
 
-	pos->setX(pos->getX() + speed * cos(rot->getY()));
-	pos->setZ(pos->getZ() - speed * sin(rot->getY()));
+	pos.setX(pos.getX() + speed * cos(rot.getY()));
+	pos.setZ(pos.getZ() - speed * sin(rot.getY()));
+
+	getGameObject()->getTransform()->setPosition(pos);
 }
 
 void Camera::Update()
 {
 	//Recalculate lookAt
-	Vector3 position = *getGameObject()->getTransform()->getPosition();
+	Vector3 position = getGameObject()->getTransform()->getPosition();
 	Vector3 forward = getGameObject()->getTransform()->getForward();
 
 	Vector3 newLookAt = position + forward;
 	
-	lookAt->setX(newLookAt.getX());
-	lookAt->setY(newLookAt.getY());
-	lookAt->setZ(newLookAt.getZ());
+	lookAt = newLookAt;
 
 	viewMatrix = calcViewMatrix();
 	projectionMatrix = calcProjectionMatrix();
@@ -106,10 +112,12 @@ void Camera::Update()
 	float pitchDiff = (screenCenterY - Input::getMousePosition().getY()) / Screen::getHeight();
 
 	Transform* cameraTransform = getGameObject()->getTransform();
-	Vector3* cameraRot = cameraTransform->getRotation();
+	Vector3 cameraRot = cameraTransform->getRotation();
 
-	cameraTransform->getRotation()->setX(cameraRot->getX() + pitchDiff);
-	cameraTransform->getRotation()->setY(cameraRot->getY() + yawDiff);
+	cameraRot.setX(cameraRot.getX() + pitchDiff);
+	cameraRot.setY(cameraRot.getY() + yawDiff);
+
+	cameraTransform->setRotation(cameraRot);
 
 	Input::setMousePosition(Vector2(screenCenterX, screenCenterY));
 }
@@ -122,8 +130,8 @@ void Camera::Render()
 	material->setMatrix4("viewMatrix", viewMatrix);
 	material->setMatrix4("projectionMatrix", projectionMatrix);
 
-	material->setVector3("lookAt", *lookAt);
-	material->setVector3("eyePoint", *getGameObject()->getTransform()->getPosition());
+	material->setVector3("lookAt", lookAt);
+	material->setVector3("eyePoint", getGameObject()->getTransform()->getPosition());
 	material->setVector3("up", getGameObject()->getTransform()->getUp());
 
 	//Look through the rendering octree, see which octents collide with the camera's frustrum and then render objects in those nodes
@@ -170,10 +178,10 @@ void Camera::Render()
 
 Matrix4 Camera::calcViewMatrix()
 {
-	Vector3 position = *getGameObject()->getTransform()->getPosition();
-
+	Vector3 position = getGameObject()->getTransform()->getPosition();
+	 
 	//Calculate axes 
-	Vector3 zAxis = Vector3::Normalize((position - *lookAt));
+	Vector3 zAxis = Vector3::Normalize((position - lookAt));
 	Vector3 xAxis = Vector3::Normalize(Vector3::Cross(getGameObject()->getTransform()->getUp(), zAxis));
 	Vector3 yAxis = Vector3::Cross(zAxis, xAxis);
 

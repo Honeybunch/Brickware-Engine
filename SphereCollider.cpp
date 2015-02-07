@@ -18,12 +18,12 @@ bool SphereCollider::isCollidingWithSphere(SphereCollider* other)
 	Transform* transform = getGameObject()->getTransform();
 	Transform* otherTransform = other->getGameObject()->getTransform();
 
-	Vector3* position = transform->getPosition();
-	Vector3* otherPosition = otherTransform->getPosition();
+	Vector3 position = transform->getPosition();
+	Vector3 otherPosition = otherTransform->getPosition();
 
-	float distXSquared = pow(position->getX() - otherPosition->getX(), 2);
-	float distYSquared = pow(position->getY() - otherPosition->getY(), 2);
-	float distZSquared = pow(position->getZ() - otherPosition->getZ(), 2);
+	float distXSquared = pow(position.getX() - otherPosition.getX(), 2);
+	float distYSquared = pow(position.getY() - otherPosition.getY(), 2);
+	float distZSquared = pow(position.getZ() - otherPosition.getZ(), 2);
 
 	float radiusSumSquared = pow(getRadius() + other->getRadius(), 2);
 

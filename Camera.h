@@ -36,8 +36,8 @@ public:
 	Camera(Transform* transform, float FoV, float width, float height, float zNear, float zFar);
 	~Camera(void);
 
-	Vector3* getLookAt();
-	void setLookAt(Vector3* lookAt);
+	Vector3 getLookAt();
+	void setLookAt(Vector3 lookAt);
 
 	void moveForward();
 	void moveBackward();
@@ -59,7 +59,7 @@ private:
 	Matrix4 projectionMatrix;
 
 	float speed;
-	Vector3* lookAt;
+	Vector3 lookAt;
 
 	Matrix4 calcViewMatrix();
 	Matrix4 calcProjectionMatrix();

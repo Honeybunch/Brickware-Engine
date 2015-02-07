@@ -12,10 +12,10 @@ BoxCollider::BoxCollider(float width)
 void BoxCollider::Start()
 {
 	float halfWidth = width / 2.0f;
-	Vector3* center = getGameObject()->getTransform()->getPosition();
+	Vector3 center = getGameObject()->getTransform()->getPosition();
 
-	minBound = Vector3(center->getX() - halfWidth, center->getY() - halfWidth, center->getZ() - halfWidth);
-	maxBound = Vector3(center->getX() + halfWidth, center->getY() + halfWidth, center->getZ() + halfWidth);
+	minBound = Vector3(center.getX() - halfWidth, center.getY() - halfWidth, center.getZ() - halfWidth);
+	maxBound = Vector3(center.getX() + halfWidth, center.getY() + halfWidth, center.getZ() + halfWidth);
 }
 
 //Accessors and Mutators
@@ -33,24 +33,24 @@ bool BoxCollider::isCollidingWithSphere(SphereCollider* other)
 	float radiusSquared = pow(other->getRadius(), 2);
 	float distanceSquared = 0;
 
-	Vector3* sphereCenter = other->getGameObject()->getTransform()->getPosition();
+	Vector3 sphereCenter = other->getGameObject()->getTransform()->getPosition();
 
 	//Implementation of Jim Arvo's collision algorithm
 
-	if (sphereCenter->getX() < minBound.getX())
-		distanceSquared += pow(sphereCenter->getX() - minBound.getX(), 2);
-	else if (sphereCenter->getX() > maxBound.getX())
-		distanceSquared += pow(sphereCenter->getX() - maxBound.getX(), 2);
+	if (sphereCenter.getX() < minBound.getX())
+		distanceSquared += pow(sphereCenter.getX() - minBound.getX(), 2);
+	else if (sphereCenter.getX() > maxBound.getX())
+		distanceSquared += pow(sphereCenter.getX() - maxBound.getX(), 2);
 
-	if (sphereCenter->getY() < minBound.getY())
-		distanceSquared += pow(sphereCenter->getY() - minBound.getY(), 2);
-	else if (sphereCenter->getY() > maxBound.getY())
-		distanceSquared += pow(sphereCenter->getY() - maxBound.getY(), 2);
+	if (sphereCenter.getY() < minBound.getY())
+		distanceSquared += pow(sphereCenter.getY() - minBound.getY(), 2);
+	else if (sphereCenter.getY() > maxBound.getY())
+		distanceSquared += pow(sphereCenter.getY() - maxBound.getY(), 2);
 
-	if (sphereCenter->getZ() < minBound.getZ())
-		distanceSquared += pow(sphereCenter->getZ() - minBound.getZ(), 2);
-	else if (sphereCenter->getZ() > maxBound.getZ())
-		distanceSquared += pow(sphereCenter->getZ() - maxBound.getZ(), 2);
+	if (sphereCenter.getZ() < minBound.getZ())
+		distanceSquared += pow(sphereCenter.getZ() - minBound.getZ(), 2);
+	else if (sphereCenter.getZ() > maxBound.getZ())
+		distanceSquared += pow(sphereCenter.getZ() - maxBound.getZ(), 2);
 
 	if (distanceSquared <= radiusSquared)
 		return true;

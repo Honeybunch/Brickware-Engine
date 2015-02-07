@@ -78,7 +78,7 @@ void MeshRenderer::calculateBounds()
 	{
 		Transform* transform = gameObject->getTransform();
 		
-		center = *transform->getPosition();
+		center = transform->getPosition();
 	}
 	bounds = new Bounds(center, xWidth, yWidth, zWidth);
 }

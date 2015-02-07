@@ -34,9 +34,9 @@ public:
 	Transform();
 
 	//Accessors
-	Vector3* getPosition();
-	Vector3* getRotation();
-	Vector3* getScale();
+	Vector3 getPosition();
+	Vector3 getRotation();
+	Vector3 getScale();
 
 	Vector3 getForward();
 	Vector3 getRight();
@@ -45,9 +45,9 @@ public:
 	Matrix4 getModelMatrix();
 	
 	//Mutators
-	void setPosition(Vector3* newPosition);
-	void setRotation(Vector3* newRotation);
-	void setScale(Vector3* newScale);
+	void setPosition(Vector3 newPosition);
+	void setRotation(Vector3 newRotation);
+	void setScale(Vector3 newScale);
 
 	//Component Overrides
 	virtual void Update();
@@ -56,9 +56,9 @@ public:
 	~Transform();
 
 private:
-	Vector3* position;
-	Vector3* rotation;
-	Vector3* scale;
+	Vector3 position;
+	Vector3 rotation;
+	Vector3 scale;
 
 	Vector3 forward;
 	Vector3 right;

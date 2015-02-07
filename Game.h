@@ -42,7 +42,6 @@
 #include "SphereCollider.h"
 #include "BoxCollider.h"
 #include "MeshRenderer.h"
-#include "Spawner.h"
 
 using namespace std;
 

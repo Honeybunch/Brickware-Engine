@@ -22,7 +22,7 @@ FrustrumCollider::FrustrumCollider(float zNear, float zFar, float FoV, float asp
 void FrustrumCollider::Update()
 {
 	Transform* transform = getGameObject()->getTransform();
-	Vector3 position = *(transform->getPosition());
+	Vector3 position = transform->getPosition();
 	Vector3 forward = transform->getForward();
 	Vector3 right = transform->getRight();
 	Vector3 up = transform->getUp();
@@ -86,7 +86,7 @@ bool FrustrumCollider::isCollidingWithBounds(Bounds* other)
 	Vector3 max = other->getMaxBound();
 	Vector3 center = other->getCenter();
 
-	Vector3 position = *getGameObject()->getTransform()->getPosition();
+	Vector3 position = getGameObject()->getTransform()->getPosition();
 
 	//Derive the 6 normals of the 6 planes of the frustrum
 	Vector3 nearNorm = Vector3::Normalize(Vector3::Cross((nearBottomRight - nearBottomLeft), (nearBottomLeft - nearTopLeft)));

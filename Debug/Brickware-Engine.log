@@ -1,5 +1,92 @@
-﻿Build started 2/7/2015 12:19:37 AM.
+﻿Build started 2/7/2015 1:16:50 PM.
+     1>Project "D:\Users\amt3824\cygwin64\home\amt3824\Git\Brickware-Engine2\Brickware-Engine\Brickware-Engine.vcxproj" on node 2 (Build target(s)).
+     1>FxCompile:
+         C:\Program Files (x86)\Windows Kits\8.1\bin\x86\fxc.exe /nologo /E"main" /T ps_4_0_level_9_1 /Fo "D:\Users\amt3824\cygwin64\home\amt3824\Git\Brickware-Engine2\Brickware-Engine\Debug\PixelShader.cso" /Od /Zi Shaders\PixelShader.hlsl 
+         compilation object save succeeded; see D:\Users\amt3824\cygwin64\home\amt3824\Git\Brickware-Engine2\Brickware-Engine\Debug\PixelShader.cso
+         C:\Program Files (x86)\Windows Kits\8.1\bin\x86\fxc.exe /nologo /E"main" /T vs_4_0_level_9_1 /Fo "D:\Users\amt3824\cygwin64\home\amt3824\Git\Brickware-Engine2\Brickware-Engine\Debug\VertexShader.cso" /Od /Zi Shaders\VertexShader.hlsl 
+         compilation object save succeeded; see D:\Users\amt3824\cygwin64\home\amt3824\Git\Brickware-Engine2\Brickware-Engine\Debug\VertexShader.cso
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"D:\Users\amt3824\cygwin64\home\amt3824\Git\Brickware-Engine2\Brickware-Engine\\SOIL\include\\" /I"D:\Users\amt3824\cygwin64\home\amt3824\Git\Brickware-Engine2\Brickware-Engine\\GLFW\include\\" /I"D:\Users\amt3824\cygwin64\home\amt3824\Git\Brickware-Engine2\Brickware-Engine\\GL\include\\" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Bounds.cpp BoxCollider.cpp Camera.cpp Collider.cpp Component.cpp dxerr.cpp FrustrumCollider.cpp Game.cpp GameObject.cpp Input.cpp Light.cpp Main.cpp Material.cpp MaterialD3D.cpp MaterialGL.cpp Matrix4.cpp Mesh.cpp MeshRenderer.cpp Octree.cpp Quaternion.cpp Rigidbody.cpp Screen.cpp Shader.cpp Shape.cpp Spawner.cpp SphereCollider.cpp Spin.cpp TestGame.cpp Transform.cpp Triangle.cpp Utils.cpp Vector2.cpp Vector3.cpp Vector4.cpp
+         Vector4.cpp
+         Vector3.cpp
+         Vector2.cpp
+         Utils.cpp
+         Triangle.cpp
+         Transform.cpp
+         TestGame.cpp
+         Spin.cpp
+         SphereCollider.cpp
+         Spawner.cpp
+         Shape.cpp
+         Shader.cpp
+         Screen.cpp
+         Rigidbody.cpp
+         Quaternion.cpp
+         Octree.cpp
+         MeshRenderer.cpp
+         Mesh.cpp
+         Matrix4.cpp
+         MaterialGL.cpp
+         Generating Code...
+         Compiling...
+         MaterialD3D.cpp
+         Material.cpp
+         Main.cpp
+         Light.cpp
+         Input.cpp
+         GameObject.cpp
+         Game.cpp
+         FrustrumCollider.cpp
+         dxerr.cpp
+         Component.cpp
+         Collider.cpp
+         Camera.cpp
+         BoxCollider.cpp
+         Bounds.cpp
+         Generating Code...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Users\amt3824\cygwin64\home\amt3824\Git\Brickware-Engine2\Brickware-Engine\Debug\Brickware-Engine.exe" /INCREMENTAL /NOLOGO /LIBPATH:"D:\Users\amt3824\cygwin64\home\amt3824\Git\Brickware-Engine2\Brickware-Engine\\SOIL\lib" /LIBPATH:"D:\Users\amt3824\cygwin64\home\amt3824\Git\Brickware-Engine2\Brickware-Engine\\GLFW\lib\Win32" /LIBPATH:"D:\Users\amt3824\cygwin64\home\amt3824\Git\Brickware-Engine2\Brickware-Engine\\GL\lib\Win32" dxguid.lib d3d11.lib d3dcompiler.lib SOIL.lib glfw3dll.lib glew32.lib kernel32.lib user32.lib opengl32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Users\amt3824\cygwin64\home\amt3824\Git\Brickware-Engine2\Brickware-Engine\Debug\Brickware-Engine.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Users\amt3824\cygwin64\home\amt3824\Git\Brickware-Engine2\Brickware-Engine\Debug\Brickware-Engine.lib" /MACHINE:X86 Debug\Bounds.obj
+         Debug\BoxCollider.obj
+         Debug\Camera.obj
+         Debug\Collider.obj
+         Debug\Component.obj
+         Debug\dxerr.obj
+         Debug\FrustrumCollider.obj
+         Debug\Game.obj
+         Debug\GameObject.obj
+         Debug\Input.obj
+         Debug\Light.obj
+         Debug\Main.obj
+         Debug\Material.obj
+         Debug\MaterialD3D.obj
+         Debug\MaterialGL.obj
+         Debug\Matrix4.obj
+         Debug\Mesh.obj
+         Debug\MeshRenderer.obj
+         Debug\Octree.obj
+         Debug\Quaternion.obj
+         Debug\Rigidbody.obj
+         Debug\Screen.obj
+         Debug\Shader.obj
+         Debug\Shape.obj
+         Debug\Spawner.obj
+         Debug\SphereCollider.obj
+         Debug\Spin.obj
+         Debug\TestGame.obj
+         Debug\Transform.obj
+         Debug\Triangle.obj
+         Debug\Utils.obj
+         Debug\Vector2.obj
+         Debug\Vector3.obj
+         Debug\Vector4.obj
+         LINK : D:\Users\amt3824\cygwin64\home\amt3824\Git\Brickware-Engine2\Brickware-Engine\Debug\Brickware-Engine.exe not found or not built by the last incremental link; performing full link
+     1>SOIL.lib(image_DXT.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'SOIL.lib(image_DXT.obj)' or at 'D:\Users\amt3824\cygwin64\home\amt3824\Git\Brickware-Engine2\Brickware-Engine\Debug\vc110.pdb'; linking object as if no debug info
+     1>SOIL.lib(image_helper.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'SOIL.lib(image_helper.obj)' or at 'D:\Users\amt3824\cygwin64\home\amt3824\Git\Brickware-Engine2\Brickware-Engine\Debug\vc110.pdb'; linking object as if no debug info
+     1>SOIL.lib(SOIL.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'SOIL.lib(SOIL.obj)' or at 'D:\Users\amt3824\cygwin64\home\amt3824\Git\Brickware-Engine2\Brickware-Engine\Debug\vc110.pdb'; linking object as if no debug info
+     1>SOIL.lib(stb_image_aug.obj) : warning LNK4099: PDB 'vc110.pdb' was not found with 'SOIL.lib(stb_image_aug.obj)' or at 'D:\Users\amt3824\cygwin64\home\amt3824\Git\Brickware-Engine2\Brickware-Engine\Debug\vc110.pdb'; linking object as if no debug info
+         Brickware-Engine.vcxproj -> D:\Users\amt3824\cygwin64\home\amt3824\Git\Brickware-Engine2\Brickware-Engine\Debug\Brickware-Engine.exe
+     1>Done Building Project "D:\Users\amt3824\cygwin64\home\amt3824\Git\Brickware-Engine2\Brickware-Engine\Brickware-Engine.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.10
+Time Elapsed 00:00:12.93

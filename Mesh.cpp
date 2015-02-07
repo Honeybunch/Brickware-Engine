@@ -55,7 +55,10 @@ GLuint Mesh::getIBO(){ return ibo; }
 #endif
 
 #ifdef D3D_SUPPORT
-ID3D11Buffer* Mesh::getVertexBuffer(){ return vertexBuffer; }
+ID3D11Buffer* Mesh::getPositionBuffer(){ return positionBuffer; }
+ID3D11Buffer* Mesh::getNormalBuffer(){ return normalBuffer; }
+ID3D11Buffer* Mesh::getTexCoordBuffer(){ return texCoordBuffer; }
+
 ID3D11Buffer* Mesh::getIndexBuffer(){ return indexBuffer; }
 #endif
 
@@ -83,49 +86,55 @@ void Mesh::bufferGL(Shader* shader, char* textureFileName)
 }
 void Mesh::bufferD3D(Shader* shader, char* textureFileName)
 {
-	//Format data for D3D
-	float* verticies = new float[pointSize + normalSize + texCoordSize];
+	//Use 3 buffers instead of one interleaved buffer
+	D3D11_BUFFER_DESC positionBufferDesc;
+	positionBufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
+	positionBufferDesc.ByteWidth = pointSize;
+	positionBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	positionBufferDesc.CPUAccessFlags = 0;
+	positionBufferDesc.MiscFlags = 0;
+	positionBufferDesc.StructureByteStride = 0;
 
-	for (int i = 0; i < numberOfVerts ; i++)
-	{
-		int index = (i * 8);
+	D3D11_BUFFER_DESC normalBufferDesc;
+	normalBufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
+	normalBufferDesc.ByteWidth = normalSize;
+	normalBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	normalBufferDesc.CPUAccessFlags = 0;
+	normalBufferDesc.MiscFlags = 0;
+	normalBufferDesc.StructureByteStride = 0;
 
-		verticies[index] = points[i];
-		verticies[index + 1] = points[i + 1];
-		verticies[index + 2] = points[i + 2];
-				  
-		verticies[index + 3] = normals[i];
-		verticies[index + 4] = normals[i + 1];
-		verticies[index + 5] = normals[i + 2];
-				  
-		verticies[index + 6] = texCoords[i];
-		verticies[index + 7] = texCoords[i + 1];
-	}
-
-	D3D11_BUFFER_DESC vertexBufferDesc;
-	vertexBufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
-	vertexBufferDesc.ByteWidth = numberOfVerts * sizeof(float) * 8;
-	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	vertexBufferDesc.CPUAccessFlags = 0;
-	vertexBufferDesc.MiscFlags = 0;
-	vertexBufferDesc.StructureByteStride = 0;
+	D3D11_BUFFER_DESC texCoordBufferDesc;
+	texCoordBufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
+	texCoordBufferDesc.ByteWidth = texCoordSize;
+	texCoordBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	texCoordBufferDesc.CPUAccessFlags = 0;
+	texCoordBufferDesc.MiscFlags = 0;
+	texCoordBufferDesc.StructureByteStride = 0;
 	
-	D3D11_SUBRESOURCE_DATA vertexData;
-	vertexData.pSysMem = verticies;
+	D3D11_SUBRESOURCE_DATA positionData;
+	positionData.pSysMem = points;
+
+	D3D11_SUBRESOURCE_DATA normalData;
+	normalData.pSysMem = normals;
+
+	D3D11_SUBRESOURCE_DATA texCoordData;
+	texCoordData.pSysMem = texCoords;
 
 	//Buffer
-	HR(Game::device->CreateBuffer(&vertexBufferDesc, &vertexData, &vertexBuffer));
+	HR(Game::device->CreateBuffer(&positionBufferDesc, &positionData, &positionBuffer));
+	HR(Game::device->CreateBuffer(&normalBufferDesc, &normalData, &normalBuffer));
+	HR(Game::device->CreateBuffer(&texCoordBufferDesc, &texCoordData, &texCoordBuffer));
 
 	//Need to have ints rather than shorts
-	unsigned int* d3dIndices = new unsigned int[indexSize];
+	unsigned int* d3dIndices = new unsigned int[numberOfVerts];
 
-	for (int i = 0; i < indexSize; i++)
+	for (int i = 0; i < numberOfVerts; i++)
 		d3dIndices[i] = (unsigned int)indicies[i];
 
 	//Create index buffer description
 	D3D11_BUFFER_DESC indexBufferDesc;
 	indexBufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
-	indexBufferDesc.ByteWidth = sizeof(UINT) * indexSize; // Number of indices in the "model" you want to draw
+	indexBufferDesc.ByteWidth = sizeof(UINT) * numberOfVerts;
 	indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 	indexBufferDesc.CPUAccessFlags = 0;
 	indexBufferDesc.MiscFlags = 0;
@@ -133,8 +142,6 @@ void Mesh::bufferD3D(Shader* shader, char* textureFileName)
 
 	D3D11_SUBRESOURCE_DATA indexData;
 	indexData.pSysMem = d3dIndices;
-
-	delete verticies;
 
 	//Buffer
 	HR(Game::device->CreateBuffer(&indexBufferDesc, &indexData, &indexBuffer));

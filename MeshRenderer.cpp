@@ -125,22 +125,6 @@ void MeshRenderer::renderD3D(Material* material)
 
 	for (unsigned int i = 0; i < constantBuffers.size(); i++)
 	{
-		/*
-		std::cout << std::endl;
-		for (int j = 0; j < 192 / 4; j++)
-		{
-			float* f = new float[1];
-			memcpy(f, constantBufferData[i] + (j * 4), 4);
-			std::cout << *f << " ";
-			delete f;
-
-			if (j != 0 && j % 4 == 0)
-				std::cout << std::endl;
-		}
-		std::cout << std::endl;
-		system("cls");
-		*/
-
 		//Do this on variable setting
 		Game::deviceContext->UpdateSubresource(
 			constantBuffers[i],
@@ -148,22 +132,28 @@ void MeshRenderer::renderD3D(Material* material)
 			NULL,
 			constantBufferData[i],
 			0,
-			0);
-		
-		//For checking the contents of the constant buffer
-			
+			0);			
 		
 		Game::deviceContext->VSSetConstantBuffers(i, 1, &(constantBuffers[i])); 
 	}
 
 	//I CAN SET MORE THAN ONE BUFFER
 	//CONSIDER THIS LATER
-	UINT stride = sizeof(float) * 8;
+	UINT posStride = sizeof(float) * 3;
+	UINT normStride = sizeof(float) * 3;
+	UINT texCoordStride = sizeof(float) * 2;
+
 	UINT offset = 0;
-	ID3D11Buffer* vertexBuffer = mesh->getVertexBuffer();
+	ID3D11Buffer* positionBuffer = mesh->getPositionBuffer();
+	ID3D11Buffer* normalBuffer = mesh->getNormalBuffer();
+	ID3D11Buffer* texCoordBuffer = mesh->getTexCoordBuffer();
+
 	ID3D11Buffer* indexBuffer = mesh->getIndexBuffer();
 
-	Game::deviceContext->IASetVertexBuffers(0, 1, &vertexBuffer, &stride, &offset);
+	Game::deviceContext->IASetVertexBuffers(0, 1, &positionBuffer, &posStride, &offset);
+	Game::deviceContext->IASetVertexBuffers(1, 1, &normalBuffer, &normStride, &offset);
+	Game::deviceContext->IASetVertexBuffers(2, 1, &texCoordBuffer, &texCoordStride, &offset);
+
 	Game::deviceContext->IASetIndexBuffer(indexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
 	//DRAW

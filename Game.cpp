@@ -9,6 +9,8 @@ GLFWwindow* Game::glWindow;
 //Statics
 ID3D11Device* Game::device;
 ID3D11DeviceContext* Game::deviceContext;
+HINSTANCE Game::hAppInst;
+HWND Game::hMainWind;
 
 //Rip the HINSTANCE of the exe out of the MS linker
 //Super hack!
@@ -421,6 +423,48 @@ bool Game::initD3DWindow()
 
 LRESULT Game::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+	switch (wParam)
+	{
+	case 0x41:
+		if (msg == WM_KEYDOWN)
+			Input::keys[KeyCode::a] = true;
+		else if (msg == WM_KEYUP)
+			Input::keys[KeyCode::a] = false;
+		return 0;
+	case 0x44:
+		if (msg == WM_KEYDOWN)
+			Input::keys[KeyCode::d] = true;
+		else if (msg == WM_KEYUP)
+			Input::keys[KeyCode::d] = false;
+		return 0;
+	case 0x53:
+		if (msg == WM_KEYDOWN)
+			Input::keys[KeyCode::s] = true;
+		else if (msg == WM_KEYUP)
+			Input::keys[KeyCode::s] = false;
+		return 0;
+	case 0x57:
+		if (msg == WM_KEYDOWN)
+			Input::keys[KeyCode::w] = true;
+		else if (msg == WM_KEYUP)
+			Input::keys[KeyCode::w] = false;
+		return 0;
+
+	case VK_SPACE:
+		if (msg == WM_KEYDOWN)
+			Input::keys[KeyCode::space] = true;
+		else if (msg == WM_KEYUP)
+			Input::keys[KeyCode::space] = false;
+		return 0;
+
+	case VK_ESCAPE:
+		if (msg == WM_KEYDOWN)
+			Input::keys[KeyCode::escape] = true;
+		else if (msg == WM_KEYUP)
+			Input::keys[KeyCode::escape] = false;
+		return 0;
+	}
+
 	return DefWindowProc(hwnd, msg, wParam, lParam);
 }
 
@@ -550,7 +594,20 @@ void Game::onResize()
 
 void Game::handleInputWindows()
 {
-	//TODO: populate input class
+	//Handle mouse
+	POINT mousePos;
+	Vector2 newMousePos;
+
+	//We only want to modify the mouse input if our window has focus
+	if (GetActiveWindow() == hMainWind)
+	{
+		if (GetCursorPos(&mousePos))
+		{
+			if (ScreenToClient(hMainWind, &mousePos))
+				newMousePos = Vector2((float)mousePos.x, (float)mousePos.y);
+		}
+	}
+	Input::mousePosition = newMousePos;
 }
 
 void Game::startRenderD3D()

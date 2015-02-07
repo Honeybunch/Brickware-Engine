@@ -96,14 +96,12 @@ private:
 #endif
 
 //D3D vars and methods
-#ifdef _WIN32
-	HINSTANCE hAppInst;
-	HWND hMainWind;
-#endif
-
 #ifdef D3D_SUPPORT
 	static ID3D11Device* device;
 	static ID3D11DeviceContext* deviceContext;
+
+	static HINSTANCE hAppInst;
+	static HWND hMainWind;
 
 	bool enable4xMsaa;
 	UINT msaa4xQuality;

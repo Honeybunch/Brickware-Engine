@@ -771,9 +771,17 @@ void Shape::loadOBJ(char* fileName)
 			texCoord3 = textureCoords[texCoords[2]];
 		}
 
-		Vector3 normal1 = normals[norms[0]];
-		Vector3 normal2 = normals[norms[1]];
-		Vector3 normal3 = normals[norms[2]];
+		//We may not have normals
+		Vector3 normal1;
+		Vector3 normal2;
+		Vector3 normal3;
+
+		if (normals.size() > 0)
+		{
+			normal1 = normals[norms[0]];
+			normal2 = normals[norms[1]];
+			normal3 = normals[norms[2]];
+		}
 
 		addTriangle(vert1, vert2, vert3,
 					texCoord1, texCoord2, texCoord3,

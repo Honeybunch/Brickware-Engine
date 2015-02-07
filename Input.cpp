@@ -48,4 +48,13 @@ void Input::setMousePositionGLFW(Vector2 pos)
 
 void Input::setMousePositionWindows(Vector2 pos)
 {
+	if (GetActiveWindow() == Game::hMainWind)
+	{
+		POINT newMousePos;
+		newMousePos.x = (LONG)pos.getX();
+		newMousePos.y = (LONG)pos.getY();
+
+		ClientToScreen(Game::hMainWind, &newMousePos);
+		SetCursorPos(newMousePos.x, newMousePos.y);
+	}
 }

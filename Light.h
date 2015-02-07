@@ -23,15 +23,6 @@ public:
 	virtual void Render();
 
 	~Light(void);
-
-private:
-	GLuint lightPosLocation;
-
-	void startGL(Material* material);
-	void startD3D(Material* material);
-
-	void renderGL(Material* material);
-	void renderD3D(Material* material);
 };
 
 #endif

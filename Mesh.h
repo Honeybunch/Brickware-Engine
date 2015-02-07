@@ -57,7 +57,10 @@ public :
 #endif
 
 #ifdef D3D_SUPPORT
-	ID3D11Buffer* getVertexBuffer();
+	ID3D11Buffer* getPositionBuffer();
+	ID3D11Buffer* getNormalBuffer();
+	ID3D11Buffer* getTexCoordBuffer();
+
 	ID3D11Buffer* getIndexBuffer();
 #endif
 
@@ -88,7 +91,10 @@ private:
 #endif
 
 #ifdef D3D_SUPPORT
-	ID3D11Buffer* vertexBuffer;
+	ID3D11Buffer* positionBuffer;
+	ID3D11Buffer* normalBuffer;
+	ID3D11Buffer* texCoordBuffer;
+
 	ID3D11Buffer* indexBuffer;
 
 	void bufferD3D(Shader* shader, char* textureFileName);

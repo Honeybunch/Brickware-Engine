@@ -7,7 +7,7 @@
 	#include <windows.h>
 #endif
 
-#ifndef USE_D3D_ONLY
+#ifdef GL_SUPPORT
 #include <GL/glew.h>
 
 #ifdef _WIN32
@@ -58,7 +58,7 @@ private:
 	static bool buttons[3];
 	static Vector2 mousePosition;
 
-#ifndef USE_D3D_ONLY
+#ifdef GL_SUPPORT
 	static void setMousePositionGLFW(Vector2 pos);
 #endif
 #ifdef D3D_SUPPORT

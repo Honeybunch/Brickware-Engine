@@ -3,15 +3,15 @@
 
 #include "Shader.h"
 
-#ifndef USE_D3D_ONLY
-	#include <GL/glew.h>
+#ifdef GL_SUPPORT
+#include <GL/glew.h>
 
-	#ifdef _WIN32
-		#define GLFW_DLL
-	#endif
+#ifdef _WIN32
+#define GLFW_DLL
+#endif
 
-	#define GLFW_INCLUDE_GLU
-	#include <glfw3.h>
+#define GLFW_INCLUDE_GLU
+#include <glfw3.h>
 #endif
 
 #include "Component.h"
@@ -51,7 +51,7 @@ public:
 private:
 	Shader* shader;
 
-#ifndef USE_D3D_ONLY
+#ifdef GL_SUPPORT
 	void setVector4GL(char* valueName, Vector4 value);
 	void setVector3GL(char* valueName, Vector3 value);
 	void setVector2GL(char* valueName, Vector2 value);

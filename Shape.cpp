@@ -23,7 +23,7 @@ Shape::Shape(PrimitiveType type, int division1, int division2, float radius)
 
 	pointElements = new float[triangles.size() * 9];
 	normalElements = new float[triangles.size() * 9];
-	indicies = new GLushort[triangles.size() * 9];
+	indicies = new unsigned short[triangles.size() * 9];
 	texCoords = new float[triangles.size() * 6];
 }
 
@@ -38,7 +38,7 @@ Shape::Shape(char* fileName)
 
 	pointElements = new float[triangles.size() * 12];
 	normalElements = new float[triangles.size() * 9];
-	indicies = new GLushort[triangles.size() * 12];
+	indicies = new unsigned short[triangles.size() * 12];
 	texCoords = new float[triangles.size() * 6];
 }
 
@@ -108,7 +108,7 @@ float* Shape::getNormals()
 	return normalElements;
 }
 
-GLushort* Shape::getIndicies()
+unsigned short* Shape::getIndicies()
 {
 	for(unsigned int i=0; i < triangles.size() * 9; i++)
 	{

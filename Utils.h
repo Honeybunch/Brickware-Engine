@@ -5,7 +5,7 @@
 
 #include "Settings.h"
 
-#ifndef USE_D3D_ONLY
+#ifdef GL_SUPPORT
 #include <GL/glew.h>
 
 #ifdef _WIN32
@@ -14,7 +14,10 @@
 
 #define GLFW_INCLUDE_GLU
 #include <glfw3.h>
+#elif defined(D3D_SUPPORT)
+#include <windows.h>
 #endif
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -36,7 +39,7 @@ public:
 
 	static char* trimToLastChar(char* string, char lastChar);
 
-#ifndef USE_D3D_ONLY
+#ifdef GL_SUPPORT
 	static void printShaderInfoLog(GLuint obj);
 	static void printProgramInfoLog(GLuint obj);
 #endif

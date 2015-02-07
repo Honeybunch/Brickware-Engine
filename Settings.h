@@ -2,28 +2,44 @@
 #define SETTINGS_H
 
 //TEST DEFINES, PLEASE SET IN COMPILER
-#define D3D_SUPPORT 
+//#define D3D_SUPPORT 
 #define GL_SUPPORT
 
-#define BUFFER_OFFSET(i) ((char *)NULL + (i))
+//If we're not on windows, we can't use DirectX
+#ifndef _WIN32
+#define GL_SUPPORT
+#undef D3D_SUPPORT
+#else
 
-#if defined(_WIN32) && defined(D3D_SUPPORT) && defined(GL_SUPPORT)
-//If we are on windows and we have asked for GL and D3D support then we can define non const bools that will allow for context switching
-static bool USE_DIRECTX = false;
-
-#define CAN_SWITCH_CONTEXT
-#elif _WIN32 && defined(D3D_SUPPORT)
-
-#define USE_D3D_ONLY
+//If neither is defined, we fall back to GL
+#if !defined(D3D_SUPPORT) && !defined(GL_SUPPORT)
+#define GL_SUPPORT
+#undef D3D_SUPPORT
 #endif
 
-#if defined(_WIN32) && defined(D3D_SUPPORT)
+//If we're on windows and asked for DirectX, lets no longer ask for GL
+#if defined(D3D_SUPPORT) && defined(_WIN32)
+#undef GL_SUPPORT
+#endif
 
+#endif
+
+//Special GL Macros
+#ifdef GL_SUPPORT
+#define BUFFER_OFFSET(i) ((char *)NULL + (i))
+#endif
+
+
+//Special DirectX macros
+#ifdef D3D_SUPPORT
+
+/*
 #include "Windows.h"
 #include "dxerr.h"
 #include <string>
 #include <d3d11.h>
 #include <assert.h>
+*/
 
 // Convenience macro for releasing a COM object
 #define ReleaseMacro(x) { if(x){ x->Release(); x = 0; } }

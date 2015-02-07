@@ -12,12 +12,7 @@ Shader::Shader(char* vertexShaderFileName, char* pixelShaderFileName)
 	char* trimmedVertexFileName = Utils::trimToLastChar(vertexShaderFileName, '/');
 	char* trimmedPixelFileName = Utils::trimToLastChar(pixelShaderFileName, '/');
 
-#ifdef CAN_SWITCH_CONTEXT
-	if (USE_DIRECTX)
-		loadHLSL(trimmedVertexFileName, trimmedPixelFileName);
-	else
-		loadGLSL(vertexShaderFileName, pixelShaderFileName);
-#elif defined(USE_D3D_ONLY)
+#ifdef D3D_SUPPORT
 	loadHLSL(trimmedVertexFileName, trimmedPixelFileName);
 #else
 	loadGLSL(vertexShaderFileName, pixelShaderFileName);
@@ -26,12 +21,7 @@ Shader::Shader(char* vertexShaderFileName, char* pixelShaderFileName)
 
 void Shader::bindShader()
 {
-#ifdef CAN_SWITCH_CONTEXT
-	if (USE_DIRECTX)
-		bindHLSL();
-	else
-		bindGLSL();
-#elif defined(USE_D3D_ONLY)
+#ifdef D3D_SUPPORT
 	bindHLSL();
 #else
 	bindGLSL();
@@ -40,19 +30,14 @@ void Shader::bindShader()
 
 void Shader::freeShader()
 {
-#ifdef CAN_SWITCH_CONTEXT
-	if (USE_DIRECTX)
-		freeHLSL();
-	else
-		freeGLSL();
-#elif defined(USE_D3D_ONLY)
+#ifdef D3D_SUPPORT
 	freeHLSL();
 #else
 	freeGLSL();
 #endif
 }
 
-#ifndef USE_D3D_ONLY
+#ifdef GL_SUPPORT
 
 void Shader::bindGLSL()
 { 

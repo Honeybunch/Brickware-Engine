@@ -23,12 +23,7 @@ void Camera::Start()
 
 	Material* material = getGameObject()->getComponent<Material>();
 	
-#ifdef CAN_SWITCH_CONTEXT
-	if (USE_DIRECTX)
-		startD3D(material);
-	else
-		startGL(material);
-#elif defined(USE_D3D_ONLY)
+#ifdef D3D_SUPPORT
 	startD3D(material);
 #else
 	startGL(material);

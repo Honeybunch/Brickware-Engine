@@ -12,7 +12,7 @@
 #include "Input.h"
 #include "Screen.h"
 
-#ifndef USE_D3D_ONLY
+#ifdef GL_SUPPORT
 #include <GL/glew.h>
 
 #ifdef _WIN32
@@ -28,6 +28,7 @@
 #include <WindowsX.h>
 #include <d3d11.h>
 #include <assert.h>
+#include "dxerr.h"
 #endif
 
 #include "Mesh.h"
@@ -85,7 +86,7 @@ private:
 	void handleInput();
 
 //OpenGL / GLFW3 vars and methods
-#ifndef USE_D3D_ONLY
+#ifdef GL_SUPPORT
 	static GLFWwindow* glWindow;
 
 	bool initGL();

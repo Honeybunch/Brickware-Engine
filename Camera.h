@@ -13,7 +13,7 @@
 #include <windows.h>
 #endif
 
-#ifndef USE_D3D_ONLY
+#ifdef GL_SUPPORT
 #include <GL/glew.h>
 
 #ifdef _WIN32
@@ -60,13 +60,6 @@ private:
 
 	float speed;
 	Vector3* lookAt;
-
-	GLint viewMatrixPos;
-	GLint projectionMatrixPos;
-
-	GLint lookAtPos;
-	GLint eyePointPos;
-	GLint upPos;
 
 	Matrix4 calcViewMatrix();
 	Matrix4 calcProjectionMatrix();

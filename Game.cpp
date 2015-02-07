@@ -1,7 +1,7 @@
 #include "Game.h"
 
 //Window is static so that it can be easily accessed by static friends like Input and Screen
-#ifndef USE_D3D_ONLY
+#ifdef GL_SUPPORT
 GLFWwindow* Game::glWindow;
 #endif
 
@@ -117,12 +117,7 @@ bool Game::init()
 {
 	bool initSuccess = true;
 
-#ifdef CAN_SWITCH_CONTEXT
-	if (USE_DIRECTX)
-		initSuccess = initD3D();
-	else
-		initSuccess = initGL();
-#elif defined(USE_D3D_ONLY)
+#ifdef D3D_SUPPORT
 	initSuccess = initD3D();
 #else
 	initSuccess = initGL();
@@ -137,12 +132,7 @@ bool Game::init()
 //Render in the proper settings for the given rendering API
 void Game::render()
 {
-#ifdef CAN_SWITCH_CONTEXT
-	if (USE_DIRECTX)
-		startRenderD3D();
-	else
-		startRenderGL();
-#elif defined(USE_D3D_ONLY)
+#ifdef D3D_SUPPORT
 	startRenderD3D();
 #else
 	startRenderGL();
@@ -150,12 +140,7 @@ void Game::render()
 
 	renderScene(); //Will be overridden 
 
-#ifdef CAN_SWITCH_CONTEXT
-	if (USE_DIRECTX)
-		swapBuffersD3D();
-	else
-		swapBuffersGL();
-#elif defined(USE_D3D_ONLY)
+#ifdef D3D_SUPPORT
 	swapBuffersD3D();
 #else
 	swapBuffersGL();
@@ -164,19 +149,14 @@ void Game::render()
 
 void Game::handleInput()
 {
-#ifdef CAN_SWITCH_CONTEXT
-	if (USE_DIRECTX)
-		handleInputWindows();
-	else
-		handleInputGLFW();
-#elif defined(USE_D3D_ONLY)
+#ifdef D3D_SUPPORT
 	handleInputWindows();
 #else
 	handleInputGLFW();
 #endif
 }
 
-#ifndef USE_D3D_ONLY
+#ifdef GL_SUPPORT
 bool Game::initGL()
 {
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -574,13 +554,34 @@ void Game::onResize()
 		depthStencilDesc.SampleDesc.Quality = 0;
 	}
 
+	//Create a raster description
+	D3D11_RASTERIZER_DESC rasterDesc;
+	rasterDesc.AntialiasedLineEnable = false;
+	rasterDesc.CullMode = D3D11_CULL_BACK;
+	rasterDesc.DepthBias = 0;
+	rasterDesc.DepthBiasClamp = 0.0f;
+	rasterDesc.DepthClipEnable = true;
+	rasterDesc.FillMode = D3D11_FILL_SOLID;
+	rasterDesc.FrontCounterClockwise = true;
+	rasterDesc.MultisampleEnable = false;
+	rasterDesc.ScissorEnable = false;
+	rasterDesc.SlopeScaledDepthBias = 0.0f;
+
+	ID3D11RasterizerState* rasterState;
+
 	// Create the depth/stencil buffer and corresponding view
 	HR(device->CreateTexture2D(&depthStencilDesc, 0, &depthStencilBuffer));
 	HR(device->CreateDepthStencilView(depthStencilBuffer, 0, &depthStencilView));
 
+	//Create rasterizer state
+	HR(device->CreateRasterizerState(&rasterDesc, &rasterState));
+
 	// Bind these views to the pipeline, so rendering actually
 	// uses the underlying textures
 	deviceContext->OMSetRenderTargets(1, &renderTargetView, depthStencilView);
+
+	//Set rasterizer
+	deviceContext->RSSetState(rasterState);
 
 	// Update the viewport and set it on the device
 	viewport.TopLeftX = 0;

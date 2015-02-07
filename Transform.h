@@ -4,18 +4,18 @@
 #include "Settings.h"
 
 #ifdef D3D_SUPPORT
-	#include <windows.h>
+#include <windows.h>
 #endif
 
-#ifndef USE_D3D_ONLY
-	#include <GL/glew.h>
+#ifdef GL_SUPPORT
+#include <GL/glew.h>
 
-	#ifdef _WIN32
-		#define GLFW_DLL
-	#endif
+#ifdef _WIN32
+#define GLFW_DLL
+#endif
 
-	#define GLFW_INCLUDE_GLU
-	#include <glfw3.h>
+#define GLFW_INCLUDE_GLU
+#include <glfw3.h>
 #endif
 
 class GameObject;

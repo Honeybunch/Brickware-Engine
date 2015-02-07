@@ -19,12 +19,8 @@ Mesh::Mesh(Shape shape, char* textureFileName)
 	indexSize = numberOfVerts * sizeof(GLushort);
 	texCoordSize = shape.getTexCoordSize() * sizeof(float);
 
-#ifdef CAN_SWITCH_CONTEXT
-	if (USE_DIRECTX)
-		bufferD3D();
-	else
-		bufferGL(textureFileName);
-#elif defined(USE_D3D_ONLY)
+
+#ifdef D3D_SUPPORT
 	bufferD3D();
 #else
 	bufferGL(textureFileName);
@@ -40,7 +36,7 @@ int Mesh::getIndexSize(){ return indexSize; }
 int Mesh::getNumberOfVerts(){ return numberOfVerts; }
 int Mesh::getTexCoordSize(){ return texCoordSize; }
 
-#ifndef USE_D3D_ONLY
+#ifdef GL_SUPPORT
 //Write a Texture2D class and get this outta here
 GLuint Mesh::getTexture(){ return texture; }
 
@@ -58,6 +54,7 @@ ID3D11Buffer* Mesh::getIndexBuffer(){ return indexBuffer; }
 
 //Private functions
 
+#ifdef GL_SUPPORT
 void Mesh::bufferGL(char* textureFileName)
 {
 	//Setup the VBO
@@ -79,6 +76,9 @@ void Mesh::bufferGL(char* textureFileName)
 	if (textureFileName != "" && textureFileName != NULL)
 		texture = SOIL_load_OGL_texture(textureFileName, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
 }
+#endif
+
+#ifdef D3D_SUPPORT
 void Mesh::bufferD3D()
 {
 	//Use 3 buffers instead of one interleaved buffer
@@ -141,6 +141,7 @@ void Mesh::bufferD3D()
 	//Buffer
 	HR(Game::device->CreateBuffer(&indexBufferDesc, &indexData, &indexBuffer));
 }
+#endif
 
 //Destructor
 Mesh::~Mesh()

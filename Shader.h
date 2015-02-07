@@ -20,15 +20,15 @@ struct ConstVariableInfo{
 };
 #endif
 
-#ifndef USE_D3D_ONLY
-	#include <GL/glew.h>
+#ifdef GL_SUPPORT
+#include <GL/glew.h>
 
-	#ifdef _WIN32
-		#define GLFW_DLL
-	#endif
+#ifdef _WIN32
+#define GLFW_DLL
+#endif
 
-	#define GLFW_INCLUDE_GLU
-	#include <glfw3.h>
+#define GLFW_INCLUDE_GLU
+#include <glfw3.h>
 #endif
 
 class Shader
@@ -44,7 +44,7 @@ public:
 	~Shader();
 
 private:
-#ifndef USE_D3D_ONLY
+#ifdef GL_SUPPORT
 	GLuint shaderProgram;
 
 	//MUST use a string otherwise it will compare char*s as integer values and insert garbage data

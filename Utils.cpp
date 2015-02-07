@@ -113,7 +113,7 @@ char* Utils::trimToLastChar(char* string, char lastChar)
 	return toReturn;
 }
 
-#ifndef USE_D3D_ONLY
+#ifdef GL_SUPPORT
 void Utils::printShaderInfoLog(GLuint obj)
 {
 	GLint infologLength = 0;

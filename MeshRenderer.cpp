@@ -22,12 +22,7 @@ void MeshRenderer::Render()
 {
 	Material* material = this->getGameObject()->getComponent<Material>();
 	
-#ifdef CAN_SWITCH_CONTEXT
-	if (USE_DIRECTX)
-		renderD3D(material);
-	else
-		renderGL(material);
-#elif defined(USE_D3D_ONLY)
+#ifdef D3D_SUPPORT
 	renderD3D(material);
 #else
 	renderGL(material);
@@ -89,6 +84,7 @@ void MeshRenderer::calculateBounds()
 }
 
 //Private methods
+#ifdef GL_SUPPORT
 void MeshRenderer::renderGL(Material* material)
 {
 	GLint shaderProgram;
@@ -118,6 +114,9 @@ void MeshRenderer::renderGL(Material* material)
 	// draw your shape
 	glDrawElements(GL_TRIANGLES, mesh->getNumberOfVerts(), GL_UNSIGNED_SHORT, (void *)0);
 }
+#endif
+
+#ifdef D3D_SUPPORT
 void MeshRenderer::renderD3D(Material* material)
 {
 	std::vector<ID3D11Buffer*> constantBuffers = material->getConstantBuffers();
@@ -159,6 +158,7 @@ void MeshRenderer::renderD3D(Material* material)
 	//DRAW
 	Game::deviceContext->DrawIndexed(mesh->getNumberOfVerts(), 0, 0);
 }
+#endif
 
 MeshRenderer::~MeshRenderer()
 {

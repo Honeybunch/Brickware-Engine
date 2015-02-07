@@ -1,6 +1,6 @@
 #include "Material.h"
 
-#ifndef USE_D3D_ONLY
+#ifdef GL_SUPPORT
 
 void Material::setVector4GL(char* valueName, Vector4 value)
 {

@@ -28,23 +28,24 @@ Vector2 Input::getMousePosition(){ return mousePosition; }
 
 void Input::setMousePosition(Vector2 pos)
 {
-#ifdef CAN_SWITCH_CONTEXT
-	if (USE_DIRECTX)
-		setMousePositionWindows(pos);
-	else
-		setMousePositionGLFW(pos);
-#elif defined(USE_D3D_ONLY)
+#if defined(D3D_SUPPORT)
 	setMousePositionWindows(pos);
 #else
 	setMousePositionGLFW(pos);
 #endif
 }
 
+#ifdef GL_SUPPORT
+
 void Input::setMousePositionGLFW(Vector2 pos)
 {
 	if (Game::glWindow)
 		glfwSetCursorPos(Game::glWindow, pos.getX(), pos.getY());
 }
+
+#endif
+
+#ifdef D3D_SUPPORT
 
 void Input::setMousePositionWindows(Vector2 pos)
 {
@@ -58,3 +59,5 @@ void Input::setMousePositionWindows(Vector2 pos)
 		SetCursorPos(newMousePos.x, newMousePos.y);
 	}
 }
+
+#endif

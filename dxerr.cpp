@@ -15,6 +15,8 @@
 
 #include "dxerr.h"
 
+#ifdef D3D_SUPPORT
+
 #include <stdio.h>
 #include <algorithm>
 
@@ -3961,3 +3963,4 @@ HRESULT WINAPI DXTraceW( _In_z_ const WCHAR* strFile, _In_ DWORD dwLine, _In_ HR
 
     return hr;
 }
+#endif

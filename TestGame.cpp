@@ -13,26 +13,16 @@ bool TestGame::init()
 
 	//Load shader
 	Shader* shader = new Shader("Shaders/VertexShader", "Shaders/PixelShader");
-
-	//Load basic models
-	Shape castleShape("Models/castle.obj");
-
-	Shape sphereShape("Models/sphere.obj");
-	Shape cubeShape("Models/cube.obj");
-
-	Shape squareShape("Models/square.obj");
-	Shape circleShape("Models/circle.obj");
-	Shape triangleShape("Models/triangle.obj");
 	
-	//Create basic meshes
-	Mesh* castleMesh = new Mesh(castleShape, "Textures/castleAOTexture.png");
+	//Load basic meshes
+	Mesh* castleMesh = new Mesh("Models/castle.obj", "Textures/castleAOTexture.png");
 
-	Mesh* sphereMesh = new Mesh(sphereShape, "Textures/brickTexture.png");
-	Mesh* cubeMesh = new Mesh(cubeShape, "Textures/boxTexture.png");
+	Mesh* sphereMesh = new Mesh("Models/sphere.obj", "Textures/brickTexture.png");
+	Mesh* cubeMesh = new Mesh("Models/cube.obj", "Textures/boxTexture.png");
 
-	Mesh* squareMesh = new Mesh(squareShape, "Textures/grassTexture.png");
-	Mesh* circleMesh = new Mesh(circleShape, "Textures/stoneTexture.png");
-	Mesh* triangleMesh = new Mesh(triangleShape, "Texture/brickTexture.png");
+	Mesh* squareMesh = new Mesh("Models/square.obj", "Textures/grassTexture.png");
+	Mesh* circleMesh = new Mesh("Models/circle.obj", "Textures/stoneTexture.png");
+	Mesh* triangleMesh = new Mesh("Models/triangle.obj", "Texture/brickTexture.png");
 
 	//Create Camera
 	GameObject* camera = new GameObject();

@@ -7,6 +7,8 @@
 
 #include "Settings.h"
 
+#define _CRT_SECURE_NO_WARNINGS 
+
 #ifdef D3D_SUPPORT
 #include <windows.h>
 #endif
@@ -26,12 +28,12 @@
 
 #include <vector>
 #include <iostream>
+#include <fstream>
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
 using namespace std;
 
-#include "Shape.h"
 #include "Transform.h"
 #include "Shader.h"
 #include "GameObject.h"
@@ -39,7 +41,7 @@ using namespace std;
 class Mesh
 {
 public :
-	Mesh(Shape shape, char* textureFileName = "");
+	Mesh(char* modelFilePath, char* textureFileName = "");
 
 	float* getPoints();
 
@@ -67,9 +69,11 @@ public :
 	~Mesh();
 
 private: 
+	void loadOBJ(char* fileName);
+
 	float* points;
 	float* normals;
-	unsigned short* indicies;
+	unsigned short* indices;
 	float* texCoords;
 
 	int pointSize;

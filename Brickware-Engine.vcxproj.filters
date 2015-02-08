@@ -39,9 +39,6 @@
     <ClInclude Include="Shader.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Shape.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="Triangle.h">
       <Filter>Headers</Filter>
     </ClInclude>
@@ -138,9 +135,6 @@
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Shader.cpp">
-      <Filter>Sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Shape.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
     <ClCompile Include="Triangle.cpp">

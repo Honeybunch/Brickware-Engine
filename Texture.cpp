@@ -31,11 +31,17 @@ void Texture::freeTexture()
 #endif
 }
 
-float* Texture::getPixels(){ return pixels; }
+char* Texture::getPixels(){ return pixels; }
 
 void Texture::loadBMP(char* textureFileName)
 {
 	char* bmpBytes = Utils::textFileRead(textureFileName);
+
+	if (bmpBytes == NULL)
+	{
+		std::cout << "Error loading: " << textureFileName << std::endl;
+		return;
+	}
 
 	//Check to see if this is a valid image
 	//We check the first byte of the image; if it's not a B, C, I or P than this is not a valid BMP
@@ -52,35 +58,33 @@ void Texture::loadBMP(char* textureFileName)
 		colorDepth = *(short*)(bmpBytes + 28);
 		compressionType = *(int*)(bmpBytes + 30);
 
+		int bytesPerPixel = colorDepth / 8;
+
 		int rowSize = ((colorDepth * width + 31) / 32) * 4;
 		int pixelArraySize = rowSize * height; //Size of the BMP pixel array in bytes
 
-		//The size of the pixel array is going to be width * height (for the resolution)
-		//Also * 4 for each RGBA component
-		//Not pixelArraySize because that's in bytes and floats are 4 bytes each
-		pixels = new float[width * height * 4];
-	
+		//Calculate row padding; each row must have a size that is a multiple of 4 bytes
+		int rowPadding = (width * bytesPerPixel) % 4;
+
+		pixels = new char[pixelArraySize];
+
 		//Load the colors into the pixels array based on color depth
 		if (colorDepth == 24)
 		{
+			textureType = TextureType::RGB;
+			glTextureType = GL_RGB;
+
 			for (int i = 0; i < pixelArraySize; i+= 3)
 			{
 				char r, g, b;
 
-				g = *(char*)bmpBytes + pixelArrayLocation + i ;
-				r = *(char*)bmpBytes + pixelArrayLocation + i + 1;
-				b = *(char*)bmpBytes + pixelArrayLocation + i + 2;
+				b = *(char*)(bmpBytes + pixelArrayLocation + i) ;
+				g = *(char*)(bmpBytes + pixelArrayLocation + i + 1);
+				r = *(char*)(bmpBytes + pixelArrayLocation + i + 2);
 
-				int pixelIndex = i / 3;
-
-				float red = r / 256.0f;
-				float green = g / 256.0f;
-				float blue = b / 256.0f;
-
-				pixels[pixelIndex] = red;
-				pixels[pixelIndex + 1] = green;
-				pixels[pixelIndex + 2] = blue;
-				pixels[pixelIndex + 3] = 0; //In 24bpp there is no alpha
+				pixels[i] = r;
+				pixels[i + 1] = g;
+				pixels[i + 2] = b;
 			}
 		}
 		else
@@ -94,11 +98,11 @@ void Texture::loadBMP(char* textureFileName)
 
 void Texture::bufferGL()
 {
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
+	glGenTextures(1, &glTexture);
+	glBindTexture(GL_TEXTURE_2D, glTexture);
 
 	//Load texture data
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_FLOAT, pixels);
+	glTexImage2D(GL_TEXTURE_2D, 0, glTextureType, width, height, 0, glTextureType, GL_UNSIGNED_BYTE, pixels);
 
 	//Setup mipmap
 	//TODO: check if texture is power of two first
@@ -110,7 +114,7 @@ void Texture::bufferGL()
 
 void Texture::bindGL()
 {
-	glBindTexture(GL_TEXTURE_2D, texture);
+	glBindTexture(GL_TEXTURE_2D, glTexture);
 }
 
 void Texture::freeGL()

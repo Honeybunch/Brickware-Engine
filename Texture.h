@@ -16,6 +16,11 @@
 
 #include "Utils.h"
 
+enum TextureType{
+	RGB,
+	RGBA
+};
+
 class Texture
 {
 	friend class Material;
@@ -23,7 +28,7 @@ class Texture
 public:
 	Texture(char* textureFileName);
 
-	float* getPixels();
+	char* getPixels();
 
 	~Texture();
 
@@ -33,8 +38,11 @@ private:
 	void bindTexture();
 	void freeTexture();
 
+	TextureType textureType;
+
 #ifdef GL_SUPPORT
-	GLuint texture;
+	GLuint glTexture;
+	GLenum glTextureType;
 
 	void bufferGL();
 	void bindGL();
@@ -53,7 +61,7 @@ private:
 	short colorDepth; //Bits per pixel
 	int compressionType;
 
-	float* pixels;
+	char* pixels;
 };
 
 #endif

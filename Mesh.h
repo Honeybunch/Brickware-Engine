@@ -52,8 +52,6 @@ public :
 	int getTexCoordSize();
 
 #ifdef GL_SUPPORT
-	GLuint getTexture();
-
 	GLuint getVBO();
 	GLuint getIBO();
 #endif
@@ -83,8 +81,6 @@ private:
 	int texCoordSize;
 
 #ifdef GL_SUPPORT
-	//Texture info
-	GLuint texture;
 
 	//Buffer IDs
 	GLuint vbo;

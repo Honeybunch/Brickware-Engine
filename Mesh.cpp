@@ -23,9 +23,6 @@ int Mesh::getNumberOfVerts(){ return numberOfVerts; }
 int Mesh::getTexCoordSize(){ return texCoordSize; }
 
 #ifdef GL_SUPPORT
-//Write a Texture2D class and get this outta here
-GLuint Mesh::getTexture(){ return texture; }
-
 GLuint Mesh::getVBO(){ return vbo; }
 GLuint Mesh::getIBO(){ return ibo; }
 #endif

@@ -90,9 +90,6 @@ void MeshRenderer::renderGL(Material* material)
 	GLint shaderProgram;
 	glGetIntegerv(GL_CURRENT_PROGRAM, &shaderProgram);
 
-	if (mesh->getTexture() != NULL)
-		glBindTexture(GL_TEXTURE_2D, mesh->getTexture());
-
 	GLuint vPosition = glGetAttribLocation(shaderProgram, "vPosition");
 	GLuint vNormal = glGetAttribLocation(shaderProgram, "vNormal");
 	GLuint vTexCoord = glGetAttribLocation(shaderProgram, "vTexCoord");

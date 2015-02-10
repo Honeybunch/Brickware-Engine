@@ -6,34 +6,38 @@ Material::Material(Shader* shader)
 {
 	this->shader = shader;
 
+	//We copy this from the shader so that every material will have its own map of textures
+	//With the the proper names from the shader's shader reflection
+	textureMap = shader->textureMap;
+
+
 	if (defaultTexture == NULL)
 		defaultTexture = new Texture("Textures/defaultTexture.bmp");
 
 	this->setTexture("diffuseTexture", Material::defaultTexture);
 }
 
-void Material::Start()
-{
-	/*
-	for (std::pair<std::string, Texture*> texPair : shader->textureMap)
-		texPair.second->bufferTexture();
-		*/
-}
 
 void Material::bindShader()
 {
 	shader->bindShader();
 
-	for (std::pair<std::string, Texture*> texPair : shader->textureMap)
-		texPair.second->bindTexture();
+	for (std::pair<std::string, Texture*> texPair : textureMap)
+	{
+		if (texPair.second != NULL)
+			texPair.second->bindTexture();
+	}
 }
 
 void Material::freeShader()
 {
 	shader->freeShader();
 
-	for (std::pair<std::string, Texture*> texPair : shader->textureMap)
-		texPair.second->freeTexture();
+	for (std::pair<std::string, Texture*> texPair : textureMap)
+	{
+		if (texPair.second != NULL)
+			texPair.second->freeTexture();
+	}
 }
 
 void Material::setVector4(char* valueName, Vector4 value)
@@ -98,8 +102,8 @@ void Material::setMatrix4(char* valueName, Matrix4 value)
 void Material::setTexture(char* textureName, Texture* texture)
 {
 	std::string textureString (textureName);
-	if (shader->textureMap.size() > 0 && shader->textureMap.find(textureString) != shader->textureMap.end())
+	if (textureMap.size() > 0 && textureMap.find(textureString) != textureMap.end())
 	{
-		shader->textureMap[textureString] = texture;
+		textureMap[textureString] = texture;
 	}
 }

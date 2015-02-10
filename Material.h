@@ -32,8 +32,6 @@ public:
 	void bindShader();
 	void freeShader();
 
-	virtual void Start() override;
-
 #ifdef D3D_SUPPORT
 	std::vector<ID3D11Buffer*> getConstantBuffers();
 	std::vector<char*> getConstantBufferData();
@@ -55,6 +53,8 @@ public:
 
 private:
 	Shader* shader;
+
+	std::map<std::string, Texture*> textureMap;
 
 	//Default texture to be loaded once and passed by default to every material
 	static Texture* defaultTexture;

@@ -14,8 +14,6 @@
 #endif
 
 #ifdef GL_SUPPORT
-#include <SOIL.h>
-
 #include <GL/glew.h>
 
 #ifdef _WIN32

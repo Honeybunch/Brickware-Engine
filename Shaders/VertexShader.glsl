@@ -14,7 +14,7 @@ uniform mat4 projectionMatrix;
 
 uniform vec3 lightPosition;
 
-uniform sampler2D tex;
+uniform sampler2D diffuseTexture;
 
 uniform vec3 lookAt;
 uniform vec3 eyePoint;

@@ -31,6 +31,8 @@ struct ConstVariableInfo{
 #include <glfw3.h>
 #endif
 
+#include "Texture.h"
+
 class Shader
 {
 	friend class Material;
@@ -49,7 +51,7 @@ private:
 
 	//MUST use a string otherwise it will compare char*s as integer values and insert garbage data
 	std::map<std::string, GLuint> uniformMap;
-	std::map<std::string, GLuint> textureMap;
+	std::map<std::string, Texture*> textureMap;
 
 	void bindGLSL();
 	void freeGLSL();

@@ -3,7 +3,7 @@
 out vec4 fragColor;
 
 in vec2 texCoord;
-uniform sampler2D tex;
+uniform sampler2D diffuseTexture;
 
 in vec3 L;
 in vec3 E;
@@ -18,7 +18,7 @@ void main()
 
 	float gloss = 75.0;
 	
-	vec4 hue = texture(tex, texCoord);
+	vec4 hue = texture(diffuseTexture, texCoord);
 
 	float Kd = max(dot(L,N), 0.0);
 	float Ks = pow(max(dot(N,H), 0.0), gloss);

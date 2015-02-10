@@ -5,7 +5,11 @@ Texture::Texture(char* textureFileName)
 	//TODO: check file name once we support multiple file namess
 	loadBMP(textureFileName);
 
-	//Lets buffer the texture onto the GPU
+	bufferTexture();
+}
+
+void Texture::bufferTexture()
+{
 #ifdef D3D_SUPPORT
 	bufferD3D();
 #else
@@ -61,10 +65,11 @@ void Texture::loadBMP(char* textureFileName)
 		int bytesPerPixel = colorDepth / 8;
 
 		int rowSize = ((colorDepth * width + 31) / 32) * 4;
-		int pixelArraySize = rowSize * height; //Size of the BMP pixel array in bytes
+		int pixelArraySize = width * height * 3; //Size of the BMP pixel array in bytes
 
 		//Calculate row padding; each row must have a size that is a multiple of 4 bytes
-		int rowPadding = (width * bytesPerPixel) % 4;
+		//Not really necessary for 24 bbp
+		//int rowPadding = (width * bytesPerPixel) % 4;
 
 		pixels = new char[pixelArraySize];
 
@@ -72,7 +77,7 @@ void Texture::loadBMP(char* textureFileName)
 		if (colorDepth == 24)
 		{
 			textureType = TextureType::RGB;
-			glTextureType = GL_RGB;
+			glTextureType = GL_RGB8;
 
 			for (int i = 0; i < pixelArraySize; i+= 3)
 			{
@@ -90,6 +95,7 @@ void Texture::loadBMP(char* textureFileName)
 		else
 		{
 			std::cout << "Color Depth not 24bpp" << std::endl;
+			std::cout << "BMPs with color depth of " << colorDepth << " bpp are not supported yet" << std::endl;
 		}
 	}
 
@@ -98,14 +104,19 @@ void Texture::loadBMP(char* textureFileName)
 
 void Texture::bufferGL()
 {
+	//don't buffer if it wasn't loaded properly
+	if (width < 0 || height < 0)
+		return;
+
 	glGenTextures(1, &glTexture);
 	glBindTexture(GL_TEXTURE_2D, glTexture);
 
 	//Load texture data
 	glTexImage2D(GL_TEXTURE_2D, 0, glTextureType, width, height, 0, glTextureType, GL_UNSIGNED_BYTE, pixels);
 
-	//Setup mipmap
-	//TODO: check if texture is power of two first
+	//Setup mipmaps and parameters
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glGenerateMipmap(GL_TEXTURE_2D);
 
 	//Unbind texture

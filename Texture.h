@@ -35,6 +35,7 @@ public:
 private:
 	void loadBMP(char* textureFileName);
 
+	void bufferTexture();
 	void bindTexture();
 	void freeTexture();
 

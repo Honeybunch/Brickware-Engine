@@ -8,11 +8,17 @@ Material::Material(Shader* shader)
 void Material::bindShader()
 {
 	shader->bindShader();
+
+	for (Texture* tex : textures)
+		tex->bindTexture();
 }
 
 void Material::freeShader()
 {
 	shader->freeShader();
+
+	for (Texture* tex : textures)
+		tex->freeTexture();
 }
 
 void Material::setVector4(char* valueName, Vector4 value)
@@ -72,4 +78,9 @@ void Material::setMatrix4(char* valueName, Matrix4 value)
 #else
 	setMatrix4GL(valueName, value);
 #endif
+}
+
+void Material::setTexture(Texture* texture)
+{
+	textures.push_back(texture);
 }

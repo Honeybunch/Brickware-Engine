@@ -49,6 +49,7 @@ private:
 
 	//MUST use a string otherwise it will compare char*s as integer values and insert garbage data
 	std::map<std::string, GLuint> uniformMap;
+	std::map<std::string, GLuint> textureMap;
 
 	void bindGLSL();
 	void freeGLSL();

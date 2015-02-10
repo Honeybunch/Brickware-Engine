@@ -41,7 +41,7 @@ using namespace std;
 class Mesh
 {
 public :
-	Mesh(char* modelFilePath, char* textureFileName = "");
+	Mesh(char* modelFilePath);
 
 	float* getPoints();
 
@@ -90,7 +90,7 @@ private:
 	GLuint vbo;
 	GLuint ibo; 
 
-	void bufferGL(char* textureFileName);
+	void bufferGL();
 #endif
 
 #ifdef D3D_SUPPORT

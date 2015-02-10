@@ -16,6 +16,7 @@
 
 #include "Component.h"
 #include "Utils.h"
+#include "Texture.h"
 
 #include "Matrix4.h"
 #include "Vector3.h"
@@ -46,10 +47,13 @@ public:
 
 	void setMatrix4(char* valueName, Matrix4 value);
 
+	void setTexture(Texture* texture);
+
 	~Material();
 
 private:
 	Shader* shader;
+	std::vector<Texture*> textures;
 
 #ifdef GL_SUPPORT
 	void setVector4GL(char* valueName, Vector4 value);

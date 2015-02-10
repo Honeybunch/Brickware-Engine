@@ -16,16 +16,18 @@ bool TestGame::init()
 
 	//Load textures
 	Texture* testTexture = new Texture("Textures/brickTexture.bmp");
+	Material* testMaterial = new Material(shader);
+	testMaterial->setTexture(testTexture);
 	
 	//Load basic meshes
-	Mesh* castleMesh = new Mesh("Models/castle.obj", "Textures/castleAOTexture.png");
+	Mesh* castleMesh = new Mesh("Models/castle.obj");
 
-	Mesh* sphereMesh = new Mesh("Models/sphere.obj", "Textures/brickTexture.png");
-	Mesh* cubeMesh = new Mesh("Models/cube.obj", "Textures/boxTexture.png");
+	Mesh* sphereMesh = new Mesh("Models/sphere.obj");
+	Mesh* cubeMesh = new Mesh("Models/cube.obj");
 
-	Mesh* squareMesh = new Mesh("Models/square.obj", "Textures/grassTexture.png");
-	Mesh* circleMesh = new Mesh("Models/circle.obj", "Textures/stoneTexture.png");
-	Mesh* triangleMesh = new Mesh("Models/triangle.obj", "Texture/brickTexture.png");
+	Mesh* squareMesh = new Mesh("Models/square.obj");
+	Mesh* circleMesh = new Mesh("Models/circle.obj");
+	Mesh* triangleMesh = new Mesh("Models/triangle.obj");
 
 	//Create Camera
 	GameObject* camera = new GameObject();
@@ -54,7 +56,7 @@ bool TestGame::init()
 	sphere->addComponent(sphereSpin);
 	GameObject* cube = new GameObject();
 	cube->getTransform()->setPosition(Vector3(-3.0f, 1.0f, -5.0f));
-	cube->addComponent(new Material(shader));
+	cube->addComponent(testMaterial);
 	cube->addComponent(new MeshRenderer(cubeMesh));
 	Spin* cubeSpin = new Spin();
 	cubeSpin->rotationDelta = Vector3(0.05f, 0.0f, 0.0f);

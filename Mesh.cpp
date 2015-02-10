@@ -2,14 +2,14 @@
 
 #include "Game.h"
 
-Mesh::Mesh(char* modelFileName, char* textureFileName)
+Mesh::Mesh(char* modelFileName)
 {
 	loadOBJ(modelFileName);
 
 #ifdef D3D_SUPPORT
 	bufferD3D();
 #else
-	bufferGL(textureFileName);
+	bufferGL();
 #endif
 }
 
@@ -251,7 +251,7 @@ void Mesh::loadOBJ(char* fileName)
 }
 
 #ifdef GL_SUPPORT
-void Mesh::bufferGL(char* textureFileName)
+void Mesh::bufferGL()
 {
 	//Setup the VBO
 	glGenBuffers(1, &vbo);
@@ -269,8 +269,8 @@ void Mesh::bufferGL(char* textureFileName)
 
 	//Load texture with SOIL 
 	//TODO: REMOVE THIS AND LOAD BMP OURSELVES
-	if (textureFileName != "" && textureFileName != NULL)
-		texture = SOIL_load_OGL_texture(textureFileName, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
+	//if (textureFileName != "" && textureFileName != NULL)
+	//	texture = SOIL_load_OGL_texture(textureFileName, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
 }
 #endif
 

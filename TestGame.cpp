@@ -13,6 +13,9 @@ bool TestGame::init()
 
 	//Load shader
 	Shader* shader = new Shader("Shaders/VertexShader", "Shaders/PixelShader");
+
+	//Load textures
+	Texture* testTexture = new Texture("Textures/brickTexture.bmp");
 	
 	//Load basic meshes
 	Mesh* castleMesh = new Mesh("Models/castle.obj", "Textures/castleAOTexture.png");

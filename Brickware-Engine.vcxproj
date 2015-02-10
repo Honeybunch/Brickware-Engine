@@ -36,6 +36,7 @@
     <ClInclude Include="SphereCollider.h" />
     <ClInclude Include="Spin.h" />
     <ClInclude Include="TestGame.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Triangle.h" />
     <ClInclude Include="Utils.h" />
@@ -71,6 +72,7 @@
     <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="Spin.cpp" />
     <ClCompile Include="TestGame.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="Utils.cpp" />

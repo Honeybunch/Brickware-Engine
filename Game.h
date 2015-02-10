@@ -42,6 +42,7 @@
 #include "SphereCollider.h"
 #include "BoxCollider.h"
 #include "MeshRenderer.h"
+#include "Texture.h"
 
 using namespace std;
 

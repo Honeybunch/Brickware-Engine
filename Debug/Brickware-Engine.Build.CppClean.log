@@ -2,7 +2,6 @@ d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\pixelshader.cs
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\vertexshader.cso
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\vc120.pdb
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\vc120.idb
-d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\materiald3d.obj
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\materialgl.obj
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\matrix4.obj
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\mesh.obj
@@ -16,6 +15,7 @@ d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\spawner.obj
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\spherecollider.obj
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\spin.obj
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\testgame.obj
+d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\texture.obj
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\transform.obj
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\triangle.obj
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\utils.obj
@@ -35,6 +35,7 @@ d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\input.obj
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\light.obj
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\main.obj
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\material.obj
+d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\materiald3d.obj
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\brickware-engine.ilk
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\brickware-engine.exe
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\brickware-engine.pdb

@@ -68,11 +68,15 @@
     <ClCompile Include="Rigidbody.cpp" />
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="ShaderD3D.cpp" />
+    <ClCompile Include="ShaderGL.cpp" />
     <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="Spin.cpp" />
     <ClCompile Include="TestGame.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="TextureD3D.cpp" />
+    <ClCompile Include="TextureGL.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="Utils.cpp" />

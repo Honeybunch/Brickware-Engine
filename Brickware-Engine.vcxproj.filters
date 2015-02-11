@@ -230,6 +230,18 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Sources</Filter>
     </ClCompile>
+    <ClCompile Include="TextureD3D.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureGL.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderGL.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderD3D.cpp">
+      <Filter>Sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\PixelShader.glsl">

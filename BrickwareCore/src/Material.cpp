@@ -1,5 +1,3 @@
-#define BRICKWARE_CORE_EXPORTS
-
 #include "Material.h"
 
 Texture* Material::defaultTexture;

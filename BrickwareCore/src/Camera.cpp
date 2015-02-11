@@ -1,7 +1,4 @@
 #include "FrustumCollider.h"
-
-#define BRICKWARE_CORE_EXPORTS
-
 #include "Camera.h"
 
 Camera::Camera(float FoV = 50, float width = 0.1f, float height = 0.1f, float zNear = 0.1f, float zFar = 100.0f)

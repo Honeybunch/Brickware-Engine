@@ -1,13 +1,6 @@
 #ifndef SHADER_H
 #define SHADER_H
 
-//Only use this line to make sure VS creates an import lib
-#ifdef BRICKWARE_CORE_EXPORTS
-#define BRICKWARE_CORE_API __declspec(dllexport)
-#else
-#define BRICKWARE_CORE_API __declspec(dllimport)
-#endif
-
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "Settings.h"
@@ -42,7 +35,7 @@ struct ConstVariableInfo{
 
 #include "Texture.h"
 
-class BRICKWARE_CORE_API Shader
+class Shader
 {
 	friend class Material;
 

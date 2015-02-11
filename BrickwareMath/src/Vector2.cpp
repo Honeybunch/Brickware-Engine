@@ -1,6 +1,6 @@
 #define BRICKWARE_MATH_EXPORTS
 
-#include "vector2.h"
+#include "Vector2.h"
 
 /*
 	Constructors

@@ -1,13 +1,6 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
-//Only use this line to make sure VS creates an import lib
-#ifdef BRICKWARE_CORE_EXPORTS
-#define BRICKWARE_CORE_API __declspec(dllexport)
-#else
-#define BRICKWARE_CORE_API __declspec(dllimport)
-#endif
-
 #include "Settings.h"
 
 #ifdef GL_SUPPORT
@@ -23,12 +16,12 @@
 
 #include "Utils.h"
 
-enum BRICKWARE_CORE_API TextureType{
+enum TextureType{
 	RGB,
 	RGBA
 };
 
-class BRICKWARE_CORE_API Texture
+class Texture
 {
 	friend class Material;
 

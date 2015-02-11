@@ -1,19 +1,12 @@
 #ifndef TRIANGLE_H
 #define TRIANGLE_H
 
-//Only use this line to make sure VS creates an import lib
-#ifdef BRICKWARE_CORE_EXPORTS
-#define BRICKWARE_CORE_API __declspec(dllexport)
-#else
-#define BRICKWARE_CORE_API __declspec(dllimport)
-#endif
-
 #include "BrickwareMath.h"
 
 #include <vector>
 using namespace std;
 
-class BRICKWARE_CORE_API Triangle
+class Triangle
 {
 public:
 	Triangle();

@@ -1,5 +1,3 @@
-#define BRICKWARE_CORE_EXPORTS
-
 #include "Bounds.h"
 
 Bounds::Bounds(Vector3 center, float width)

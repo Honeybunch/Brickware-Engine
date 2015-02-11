@@ -1,5 +1,3 @@
-#define BRICKWARE_CORE_EXPORTS
-
 #include "light.h"
 
 Light::Light()

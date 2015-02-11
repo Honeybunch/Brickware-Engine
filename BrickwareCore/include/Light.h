@@ -14,7 +14,7 @@
 #define GLFW_INCLUDE_GLU
 #include <glfw3.h>
 
-class BRICKWARE_CORE_API Light : public Component
+class Light : public Component
 {
 public:
 	Light();

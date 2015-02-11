@@ -44,10 +44,17 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)\GL\include;$(SolutionDir)\GLFW\include;$(SolutionDir)\BrickwareTest\include;$(SolutionDir)\BrickwareMath\include;$(SolutionDir)\BrickwareCore\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)\GL\lib\Win32\;$(SolutionDir)\GLFW\lib\Win32\;$(ProjectDir)\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>BrickwareCore.lib;dxguid.lib;d3d11.lib;d3dcompiler.lib;glew32.lib;glfw3dll.lib;BrickwareMath.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>xcopy $(SolutionDir)\$(Configuration)\BrickwareCore.lib $(ProjectDir)\lib\ /y 
+xcopy $(SolutionDir)\$(Configuration)\BrickwareMath.lib $(ProjectDir)\lib\ /y</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

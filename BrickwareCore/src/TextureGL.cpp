@@ -1,5 +1,3 @@
-#define BRICKWARE_CORE_EXPORTS
-
 #include "Texture.h"
 
 #ifdef GL_SUPPORT
@@ -13,7 +11,7 @@ void Texture::bufferGL()
 	glBindTexture(GL_TEXTURE_2D, glTexture);
 
 	if(textureType == TextureType::RGB)
-		glTextureType == GL_RGB;
+		glTextureType = GL_RGB;
 
 	//Load texture data
 	glTexImage2D(GL_TEXTURE_2D, 0, glTextureType, width, height, 0, glTextureType, GL_UNSIGNED_BYTE, pixels);

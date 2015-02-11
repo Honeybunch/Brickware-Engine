@@ -1,10 +1,3 @@
-//Only use this line to make sure VS creates an import lib
-#ifdef BRICKWARE_CORE_EXPORTS
-#define BRICKWARE_CORE_API __declspec(dllexport)
-#else
-#define BRICKWARE_CORE_API __declspec(dllimport)
-#endif
-
 #ifndef MESH_H
 #define MESH_H
 
@@ -39,7 +32,7 @@ using namespace std;
 #include "Shader.h"
 #include "GameObject.h"
 
-class BRICKWARE_CORE_API Mesh
+class Mesh
 {
 public :
 	Mesh(char* modelFilePath);

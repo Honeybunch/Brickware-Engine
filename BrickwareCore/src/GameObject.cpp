@@ -2,9 +2,6 @@
 #include "Camera.h"
 #include "Settings.h"
 #include "Game.h"
-
-#define BRICKWARE_CORE_EXPORTS
-
 #include "GameObject.h"
 
 GameObject::GameObject()

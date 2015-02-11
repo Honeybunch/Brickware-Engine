@@ -7,7 +7,7 @@
 
 #include "Collider.h"
 
-class BRICKWARE_CORE_API FrustumCollider : public Collider
+class FrustumCollider : public Collider
 {
 public:
 	FrustumCollider(float zNear, float zFar, float FoV, float aspectRatio);

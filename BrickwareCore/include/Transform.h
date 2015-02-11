@@ -1,13 +1,6 @@
 #ifndef TRANSFORM_H
 #define TRANSFORM_H
 
-//Only use this line to make sure VS creates an import lib
-#ifdef BRICKWARE_CORE_EXPORTS
-#define BRICKWARE_CORE_API __declspec(dllexport)
-#else
-#define BRICKWARE_CORE_API __declspec(dllimport)
-#endif
-
 #include "Settings.h"
 
 #ifdef D3D_SUPPORT
@@ -35,7 +28,7 @@ class GameObject;
 #include "Vector4.h"
 #include "Matrix4.h"
 
-class BRICKWARE_CORE_API Transform : public Component
+class Transform : public Component
 {
 public:
 	Transform();

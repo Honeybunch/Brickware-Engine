@@ -1,13 +1,6 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
 
-//Only use this line to make sure VS creates an import lib
-#ifdef BRICKWARE_CORE_EXPORTS
-#define BRICKWARE_CORE_API __declspec(dllexport)
-#else
-#define BRICKWARE_CORE_API __declspec(dllimport)
-#endif
-
 #include "Shader.h"
 
 #ifdef GL_SUPPORT
@@ -31,7 +24,7 @@
 
 #include <map>
 
-class BRICKWARE_CORE_API Material : public Component
+class Material : public Component
 {
 public:
 	Material(Shader* shader);

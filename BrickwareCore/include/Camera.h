@@ -27,7 +27,7 @@
 #include "Octree.h"
 #include "GameObject.h"
 
-class BRICKWARE_CORE_API Camera : public Component
+class Camera : public Component
 {
 public:
 	Octree* renderingOctree;

@@ -4,9 +4,6 @@
 #include "Bounds.h"
 #include "Camera.h"
 #include "GameObject.h"
-
-#define BRICKWARE_CORE_EXPORTS
-
 #include "FrustumCollider.h"
 
 FrustumCollider::FrustumCollider(float zNear, float zFar, float FoV, float aspectRatio)

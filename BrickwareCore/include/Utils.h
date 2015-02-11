@@ -1,13 +1,6 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-//Only use this line to make sure VS creates an import lib
-#ifdef BRICKWARE_CORE_EXPORTS
-#define BRICKWARE_CORE_API __declspec(dllexport)
-#else
-#define BRICKWARE_CORE_API __declspec(dllimport)
-#endif
-
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "Settings.h"
@@ -36,7 +29,7 @@
 
 using namespace std;
 
-class BRICKWARE_CORE_API Utils
+class Utils
 {
 public:
 	static vector<char*> stringSplit(char* toSplit, char* delimiter);

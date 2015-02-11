@@ -1,5 +1,3 @@
-#define BRICKWARE_CORE_EXPORTS
-
 #include "Screen.h"
 
 int Screen::width;

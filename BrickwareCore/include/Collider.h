@@ -12,7 +12,7 @@ class Bounds;
 
 #include "Component.h"
 
-class BRICKWARE_CORE_API Collider : public Component
+class Collider : public Component
 {
 public:
 	Collider();

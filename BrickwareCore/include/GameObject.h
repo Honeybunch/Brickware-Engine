@@ -17,13 +17,13 @@ class GameObject
 {
 public:
 	
-	BRICKWARE_CORE_API GameObject();
-	BRICKWARE_CORE_API GameObject(Transform* transform);
+    GameObject();
+	GameObject(Transform* transform);
 
 	static vector<GameObject*> getGameObjects();
 
 	//Accessors
-	BRICKWARE_CORE_API Transform* getTransform();
+	Transform* getTransform();
 
 	vector<Component*>& getComponents();
 	//Return the first component of the given type
@@ -41,13 +41,13 @@ public:
 	}
 
 	//Mutators 
-	BRICKWARE_CORE_API void addComponent(Component* newComponent);
+	void addComponent(Component* newComponent);
 
-	BRICKWARE_CORE_API virtual void Start();
-	BRICKWARE_CORE_API virtual void Update();
-	BRICKWARE_CORE_API virtual void OnRender();
+	virtual void Start();
+	virtual void Update();
+	virtual void OnRender();
 
-	BRICKWARE_CORE_API ~GameObject();
+	~GameObject();
 
 protected:
 	//Necessary Components

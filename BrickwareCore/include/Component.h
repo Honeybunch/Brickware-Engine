@@ -8,7 +8,7 @@ class GameObject;
 
 #include "Input.h"
 
-class BRICKWARE_CORE_API Component
+class Component
 {
 public:
 	Component();

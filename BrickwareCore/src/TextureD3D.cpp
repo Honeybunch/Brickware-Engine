@@ -1,5 +1,3 @@
-#define BRICKWARE_CORE_EXPORTS
-
 #include "Texture.h"
 
 #ifdef D3D_SUPPORT

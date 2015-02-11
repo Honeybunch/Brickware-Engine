@@ -1,5 +1,3 @@
-#define BRICKWARE_CORE_EXPORTS
-
 #include "Transform.h"
 #include "GameObject.h"
 

@@ -1,5 +1,3 @@
-#define BRICKWARE_CORE_EXPORTS
-
 #include "Shader.h"
 
 #ifdef GL_SUPPORT

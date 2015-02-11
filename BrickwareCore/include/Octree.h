@@ -1,13 +1,6 @@
 #ifndef OCTREE_H
 #define OCTREE_H
 
-//Only use this line to make sure VS creates an import lib
-#ifdef BRICKWARE_CORE_EXPORTS
-#define BRICKWARE_CORE_API __declspec(dllexport)
-#else
-#define BRICKWARE_CORE_API __declspec(dllimport)
-#endif
-
 #include <vector>
 
 #include "BoxCollider.h"
@@ -16,9 +9,9 @@
 #include "Bounds.h"
 #include "MeshRenderer.h"
 
-class BRICKWARE_CORE_API Octree;
+class Octree;
 
-class BRICKWARE_CORE_API OctreeNode
+class OctreeNode
 {
 public:
 	OctreeNode(Octree* octree, OctreeNode* parent, float depth, Vector3 center, float width);

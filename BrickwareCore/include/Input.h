@@ -20,14 +20,7 @@
 
 #include "Vector2.h"
 
-//Only use this line to make sure VS creates an import lib
-#ifdef BRICKWARE_CORE_EXPORTS
-#define BRICKWARE_CORE_API __declspec(dllexport)
-#else
-#define BRICKWARE_CORE_API __declspec(dllimport)
-#endif
-
-enum BRICKWARE_CORE_API KeyCode
+enum KeyCode
 {
 	a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,
 	equals, minus,
@@ -41,12 +34,12 @@ enum BRICKWARE_CORE_API KeyCode
 	one, two, three, four, five, six, seven, eight, nine, zero
 };
 
-enum BRICKWARE_CORE_API MouseButton
+enum MouseButton
 {
 	leftButton, rightButton, middleButton
 };
 
-class BRICKWARE_CORE_API Input
+class Input
 {
 	friend class Game;
 

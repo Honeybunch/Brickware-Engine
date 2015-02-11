@@ -46,7 +46,7 @@
 
 using namespace std;
 
-class BRICKWARE_CORE_API Game
+class Game
 {
 	//Remove more of these by having a class to store the device contexts
 	friend class Input;

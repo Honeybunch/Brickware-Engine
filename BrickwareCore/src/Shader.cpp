@@ -1,5 +1,3 @@
-#define BRICKWARE_CORE_EXPORTS
-
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "Shader.h"

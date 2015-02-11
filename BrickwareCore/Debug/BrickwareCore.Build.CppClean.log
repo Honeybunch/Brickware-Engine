@@ -1,5 +1,3 @@
-d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\brickwarecore.lib
-d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\brickwarecore.exp
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\brickwarecore\debug\vc120.pdb
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\brickwarecore\debug\vc120.idb
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\brickwarecore\debug\input.obj
@@ -22,6 +20,7 @@ d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\brickwarecore\debug\
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\brickwarecore\debug\transform.obj
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\brickwarecore\debug\triangle.obj
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\brickwarecore\debug\utils.obj
+d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\brickwarecore\debug\bounds.obj
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\brickwarecore\debug\boxcollider.obj
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\brickwarecore\debug\camera.obj
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\brickwarecore\debug\collider.obj
@@ -30,14 +29,10 @@ d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\brickwarecore\debug\
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\brickwarecore\debug\frustumcollider.obj
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\brickwarecore\debug\game.obj
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\brickwarecore\debug\gameobject.obj
-d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\brickwarecore\debug\bounds.obj
-d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\brickwarecore.ilk
-d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\brickwarecore.dll
-d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\brickwarecore.pdb
-d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\brickwarecore\debug\brickwarecore.tlog\brickwarecore.write.1u.tlog
+d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\debug\brickwarecore.lib
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\brickwarecore\debug\brickwarecore.tlog\cl.command.1.tlog
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\brickwarecore\debug\brickwarecore.tlog\cl.read.1.tlog
 d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\brickwarecore\debug\brickwarecore.tlog\cl.write.1.tlog
-d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\brickwarecore\debug\brickwarecore.tlog\link.command.1.tlog
-d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\brickwarecore\debug\brickwarecore.tlog\link.read.1.tlog
-d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\brickwarecore\debug\brickwarecore.tlog\link.write.1.tlog
+d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\brickwarecore\debug\brickwarecore.tlog\lib-link.read.1.tlog
+d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\brickwarecore\debug\brickwarecore.tlog\lib-link.write.1.tlog
+d:\users\amt3824\cygwin64\home\amt3824\git\brickware-engine\brickwarecore\debug\brickwarecore.tlog\lib.command.1.tlog

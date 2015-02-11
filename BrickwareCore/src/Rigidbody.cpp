@@ -1,5 +1,3 @@
-#define BRICKWARE_CORE_EXPORTS
-
 #include "Rigidbody.h"
 
 Rigidbody::Rigidbody()

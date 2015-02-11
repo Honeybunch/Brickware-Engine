@@ -3,7 +3,7 @@
 
 #include "Collider.h"
 
-class BRICKWARE_CORE_API BoxCollider : public Collider
+class BoxCollider : public Collider
 {
 public:
 	BoxCollider(float width);

@@ -3,8 +3,6 @@
 #include "FrustumCollider.h"
 #include "Bounds.h"
 
-#define BRICKWARE_CORE_EXPORTS
-
 Collider::Collider()
 {
 	enabled = true;

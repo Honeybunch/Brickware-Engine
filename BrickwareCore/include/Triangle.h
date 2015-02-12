@@ -1,12 +1,14 @@
 #ifndef TRIANGLE_H
 #define TRIANGLE_H
 
+#include "BrickwareCoreDLL.h"
+
 #include "BrickwareMath.h"
 
 #include <vector>
 using namespace std;
 
-class Triangle
+class BRICKWARE_CORE_API Triangle
 {
 public:
 	Triangle();

@@ -1,10 +1,12 @@
 #ifndef RIGIDBODY_H
 #define RIGIDBODY_H
 
+#include "BrickwareCoreDLL.h"
+
 #include "Component.h"
 #include "Vector3.h"
 
-class Rigidbody : public Component
+class BRICKWARE_CORE_API Rigidbody : public Component
 {
 public:
 	Rigidbody();

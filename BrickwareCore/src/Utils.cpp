@@ -1,4 +1,6 @@
-#include "utils.h"
+#define BRICKWARE_CORE_EXPORTS
+
+#include "Utils.h"
 
 /*
 	Public Functions

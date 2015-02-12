@@ -20,7 +20,7 @@
 
 #include "Vector2.h"
 
-enum KeyCode
+enum BRICKWARE_CORE_API KeyCode
 {
 	a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,
 	equals, minus,
@@ -34,7 +34,7 @@ enum KeyCode
 	one, two, three, four, five, six, seven, eight, nine, zero
 };
 
-enum MouseButton
+enum BRICKWARE_CORE_API MouseButton
 {
 	leftButton, rightButton, middleButton
 };
@@ -44,25 +44,25 @@ class Input
 	friend class Game;
 
 public:
-	static bool getKeyDown(KeyCode key);
-	static bool getKeyUp(KeyCode key);
+	static BRICKWARE_CORE_API bool getKeyDown(KeyCode key);
+	static BRICKWARE_CORE_API bool getKeyUp(KeyCode key);
 
-	static bool getMouseButtonDown(MouseButton button);
-	static bool getMouseButtonUp(MouseButton button);
+	static BRICKWARE_CORE_API bool getMouseButtonDown(MouseButton button);
+	static BRICKWARE_CORE_API bool getMouseButtonUp(MouseButton button);
 
-	static Vector2 getMousePosition();
-	static void setMousePosition(Vector2 pos);
+	static BRICKWARE_CORE_API Vector2 getMousePosition();
+	static BRICKWARE_CORE_API void setMousePosition(Vector2 pos);
 
 private:
-	static bool keys[77];
-	static bool buttons[3];
-	static Vector2 mousePosition;
+	static BRICKWARE_CORE_API bool keys[77];
+	static BRICKWARE_CORE_API bool buttons[3];
+	static BRICKWARE_CORE_API Vector2 mousePosition;
 
 #ifdef GL_SUPPORT
-	static void setMousePositionGLFW(Vector2 pos);
+	static BRICKWARE_CORE_API void setMousePositionGLFW(Vector2 pos);
 #endif
 #ifdef D3D_SUPPORT
-	static void setMousePositionWindows(Vector2 pos);
+	static BRICKWARE_CORE_API void setMousePositionWindows(Vector2 pos);
 #endif
 };
 

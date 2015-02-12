@@ -113,14 +113,14 @@ Vector2 Vector2::operator+(Vector2 u)
 }
 
 //Extraction
-ostream& operator<<(ostream& output, Vector2& v)
+std::ostream& operator<<(std::ostream& output, Vector2& v)
 {
-	output <<  v.getX() << endl << v.getY() << endl;
+	output << v.getX() << std::endl << v.getY() << std::endl;
 	return output;
 }
 
 //Insertion
-istream& operator>>(istream& input, Vector2& v)
+std::istream& operator>>(std::istream& input, Vector2& v)
 {
 	input >> v.vector[0] >> v.vector[1];
 	return input;

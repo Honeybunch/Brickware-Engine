@@ -50,14 +50,14 @@ void Quaternion::setZ(float z){Quaternion::z = z;}
 */
 
 //Extraction
-ostream& operator<<(ostream& output, Quaternion& q)
+std::ostream& operator<<(std::ostream& output, Quaternion& q)
 {
-	output << q.getW() << endl << q.getX() << endl << q.getY() << endl << q.getZ() << endl;
+	output << q.getW() << std::endl << q.getX() << std::endl << q.getY() << std::endl << q.getZ() << std::endl;
 	return output;
 }
 
 //Insertion
-istream& operator>> (istream& input, Quaternion& q)
+std::istream& operator>> (std::istream& input, Quaternion& q)
 {
 	input >> q.w >> q.x >> q.y >> q.z;
 	return input;

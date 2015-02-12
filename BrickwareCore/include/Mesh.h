@@ -1,6 +1,8 @@
 #ifndef MESH_H
 #define MESH_H
 
+#include "BrickwareCoreDLL.h"
+
 #include "Settings.h"
 
 #define _CRT_SECURE_NO_WARNINGS 
@@ -32,7 +34,7 @@ using namespace std;
 #include "Shader.h"
 #include "GameObject.h"
 
-class Mesh
+class BRICKWARE_CORE_API Mesh
 {
 public :
 	Mesh(char* modelFilePath);

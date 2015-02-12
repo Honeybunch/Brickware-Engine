@@ -1,6 +1,8 @@
 #ifndef TRANSFORM_H
 #define TRANSFORM_H
 
+#include "BrickwareCoreDLL.h"
+
 #include "Settings.h"
 
 #ifdef D3D_SUPPORT
@@ -28,7 +30,7 @@ class GameObject;
 #include "Vector4.h"
 #include "Matrix4.h"
 
-class Transform : public Component
+class BRICKWARE_CORE_API Transform : public Component
 {
 public:
 	Transform();

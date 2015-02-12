@@ -1,6 +1,7 @@
 #define BRICKWARE_MATH_EXPORTS
 
-#include "BrickwareMath.h"
+#include "Vector4.h"
+#include "Vector3.h"
 
 /*
 	Constructors
@@ -52,14 +53,14 @@ void Vector4::setW(float w){ this->vector[3] = w; }
 */
 
 //Extraction
-ostream& operator<<(ostream& output, Vector4& v4)
+std::ostream& operator<<(std::ostream& output, Vector4& v4)
 {
-	output << v4.getX() << endl << v4.getY() << endl << v4.getZ() << endl << v4.getW() << endl;
+	output << v4.getX() << std::endl << v4.getY() << std::endl << v4.getZ() << std::endl << v4.getW() << std::endl;
 	return output;
 }
 
 //Insertion
-istream& operator>> (istream& input, Vector4& v4)
+std::istream& operator>> (std::istream& input, Vector4& v4)
 {
 	input >> v4.vector[0] >> v4.vector[1] >> v4.vector[2] >> v4.vector[3];
 	return input;

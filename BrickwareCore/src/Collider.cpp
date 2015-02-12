@@ -1,3 +1,5 @@
+#define BRICKWARE_CORE_EXPORTS
+
 #include "SphereCollider.h"
 #include "BoxCollider.h"
 #include "FrustumCollider.h"

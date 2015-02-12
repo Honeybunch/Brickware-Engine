@@ -1,3 +1,5 @@
+#define BRICKWARE_CORE_EXPORTS
+
 #include "Game.h"
 
 //Window is static so that it can be easily accessed by static friends like Input and Screen

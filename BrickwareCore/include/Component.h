@@ -1,6 +1,8 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
 
+#include "BrickwareCoreDLL.h"
+
 #include "Settings.h"
 #include "Screen.h"
 
@@ -8,7 +10,7 @@ class GameObject;
 
 #include "Input.h"
 
-class Component
+class BRICKWARE_CORE_API Component
 {
 public:
 	Component();

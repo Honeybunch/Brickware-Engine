@@ -1,7 +1,10 @@
 #ifndef MATRIX4_H
 #define MATRIX4_H
 
-#include "BrickwareMath.h"
+#include "BrickwareMathDLL.h"
+
+#include "Vector3.h"
+#include "Vector4.h"
 
 class BRICKWARE_MATH_API Matrix4
 {

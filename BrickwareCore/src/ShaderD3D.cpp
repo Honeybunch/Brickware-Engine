@@ -1,3 +1,5 @@
+#define BRICKWARE_CORE_EXPORTS
+
 #include "Shader.h"
 
 #ifdef D3D_SUPPORT

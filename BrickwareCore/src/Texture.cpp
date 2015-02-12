@@ -1,3 +1,5 @@
+#define BRICKWARE_CORE_EXPORTS
+
 #include "Texture.h"
 
 Texture::Texture(char* textureFileName)

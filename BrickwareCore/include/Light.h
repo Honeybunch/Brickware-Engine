@@ -1,6 +1,8 @@
 #ifndef LIGHT_H
 #define LIGHT_H
 
+#include "BrickwareCoreDLL.h"
+
 #include "GameObject.h"
 
 #include "Vector3.h"
@@ -14,7 +16,7 @@
 #define GLFW_INCLUDE_GLU
 #include <glfw3.h>
 
-class Light : public Component
+class BRICKWARE_CORE_API Light : public Component
 {
 public:
 	Light();

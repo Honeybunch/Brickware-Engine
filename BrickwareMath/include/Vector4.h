@@ -2,7 +2,8 @@
 #define VECTOR4_H
 
 #include <iostream>
-using namespace std;
+
+#include "BrickwareMathDLL.h"
 
 class Vector3;
 
@@ -29,8 +30,8 @@ public:
 	void setZ(float z);
 	void setW(float w);
 
-	friend ostream& operator<< (ostream& output, Vector4& v4);
-	friend istream& operator>> (istream& input, Vector4& v4);
+	friend std::ostream& operator<< (std::ostream& output, Vector4& v4);
+	friend std::istream& operator>> (std::istream& input, Vector4& v4);
 
 	operator Vector3();
 

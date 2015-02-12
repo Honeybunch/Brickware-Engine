@@ -1,11 +1,13 @@
 #ifndef MESHRENDERER_H
 #define MESHRENDERER_H
 
+#include "BrickwareCoreDLL.h"
+
 #include "Mesh.h"
 #include "Component.h"
 #include "Bounds.h"
 
-class MeshRenderer : public Component
+class BRICKWARE_CORE_API MeshRenderer : public Component
 {
 public:
 	MeshRenderer(Mesh* mesh);

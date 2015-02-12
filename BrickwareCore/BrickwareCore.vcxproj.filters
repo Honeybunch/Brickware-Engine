@@ -83,6 +83,12 @@
     <ClInclude Include="include\FrustumCollider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\BrickwareCore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BrickwareCoreDLL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Bounds.cpp">

@@ -1,9 +1,11 @@
 #ifndef BOUNDS_H
 #define BOUNDS_H
 
+#include "BrickwareCoreDLL.h"
+
 #include "Vector3.h"
 
-class Bounds
+class BRICKWARE_CORE_API Bounds
 {
 public:
 	Bounds(Vector3 center, float width);

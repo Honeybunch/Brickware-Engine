@@ -1,13 +1,15 @@
 #ifndef FRUSTRUMCOLLIDER_H
 #define FRUSTRUMCOLLIDER_H
 
+#include "BrickwareCoreDLL.h"
+
 #define USE_MATH_DEFINES
 
 #include <math.h>
 
 #include "Collider.h"
 
-class FrustumCollider : public Collider
+class BRICKWARE_CORE_API FrustumCollider : public Collider
 {
 public:
 	FrustumCollider(float zNear, float zFar, float FoV, float aspectRatio);

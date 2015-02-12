@@ -1,6 +1,7 @@
 #define BRICKWARE_MATH_EXPORTS
 
 #include "Vector3.h"
+#include "Vector4.h"
 
 /*
 	Constructors
@@ -145,14 +146,14 @@ Vector3 Vector3::operator-(Vector3 u)
 }
 
 //Extraction
-ostream& operator<<(ostream& output, Vector3& v)
+std::ostream& operator<<(std::ostream& output, Vector3& v)
 {
-	output <<  v.getX() << endl << v.getY() << endl << v.getZ() << endl;
+	output << v.getX() << std::endl << v.getY() << std::endl << v.getZ() << std::endl;
 	return output;
 }
 
 //Insertion
-istream& operator>>(istream& input, Vector3& v)
+std::istream& operator>>(std::istream& input, Vector3& v)
 {
 	input >> v.vector[0] >> v.vector[1] >> v.vector[2];
 	return input;

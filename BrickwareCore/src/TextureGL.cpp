@@ -1,3 +1,5 @@
+#define BRICKWARE_CORE_EXPORTS
+
 #include "Texture.h"
 
 #ifdef GL_SUPPORT

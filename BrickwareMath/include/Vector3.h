@@ -1,10 +1,11 @@
-#ifndef Vector3_H
-#define Vector3_H
+#ifndef VECTOR3_H
+#define VECTOR3_H
 
 #include <iostream>
-using namespace std;
 
-#include "BrickwareMath.h"
+#include "BrickwareMathDLL.h"
+
+class Vector4;
 
 class BRICKWARE_MATH_API Vector3
 {
@@ -42,8 +43,8 @@ public:
 	Vector3 operator+ (Vector3 u);
 	Vector3 operator- (Vector3 u);
 
-	friend ostream& operator<< (ostream& output, Vector3& h);
-	friend istream& operator>> (istream& input, Vector3& h);
+	friend std::ostream& operator<< (std::ostream& output, Vector3& h);
+	friend std::istream& operator>> (std::istream& input, Vector3& h);
 
 	operator Vector4();
 

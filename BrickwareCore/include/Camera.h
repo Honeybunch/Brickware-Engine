@@ -1,6 +1,8 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+#include "BrickwareCoreDLL.h"
+
 #define _USE_MATH_DEFINES
 
 #include <iostream>
@@ -27,7 +29,7 @@
 #include "Octree.h"
 #include "GameObject.h"
 
-class Camera : public Component
+class BRICKWARE_CORE_API Camera : public Component
 {
 public:
 	Octree* renderingOctree;

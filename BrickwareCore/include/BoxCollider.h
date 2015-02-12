@@ -1,9 +1,11 @@
 #ifndef BOXCOLLIDER_H
 #define BOXCOLLIDER_H
 
+#include "BrickwareCoreDLL.h"
+
 #include "Collider.h"
 
-class BoxCollider : public Collider
+class BRICKWARE_CORE_API BoxCollider : public Collider
 {
 public:
 	BoxCollider(float width);

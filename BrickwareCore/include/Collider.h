@@ -1,6 +1,8 @@
 #ifndef COLLIDER_H
 #define COLLIDER_H
 
+#include "BrickwareCoreDLL.h"
+
 #include <vector>
 
 #include "Vector3.h"
@@ -12,7 +14,7 @@ class Bounds;
 
 #include "Component.h"
 
-class Collider : public Component
+class BRICKWARE_CORE_API Collider : public Component
 {
 public:
 	Collider();

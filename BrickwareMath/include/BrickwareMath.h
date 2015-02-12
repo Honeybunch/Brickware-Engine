@@ -1,12 +1,5 @@
-#ifndef BRICKWAREMATH_H
+#ifndef BRICKWARE_MATH_H
 #define BRICKWARE_MATH_H
-
-//Only use this line to make sure VS creates an import lib
-#ifdef BRICKWARE_MATH_EXPORTS
-#define BRICKWARE_MATH_API __declspec(dllexport)
-#else
-#define BRICKWARE_MATH_API __declspec(dllimport)
-#endif
 
 #include "Matrix4.h"
 

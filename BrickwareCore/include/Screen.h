@@ -1,15 +1,17 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 
+#include "BrickwareCoreDLL.h"
+
 class Screen
 {
 	friend class Game;
 
 public:
-	static int getWidth();
-	static int getHeight();
+	static BRICKWARE_CORE_API int getWidth();
+	static BRICKWARE_CORE_API int getHeight();
 
-	static float getAspectRatio();
+	static BRICKWARE_CORE_API float getAspectRatio();
 
 private:
 	static int width;

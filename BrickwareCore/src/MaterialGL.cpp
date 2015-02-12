@@ -1,3 +1,5 @@
+#define BRICKWARE_CORE_EXPORTS
+
 #include "Material.h"
 
 #ifdef GL_SUPPORT

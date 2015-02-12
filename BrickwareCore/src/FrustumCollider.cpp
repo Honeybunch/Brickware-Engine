@@ -1,3 +1,5 @@
+#define BRICKWARE_CORE_EXPORTS
+
 #include "BoxCollider.h"
 #include "SphereCollider.h"
 #include "GameObject.h"

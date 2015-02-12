@@ -1,6 +1,8 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
+#include "BrickwareCoreDLL.h"
+
 #include "Settings.h"
 
 #ifdef GL_SUPPORT
@@ -16,12 +18,12 @@
 
 #include "Utils.h"
 
-enum TextureType{
+enum BRICKWARE_CORE_API TextureType{
 	RGB,
 	RGBA
 };
 
-class Texture
+class BRICKWARE_CORE_API Texture
 {
 	friend class Material;
 

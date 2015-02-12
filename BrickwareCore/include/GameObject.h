@@ -1,6 +1,8 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
+#include "BrickwareCoreDLL.h"
+
 #include <vector>
 #include <typeinfo>
 
@@ -17,15 +19,15 @@ class GameObject
 {
 public:
 	
-    GameObject();
-	GameObject(Transform* transform);
+	BRICKWARE_CORE_API GameObject();
+	BRICKWARE_CORE_API GameObject(Transform* transform);
 
-	static vector<GameObject*> getGameObjects();
+	static BRICKWARE_CORE_API vector<GameObject*> getGameObjects();
 
 	//Accessors
-	Transform* getTransform();
+	BRICKWARE_CORE_API Transform* getTransform();
 
-	vector<Component*>& getComponents();
+	BRICKWARE_CORE_API vector<Component*>& getComponents();
 	//Return the first component of the given type
 	//If none are found; return null
 	template<class T> T* getComponent()
@@ -41,13 +43,13 @@ public:
 	}
 
 	//Mutators 
-	void addComponent(Component* newComponent);
+	BRICKWARE_CORE_API void addComponent(Component* newComponent);
 
-	virtual void Start();
-	virtual void Update();
-	virtual void OnRender();
+	virtual BRICKWARE_CORE_API void Start();
+	virtual BRICKWARE_CORE_API void Update();
+	virtual BRICKWARE_CORE_API void OnRender();
 
-	~GameObject();
+	BRICKWARE_CORE_API ~GameObject();
 
 protected:
 	//Necessary Components

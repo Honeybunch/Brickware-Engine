@@ -3,9 +3,9 @@
 
 #include <iostream>
 
-#include "BrickwareMath.h"
+#include "BrickwareMathDLL.h"
 
-using namespace std;
+#include "Vector3.h"
 
 class BRICKWARE_MATH_API Quaternion
 {
@@ -27,8 +27,8 @@ public:
 	void setY(float y);
 	void setZ(float z);
 	
-	friend ostream& operator<< (ostream& output, Quaternion& h);
-	friend istream& operator>> (istream& input, Quaternion& h);
+	friend std::ostream& operator<< (std::ostream& output, Quaternion& h);
+	friend std::istream& operator>> (std::istream& input, Quaternion& h);
 
 private:
 	float w, x, y, z;

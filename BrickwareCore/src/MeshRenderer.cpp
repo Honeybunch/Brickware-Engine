@@ -1,3 +1,5 @@
+#define BRICKWARE_CORE_EXPORTS
+
 #include "MeshRenderer.h"
 
 #include "Game.h"

@@ -1,6 +1,8 @@
 #ifndef SHADER_H
 #define SHADER_H
 
+#include "BrickwareCoreDLL.h"
+
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "Settings.h"
@@ -40,12 +42,12 @@ class Shader
 	friend class Material;
 
 public:
-	Shader(char* vertexShaderFileName, char* pixelShaderFileName);
+	BRICKWARE_CORE_API Shader(char* vertexShaderFileName, char* pixelShaderFileName);
 
-	void bindShader();
-	void freeShader();
+	BRICKWARE_CORE_API void bindShader();
+	BRICKWARE_CORE_API void freeShader();
 
-	~Shader();
+	BRICKWARE_CORE_API ~Shader();
 
 private:
 	std::map<std::string, Texture*> textureMap;
@@ -56,10 +58,10 @@ private:
 	//MUST use a string otherwise it will compare char*s as integer values and insert garbage data
 	std::map<std::string, GLuint> uniformMap;
 
-	void bindGLSL();
-	void freeGLSL();
+	BRICKWARE_CORE_API void bindGLSL();
+	BRICKWARE_CORE_API void freeGLSL();
 
-	bool loadGLSL(char* vertexShaderFileName, char* pixelShaderFileName);
+	BRICKWARE_CORE_API bool loadGLSL(char* vertexShaderFileName, char* pixelShaderFileName);
 #endif
 
 #ifdef D3D_SUPPORT
@@ -76,12 +78,12 @@ private:
 	std::vector<char*> constantBufferData;
 	std::vector<std::map<std::string, D3D11_SHADER_VARIABLE_DESC*>*> constantBufferMaps;
 
-	ConstVariableInfo getVariableInfoByName(char* valueName);
+	BRICKWARE_CORE_API ConstVariableInfo getVariableInfoByName(char* valueName);
 
-	void bindHLSL();
-	void freeHLSL();
+	BRICKWARE_CORE_API void bindHLSL();
+	BRICKWARE_CORE_API void freeHLSL();
 
-	bool loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName);
+	BRICKWARE_CORE_API bool loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName);
 #endif
 };
 

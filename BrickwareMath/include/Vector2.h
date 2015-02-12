@@ -2,9 +2,8 @@
 #define VECTOR2_H
 
 #include <iostream>
-using namespace std;
 
-#include "BrickwareMath.h"
+#include "BrickwareMathDLL.h"
 
 class BRICKWARE_MATH_API Vector2
 {
@@ -37,8 +36,8 @@ public:
 	Vector2 operator* (float s);
 	Vector2 operator+ (Vector2 u);
 
-	friend ostream& operator<< (ostream& output, Vector2& h);
-	friend istream& operator>> (istream& input, Vector2& h);
+	friend std::ostream& operator<< (std::ostream& output, Vector2& h);
+	friend std::istream& operator>> (std::istream& input, Vector2& h);
 
 private:
 	float vector[2];

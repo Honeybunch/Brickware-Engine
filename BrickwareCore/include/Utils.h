@@ -1,6 +1,8 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include "BrickwareCoreDLL.h"
+
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "Settings.h"
@@ -32,25 +34,25 @@ using namespace std;
 class Utils
 {
 public:
-	static vector<char*> stringSplit(char* toSplit, char* delimiter);
+	static BRICKWARE_CORE_API vector<char*> stringSplit(char* toSplit, char* delimiter);
 
-	static char* textFileRead(char *fn);
-	static int textFileWrite(char *fn, char *s);
+	static BRICKWARE_CORE_API char* textFileRead(char *fn);
+	static BRICKWARE_CORE_API int textFileWrite(char *fn, char *s);
 
-	static char* trimToLastChar(char* string, char lastChar);
+	static BRICKWARE_CORE_API char* trimToLastChar(char* string, char lastChar);
 
 #ifdef GL_SUPPORT
-	static void printShaderInfoLog(GLuint obj);
-	static void printProgramInfoLog(GLuint obj);
+	static BRICKWARE_CORE_API void printShaderInfoLog(GLuint obj);
+	static BRICKWARE_CORE_API void printProgramInfoLog(GLuint obj);
 #endif
 
 #ifdef D3D_SUPPORT
-	static WCHAR* stringToWideString(char* string);
-	static char* wideStringToString(WCHAR* wideString);
+	static BRICKWARE_CORE_API WCHAR* stringToWideString(char* string);
+	static BRICKWARE_CORE_API char* wideStringToString(WCHAR* wideString);
 #endif
 
 private:
-	static char* strtok_single(char* string, char const* delimeters);
+	static BRICKWARE_CORE_API char* strtok_single(char* string, char const* delimeters);
 };
 
 #endif

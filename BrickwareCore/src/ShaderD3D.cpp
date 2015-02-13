@@ -151,10 +151,28 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 		constantBuffers.push_back(bufferSpace);
 	}
 
+	//Perform shader reflection on the Pixel Shader to get the texture names
+	ID3D11ShaderReflection* pixelShaderReflection;
+	HR(D3DReflect(psBlob->GetBufferPointer(), psBlob->GetBufferSize(),
+		IID_ID3D11ShaderReflection, (void**)&pixelShaderReflection));
+
+	D3D11_SHADER_DESC pixelShaderDescription;
+	pixelShaderReflection->GetDesc(&pixelShaderDescription);
+
+	for (unsigned int i = 0; i < pixelShaderDescription.BoundResources; i++)
+	{
+		D3D11_SHADER_INPUT_BIND_DESC resourceDesc;
+		pixelShaderReflection->GetResourceBindingDesc(i, &resourceDesc);
+
+		if (resourceDesc.Type == D3D_SIT_TEXTURE)
+			textureMap[std::string(resourceDesc.Name)] = NULL;
+	}
+
 	//Free unneeded data
 	ReleaseMacro(vsBlob);
 	ReleaseMacro(psBlob);
 	ReleaseMacro(vertexShaderReflection);
+	ReleaseMacro(pixelShaderReflection);
 
 	delete hlslVertexFileName;
 	delete hlslPixelFileName;

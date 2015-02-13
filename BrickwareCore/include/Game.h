@@ -55,7 +55,8 @@ class Game
 	friend class GameObject;
 	friend class Shader;
 	friend class Mesh;
-	friend class Material;
+	friend class Material; 
+	friend class Texture;
 	
 	friend class Camera;
 	friend class MeshRenderer;

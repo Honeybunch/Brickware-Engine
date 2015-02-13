@@ -67,7 +67,7 @@ void Texture::loadBMP(char* textureFileName)
 		int bytesPerPixel = colorDepth / 8;
 
 		int rowSize = ((colorDepth * width + 31) / 32) * 4;
-		int pixelArraySize = width * height * 3; //Size of the BMP pixel array in bytes
+		int pixelArraySize = width * height * 4; //Size of the BMP pixel array in bytes
 
 		//Calculate row padding; each row must have a size that is a multiple of 4 bytes
 		//Not really necessary for 24 bbp
@@ -78,19 +78,28 @@ void Texture::loadBMP(char* textureFileName)
 		//Load the colors into the pixels array based on color depth
 		if (colorDepth == 24)
 		{
-			textureType = TextureType::RGB;
+			//Even though there is no alpha in 24bpp BMPs DirectX does not support RGB without alpha
+			//So we will manually add an alpha value of 255;
+			textureType = TextureType::RGBA;
+			int loopCounter = 0;
 
-			for (int i = 0; i < pixelArraySize; i+= 3)
+			for (int i = 0; i < pixelArraySize; i+= 4)
 			{
 				char r, g, b;
 
-				b = *(char*)(bmpBytes + pixelArrayLocation + i) ;
-				g = *(char*)(bmpBytes + pixelArrayLocation + i + 1);
-				r = *(char*)(bmpBytes + pixelArrayLocation + i + 2);
+				//Gives us an offset of 3 for every 4 of the loop
+				int pixelOffset = i - loopCounter;
+
+				b = *(char*)(bmpBytes + pixelArrayLocation + pixelOffset) ;
+				g = *(char*)(bmpBytes + pixelArrayLocation + pixelOffset + 1);
+				r = *(char*)(bmpBytes + pixelArrayLocation + pixelOffset + 2);
 
 				pixels[i] = r;
 				pixels[i + 1] = g;
 				pixels[i + 2] = b;
+				pixels[i + 3] = 255; //Alpha
+
+				loopCounter++;
 			}
 		}
 		else

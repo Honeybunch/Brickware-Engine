@@ -12,8 +12,8 @@ void Texture::bufferGL()
 	glGenTextures(1, &glTexture);
 	glBindTexture(GL_TEXTURE_2D, glTexture);
 
-	if(textureType == TextureType::RGB)
-		glTextureType = GL_RGB;
+	if(textureType == TextureType::RGBA)
+		glTextureType = GL_RGBA;
 
 	//Load texture data
 	glTexImage2D(GL_TEXTURE_2D, 0, glTextureType, width, height, 0, glTextureType, GL_UNSIGNED_BYTE, pixels);

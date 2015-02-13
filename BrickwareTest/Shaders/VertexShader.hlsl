@@ -32,7 +32,9 @@ struct VertexShaderInput
 // - Should match the pixel shader's input
 struct VertexToPixel
 {
-	float4 position		: SV_POSITION; // System Value Position - Has specific meaning to the pipeline!
+	float4 position		: SV_POSITION;
+	float2 texCoord		: TEX_COORD;
+
 	float3 L : LIGHT_L;
 	float3 E : LIGHT_E;
 	float3 H : LIGHT_H;
@@ -48,6 +50,7 @@ VertexToPixel main(VertexShaderInput input)
 	// Calculate output position
 	matrix modelViewProj = mul(mul(modelMatrix, viewMatrix), projectionMatrix);
 	output.position = mul(float4(input.position, 1.0f), modelViewProj);
+	output.texCoord = input.texCoord;
 
 	//try to do some lighting
 	float4 worldCoord4v = mul(modelMatrix, float4(input.position, 1.0f));

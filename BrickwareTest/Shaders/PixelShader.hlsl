@@ -1,9 +1,20 @@
 
+texture2D diffuseTexture : register(t0);
+
+SamplerState MeshTextureSampler
+{
+	Filter = MIN_MAG_MIP_LINEAR;
+	AddressU = Wrap;
+	AddressV = Wrap;
+};
+
 // Defines the input to this pixel shader
 // - Should match the output of our corresponding vertex shader
 struct VertexToPixel
 {
 	float4 position		: SV_POSITION;
+	float2 texCoord		: TEX_COORD;
+
 	float3 L : LIGHT_L;
 	float3 E : LIGHT_E;
 	float3 H : LIGHT_H;
@@ -20,7 +31,7 @@ float4 main(VertexToPixel input) : SV_TARGET
 	float gloss = 75.0;
 
 	//Color is just green for now
-	float4 hue = float4(0.0f, 0.5f, 0.0f, 1.0f);
+	float4 hue = diffuseTexture.Sample(MeshTextureSampler, input.texCoord);
 
 	float Kd = max(dot(input.L, input.N), 0.0);
 	float Ks = pow(max(dot(input.N, input.H), 0.0), gloss);

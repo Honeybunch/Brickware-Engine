@@ -5,6 +5,11 @@
 
 #include "Settings.h"
 
+#ifdef D3D_SUPPORT
+#include <windows.h>
+#include <d3d11.h>
+#endif
+
 #ifdef GL_SUPPORT
 #include <GL/glew.h>
 
@@ -19,7 +24,6 @@
 #include "Utils.h"
 
 enum BRICKWARE_CORE_API TextureType{
-	RGB,
 	RGBA
 };
 
@@ -53,6 +57,9 @@ private:
 #endif
 
 #ifdef D3D_SUPPORT
+	ID3D11Texture2D* d3dTexture;
+	ID3D11ShaderResourceView* d3dTextureSRV;
+
 	void bufferD3D();
 	void bindD3D();
 	void freeD3D();

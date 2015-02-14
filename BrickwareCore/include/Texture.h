@@ -34,7 +34,7 @@ class BRICKWARE_CORE_API Texture
 public:
 	Texture(char* textureFileName);
 
-	char* getPixels();
+	unsigned char* getPixels();
 
 	~Texture();
 
@@ -71,7 +71,7 @@ private:
 	short colorDepth; //Bits per pixel
 	int compressionType;
 
-	char* pixels;
+	unsigned char* pixels;
 };
 
 #endif

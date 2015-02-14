@@ -55,6 +55,12 @@
       <Command>xcopy $(SolutionDir)\$(Configuration)\BrickwareCore.lib $(ProjectDir)\lib\ /y 
 xcopy $(SolutionDir)\$(Configuration)\BrickwareMath.lib $(ProjectDir)\lib\ /y</Command>
     </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>for /R $(SolutionDir)$(Configuration) %%f in (*.cso) do copy %%f $(ProjectDir) /y </Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>We need to copy the shaders to the debug location</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

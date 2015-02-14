@@ -5,10 +5,10 @@ out vec4 fragColor;
 in vec2 texCoord;
 uniform sampler2D diffuseTexture;
 
-in vec3 L;
-in vec3 E;
-in vec3 H;
-in vec3 N;
+in vec3 LightPos;
+in vec3 EyePos;
+in vec3 Halfway;
+in vec3 Normal;
 
 void main()
 {
@@ -20,14 +20,14 @@ void main()
 	
 	vec4 hue = texture(diffuseTexture, texCoord);
 
-	float Kd = max(dot(L,N), 0.0);
-	float Ks = pow(max(dot(N,H), 0.0), gloss);
+	float Kd = max(dot(LightPos, Normal), 0.0);
+	float Ks = pow(max(dot(Normal, Halfway), 0.0), gloss);
 
 	vec3 ambient = hue.rgb * ambientProduct;
 	vec3 diffuse = hue.rgb * Kd * diffuseProduct;
 	vec3 specular = vec3(1) * Ks * specularProduct;
 
-	if(dot(L,N) < 0.0)
+	if(dot(LightPos, Normal) < 0.0)
 		specular = vec3(0.0, 0.0, 0.0);
 
 	vec4 color = vec4((ambient + diffuse + specular), hue.a);

@@ -21,10 +21,10 @@ uniform vec3 eyePoint;
 //uniform vec3 up;
 
 //To be passed to the fragment shader
-out vec3 L;
-out vec3 E;
-out vec3 H;
-out vec3 N;
+out vec3 LightPos;
+out vec3 EyePos;
+out vec3 Halfway;
+out vec3 Normal;
 
 out vec2 texCoord;
 
@@ -47,10 +47,10 @@ void main()
 							  worldNormal4v.y / worldNormal4v.w,
 							  worldNormal4v.z / worldNormal4v.w);
 
-	L = normalize(lightPosition - worldCoord3v);
-	E = normalize(eyePoint - worldCoord3v);
-	H = normalize(L + E);
-	N = normalize(worldNormal3v);
+	LightPos = normalize(lightPosition - worldCoord3v);
+	EyePos = normalize(eyePoint - worldCoord3v);
+	Halfway = normalize(LightPos + EyePos);
+	Normal = normalize(worldNormal3v);
 
 	texCoord = vTexCoord;
 }

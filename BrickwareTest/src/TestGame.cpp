@@ -55,7 +55,7 @@ bool TestGame::init()
 
 	//Create Light
 	GameObject* light = new GameObject();
-	light->getTransform()->setPosition(Vector3(0.0f, 1.0f, 0.0f));
+	light->getTransform()->setPosition(Vector3(0.0f, 0.1f, 0.0f));
 	light->addComponent(new Material(shader));
 	light->addComponent(new Light());
 

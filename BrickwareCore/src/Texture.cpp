@@ -37,7 +37,7 @@ void Texture::freeTexture()
 #endif
 }
 
-char* Texture::getPixels(){ return pixels; }
+unsigned char* Texture::getPixels(){ return pixels; }
 
 void Texture::loadBMP(char* textureFileName)
 {
@@ -73,7 +73,7 @@ void Texture::loadBMP(char* textureFileName)
 		//Not really necessary for 24 bbp
 		//int rowPadding = (width * bytesPerPixel) % 4;
 
-		pixels = new char[pixelArraySize];
+		pixels = new unsigned char[pixelArraySize];
 
 		//Load the colors into the pixels array based on color depth
 		if (colorDepth == 24)

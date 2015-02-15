@@ -45,6 +45,7 @@
 #include "BoxCollider.h"
 #include "MeshRenderer.h"
 #include "Texture.h"
+#include "GameTime.h"
 
 using namespace std;
 

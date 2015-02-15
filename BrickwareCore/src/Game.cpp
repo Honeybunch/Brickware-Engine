@@ -134,6 +134,8 @@ bool Game::init()
 //Render in the proper settings for the given rendering API
 void Game::render()
 {
+	GameTime::frameStart();
+
 #ifdef D3D_SUPPORT
 	startRenderD3D();
 #else
@@ -147,6 +149,8 @@ void Game::render()
 #else
 	swapBuffersGL();
 #endif
+
+	GameTime::frameEnd();
 }
 
 void Game::handleInput()

@@ -5,6 +5,7 @@
 
 #include "Settings.h"
 #include "Screen.h"
+#include "GameTime.h"
 
 class GameObject;
 

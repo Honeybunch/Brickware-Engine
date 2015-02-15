@@ -87,6 +87,7 @@
     <ClInclude Include="include\FrustumCollider.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\GameObject.h" />
+    <ClInclude Include="include\GameTime.h" />
     <ClInclude Include="include\Input.h" />
     <ClInclude Include="include\Light.h" />
     <ClInclude Include="include\Material.h" />
@@ -113,6 +114,7 @@
     <ClCompile Include="src\FrustumCollider.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
+    <ClCompile Include="src\GameTime.cpp" />
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\Light.cpp" />
     <ClCompile Include="src\Material.cpp" />

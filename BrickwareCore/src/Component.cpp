@@ -17,6 +17,8 @@ void Component::setGameObject(GameObject* gameObject)
 
 //Virtual Functions
 
+Component* Component::Clone(){ return NULL; }
+
 void Component::Start(){}
 
 void Component::Update(){}

@@ -12,8 +12,9 @@ class BRICKWARE_CORE_API MeshRenderer : public Component
 public:
 	MeshRenderer(Mesh* mesh);
 
-	Bounds* getBounds();
+	Bounds getBounds();
 
+	virtual Component* Clone() override;
 	virtual void Update();
 	virtual void Render();
 
@@ -21,7 +22,7 @@ public:
 
 private:
 	Mesh* mesh;
-	Bounds* bounds;
+	Bounds bounds;
 
 	void calculateBounds();
 

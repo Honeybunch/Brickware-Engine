@@ -24,6 +24,34 @@ GameObject::GameObject(Transform* transform)
 	Game::gameObjects.push_back(this);
 }
 
+GameObject::GameObject(GameObject& other)
+{
+	components = vector<Component*>();
+
+	//Copy components that are able to be copied over
+	for (unsigned int i = 0; i < other.componentCount; i++)
+	{
+		Component* copiedComponent = other.components[i]->Clone();
+		if (copiedComponent)
+			components.push_back(copiedComponent);
+	}
+
+	componentCount = components.size();
+
+	//Determine which of the copied components is the Transform
+	for (unsigned int i = 0; i < componentCount; i++)
+	{
+		Transform* newTransform = dynamic_cast<Transform*>(components[i]);
+		if (newTransform)
+		{
+			transform = newTransform;
+			break;
+		}
+	}
+
+	Game::gameObjects.push_back(this);
+}
+
 vector<GameObject*> GameObject::getGameObjects(){ return Game::gameObjects; }
 
 //Accessors

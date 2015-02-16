@@ -39,6 +39,8 @@ public:
 	std::vector<char*> getConstantBufferData();
 #endif
 
+	BRICKWARE_CORE_API virtual Component* Clone() override;
+
 	BRICKWARE_CORE_API void setVector4(char* valueName, Vector4 value);
 	BRICKWARE_CORE_API void setVector3(char* valueName, Vector3 value);
 	BRICKWARE_CORE_API void setVector2(char* valueName, Vector2 value);

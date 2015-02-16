@@ -8,7 +8,7 @@
 class BRICKWARE_CORE_API BoxCollider : public Collider
 {
 public:
-	BoxCollider(float width);
+	BoxCollider();
 	~BoxCollider();
 
 	void Start();
@@ -31,7 +31,7 @@ private:
 	bool isCollidingWithSphere(SphereCollider* other);
 	bool isCollidingWithBox(BoxCollider* other);
 	bool isCollidingWithFrustum(FrustumCollider* other);
-	bool isCollidingWithBounds(Bounds* other);
+	bool isCollidingWithBounds(Bounds other);
 };
 
 #endif

@@ -80,12 +80,12 @@ bool FrustumCollider::isCollidingWithBox(BoxCollider* other)
 }
 
 //TODO: Optimize
-bool FrustumCollider::isCollidingWithBounds(Bounds* other)
+bool FrustumCollider::isCollidingWithBounds(Bounds other)
 {	
 	//Get the bounds of the box in a form that easily allows operators
-	Vector3 min = other->getMinBound();
-	Vector3 max = other->getMaxBound();
-	Vector3 center = other->getCenter();
+	Vector3 min = other.getMinBound();
+	Vector3 max = other.getMaxBound();
+	Vector3 center = other.getCenter();
 
 	Vector3 position = getGameObject()->getTransform()->getPosition();
 
@@ -109,7 +109,7 @@ bool FrustumCollider::isCollidingWithBounds(Bounds* other)
 		float d = Vector3::Dot(normal, point) * -1.0f;
 
 		//Get most positive vector along the normal
-		Vector3 positive = other->getPositive(normal);
+		Vector3 positive = other.getPositive(normal);
 
 		float dist = d + Vector3::Dot(normal, positive);
 

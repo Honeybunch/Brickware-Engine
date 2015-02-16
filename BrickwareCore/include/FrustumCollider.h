@@ -42,7 +42,7 @@ private:
 	bool isCollidingWithSphere(SphereCollider* other);
 	bool isCollidingWithBox(BoxCollider* other);
 	bool isCollidingWithFrustum(FrustumCollider* other);
-	bool isCollidingWithBounds(Bounds* other);
+	bool isCollidingWithBounds(Bounds other);
 };
 
 #endif

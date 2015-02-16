@@ -27,6 +27,7 @@ void Transform::setRotation(Vector3 newRotation){ rotation = newRotation; }
 void Transform::setScale(Vector3 newScale){ scale = newScale; }
 
 //Public Functions
+Component* Transform::Clone(){ return new Transform(*this); }
 
 void Transform::Update()
 {

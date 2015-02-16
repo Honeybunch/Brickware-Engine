@@ -8,6 +8,7 @@
 class BRICKWARE_CORE_API Bounds
 {
 public:
+	Bounds();
 	Bounds(Vector3 center, float width);
 	Bounds(Vector3 center, float xWidth, float yWidth, float zWidth);
 	~Bounds();
@@ -29,7 +30,7 @@ public:
 	Vector3 getPositive(Vector3 normal);
 	Vector3 getNegative(Vector3 normal);
 
-	bool isCollidingWithBounds(Bounds* other);
+	bool isCollidingWithBounds(Bounds other);
 
 private:
 	float xWidth;

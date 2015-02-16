@@ -37,7 +37,7 @@ private:
 
 	float depth;
 
-	Bounds* bounds;
+	Bounds bounds;
 
 	vector<OctreeNode*> childNodes;
 	vector<GameObject*> objects;

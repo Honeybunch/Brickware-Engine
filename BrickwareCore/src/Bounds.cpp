@@ -2,6 +2,20 @@
 
 #include "Bounds.h"
 
+Bounds::Bounds()
+{
+	this->center = Vector3();
+
+	xWidth = 1.0f;
+	yWidth = 1.0f;
+	zWidth = 1.0f;
+
+	float halfWidth = 0.5f;
+
+	minBound = Vector3(center.getX() - halfWidth, center.getY() - halfWidth, center.getZ() - halfWidth);
+	maxBound = Vector3(center.getX() + halfWidth, center.getY() + halfWidth, center.getZ() + halfWidth);
+}
+
 Bounds::Bounds(Vector3 center, float width)
 {
 	this->center = center;
@@ -74,11 +88,11 @@ Vector3 Bounds::getNegative(Vector3 normal)
 	return negative;
 }
 
-bool Bounds::isCollidingWithBounds(Bounds* other)
+bool Bounds::isCollidingWithBounds(Bounds other)
 {
-	bool x = fabs(center.getX() - other->center.getX()) <= ((xWidth/2.0f) + (other->xWidth/2.0f));
-	bool y = fabs(center.getY() - other->center.getY()) <= ((yWidth/2.0f) + (other->yWidth/2.0f));
-	bool z = fabs(center.getZ() - other->center.getZ()) <= ((zWidth/2.0f) + (other->zWidth/2.0f));
+	bool x = fabs(center.getX() - other.center.getX()) <= ((xWidth/2.0f) + (other.xWidth/2.0f));
+	bool y = fabs(center.getY() - other.center.getY()) <= ((yWidth/2.0f) + (other.yWidth/2.0f));
+	bool z = fabs(center.getZ() - other.center.getZ()) <= ((zWidth/2.0f) + (other.zWidth/2.0f));
 
 	if (x == true && y == true && z == true)
 		return true;

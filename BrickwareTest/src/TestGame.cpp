@@ -47,12 +47,6 @@ bool TestGame::init()
 	Mesh* circleMesh = new Mesh("Models/circle.obj");
 	Mesh* triangleMesh = new Mesh("Models/triangle.obj");
 
-	//Create Camera
-	GameObject* camera = new GameObject();
-	camera->addComponent(new Material(shader));
-	camera->addComponent(new Camera(50, 0.1f, 0.1f, 0.1f, 100.0f));
-	camera->addComponent(new Spawner(sphereMesh, shader));
-
 	//Create Light
 	GameObject* light = new GameObject();
 	light->getTransform()->setPosition(Vector3(0.0f, 0.1f, 0.0f));
@@ -79,6 +73,7 @@ bool TestGame::init()
 	Spin* cubeSpin = new Spin();
 	cubeSpin->rotationDelta = Vector3(0.05f, 0.0f, 0.0f);
 	cube->addComponent(cubeSpin);
+	cube->addComponent(new BoxCollider());
 
 	GameObject* square = new GameObject();
 	square->getTransform()->setPosition(Vector3(0.0f, 1.0f, -5.0f));
@@ -101,6 +96,12 @@ bool TestGame::init()
 	Spin* triangleSpin = new Spin();
 	triangleSpin->rotationDelta = Vector3(0.05f, 0.0f, 0.05f);
 	triangle->addComponent(triangleSpin);
+
+	//Create Camera
+	GameObject* camera = new GameObject();
+	camera->addComponent(new Material(shader));
+	camera->addComponent(new Camera(50, 0.1f, 0.1f, 0.1f, 100.0f));
+	camera->addComponent(new Spawner(cube));
 
 	for (unsigned int i = 0; i < gameObjects.size(); i++)
 		gameObjects[i]->Start();

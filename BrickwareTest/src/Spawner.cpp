@@ -1,38 +1,33 @@
 #include "Spawner.h"
 
 
-Spawner::Spawner(Mesh* mesh, Shader* shader)
+Spawner::Spawner(GameObject* gameObject)
 {
-	this->mesh = mesh;
-	this->shader = shader;
+	this->spawnable = *gameObject;
 }
 
 void Spawner::Update()
 {
 	if (Input::getKeyDown(KeyCode::space))
 	{
-		spawnSphere();
+		spawnObject();
 	}
 }
 
-void Spawner::spawnSphere()
+void Spawner::spawnObject()
 {
-	GameObject* newSphere = new GameObject();
-
-	newSphere->addComponent(new Material(shader));
-	newSphere->addComponent(new MeshRenderer(mesh));
-	newSphere->addComponent(new SphereCollider(new Vector3(), 0.1f));
+	GameObject* newObject = new GameObject(spawnable);
 
 	Camera* camera = getGameObject()->getComponent<Camera>();
 	Vector3 spherePos = Vector3(camera->getLookAt());
 
-	newSphere->getTransform()->setPosition(spherePos);
-	newSphere->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
+	newObject->getTransform()->setPosition(spherePos);
+	newObject->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
 
-	newSphere->Start();
+	newObject->Start();
 
 	//Check if the spheres are colliding
-	Collider* collider = newSphere->getComponent<Collider>();
+	Collider* collider = newObject->getComponent<Collider>();
 
 	bool collided = false;
 
@@ -46,7 +41,7 @@ void Spawner::spawnSphere()
 			//If the game object we're looking at has a collider
 			if (otherCollider)
 			{
-				if (otherCollider->isColliding(collider) && otherObject != newSphere)
+				if (otherCollider->isColliding(collider) && otherObject != newObject)
 				{
 					collided = true;
 					break;
@@ -57,7 +52,7 @@ void Spawner::spawnSphere()
 
 	if (collided)
 	{
-		delete newSphere;
+		delete newObject;
 	}
 }
 

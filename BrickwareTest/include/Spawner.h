@@ -13,17 +13,16 @@ class Spawner :
 	public Component
 {
 public:
-	Spawner(Mesh* mesh, Shader* shader);
+	Spawner(GameObject* gameObject);
 
 	virtual void Update() override;
 
 	~Spawner();
 
 private:
-	Mesh* mesh;
-	Shader* shader;
+	GameObject spawnable;
 
-	void spawnSphere();
+	void spawnObject();
 };
 
 #endif

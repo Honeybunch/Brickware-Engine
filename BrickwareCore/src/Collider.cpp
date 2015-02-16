@@ -27,7 +27,7 @@ bool Collider::isColliding(Collider* other)
 	return false;
 }
 
-bool Collider::isColliding(Bounds* bounds)
+bool Collider::isColliding(Bounds bounds)
 {
 	return isCollidingWithBounds(bounds);
 }

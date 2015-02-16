@@ -21,6 +21,7 @@ public:
 	
 	BRICKWARE_CORE_API GameObject();
 	BRICKWARE_CORE_API GameObject(Transform* transform);
+	BRICKWARE_CORE_API GameObject(GameObject& other);
 
 	static BRICKWARE_CORE_API vector<GameObject*> getGameObjects();
 
@@ -32,7 +33,7 @@ public:
 	//If none are found; return null
 	template<class T> T* getComponent()
 	{
-		for (int i = 0; i < componentCount; i++)
+		for (unsigned int i = 0; i < componentCount; i++)
 		{
 			T* type = dynamic_cast<T*>(components[i]);
 			if(type)
@@ -57,7 +58,7 @@ protected:
 
 	//Other Components
 	vector<Component*> components;
-	int componentCount; 
+	unsigned int componentCount; 
 };
 
 #endif

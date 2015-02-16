@@ -41,6 +41,8 @@ void Material::freeShader()
 	}
 }
 
+Component* Material::Clone(){ return new Material(*this); }
+
 void Material::setVector4(char* valueName, Vector4 value)
 {
 #ifdef D3D_SUPPORT

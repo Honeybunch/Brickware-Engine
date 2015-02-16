@@ -15,10 +15,12 @@ class BRICKWARE_CORE_API Component
 {
 public:
 	Component();
-
+	
 	GameObject* getGameObject();
 	
 	void setGameObject(GameObject* gameObject);
+
+	virtual Component* Clone();
 
 	virtual void Start();
 

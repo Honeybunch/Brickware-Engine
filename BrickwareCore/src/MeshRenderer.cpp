@@ -8,10 +8,12 @@ MeshRenderer::MeshRenderer(Mesh* mesh)
 {
 	this->mesh = mesh;
 
-	bounds = new Bounds(Vector3(), 0);
+	bounds = Bounds(Vector3(), 0);
 }
 
-Bounds* MeshRenderer::getBounds(){ return bounds; }
+Bounds MeshRenderer::getBounds(){ return bounds; }
+
+Component* MeshRenderer::Clone(){ return new MeshRenderer(*this); }
 
 //Recalculate the bounds of the mesh
 void MeshRenderer::Update()
@@ -33,13 +35,13 @@ void MeshRenderer::Render()
 
 void MeshRenderer::calculateBounds()
 {
-	float minX = bounds->getMinBound().getX();
-	float minY = bounds->getMinBound().getY();
-	float minZ = bounds->getMinBound().getZ();
+	float minX = bounds.getMinBound().getX();
+	float minY = bounds.getMinBound().getY();
+	float minZ = bounds.getMinBound().getZ();
 
-	float maxX = bounds->getMaxBound().getX();
-	float maxY = bounds->getMaxBound().getY();
-	float maxZ = bounds->getMaxBound().getZ();
+	float maxX = bounds.getMaxBound().getX();
+	float maxY = bounds.getMaxBound().getY();
+	float maxZ = bounds.getMaxBound().getZ();
 
 	float* points = mesh->getPoints();
 	int numOfVerts = mesh->getNumberOfVerts();
@@ -82,7 +84,7 @@ void MeshRenderer::calculateBounds()
 		
 		center = transform->getPosition();
 	}
-	bounds = new Bounds(center, xWidth, yWidth, zWidth);
+	bounds = Bounds(center, xWidth, yWidth, zWidth);
 }
 
 //Private methods

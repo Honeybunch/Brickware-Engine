@@ -151,7 +151,7 @@ void Camera::Render()
 			GameObject* object = nodeObjects[j];
 			MeshRenderer* objectMesh = object->getComponent<MeshRenderer>();
 
-			Bounds* meshBounds = objectMesh->getBounds();
+			Bounds meshBounds = objectMesh->getBounds();
 
 			bool isColliding = collider->isColliding(meshBounds);
 

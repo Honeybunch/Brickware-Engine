@@ -52,6 +52,7 @@ public:
 	void setScale(Vector3 newScale);
 
 	//Component Overrides
+	virtual Component* Clone() override;
 	virtual void Update();
 	virtual void Render();
 

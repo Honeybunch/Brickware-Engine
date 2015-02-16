@@ -5,19 +5,34 @@
 #include "SphereCollider.h"
 #include "FrustumCollider.h"
 #include "BoxCollider.h"
+#include "MeshRenderer.h"
 
-BoxCollider::BoxCollider(float width)
+BoxCollider::BoxCollider()
 {
-	this->width = width;
+	
 }
 
 void BoxCollider::Start()
 {
-	float halfWidth = width / 2.0f;
-	Vector3 center = getGameObject()->getTransform()->getPosition();
+	MeshRenderer* meshRenderer = getGameObject()->getComponent<MeshRenderer>();
 
-	minBound = Vector3(center.getX() - halfWidth, center.getY() - halfWidth, center.getZ() - halfWidth);
-	maxBound = Vector3(center.getX() + halfWidth, center.getY() + halfWidth, center.getZ() + halfWidth);
+	if (meshRenderer)
+	{
+		Bounds bounds = meshRenderer->getBounds();
+		
+		minBound = bounds.getMinBound();
+		maxBound = bounds.getMaxBound();
+	}
+	else
+	{
+		//If there is no meshRenderer lets just assume that we have a width of 1.0f
+		float halfWidth = 1.0f;
+
+		Vector3 center = getGameObject()->getTransform()->getPosition();
+
+		minBound = Vector3(center.getX() - halfWidth, center.getY() - halfWidth, center.getZ() - halfWidth);
+		maxBound = Vector3(center.getX() + halfWidth, center.getY() + halfWidth, center.getZ() + halfWidth);
+	}
 }
 
 //Accessors and Mutators
@@ -73,7 +88,7 @@ bool BoxCollider::isCollidingWithFrustum(FrustumCollider* other)
 }
 
 //Don't really care yet
-bool BoxCollider::isCollidingWithBounds(Bounds* other)
+bool BoxCollider::isCollidingWithBounds(Bounds other)
 {
 	return false;
 }

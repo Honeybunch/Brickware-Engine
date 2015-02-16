@@ -15,7 +15,7 @@ OctreeNode::OctreeNode(Octree* octree, OctreeNode* parent = NULL, float depth = 
 
 	hasChildren = false;
 
-	bounds = new Bounds(center, width);	
+	bounds = Bounds(center, width);	
 }
 
 //Accessors
@@ -37,9 +37,9 @@ void OctreeNode::addObject(GameObject* object)
 		return;
 	}*/
 
-	Bounds* objectCollider = meshRenderer->getBounds();
+	Bounds objectCollider = meshRenderer->getBounds();
 
-	if (bounds->isCollidingWithBounds(objectCollider))
+	if (bounds.isCollidingWithBounds(objectCollider))
 	{
 		if ((objects.size() < (unsigned)octree->getPerNodeLimit() || depth >= octree->getDepthLimit()) & !hasChildren)
 		{
@@ -64,10 +64,10 @@ void OctreeNode::addToChildren(GameObject* object)
 	{
 		OctreeNode* child = childNodes[i];
 
-		Bounds* childBounds = child->bounds;
-		Bounds* objectBounds = object->getComponent<MeshRenderer>()->getBounds();
+		Bounds childBounds = child->bounds;
+		Bounds objectBounds = object->getComponent<MeshRenderer>()->getBounds();
 
-		if (childBounds->isCollidingWithBounds(objectBounds))
+		if (childBounds.isCollidingWithBounds(objectBounds))
 		{
 			child->addObject(object);
 		}
@@ -77,7 +77,7 @@ void OctreeNode::addToChildren(GameObject* object)
 void OctreeNode::subdivide()
 {
 	//Get the half of the xWidth because it doesn't really matter which width we get, they'll all be the same
-	float halfWidth = bounds->getXWidth() / 2;
+	float halfWidth = bounds.getXWidth() / 2;
 	float quarterWidth = halfWidth / 2;
 
 	//Create 8 nodes using 3 for loops creating one node in each octent of this node
@@ -87,7 +87,7 @@ void OctreeNode::subdivide()
 		{
 			for (int k = -1; k <= 1; k += 2)
 			{
-				Vector3 newCenter = bounds->getCenter();
+				Vector3 newCenter = bounds.getCenter();
 				newCenter.setX(newCenter.getX() + (i *quarterWidth));
 				newCenter.setY(newCenter.getY() + (j *quarterWidth));
 				newCenter.setZ(newCenter.getZ() + (k *quarterWidth));

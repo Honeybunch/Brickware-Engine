@@ -106,10 +106,14 @@ Vector2 Vector2::operator*(float s)
 	return Vector2(s * vector[0], s * vector[1]);
 }
 
-//Sum
 Vector2 Vector2::operator+(Vector2 u)
 {
 	return Vector2(vector[0] + u.vector[0], vector[1] + u.vector[1]);
+}
+
+float& Vector2::operator[](int i)
+{
+	return vector[i];
 }
 
 //Extraction

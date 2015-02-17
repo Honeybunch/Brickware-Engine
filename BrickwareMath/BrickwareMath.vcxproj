@@ -68,6 +68,7 @@
   <ItemGroup>
     <ClInclude Include="include\BrickwareMath.h" />
     <ClInclude Include="include\BrickwareMathDLL.h" />
+    <ClInclude Include="include\Matrix3.h" />
     <ClInclude Include="include\Matrix4.h" />
     <ClInclude Include="include\Quaternion.h" />
     <ClInclude Include="include\Vector2.h" />
@@ -75,6 +76,7 @@
     <ClInclude Include="include\Vector4.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Matrix3.cpp" />
     <ClCompile Include="src\Matrix4.cpp" />
     <ClCompile Include="src\Quaternion.cpp" />
     <ClCompile Include="src\Vector2.cpp" />

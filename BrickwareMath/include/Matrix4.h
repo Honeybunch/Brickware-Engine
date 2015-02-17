@@ -12,17 +12,11 @@ public:
 	Matrix4();
 	Matrix4(float rawArray[]);
 	Matrix4(float x0, float y0, float z0, float w0,
-							   float x1, float y1, float z1, float w1,
-							   float x2, float y2, float z2, float w2,
-							   float x3, float y3, float z3, float w3);
-	Matrix4(Vector3 one,
-							   Vector3 two,
-							   Vector3 three,
-							   Vector3 four);
-	Matrix4(Vector4 one,
-							   Vector4 two,
-							   Vector4 three,
-							   Vector4 four);
+			float x1, float y1, float z1, float w1,
+			float x2, float y2, float z2, float w2,
+			float x3, float y3, float z3, float w3);
+	Matrix4(Vector3 one, Vector3 two, Vector3 three, Vector3 four);
+	Matrix4(Vector4 one, Vector4 two, Vector4 three, Vector4 four);
 
 	//Accessors
 	float* getAsArray();

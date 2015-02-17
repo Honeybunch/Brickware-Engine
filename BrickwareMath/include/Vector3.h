@@ -42,6 +42,7 @@ public:
 	Vector3 operator* (float s);
 	Vector3 operator+ (Vector3 u);
 	Vector3 operator- (Vector3 u);
+	float& operator[] (int i);
 
 	friend std::ostream& operator<< (std::ostream& output, Vector3& h);
 	friend std::istream& operator>> (std::istream& input, Vector3& h);

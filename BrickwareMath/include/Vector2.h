@@ -35,6 +35,7 @@ public:
 	float operator* (Vector2 u);
 	Vector2 operator* (float s);
 	Vector2 operator+ (Vector2 u);
+	float& operator[] (int i);
 
 	friend std::ostream& operator<< (std::ostream& output, Vector2& h);
 	friend std::istream& operator>> (std::istream& input, Vector2& h);

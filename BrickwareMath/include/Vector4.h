@@ -30,6 +30,8 @@ public:
 	void setZ(float z);
 	void setW(float w);
 
+	float& operator[] (int i);
+
 	friend std::ostream& operator<< (std::ostream& output, Vector4& v4);
 	friend std::istream& operator>> (std::istream& input, Vector4& v4);
 

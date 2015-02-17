@@ -133,16 +133,19 @@ Vector3 Vector3::operator*(float s)
 	return Vector3(s * vector[0], s * vector[1], s * vector[2]);
 }
 
-//Sum
 Vector3 Vector3::operator+(Vector3 u)
 {
 	return Vector3(vector[0] + u.vector[0], vector[1] + u.vector[1], vector[2] + u.vector[2]);
 }
 
-//Difference
 Vector3 Vector3::operator-(Vector3 u)
 {
 	return Vector3(vector[0] - u.vector[0], vector[1] - u.vector[1], vector[2] - u.vector[2]);
+}
+
+float& Vector3::operator[](int i)
+{
+	return vector[i];
 }
 
 //Extraction

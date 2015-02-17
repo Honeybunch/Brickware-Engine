@@ -52,6 +52,7 @@ void BoxCollider::Start()
 
 	//We can find three normals along each axis; don't need to find the other three
 	//Because they're just opposites of the ones we're storing
+	normals.clear();
 	normals.push_back(Vector3(1, 0, 0));
 	normals.push_back(Vector3(0, 1, 0));
 	normals.push_back(Vector3(0, 0, -1));
@@ -70,21 +71,52 @@ bool BoxCollider::isCollidingWithSphere(SphereCollider* other)
 bool BoxCollider::isCollidingWithBox(BoxCollider* other)
 {
 	calculateWorldData();
+	other->calculateWorldData();
+
+	float radiusThis, radiusOther;
+	Matrix3 rotation, absoluteRotation;
 
 	//Calculate rotation matrix expressing the other box in this box's coordinate frame
-
+	for (int i = 0; i < 3; i++)
+		for (int j = 0; j < 3; j++)
+			rotation[i][j] = Vector3::Dot(worldNormals[i], other->worldNormals[j]);
+	
 	//Compute the translation vector
 	Vector3 translation = other->center - center;
 	//Make sure it's in this box's coordinate frame
-	translation = Vector3(Vector3::Dot(translation, normals[0]),
-						  Vector3::Dot(translation, normals[2]),
-						  Vector3::Dot(translation, normals[2]));
+	translation = Vector3(Vector3::Dot(translation, worldNormals[0]),
+						  Vector3::Dot(translation, worldNormals[1]),
+						  Vector3::Dot(translation, worldNormals[2]));
 
 	//Calculate absolute value of rotation matrix
+	for (int i = 0; i < 3; i++)
+		for (int j = 0; j < 3; j++)
+			absoluteRotation[i][j] = fabsf(rotation[i][j]);
 
+	//Test local axes of this box
+	for (int i = 0; i < 3; i++)
+	{
+		radiusThis = halfSize[i];
+		radiusOther = other->halfSize[0] * absoluteRotation[i][0]
+					+ other->halfSize[1] * absoluteRotation[i][1]
+					+ other->halfSize[2] * absoluteRotation[i][2];
 
+		if (fabsf(translation[i]) > radiusThis + radiusOther)
+			return false;
+	}
 
-	return false;
+	//Test local axes of other box
+	for (int i = 0; i < 3; i++)
+	{
+		radiusThis = halfSize[0] * absoluteRotation[0][i]
+				   + halfSize[2] * absoluteRotation[1][i]
+				   + halfSize[1] * absoluteRotation[2][i];
+		radiusOther = other->halfSize[i];
+
+		if (fabsf(translation[i]) > radiusThis + radiusOther)
+			return false;
+	}
+	return true;
 }
 
 //TODO: Refactor to mesh collision

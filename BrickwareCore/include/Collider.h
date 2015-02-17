@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "Vector3.h"
+#include "Matrix3.h"
 
 class SphereCollider;
 class BoxCollider;

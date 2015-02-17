@@ -43,7 +43,6 @@ void Collider::calculateWorldData()
 	//TODO: just use a quaternion to matrix3 conversion instead
 	Matrix4 modelMatrix = transform->getModelMatrix();
 
-
 	for (unsigned int i = 0; i < normals.size(); i++)
 	{
 		Vector3 worldNormal = modelMatrix * normals[i];

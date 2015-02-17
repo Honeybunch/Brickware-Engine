@@ -52,6 +52,11 @@ void Vector4::setW(float w){ this->vector[3] = w; }
 	Operators
 */
 
+float& Vector4::operator[](int i)
+{
+	return vector[i];
+}
+
 //Extraction
 std::ostream& operator<<(std::ostream& output, Vector4& v4)
 {

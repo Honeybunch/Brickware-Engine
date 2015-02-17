@@ -4,6 +4,7 @@
 #include "BoxCollider.h"
 #include "FrustumCollider.h"
 #include "GameObject.h"
+#include "Bounds.h"
 
 SphereCollider::SphereCollider(Vector3* center, float radius)
 	: Collider()
@@ -51,7 +52,34 @@ bool SphereCollider::isCollidingWithFrustum(FrustumCollider* other)
 
 bool SphereCollider::isCollidingWithBounds(Bounds* other)
 {
-	return false;
+	float radiusSquared = pow(radius, 2);
+	float distanceSquared = 0;
+
+	Vector3 sphereCenter = getGameObject()->getTransform()->getPosition();
+
+	//Implementation of Jim Arvo's collision algorithm
+	Vector3 minBound = other->getMinBound();
+	Vector3 maxBound = other->getMaxBound();
+
+	if (sphereCenter.getX() < minBound.getX())
+		distanceSquared += pow(sphereCenter.getX() - minBound.getX(), 2);
+	else if (sphereCenter.getX() > maxBound.getX())
+		distanceSquared += pow(sphereCenter.getX() - maxBound.getX(), 2);
+
+	if (sphereCenter.getY() < minBound.getY())
+		distanceSquared += pow(sphereCenter.getY() - minBound.getY(), 2);
+	else if (sphereCenter.getY() > maxBound.getY())
+		distanceSquared += pow(sphereCenter.getY() - maxBound.getY(), 2);
+
+	if (sphereCenter.getZ() < minBound.getZ())
+		distanceSquared += pow(sphereCenter.getZ() - minBound.getZ(), 2);
+	else if (sphereCenter.getZ() > maxBound.getZ())
+		distanceSquared += pow(sphereCenter.getZ() - maxBound.getZ(), 2);
+
+	if (distanceSquared <= radiusSquared)
+		return true;
+	else
+		return false;
 }
 
 SphereCollider::~SphereCollider()

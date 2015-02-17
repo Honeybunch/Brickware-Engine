@@ -14,6 +14,9 @@ class Bounds;
 
 #include "Component.h"
 
+//Used to avoid warnings about exporting std::vectors
+template class BRICKWARE_CORE_API std::vector < Vector3 > ;
+
 class BRICKWARE_CORE_API Collider : public Component
 {
 public:
@@ -27,6 +30,16 @@ public:
 protected:
 	bool enabled;
 	bool isTrigger;
+
+	std::vector<Vector3> points;
+	std::vector<Vector3> normals;
+
+	std::vector<Vector3> worldPoints;
+	std::vector<Vector3> worldNormals;
+
+	void calculateWorldData();
+
+	void separatingAxisTest(Vector3 axis, std::vector<Vector3> pointSet, float& min, float& max);
 
 private:
 	virtual bool isCollidingWithSphere(SphereCollider* other) = 0;

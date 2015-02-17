@@ -32,6 +32,18 @@ bool Collider::isColliding(Bounds bounds)
 	return isCollidingWithBounds(bounds);
 }
 
+void Collider::calculateWorldData()
+{
+	//We want to take the point and normal data of this collider and 
+	//Translate it into world space so that we can do real collisions on it
+}
+
+void Collider::separatingAxisTest(Vector3 axis, std::vector<Vector3> pointSet, float& min, float& max)
+{
+	//Return in min and max the bounds that this set of point data represents
+	//When projected along the given axis
+}
+
 Collider::~Collider()
 {
 }

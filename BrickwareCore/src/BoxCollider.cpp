@@ -14,70 +14,74 @@ BoxCollider::BoxCollider()
 
 void BoxCollider::Start()
 {
+	//Calculate the points of the box and the normals of the faces
+	center = getGameObject()->getTransform()->getPosition();
+
+	//if we have a mesh we will base our size off of the mesh's bounds
 	MeshRenderer* meshRenderer = getGameObject()->getComponent<MeshRenderer>();
 
 	if (meshRenderer)
 	{
 		Bounds bounds = meshRenderer->getBounds();
-		
-		minBound = bounds.getMinBound();
-		maxBound = bounds.getMaxBound();
+
+		Vector3 boundMin = bounds.getMinBound();
+		Vector3 boundMax = bounds.getMaxBound();
+
+		float xSize = boundMax.getX() - boundMin.getX();
+		float ySize = boundMax.getY() - boundMin.getY();
+		float zSize = boundMax.getZ() - boundMin.getZ();
+
+		size = Vector3(xSize, ySize, zSize);
 	}
+
+	//Otherwise we can just assume a size of 1,1,1
 	else
 	{
-		//If there is no meshRenderer lets just assume that we have a width of 1.0f
-		float halfWidth = 1.0f;
-
-		Vector3 center = getGameObject()->getTransform()->getPosition();
-
-		minBound = Vector3(center.getX() - halfWidth, center.getY() - halfWidth, center.getZ() - halfWidth);
-		maxBound = Vector3(center.getX() + halfWidth, center.getY() + halfWidth, center.getZ() + halfWidth);
+		size = Vector3(1, 1, 1);
 	}
+
+	//Now we can calculate every point and every normal based off of this
+	float xSizeHalf = size.getX()/2.0f;
+	float ySizeHalf = size.getY()/2.0f;
+	float zSizeHalf = size.getZ()/2.0f;
+
+	//x+ is right
+	//y+ is up
+	//z+ is behind
+	Vector3 topLeftForward =	 Vector3(-xSizeHalf, ySizeHalf, -zSizeHalf);
+	Vector3 topRightForward =	 Vector3(xSizeHalf, ySizeHalf, -zSizeHalf);
+	Vector3 topLeftBackward =	 Vector3(-xSizeHalf, ySizeHalf, zSizeHalf);
+	Vector3 topRightBackward =	 Vector3(xSizeHalf, ySizeHalf, zSizeHalf);
+	Vector3 bottomLeftForward =	 Vector3(-xSizeHalf, -ySizeHalf, -zSizeHalf);
+	Vector3 bottomRightForward = Vector3(xSizeHalf, -ySizeHalf, -zSizeHalf);
+	Vector3 bottomLeftBackward = Vector3(-xSizeHalf, -ySizeHalf, zSizeHalf);
+	Vector3 bottomRighBackward = Vector3(xSizeHalf, -ySizeHalf, zSizeHalf);
+
+	//Add these all to our vector
+	points.push_back(topLeftForward);
+	points.push_back(topRightForward);
+	points.push_back(topLeftBackward);
+	points.push_back(topRightBackward);
+	points.push_back(bottomLeftForward);
+	points.push_back(bottomRightForward);
+	points.push_back(bottomLeftBackward);
+	points.push_back(bottomRighBackward);
 }
 
 //Accessors and Mutators
-Vector3 BoxCollider::getMinBound(){ return minBound; }
-Vector3 BoxCollider::getMaxBound(){ return maxBound; }
+Vector3 BoxCollider::getCenter(){ return center; }
+Vector3 BoxCollider::getSize(){ return size; }
 
-float BoxCollider::getWidth(){ return width; }
-
-void BoxCollider::setMinBound(Vector3 minBound){ this->minBound = minBound; }
-void BoxCollider::setMaxBound(Vector3 maxBound){ this->maxBound = maxBound; }
-
-//Note, does not account of the center of the bounding box possibly moving; min and max need to be relative to the center of the box
 bool BoxCollider::isCollidingWithSphere(SphereCollider* other)
 {
-	float radiusSquared = pow(other->getRadius(), 2);
-	float distanceSquared = 0;
-
-	Vector3 sphereCenter = other->getGameObject()->getTransform()->getPosition();
-
-	//Implementation of Jim Arvo's collision algorithm
-
-	if (sphereCenter.getX() < minBound.getX())
-		distanceSquared += pow(sphereCenter.getX() - minBound.getX(), 2);
-	else if (sphereCenter.getX() > maxBound.getX())
-		distanceSquared += pow(sphereCenter.getX() - maxBound.getX(), 2);
-
-	if (sphereCenter.getY() < minBound.getY())
-		distanceSquared += pow(sphereCenter.getY() - minBound.getY(), 2);
-	else if (sphereCenter.getY() > maxBound.getY())
-		distanceSquared += pow(sphereCenter.getY() - maxBound.getY(), 2);
-
-	if (sphereCenter.getZ() < minBound.getZ())
-		distanceSquared += pow(sphereCenter.getZ() - minBound.getZ(), 2);
-	else if (sphereCenter.getZ() > maxBound.getZ())
-		distanceSquared += pow(sphereCenter.getZ() - maxBound.getZ(), 2);
-
-	if (distanceSquared <= radiusSquared)
-		return true;
-	else
-		return false;
+	return false;
 }
 
 //TODO: Implement
 bool BoxCollider::isCollidingWithBox(BoxCollider* other)
 {
+		
+
 	return false;
 }
 

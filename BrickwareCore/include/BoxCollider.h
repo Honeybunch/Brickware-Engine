@@ -11,22 +11,14 @@ public:
 	BoxCollider();
 	~BoxCollider();
 
+	Vector3 getCenter();
+	Vector3 getSize();
+
 	void Start();
 
-	//Accessors and Mutators
-	Vector3 getMinBound();
-	Vector3 getMaxBound();
-
-	float getWidth();
-
-	void setMinBound(Vector3 minBound);
-	void setMaxBound(Vector3 maxBound);
-
 private:
-	float width;
-
-	Vector3 minBound;
-	Vector3 maxBound;
+	Vector3 center;
+	Vector3 size; //Each element of this vector represents width on one axis
 
 	bool isCollidingWithSphere(SphereCollider* other);
 	bool isCollidingWithBox(BoxCollider* other);

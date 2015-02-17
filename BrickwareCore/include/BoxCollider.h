@@ -14,7 +14,8 @@ public:
 	Vector3 getCenter();
 	Vector3 getSize();
 
-	void Start();
+	virtual Component* Clone();
+	virtual void Start();
 
 private:
 	Vector3 center;

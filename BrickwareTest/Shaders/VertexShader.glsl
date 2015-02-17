@@ -38,14 +38,8 @@ void main()
 							 worldCoord4v.y / worldCoord4v.w,
 							 worldCoord4v.z / worldCoord4v.w);
 
-	mat4 rotation = mat4(modelMatrix[0][0], modelMatrix[1][0], modelMatrix[2][0], 0,
-						 modelMatrix[0][1], modelMatrix[1][1], modelMatrix[2][1], 0,
-						 modelMatrix[0][2], modelMatrix[1][2], modelMatrix[2][2], 0,
-						 0, 0, 0, 1);
-	vec4 worldNormal4v = rotation * vec4(vNormal, 1.0);
-	vec3 worldNormal3v = vec3(worldNormal4v.x / worldNormal4v.w,
-							  worldNormal4v.y / worldNormal4v.w,
-							  worldNormal4v.z / worldNormal4v.w);
+	mat3 rotation = mat3(modelMatrix);
+	vec3 worldNormal3v = rotation * vNormal;
 
 	LightPos = normalize(lightPosition - worldCoord3v);
 	EyePos = normalize(eyePoint - worldCoord3v);

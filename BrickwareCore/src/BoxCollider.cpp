@@ -12,6 +12,8 @@ BoxCollider::BoxCollider()
 	
 }
 
+Component* BoxCollider::Clone(){ return new BoxCollider(*(this)); }
+
 void BoxCollider::Start()
 {
 	//Calculate the points of the box and the normals of the faces
@@ -66,6 +68,12 @@ void BoxCollider::Start()
 	points.push_back(bottomRightForward);
 	points.push_back(bottomLeftBackward);
 	points.push_back(bottomRighBackward);
+
+	//We can find three normals along each axis; don't need to find the other three
+	//Because they're just opposites of the ones we're storing
+	normals.push_back(Vector3(1, 0, 0));
+	normals.push_back(Vector3(0, 1, 0));
+	normals.push_back(Vector3(0, 0, -1));
 }
 
 //Accessors and Mutators
@@ -80,8 +88,6 @@ bool BoxCollider::isCollidingWithSphere(SphereCollider* other)
 //TODO: Implement
 bool BoxCollider::isCollidingWithBox(BoxCollider* other)
 {
-		
-
 	return false;
 }
 

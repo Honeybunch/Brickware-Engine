@@ -23,6 +23,7 @@ void Spawner::spawnObject()
 
 	newObject->getTransform()->setPosition(spherePos);
 	newObject->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
+	newObject->getTransform()->setRotation(Vector3(0.0f, 0.0f, 0.0f));
 
 	newObject->Start();
 

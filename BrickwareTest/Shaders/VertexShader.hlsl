@@ -48,14 +48,8 @@ VertexToPixel main(VertexShaderInput input)
 								 worldCoord4v.y / worldCoord4v.w,
 								 worldCoord4v.z / worldCoord4v.w);
 
-	matrix rotation = matrix(modelMatrix[0][0], modelMatrix[1][0], modelMatrix[2][0], 0,
-							 modelMatrix[0][1], modelMatrix[1][1], modelMatrix[2][1], 0,
-							 modelMatrix[0][2], modelMatrix[1][2], modelMatrix[2][2], 0,
-							 0, 0, 0, 1);
-	float4 worldNormal4v = mul(float4(input.normal, 1.0), rotation);
-	float3 worldNormal3v = float3(worldNormal4v.x / worldNormal4v.w,
-								  worldNormal4v.y / worldNormal4v.w,
-								  worldNormal4v.z / worldNormal4v.w);
+	float3x3 rotation = (float3x3)modelMatrix;
+	float3 worldNormal3v = mul(input.normal, rotation);
 
 	float3 LightPos = normalize(lightPosition - worldCoord3v);
 	float3 EyePos = normalize(eyePoint - worldCoord3v);

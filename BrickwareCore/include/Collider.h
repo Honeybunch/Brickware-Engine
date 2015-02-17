@@ -31,15 +31,10 @@ protected:
 	bool enabled;
 	bool isTrigger;
 
-	std::vector<Vector3> points;
 	std::vector<Vector3> normals;
-
-	std::vector<Vector3> worldPoints;
 	std::vector<Vector3> worldNormals;
 
 	void calculateWorldData();
-
-	void separatingAxisTest(Vector3 axis, std::vector<Vector3> pointSet, float& min, float& max);
 
 private:
 	virtual bool isCollidingWithSphere(SphereCollider* other) = 0;

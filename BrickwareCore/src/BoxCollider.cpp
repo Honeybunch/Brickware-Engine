@@ -33,41 +33,22 @@ void BoxCollider::Start()
 		float ySize = boundMax.getY() - boundMin.getY();
 		float zSize = boundMax.getZ() - boundMin.getZ();
 
+		//Store halfwidths
 		size = Vector3(xSize, ySize, zSize);
 	}
 
 	//Otherwise we can just assume a size of 1,1,1
 	else
 	{
-		size = Vector3(1, 1, 1);
+		size = Vector3(1,1,1);
 	}
 
-	//Now we can calculate every point and every normal based off of this
+	//We store half size because it's more useful in SAT calculations
 	float xSizeHalf = size.getX()/2.0f;
 	float ySizeHalf = size.getY()/2.0f;
 	float zSizeHalf = size.getZ()/2.0f;
 
-	//x+ is right
-	//y+ is up
-	//z+ is behind
-	Vector3 topLeftForward =	 Vector3(-xSizeHalf, ySizeHalf, -zSizeHalf);
-	Vector3 topRightForward =	 Vector3(xSizeHalf, ySizeHalf, -zSizeHalf);
-	Vector3 topLeftBackward =	 Vector3(-xSizeHalf, ySizeHalf, zSizeHalf);
-	Vector3 topRightBackward =	 Vector3(xSizeHalf, ySizeHalf, zSizeHalf);
-	Vector3 bottomLeftForward =	 Vector3(-xSizeHalf, -ySizeHalf, -zSizeHalf);
-	Vector3 bottomRightForward = Vector3(xSizeHalf, -ySizeHalf, -zSizeHalf);
-	Vector3 bottomLeftBackward = Vector3(-xSizeHalf, -ySizeHalf, zSizeHalf);
-	Vector3 bottomRighBackward = Vector3(xSizeHalf, -ySizeHalf, zSizeHalf);
-
-	//Add these all to our vector
-	points.push_back(topLeftForward);
-	points.push_back(topRightForward);
-	points.push_back(topLeftBackward);
-	points.push_back(topRightBackward);
-	points.push_back(bottomLeftForward);
-	points.push_back(bottomRightForward);
-	points.push_back(bottomLeftBackward);
-	points.push_back(bottomRighBackward);
+	halfSize = Vector3(xSizeHalf, ySizeHalf, zSizeHalf);
 
 	//We can find three normals along each axis; don't need to find the other three
 	//Because they're just opposites of the ones we're storing
@@ -88,6 +69,21 @@ bool BoxCollider::isCollidingWithSphere(SphereCollider* other)
 //TODO: Implement
 bool BoxCollider::isCollidingWithBox(BoxCollider* other)
 {
+	calculateWorldData();
+
+	//Calculate rotation matrix expressing the other box in this box's coordinate frame
+
+	//Compute the translation vector
+	Vector3 translation = other->center - center;
+	//Make sure it's in this box's coordinate frame
+	translation = Vector3(Vector3::Dot(translation, normals[0]),
+						  Vector3::Dot(translation, normals[2]),
+						  Vector3::Dot(translation, normals[2]));
+
+	//Calculate absolute value of rotation matrix
+
+
+
 	return false;
 }
 

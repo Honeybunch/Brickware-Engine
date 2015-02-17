@@ -4,6 +4,8 @@
 #include "BoxCollider.h"
 #include "FrustumCollider.h"
 #include "Bounds.h"
+#include "Transform.h"
+#include "GameObject.h"
 
 Collider::Collider()
 {
@@ -34,14 +36,21 @@ bool Collider::isColliding(Bounds bounds)
 
 void Collider::calculateWorldData()
 {
-	//We want to take the point and normal data of this collider and 
-	//Translate it into world space so that we can do real collisions on it
-}
+	Transform* transform = getGameObject()->getTransform();
 
-void Collider::separatingAxisTest(Vector3 axis, std::vector<Vector3> pointSet, float& min, float& max)
-{
-	//Return in min and max the bounds that this set of point data represents
-	//When projected along the given axis
+	worldNormals.clear();
+
+	//TODO: just use a quaternion to matrix3 conversion instead
+	Matrix4 modelMatrix = transform->getModelMatrix();
+
+
+	for (unsigned int i = 0; i < normals.size(); i++)
+	{
+		Vector3 worldNormal = modelMatrix * normals[i];
+
+		//Renormalize after being rotated and scaled and whatnot
+		worldNormals.push_back(Vector3::Normalize(worldNormal));
+	}	
 }
 
 Collider::~Collider()

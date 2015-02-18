@@ -5,6 +5,8 @@
 
 #include "Vector3.h"
 
+class Matrix4;
+
 class BRICKWARE_MATH_API Matrix3
 {
 public:
@@ -21,6 +23,7 @@ public:
 	//Operators
 	Matrix3 operator* (Matrix3 mat);
 	Vector3 operator* (Vector3 vec);
+	operator Matrix4();
 
 	float* operator[] (int i);
 

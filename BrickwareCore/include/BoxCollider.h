@@ -5,6 +5,8 @@
 
 #include "Collider.h"
 
+#include <iostream>
+
 class BRICKWARE_CORE_API BoxCollider : public Collider
 {
 public:

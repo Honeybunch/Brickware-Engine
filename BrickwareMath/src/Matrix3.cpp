@@ -1,6 +1,7 @@
 #define BRICKWARE_MATH_EXPORTS
 
 #include "Matrix3.h"
+#include "Matrix4.h"
 
 //Constructors
 
@@ -79,6 +80,16 @@ Vector3 Matrix3::operator*(Vector3 vec)
 	z = (matrix[2][0] * vec.getX()) + (matrix[2][1] * vec.getY()) + (matrix[2][2] * vec.getZ());
 
 	return Vector3(x, y, z);
+}
+
+Matrix3::operator Matrix4()
+{
+	Matrix4 mat(matrix[0][0], matrix[0][1], matrix[0][2], 0,
+				matrix[1][0], matrix[1][1], matrix[1][2], 0, 
+				matrix[2][0], matrix[2][1], matrix[2][2], 0, 
+				0, 0, 0, 1);
+
+	return mat;
 }
 
 float* Matrix3::operator[](int i){ return matrix[i]; }

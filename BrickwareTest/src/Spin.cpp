@@ -14,7 +14,7 @@ void Spin::Update()
 {
 	float deltaTime = GameTime::getDeltaTime();
 
-	Vector3 currentRotation = transform->getRotation();
+	Vector3 currentRotation = transform->getEulerRotation();
 	Vector3 newRotation = (currentRotation + (rotationDelta * deltaTime));
 
 	transform->setRotation(newRotation);

@@ -1,6 +1,7 @@
 #define BRICKWARE_MATH_EXPORTS
 
 #include "Matrix4.h"
+#include "Matrix3.h"
 
 Matrix4::Matrix4()
 {
@@ -67,9 +68,9 @@ Matrix4 Matrix4::operator*(Matrix4 m)
 		for (int row = 0; row < 4; row++)
 		{
 			float value = (matrix[(col * 4)] * mat[row]) +
-									 (matrix[(col * 4) + 1] * mat[row + 4]) + 
-									 (matrix[(col * 4) + 2] * mat[row + 8]) + 
-									 (matrix[(col * 4) + 3] * mat[row + 12]);
+						  (matrix[(col * 4) + 1] * mat[row + 4]) + 
+						  (matrix[(col * 4) + 2] * mat[row + 8]) + 
+						  (matrix[(col * 4) + 3] * mat[row + 12]);
 			product[index] = value;
 
 			index++;
@@ -104,6 +105,14 @@ Vector4 Matrix4::operator*(Vector4 vec)
 	return Vector4(x,y,z,w);
 }
 
+Matrix4::operator Matrix3()
+{
+	Matrix3 mat(matrix[0], matrix[1], matrix[2],
+				matrix[4], matrix[5], matrix[6],
+				matrix[8], matrix[9], matrix[10]);
+
+	return mat;
+}
 
 Matrix4::~Matrix4(void)
 {

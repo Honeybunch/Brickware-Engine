@@ -1,22 +1,27 @@
 #include "Spawner.h"
-
+#include <iostream>
 
 Spawner::Spawner(GameObject* gameObject)
 {
-	this->spawnable = *gameObject;
+	this->spawnable = gameObject;
 }
 
 void Spawner::Update()
 {
-	if (Input::getKeyDown(KeyCode::space))
+	if (Input::getKeyDown(KeyCode::space) && !keyDown)
 	{
 		spawnObject();
+		keyDown = true;
+	}
+	else if (!Input::getKeyDown(KeyCode::space))
+	{
+		keyDown = false;
 	}
 }
 
 void Spawner::spawnObject()
 {
-	GameObject* newObject = new GameObject(spawnable);
+	GameObject* newObject = new GameObject(*spawnable);
 
 	Camera* camera = getGameObject()->getComponent<Camera>();
 	Vector3 spherePos = Vector3(camera->getLookAt());
@@ -31,6 +36,8 @@ void Spawner::spawnObject()
 	Collider* collider = newObject->getComponent<Collider>();
 
 	bool collided = false;
+
+	system("cls");
 
 	if (collider)
 	{

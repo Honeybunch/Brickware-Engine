@@ -20,7 +20,8 @@ public:
 	~Spawner();
 
 private:
-	GameObject spawnable;
+	GameObject* spawnable;
+	bool keyDown;
 
 	void spawnObject();
 };

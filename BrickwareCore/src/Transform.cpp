@@ -3,16 +3,19 @@
 #include "Transform.h"
 #include "GameObject.h"
 
+#include <iostream>
+
 Transform::Transform()
 {
 	position = Vector3(0.0f, 0.0f, 0.0f);
-	rotation = Vector3(0.0f, 0.0f, 0.0f);
+	rotation = Quaternion::getQuaternionIdentity();
 	scale = Vector3(1.0f, 1.0f, 1.0f);
 }
 
 //Accessors
 Vector3 Transform::getPosition(){ return position; }
-Vector3 Transform::getRotation(){ return rotation; }
+Vector3 Transform::getEulerRotation(){ return rotation.getEulerAngles(); }
+Quaternion Transform::getRotation(){ return rotation; }
 Vector3 Transform::getScale(){ return scale; }
 
 Vector3 Transform::getForward(){ return forward; }
@@ -23,7 +26,8 @@ Matrix4 Transform::getModelMatrix(){ return modelMatrix; }
 
 //Mutators
 void Transform::setPosition(Vector3 newPosition){ position = newPosition; }
-void Transform::setRotation(Vector3 newRotation){ rotation = newRotation; }
+void Transform::setEulerRotation(Vector3 newEulerRotation){ rotation = Quaternion(newEulerRotation); }
+void Transform::setRotation(Quaternion newRotation){ rotation = newRotation; }
 void Transform::setScale(Vector3 newScale){ scale = newScale; }
 
 //Public Functions
@@ -31,21 +35,27 @@ Component* Transform::Clone(){ return new Transform(*this); }
 
 void Transform::Update()
 {
+	/*
+	Vector3 eulerRotation = rotation.getEulerAngles();
+
 	//Calculate Model Matrix
 	Matrix4 rotationX(1.0f, 0.0f, 0.0f, 0.0f,
-					  0.0f, cosf(rotation.getX()), sinf(rotation.getX()), 0.0f,
-					  0.0f, -sinf(rotation.getX()), cosf(rotation.getX()), 0.0f,
+					  0.0f, cosf(eulerRotation.getX()), sinf(eulerRotation.getX()), 0.0f,
+					  0.0f, -sinf(eulerRotation.getX()), cosf(eulerRotation.getX()), 0.0f,
 					  0.0f, 0.0f, 0.0f, 1.0f);
-	Matrix4 rotationY(cosf(rotation.getY()), 0.0f, -sinf(rotation.getY()), 0.0f,
+	Matrix4 rotationY(cosf(eulerRotation.getY()), 0.0f, -sinf(eulerRotation.getY()), 0.0f,
 					  0.0f, 1.0f, 0.0f, 0.0f, 
-					  sinf(rotation.getY()), 0.0f, cosf(rotation.getY()), 0.0f,
+					  sinf(eulerRotation.getY()), 0.0f, cosf(eulerRotation.getY()), 0.0f,
 					  0.0f, 0.0f, 0.0f, 1.0f);
-	Matrix4 rotationZ(cosf(rotation.getZ()), -sinf(rotation.getZ()), 0.0f, 0.0f,
-					  sinf(rotation.getZ()), cosf(rotation.getZ()), 0.0f, 0.0f,
+	Matrix4 rotationZ(cosf(eulerRotation.getZ()), -sinf(eulerRotation.getZ()), 0.0f, 0.0f,
+					  sinf(eulerRotation.getZ()), cosf(eulerRotation.getZ()), 0.0f, 0.0f,
 				      0.0f, 0.0f, 1.0f, 0.0f, 
 					  0.0f, 0.0f, 0.0f, 1.0f);
 
 	Matrix4 rotationMat = rotationX * rotationY * rotationZ;
+	*/
+
+	Matrix4 rotationMat = rotation.getRotationMatrix();
 
 	Matrix4 translationMat(1.0f, 0.0f, 0.0f, 0.0f,
 						   0.0f, 1.0f, 0.0f, 0.0f,

@@ -29,6 +29,8 @@ class GameObject;
 #include "Vector3.h"
 #include "Vector4.h"
 #include "Matrix4.h"
+#include "Matrix3.h"
+#include "Quaternion.h"
 
 class BRICKWARE_CORE_API Transform : public Component
 {
@@ -37,7 +39,8 @@ public:
 
 	//Accessors
 	Vector3 getPosition();
-	Vector3 getRotation();
+	Vector3 getEulerRotation();
+	Quaternion getRotation();
 	Vector3 getScale();
 
 	Vector3 getForward();
@@ -48,7 +51,8 @@ public:
 	
 	//Mutators
 	void setPosition(Vector3 newPosition);
-	void setRotation(Vector3 newRotation);
+	void setEulerRotation(Vector3 newRotation);
+	void setRotation(Quaternion newRotation);
 	void setScale(Vector3 newScale);
 
 	//Component Overrides
@@ -60,7 +64,7 @@ public:
 
 private:
 	Vector3 position;
-	Vector3 rotation;
+	Quaternion rotation;
 	Vector3 scale;
 
 	Vector3 forward;

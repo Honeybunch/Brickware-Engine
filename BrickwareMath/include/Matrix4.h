@@ -6,6 +6,8 @@
 #include "Vector3.h"
 #include "Vector4.h"
 
+class Matrix3;
+
 class BRICKWARE_MATH_API Matrix4
 {
 public:
@@ -25,6 +27,8 @@ public:
 	Matrix4 operator* (Matrix4 mat);
 	Vector3 operator* (Vector3 vec);
 	Vector4 operator* (Vector4 vec);
+
+	operator Matrix3();
 
 	~Matrix4();
 

@@ -5,6 +5,8 @@
 #include "Spin.h"
 #include "Spawner.h"
 
+#include <iostream>
+
 class TestGame : public Game
 {
 public:

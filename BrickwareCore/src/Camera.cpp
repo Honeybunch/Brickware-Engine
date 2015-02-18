@@ -38,7 +38,7 @@ void Camera::setLookAt(Vector3 lookAt){ this->lookAt = lookAt; }
 void Camera::moveForward()
 {
 	Vector3 pos = getGameObject()->getTransform()->getPosition();
-	Vector3 rot = getGameObject()->getTransform()->getRotation();
+	Vector3 rot = getGameObject()->getTransform()->getEulerRotation();
 
 	pos.setX(pos.getX() - speed * sin(rot.getY()));
 	pos.setY(pos.getY() + speed * sin(rot.getX()));
@@ -50,7 +50,7 @@ void Camera::moveForward()
 void Camera::moveBackward()
 {
 	Vector3 pos = getGameObject()->getTransform()->getPosition();
-	Vector3 rot = getGameObject()->getTransform()->getRotation();
+	Vector3 rot = getGameObject()->getTransform()->getEulerRotation();
 
 	pos.setX(pos.getX() + speed * sin(rot.getY()));
 	pos.setZ(pos.getZ() + speed * cos(rot.getY()));
@@ -61,7 +61,7 @@ void Camera::moveBackward()
 void Camera::moveLeft()
 {
 	Vector3 pos = getGameObject()->getTransform()->getPosition();
-	Vector3 rot = getGameObject()->getTransform()->getRotation();
+	Vector3 rot = getGameObject()->getTransform()->getEulerRotation();
 
 	pos.setX(pos.getX() - speed * cos(rot.getY()));
 	pos.setZ(pos.getZ() + speed * sin(rot.getY()));
@@ -72,7 +72,7 @@ void Camera::moveLeft()
 void Camera::moveRight()
 {
 	Vector3 pos = getGameObject()->getTransform()->getPosition();
-	Vector3 rot = getGameObject()->getTransform()->getRotation();
+	Vector3 rot = getGameObject()->getTransform()->getEulerRotation();
 
 	pos.setX(pos.getX() + speed * cos(rot.getY()));
 	pos.setZ(pos.getZ() - speed * sin(rot.getY()));
@@ -114,12 +114,12 @@ void Camera::Update()
 	float pitchDiff = (screenCenterY - Input::getMousePosition().getY()) / Screen::getHeight();
 
 	Transform* cameraTransform = getGameObject()->getTransform();
-	Vector3 cameraRot = cameraTransform->getRotation();
+	Vector3 cameraRot = cameraTransform->getEulerRotation();
 
 	cameraRot.setX(cameraRot.getX() + pitchDiff);
 	cameraRot.setY(cameraRot.getY() + yawDiff);
 
-	cameraTransform->setRotation(cameraRot);
+	cameraTransform->setEulerRotation(cameraRot);
 
 	Input::setMousePosition(Vector2(screenCenterX, screenCenterY));
 }

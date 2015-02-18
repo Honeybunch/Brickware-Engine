@@ -4,6 +4,7 @@
 #include "BrickwareCoreDLL.h"
 
 #include <vector>
+#include <limits>
 
 #include "Vector3.h"
 #include "Matrix3.h"

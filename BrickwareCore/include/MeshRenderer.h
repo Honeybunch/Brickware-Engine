@@ -1,6 +1,8 @@
 #ifndef MESHRENDERER_H
 #define MESHRENDERER_H
 
+#include <limits>
+
 #include "BrickwareCoreDLL.h"
 
 #include "Mesh.h"
@@ -15,16 +17,12 @@ public:
 	Bounds getBounds();
 
 	virtual Component* Clone() override;
-	virtual void Update();
 	virtual void Render();
 
 	~MeshRenderer();
 
 private:
 	Mesh* mesh;
-	Bounds bounds;
-
-	void calculateBounds();
 
 	void renderGL(Material* material);
 	void renderD3D(Material* material);

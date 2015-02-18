@@ -17,6 +17,7 @@ Mesh::Mesh(char* modelFileName)
 
 //Accessors
 float* Mesh::getPoints(){ return points; }
+Bounds Mesh::getBounds(){ return bounds; }
 
 int Mesh::getPointSize(){ return pointSize; }
 int Mesh::getNormalSize(){ return normalSize; }
@@ -198,6 +199,13 @@ void Mesh::loadOBJ(char* fileName)
 
 	indices = new unsigned short[numOfFaces * 9];
 
+	//We're going to use these to populate the bounds of the mesh
+	float min = std::numeric_limits<float>::min();
+	float max = std::numeric_limits<float>::max();
+
+	Vector3 minPoint(max, max, max);
+	Vector3 maxPoint(min, min, min);
+
 	for (unsigned int i = 0; i < faces.size(); i++)
 	{
 		//We need to determine which order the vertices, normals and texCoords will be added into the arrays
@@ -243,8 +251,33 @@ void Mesh::loadOBJ(char* fileName)
 			indices[(i * 9) + (j * 3)] = (i * 9) + (j * 3);
 			indices[(i * 9) + (j * 3) + 1] = (i * 9) + (j * 3) + 1;
 			indices[(i * 9) + (j * 3) + 2] = (i * 9) + (j * 3) + 2;
+
+			//While we're at it also compare the components of these vertices to the current bounds of the mes
+			float testX = vertex[0];
+			float testY = vertex[1];
+			float testZ = vertex[2];
+
+			if (testX < minPoint.getX())
+				minPoint.setX(testX);
+			if (testX > maxPoint.getX())
+				maxPoint.setX(testX);
+
+			if (testY < minPoint.getY())
+				minPoint.setY(testY);
+			if (testY > maxPoint.getY())
+				maxPoint.setY(testY);
+
+			if (testZ < minPoint.getZ())
+				minPoint.setZ(testZ);
+			if (testZ > maxPoint.getZ())
+				maxPoint.setZ(testZ);
 		}
 	}
+
+	//Finish calculating bounds
+	Vector3 size = maxPoint - minPoint;
+
+	bounds = Bounds(Vector3(), size.getX(), size.getY(), size.getZ());
 
 	objFile.close(); 
 }

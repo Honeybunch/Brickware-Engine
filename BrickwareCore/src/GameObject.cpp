@@ -33,7 +33,10 @@ GameObject::GameObject(GameObject& other)
 	{
 		Component* copiedComponent = other.components[i]->Clone();
 		if (copiedComponent)
+		{
 			components.push_back(copiedComponent);
+			copiedComponent->setGameObject(this);
+		}
 	}
 
 	componentCount = components.size();

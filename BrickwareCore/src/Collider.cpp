@@ -19,6 +19,9 @@ bool Collider::isColliding(Collider* other)
 	BoxCollider* otherAxisAlignedBox = dynamic_cast<BoxCollider*>(other);
 	FrustumCollider* otherFrustumCollider = dynamic_cast<FrustumCollider*>(other);
 
+	calculateWorldData();
+	other->calculateWorldData();
+
 	if (otherSphere)
 		return isCollidingWithSphere(otherSphere);
 	else if (otherAxisAlignedBox)
@@ -37,6 +40,8 @@ bool Collider::isColliding(Bounds bounds)
 void Collider::calculateWorldData()
 {
 	Transform* transform = getGameObject()->getTransform();
+
+	center = transform->getPosition();
 
 	worldNormals.clear();
 

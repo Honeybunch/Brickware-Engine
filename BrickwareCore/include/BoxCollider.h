@@ -18,7 +18,6 @@ public:
 	virtual void Start();
 
 private:
-	Vector3 center;
 	Vector3 size; //Each element of this vector represents width on one axis
 	Vector3 halfSize;
 

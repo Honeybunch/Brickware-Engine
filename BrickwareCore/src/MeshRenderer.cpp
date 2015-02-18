@@ -7,19 +7,14 @@
 MeshRenderer::MeshRenderer(Mesh* mesh)
 {
 	this->mesh = mesh;
-
-	bounds = Bounds(Vector3(), 0);
 }
 
-Bounds MeshRenderer::getBounds(){ return bounds; }
+Bounds MeshRenderer::getBounds()
+{
+	return mesh->getBounds();
+}
 
 Component* MeshRenderer::Clone(){ return new MeshRenderer(*this); }
-
-//Recalculate the bounds of the mesh
-void MeshRenderer::Update()
-{
-	calculateBounds();
-}
 
 //Draw everything in the VBOs
 void MeshRenderer::Render()
@@ -31,60 +26,6 @@ void MeshRenderer::Render()
 #else
 	renderGL(material);
 #endif
-}
-
-void MeshRenderer::calculateBounds()
-{
-	float minX = bounds.getMinBound().getX();
-	float minY = bounds.getMinBound().getY();
-	float minZ = bounds.getMinBound().getZ();
-
-	float maxX = bounds.getMaxBound().getX();
-	float maxY = bounds.getMaxBound().getY();
-	float maxZ = bounds.getMaxBound().getZ();
-
-	float* points = mesh->getPoints();
-	int numOfVerts = mesh->getNumberOfVerts();
-
-	for(int i = 0; i < numOfVerts; i+=3)
-	{
-		float testX = points[i];
-		float testY = points[i+1];
-		float testZ = points[i+2];
-
-		if(testX < minX)
-			minX = testX;
-		else if(testX > maxX)
-			maxX = testX;
-
-		if(testY < minY)
-			minY = testY;
-		else if(testY > maxY)
-			maxY = testY;
-
-		if(testZ < minZ)
-			minZ = testZ;
-		else if(testZ > maxZ)
-			maxZ = testZ;
-	}
-
-	Vector3 minPoint(minX, minY, minZ);
-	Vector3 maxPoint(maxX, maxY, maxZ);
-
-	float xWidth = maxPoint.getX() - minPoint.getX();
-	float yWidth = maxPoint.getY() - minPoint.getY();
-	float zWidth = maxPoint.getZ() - minPoint.getZ();
-
-	Vector3 center;
-
-	GameObject* gameObject = getGameObject();
-	if (gameObject)
-	{
-		Transform* transform = gameObject->getTransform();
-		
-		center = transform->getPosition();
-	}
-	bounds = Bounds(center, xWidth, yWidth, zWidth);
 }
 
 //Private methods

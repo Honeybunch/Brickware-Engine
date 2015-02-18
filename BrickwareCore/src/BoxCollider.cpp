@@ -17,7 +17,8 @@ Component* BoxCollider::Clone(){ return new BoxCollider(*(this)); }
 void BoxCollider::Start()
 {
 	//Calculate the points of the box and the normals of the faces
-	center = getGameObject()->getTransform()->getPosition();
+	Transform* transform = getGameObject()->getTransform();
+	center = transform->getPosition();
 
 	//if we have a mesh we will base our size off of the mesh's bounds
 	MeshRenderer* meshRenderer = getGameObject()->getComponent<MeshRenderer>();
@@ -26,12 +27,9 @@ void BoxCollider::Start()
 	{
 		Bounds bounds = meshRenderer->getBounds();
 
-		Vector3 boundMin = bounds.getMinBound();
-		Vector3 boundMax = bounds.getMaxBound();
-
-		float xSize = boundMax.getX() - boundMin.getX();
-		float ySize = boundMax.getY() - boundMin.getY();
-		float zSize = boundMax.getZ() - boundMin.getZ();
+		float xSize = bounds.getXWidth();
+		float ySize = bounds.getYWidth();
+		float zSize = bounds.getZWidth();
 
 		//Store halfwidths
 		size = Vector3(xSize, ySize, zSize);
@@ -48,7 +46,8 @@ void BoxCollider::Start()
 	float ySizeHalf = size.getY()/2.0f;
 	float zSizeHalf = size.getZ()/2.0f;
 
-	halfSize = Vector3(xSizeHalf, ySizeHalf, zSizeHalf);
+	Vector3 scale = transform->getScale();
+	halfSize = Vector3(xSizeHalf * scale[0], ySizeHalf * scale[1], zSizeHalf * scale[2]);
 
 	//We can find three normals along each axis; don't need to find the other three
 	//Because they're just opposites of the ones we're storing
@@ -70,9 +69,6 @@ bool BoxCollider::isCollidingWithSphere(SphereCollider* other)
 //TODO: Implement
 bool BoxCollider::isCollidingWithBox(BoxCollider* other)
 {
-	calculateWorldData();
-	other->calculateWorldData();
-
 	float radiusThis, radiusOther;
 	Matrix3 rotation, absoluteRotation;
 

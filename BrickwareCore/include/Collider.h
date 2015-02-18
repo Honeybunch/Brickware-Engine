@@ -32,6 +32,7 @@ protected:
 	bool enabled;
 	bool isTrigger;
 
+	Vector3 center;
 	std::vector<Vector3> normals;
 	std::vector<Vector3> worldNormals;
 

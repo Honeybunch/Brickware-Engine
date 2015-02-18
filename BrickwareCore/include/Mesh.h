@@ -25,6 +25,7 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include <limits>
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
@@ -33,6 +34,7 @@ using namespace std;
 #include "Transform.h"
 #include "Shader.h"
 #include "GameObject.h"
+#include "Bounds.h"
 
 class BRICKWARE_CORE_API Mesh
 {
@@ -40,6 +42,7 @@ public :
 	Mesh(char* modelFilePath);
 
 	float* getPoints();
+	Bounds getBounds();
 
 	int getPointSize();
 	int getNormalSize();
@@ -69,6 +72,8 @@ private:
 	float* normals;
 	unsigned short* indices;
 	float* texCoords;
+
+	Bounds bounds;
 
 	int pointSize;
 	int normalSize;

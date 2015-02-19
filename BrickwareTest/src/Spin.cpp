@@ -17,7 +17,7 @@ void Spin::Update()
 	Vector3 currentRotation = transform->getEulerRotation();
 	Vector3 newRotation = (currentRotation + (rotationDelta * deltaTime));
 
-	transform->setRotation(newRotation);
+	transform->setEulerRotation(newRotation);
 }
 
 

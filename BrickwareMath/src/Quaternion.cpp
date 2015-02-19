@@ -44,12 +44,14 @@ Quaternion::Quaternion(Vector3 v)
 	Quaternion zQ(0, 0, bankSin, bankCos);
 	
 	//Note: this order matters!
-	Quaternion product = zQ * xQ * yQ;
+	Quaternion product = xQ * yQ * zQ;
 
 	q[0] = product[0];
 	q[1] = product[1];
 	q[2] = product[2];
 	q[3] = product[3];
+
+	normalize();
 }
 
 Quaternion Quaternion::getInverse()
@@ -90,9 +92,9 @@ Matrix3 Quaternion::getRotationMatrix()
 	float zsq = powf(z, 2);
 	float wsq = powf(w, 2);
 
-	float m00 = 1 - (2 * (ysq - zsq));
-	float m11 = 1 - (2 * (xsq - zsq));
-	float m22 = 1 - (2 * (xsq - ysq));
+	float m00 = 1 - (2 * (ysq + zsq));
+	float m11 = 1 - (2 * (xsq + zsq));
+	float m22 = 1 - (2 * (xsq + ysq));
 
 	float m01 = 2 * ((x * y) + (z * w));
 	float m02 = 2 * ((x * z) - (y * w));
@@ -108,6 +110,25 @@ Matrix3 Quaternion::getRotationMatrix()
 						m20, m21, m22);
 
 	return rotationMat;
+}
+
+void Quaternion::normalize()
+{
+	float xsq = powf(q[0], 2);
+	float ysq = powf(q[1], 2);
+	float zsq = powf(q[2], 2);
+	float wsq = powf(q[3], 2);
+
+	float magSq = (xsq + ysq + zsq + wsq);
+	if (fabsf(magSq) > 0.00001f &&
+		fabsf(magSq - 1.0f) > 0.00001f)
+	{
+		float mag = sqrtf(magSq);
+		q[0] /= mag;
+		q[1] /= mag;
+		q[2] /= mag;
+		q[3] /= mag;
+	}
 }
 
 /*

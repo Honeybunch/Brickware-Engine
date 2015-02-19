@@ -46,6 +46,7 @@ public:
 
 private:
 	float q[4];
+	void normalize();
 };
 
 #endif

@@ -42,7 +42,7 @@ void Camera::moveForward()
 
 	pos.setX(pos.getX() - speed * sin(rot.getY()));
 	pos.setY(pos.getY() + speed * sin(rot.getX()));
-	pos.setZ(pos.getZ() -  speed * cos(rot.getY()));
+	pos.setZ(pos.getZ() - speed * cos(rot.getY()));
 
 	getGameObject()->getTransform()->setPosition(pos);
 }

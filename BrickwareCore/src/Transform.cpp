@@ -10,10 +10,6 @@ Transform::Transform()
 	position = Vector3(0.0f, 0.0f, 0.0f);
 	rotation = Quaternion::getQuaternionIdentity();
 	scale = Vector3(1.0f, 1.0f, 1.0f);
-
-	Quaternion q1(Vector3(3.14/2.0f, -3.14/2.0f, 0));
-
-	int i = 0;
 }
 
 //Accessors

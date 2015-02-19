@@ -45,12 +45,11 @@ void Collider::calculateWorldData()
 
 	worldNormals.clear();
 
-	//TODO: just use a quaternion to matrix3 conversion instead
-	Matrix4 modelMatrix = transform->getModelMatrix();
+	Matrix3 rotationMatrix = transform->getRotation().getRotationMatrix();
 
 	for (unsigned int i = 0; i < normals.size(); i++)
 	{
-		Vector3 worldNormal = modelMatrix * normals[i];
+		Vector3 worldNormal = rotationMatrix * normals[i];
 
 		//Renormalize after being rotated and scaled and whatnot
 		worldNormals.push_back(Vector3::Normalize(worldNormal));

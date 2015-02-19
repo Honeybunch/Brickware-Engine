@@ -8,14 +8,9 @@ Spawner::Spawner(GameObject* gameObject)
 
 void Spawner::Update()
 {
-	if (Input::getKeyDown(KeyCode::space) && !keyDown)
+	if (Input::getKeyDown(KeyCode::space))
 	{
 		spawnObject();
-		keyDown = true;
-	}
-	else if (!Input::getKeyDown(KeyCode::space))
-	{
-		keyDown = false;
 	}
 }
 

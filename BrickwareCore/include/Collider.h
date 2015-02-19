@@ -8,6 +8,7 @@
 
 #include "Vector3.h"
 #include "Matrix3.h"
+#include "Quaternion.h"
 
 class SphereCollider;
 class BoxCollider;

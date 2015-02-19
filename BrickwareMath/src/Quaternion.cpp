@@ -61,7 +61,7 @@ Quaternion Quaternion::getInverse()
 
 Quaternion Quaternion::getQuaternionIdentity()
 {
-	return Quaternion(1, 0, 0, 0);
+	return Quaternion(0, 0, 0, 1);
 }
 
 Vector4 Quaternion::getAxisAngle()

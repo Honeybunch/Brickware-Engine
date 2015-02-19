@@ -8,43 +8,53 @@
 
 Quaternion::Quaternion()
 {
-	x = 0;
-	y = 0;
-	z = 0;
-	w = 1;
+	q[0] = 0;
+	q[1] = 0;
+	q[2] = 0;
+	q[3] = 1;
 }
 
 Quaternion::Quaternion(float x, float y, float z, float w)
 {
-	Quaternion::x = x;
-	Quaternion::y = y;
-	Quaternion::z = z;
-	Quaternion::w = w;
+	q[0] = x;
+	q[1] = y;
+	q[2] = z;
+	q[3] = w;
 }
 
 //Assuming from euler angles
 Quaternion::Quaternion(Vector3 v)
 {
-	//Heading = y rotation
-	//Attitude = x rotation
-	//Bank = z rotation
-
-	float headingCos = cosf(v[1] / 2.0f);
-	float headingSin = sinf(v[1] / 2.0f);
+	//Attitude = X rotation = pitch
+	//Heading = Y rotation = yaw
+	//Bank = Z rotation = roll
 
 	float attitudeCos = cosf(v[0] / 2.0f);
 	float attitudeSin = sinf(v[0] / 2.0f);
 
+	float headingCos = cosf(v[1] / 2.0f);
+	float headingSin = sinf(v[1] / 2.0f);
+
 	float bankCos = cosf(v[2] / 2.0f);
 	float bankSin = sinf(v[2] / 2.0f);
 
-	x = (headingCos * attitudeCos * bankSin) + (headingSin * attitudeSin * bankCos);
+	//we need to multiply a bunch of quaternions together for each axis
+	Quaternion xQ(attitudeSin, 0, 0, attitudeCos);
+	Quaternion yQ(0, headingSin, 0, headingCos);
+	Quaternion zQ(0, 0, bankSin, bankCos);
+	
+	//Note: this order matters!
+	Quaternion product = zQ * xQ * yQ;
 
-	y = (headingSin * attitudeCos * bankCos) + (headingCos * attitudeSin * bankSin);
+	q[0] = product[0];
+	q[1] = product[1];
+	q[2] = product[2];
+	q[3] = product[3];
+}
 
-	z = (headingCos * attitudeSin * bankCos) - (headingSin * attitudeCos * bankSin);
-
-	w = (headingCos * attitudeCos * bankCos) - (headingSin * attitudeSin * bankSin);
+Quaternion Quaternion::getInverse()
+{
+	return Quaternion(-q[0], -q[1], -q[2], q[3]);
 }
 
 Quaternion Quaternion::getQuaternionIdentity()
@@ -52,73 +62,46 @@ Quaternion Quaternion::getQuaternionIdentity()
 	return Quaternion(1, 0, 0, 0);
 }
 
-Vector3 Quaternion::getEulerAngles()
+Vector4 Quaternion::getAxisAngle()
 {
-	float xsq = powf(x, 2);
-	float ysq = powf(y, 2);
-	float zsq = powf(z, 2);
-	float wsq = powf(w, 2);
+	float xsq = powf(q[0], 2);
+	float ysq = powf(q[1], 2);
+	float zsq = powf(q[2], 2);
 
-	float unit = xsq + ysq + zsq + wsq;
-	float test = (x * y) + (z * w);
+	float scale = sqrtf(xsq + ysq + zsq);
 
-	float vY; //Heading
-	float vX; //Attitude
-	float vZ; //Bank
+	float x = q[0] / scale;
+	float y = q[1] / scale;
+	float z = q[2] / scale;
+	float angle = acos(q[3]) * 2.0f;
 
-	//Handle singularity at north pole
-	if (test > 0.499f * unit)
-	{
-		vY = 2 * atan2(x, w);
-		vX = (float)M_PI / 2.0f;
-		vZ = 0;
-	}
-	else if (test < -0.499f * unit)
-	{
-		vY = -2.0f * atan2(x, w);
-		vX = (float)M_PI / -2.0f;
-		vZ = 0;
-	}
-	else
-	{
-		vY = atan2f(2 * ((w * y) - (x * z)), xsq - ysq - zsq + wsq);
-		vX = asinf(2 * test / unit);
-		vZ = atan2f(2 * ((w * x) - (y * z)), -xsq + ysq -zsq + wsq);
-	}
-
-	return Vector3(vX, vY, vZ);
+	return Vector4(x, y, z, angle);
 }
 
 Matrix3 Quaternion::getRotationMatrix()
 {
+	float x = q[0];
+	float y = q[1];
+	float z = q[2];
+	float w = q[3];
+
 	float xsq = powf(x, 2);
 	float ysq = powf(y, 2);
 	float zsq = powf(z, 2);
 	float wsq = powf(w, 2);
 
-	float inverse = 1.0f / (xsq + ysq + zsq + wsq);
+	float m00 = 1 - (2 * (ysq - zsq));
+	float m11 = 1 - (2 * (xsq - zsq));
+	float m22 = 1 - (2 * (xsq - ysq));
 
-	float m00 = ( xsq - ysq - zsq + wsq) * inverse;
-	float m11 = (-xsq + ysq - zsq + wsq) * inverse;
-	float m22 = (-xsq - ysq + zsq + wsq) * inverse;
+	float m01 = 2 * ((x * y) + (z * w));
+	float m02 = 2 * ((x * z) - (y * w));
 
-	float temp1 = x * y;
-	float temp2 = z * w;
+	float m10 = 2 * ((x * y) - (z * w));
+	float m12 = 2 * ((y * z) + (x * w));
 
-	float m10 = 2.0f * (temp1 + temp2) * inverse;
-	float m01 = 2.0f * (temp1 - temp2) * inverse;
-
-	temp1 = x * z;
-	temp2 = y * w;
-
-	float m20 = 2.0f * (temp1 - temp2) * inverse;
-	float m02 = 2.0f * (temp1 + temp2) * inverse;
-
-	temp1 = y * z;
-	temp2 = x * w;
-
-	float m21 = 2.0f * (temp1 + temp2) * inverse;
-	float m12 = 2.0f * (temp1 - temp2) * inverse;
+	float m20 = 2 * ((x * z) + (y * w));
+	float m21 = 2 * ((y * z) - (x * w));
 
 	Matrix3 rotationMat(m00, m01, m02,
 						m10, m11, m12,
@@ -131,31 +114,57 @@ Matrix3 Quaternion::getRotationMatrix()
 	Accessors and Mutators
 */
 
-float Quaternion::getW(){return w;}
-float Quaternion::getX(){return x;}
-float Quaternion::getY(){return y;}
-float Quaternion::getZ(){return z;}
+float Quaternion::getX(){ return q[0]; }
+float Quaternion::getY(){ return q[1]; }
+float Quaternion::getZ(){ return q[2]; }
+float Quaternion::getW(){ return q[3]; }
 
-void Quaternion::setW(float w){Quaternion::w = w;}
-void Quaternion::setX(float x){Quaternion::x = x;}
-void Quaternion::setY(float y){Quaternion::y = y;}
-void Quaternion::setZ(float z){Quaternion::z = z;}
+void Quaternion::setX(float x){ q[0] = x; }
+void Quaternion::setY(float y){ q[1] = y; }
+void Quaternion::setZ(float z){ q[2] = z; }
+void Quaternion::setW(float w){ q[3] = w; }
 
 /*
 	Operators
 */
 
+float& Quaternion::operator[](int i)
+{
+	return q[i];
+}
+
+Quaternion Quaternion::operator*(Quaternion other)
+{
+	Quaternion product;
+
+	Vector3 qVec(q[0], q[1], q[2]);
+	Vector3 pVec(other[0], other[1], other[2]);
+
+	float qScalar = q[3];
+	float pScalar = other[3];
+
+	Vector3 productVec = (qVec * pScalar) + (pVec * qScalar) + (Vector3::Cross(pVec, qVec));
+	float productScalar = (qScalar * pScalar) - Vector3::Dot(pVec, qVec);
+
+	product[0] = productVec[0];
+	product[1] = productVec[1];
+	product[2] = productVec[2];
+	product[3] = productScalar;
+
+	return product;
+}
+
 //Extraction
 std::ostream& operator<<(std::ostream& output, Quaternion& q)
 {
-	output << q.getW() << std::endl << q.getX() << std::endl << q.getY() << std::endl << q.getZ() << std::endl;
+	output << q[0] << "," << q[1] << "," << q[2] << "," << q[3];
 	return output;
 }
 
 //Insertion
 std::istream& operator>> (std::istream& input, Quaternion& q)
 {
-	input >> q.w >> q.x >> q.y >> q.z;
+	input >> q[0] >> q[1] >> q[2] >> q[3];
 	return input;
 }
 

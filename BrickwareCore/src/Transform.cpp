@@ -10,11 +10,15 @@ Transform::Transform()
 	position = Vector3(0.0f, 0.0f, 0.0f);
 	rotation = Quaternion::getQuaternionIdentity();
 	scale = Vector3(1.0f, 1.0f, 1.0f);
+
+	Quaternion q1(Vector3(3.14/2.0f, 3.14/2.0f, 0));
+
+	int i = 0;
 }
 
 //Accessors
 Vector3 Transform::getPosition(){ return position; }
-Vector3 Transform::getEulerRotation(){ return rotation.getEulerAngles(); }
+Vector3 Transform::getEulerRotation(){ return eulerRotation; }
 Quaternion Transform::getRotation(){ return rotation; }
 Vector3 Transform::getScale(){ return scale; }
 
@@ -26,7 +30,10 @@ Matrix4 Transform::getModelMatrix(){ return modelMatrix; }
 
 //Mutators
 void Transform::setPosition(Vector3 newPosition){ position = newPosition; }
-void Transform::setEulerRotation(Vector3 newEulerRotation){ rotation = Quaternion(newEulerRotation); }
+void Transform::setEulerRotation(Vector3 newEulerRotation){ 
+	rotation = Quaternion(newEulerRotation);
+	eulerRotation = newEulerRotation;
+}
 void Transform::setRotation(Quaternion newRotation){ rotation = newRotation; }
 void Transform::setScale(Vector3 newScale){ scale = newScale; }
 

@@ -65,6 +65,7 @@ public:
 private:
 	Vector3 position;
 	Quaternion rotation;
+	Vector3 eulerRotation;
 	Vector3 scale;
 
 	Vector3 forward;

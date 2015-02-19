@@ -9,6 +9,7 @@
 #include "BrickwareMathDLL.h"
 
 #include "Vector3.h"
+#include "Vector4.h"
 #include "Matrix3.h"
 
 class BRICKWARE_MATH_API Quaternion
@@ -22,7 +23,8 @@ public:
 
 	static Quaternion getQuaternionIdentity();
 
-	Vector3 getEulerAngles();
+	Quaternion getInverse();
+	Vector4 getAxisAngle();
 	Matrix3 getRotationMatrix();
 
 	//Accessors and mutators
@@ -36,11 +38,14 @@ public:
 	void setZ(float z);
 	void setW(float w);
 	
+	float& operator[] (int i);
+	Quaternion operator* (Quaternion other);
+
 	friend std::ostream& operator<< (std::ostream& output, Quaternion& h);
 	friend std::istream& operator>> (std::istream& input, Quaternion& h);
 
 private:
-	float x, y, z, w;
+	float q[4];
 };
 
 #endif

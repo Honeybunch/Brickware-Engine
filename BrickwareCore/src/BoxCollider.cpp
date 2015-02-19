@@ -84,8 +84,6 @@ bool BoxCollider::isCollidingWithBox(BoxCollider* other)
 						  Vector3::Dot(translation, worldNormals[1]),
 						  Vector3::Dot(translation, worldNormals[2]));
 
-	std::cout << translation.getX() << " , " << translation.getY() << " , " << translation.getZ() << std::endl;
-
 	//Calculate absolute value of rot matrix
 	for (int i = 0; i < 3; i++)
 		for (int j = 0; j < 3; j++)
@@ -107,22 +105,87 @@ bool BoxCollider::isCollidingWithBox(BoxCollider* other)
 	for (int i = 0; i < 3; i++)
 	{
 		radiusThis = halfSize[0] * absRot[0][i]
-				   + halfSize[2] * absRot[1][i]
-				   + halfSize[1] * absRot[2][i];
+				   + halfSize[1] * absRot[1][i]
+				   + halfSize[2] * absRot[2][i];
 		radiusOther = other->halfSize[i];
 
-		if (fabsf(translation[i]) > radiusThis + radiusOther)
+		if (fabsf((translation[0] * rot[0][i]) + 
+				   (translation[1] * rot[1][i]) + 
+				   (translation[2] * rot[2][i]))
+		> radiusThis + radiusOther)
 			return false;
 	}
 
+	//------------------------------------------------------------------
+
 	//Test axis ThisX x OtherX
-	radiusThis = (halfSize[1] * absRot[2][0]) + (halfSize[2] * absRot[1][0]);
+	radiusThis = (		  halfSize[1] * absRot[2][0]) + (		halfSize[2] * absRot[1][0]);
 	radiusOther = (other->halfSize[1] * absRot[0][2]) + (other->halfSize[2] * absRot[0][1]);
-	if (fabsf((translation[2] * rot[1][1]) - (translation[1] * rot[2][1]))
+	if (fabsf((translation[2] * rot[1][0]) - (translation[1] * rot[2][0]))
 		> radiusThis + radiusOther)
 		return false;
 
- 	return true;
+	//Test axis ThisX x OtherY
+	radiusThis = (		  halfSize[1] * absRot[2][1]) + (		halfSize[2] * absRot[1][1]);
+	radiusOther = (other->halfSize[0] * absRot[0][2]) + (other->halfSize[2] * absRot[0][0]);
+	if (fabsf((translation[2] * rot[1][1]) - (translation[1] * rot[2][1]))
+	> radiusThis + radiusOther)
+		return false;
+
+	//Test axis ThisX x OtherZ
+	radiusThis = (		  halfSize[1] * absRot[2][2]) + (		halfSize[2] * absRot[1][2]);
+	radiusOther = (other->halfSize[0] * absRot[0][1]) + (other->halfSize[1] * absRot[0][0]);
+	if (fabsf((translation[2] * rot[1][2]) - (translation[1] * rot[2][2]))
+		> radiusThis + radiusOther)
+		return false;
+
+	//------------------------------------------------------------------
+
+	//Test axis ThisY x OtherX
+	radiusThis = (		  halfSize[0] * absRot[2][0]) + (		halfSize[2] * absRot[0][0]);
+	radiusOther = (other->halfSize[1] * absRot[1][2]) + (other->halfSize[2] * absRot[1][1]);
+	if (fabsf((translation[0] * rot[2][0]) - (translation[2] * rot[0][0]))
+	> radiusThis + radiusOther)
+		return false;
+
+	//Test axis ThisY x OtherY
+	radiusThis = (		  halfSize[0] * absRot[2][1]) + (		halfSize[2] * absRot[0][1]);
+	radiusOther = (other->halfSize[0] * absRot[1][2]) + (other->halfSize[2] * absRot[1][0]);
+	if (fabsf((translation[0] * rot[2][1]) - (translation[2] * rot[0][1]))
+	> radiusThis + radiusOther)
+		return false;
+
+	//Test axis ThisY x OtherZ
+	radiusThis = (		  halfSize[0] * absRot[2][2]) + (		halfSize[2] * absRot[0][2]);
+	radiusOther = (other->halfSize[0] * absRot[1][1]) + (other->halfSize[1] * absRot[1][0]);
+	if (fabsf((translation[0] * rot[2][2]) - (translation[2] * rot[0][2]))
+		> radiusThis + radiusOther)
+		return false;
+
+	//------------------------------------------------------------------
+
+	//Test axis ThisZ x OtherX
+	radiusThis = (		  halfSize[0] * absRot[1][0]) + (		halfSize[1] * absRot[0][0]);
+	radiusOther = (other->halfSize[1] * absRot[2][2]) + (other->halfSize[2] * absRot[2][1]);
+	if (fabsf((translation[1] * rot[0][0]) - (translation[0] * rot[1][0]))
+	> radiusThis + radiusOther)
+		return false;
+
+	//Test axis ThisZ x OtherY
+	radiusThis = (		  halfSize[0] * absRot[1][1]) + (		halfSize[1] * absRot[0][1]);
+	radiusOther = (other->halfSize[0] * absRot[2][2]) + (other->halfSize[2] * absRot[2][0]);
+	if (fabsf((translation[1] * rot[0][1]) - (translation[0] * rot[1][1]))
+	> radiusThis + radiusOther)
+		return false;
+
+	//Test axis ThisZ x OtherZ
+	radiusThis = (		  halfSize[0] * absRot[1][2]) + (		halfSize[1] * absRot[0][2]);
+	radiusOther = (other->halfSize[0] * absRot[2][1]) + (other->halfSize[1] * absRot[2][0]);
+	if (fabsf((translation[1] * rot[0][2]) - (translation[0] * rot[1][2]))
+		> radiusThis + radiusOther)
+		return false;
+		
+  	return true;
 }
 
 //TODO: Refactor to mesh collision

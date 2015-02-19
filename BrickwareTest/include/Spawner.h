@@ -21,6 +21,7 @@ public:
 
 private:
 	GameObject* spawnable;
+	bool keyDown;
 
 	void spawnObject();
 };

@@ -33,6 +33,9 @@ vector<GameObject*> Game::gameObjects;
 
 Game::Game(int windowWidth, int windowHeight)
 {
+	//Seed randoms for later
+	srand((unsigned int)time(0));
+
 	Screen::width = windowWidth;
 	Screen::height = windowHeight;
 

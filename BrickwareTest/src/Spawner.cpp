@@ -11,6 +11,7 @@ void Spawner::Update()
 	if (Input::getKeyDown(KeyCode::space))
 	{
 		spawnObject();
+		keyDown = true;
 	}
 }
 
@@ -23,7 +24,12 @@ void Spawner::spawnObject()
 
 	newObject->getTransform()->setPosition(spherePos);
 	newObject->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
-	newObject->getTransform()->setRotation(Vector3(0.0f, 0.0f, 0.0f));
+
+	float randXRot = ((rand() % 314) / 100) + 1;
+	float randYRot = ((rand() % 314) / 100) + 1;
+	float randZRot = ((rand() % 314) / 100) + 1;
+
+	newObject->getTransform()->setRotation(Vector3(randXRot, randYRot, randZRot));
 
 	newObject->Start();
 
@@ -32,11 +38,10 @@ void Spawner::spawnObject()
 
 	bool collided = false;
 
-	system("cls");
-
 	if (collider)
 	{
-		for (unsigned int i = 0; i < GameObject::getGameObjects().size(); i++)
+		unsigned int gameObjectCount = GameObject::getGameObjects().size();
+		for (unsigned int i = 0; i < gameObjectCount; i++)
 		{
 			GameObject* otherObject = GameObject::getGameObjects()[i];
 			Collider* otherCollider = otherObject->getComponent<Collider>();

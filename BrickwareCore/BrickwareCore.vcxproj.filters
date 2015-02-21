@@ -92,6 +92,12 @@
     <ClInclude Include="include\GameTime.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\PrimitiveManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Primitive.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Bounds.cpp">
@@ -182,6 +188,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\GameTime.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PrimitiveManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Primitive.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

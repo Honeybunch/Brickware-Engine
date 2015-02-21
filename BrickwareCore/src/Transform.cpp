@@ -38,26 +38,6 @@ Component* Transform::Clone(){ return new Transform(*this); }
 
 void Transform::Update()
 {
-	/*
-	Vector3 eulerRotation = rotation.getEulerAngles();
-
-	//Calculate Model Matrix
-	Matrix4 rotationX(1.0f, 0.0f, 0.0f, 0.0f,
-					  0.0f, cosf(eulerRotation.getX()), sinf(eulerRotation.getX()), 0.0f,
-					  0.0f, -sinf(eulerRotation.getX()), cosf(eulerRotation.getX()), 0.0f,
-					  0.0f, 0.0f, 0.0f, 1.0f);
-	Matrix4 rotationY(cosf(eulerRotation.getY()), 0.0f, -sinf(eulerRotation.getY()), 0.0f,
-					  0.0f, 1.0f, 0.0f, 0.0f, 
-					  sinf(eulerRotation.getY()), 0.0f, cosf(eulerRotation.getY()), 0.0f,
-					  0.0f, 0.0f, 0.0f, 1.0f);
-	Matrix4 rotationZ(cosf(eulerRotation.getZ()), -sinf(eulerRotation.getZ()), 0.0f, 0.0f,
-					  sinf(eulerRotation.getZ()), cosf(eulerRotation.getZ()), 0.0f, 0.0f,
-				      0.0f, 0.0f, 1.0f, 0.0f, 
-					  0.0f, 0.0f, 0.0f, 1.0f);
-
-	Matrix4 rotationMat = rotationX * rotationY * rotationZ;
-	*/
-
 	Matrix4 rotationMat = rotation.getRotationMatrix();
 
 	Matrix4 translationMat(1.0f, 0.0f, 0.0f, 0.0f,
@@ -84,7 +64,19 @@ void Transform::Render()
 	GameObject* go = this->getGameObject();
 	Material* material = go->getComponent<Material>();
 
+	Camera* currentCamera = Camera::GetActiveCamera();
+	Matrix4 viewMatrix = currentCamera->getViewMatrix();
+	Matrix4 projectionMatrix = currentCamera->getProjectionMatrix();
+
+	Matrix4 test = viewMatrix * projectionMatrix;
+
+	//Matrix4 worldMatrix = (modelMatrix * viewMatrix) * projectionMatrix;
+
 	material->setMatrix4("modelMatrix", modelMatrix);
+	material->setMatrix4("viewMatrix", viewMatrix);
+	material->setMatrix4("projectionMatrix", projectionMatrix);
+
+	//material->setMatrix3("modelRotation", rotation.getRotationMatrix());
 }
 
 //Send info to GLSL Shader

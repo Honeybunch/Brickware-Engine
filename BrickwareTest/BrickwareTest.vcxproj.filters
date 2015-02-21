@@ -45,6 +45,12 @@
     <None Include="Shaders\VertexShader.glsl">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Shaders\PrimitivePixel.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Shaders\PrimitiveVertex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\PixelShader.hlsl">

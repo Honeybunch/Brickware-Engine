@@ -15,6 +15,7 @@
 #include "Mesh.h"
 #include "MeshRenderer.h"
 #include "Octree.h"
+#include "Primitive.h"
 #include "Rigidbody.h"
 #include "Screen.h"
 #include "Settings.h"

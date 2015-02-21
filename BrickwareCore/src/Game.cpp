@@ -57,6 +57,7 @@ Game::Game(int windowWidth, int windowHeight)
 
 	game = this;
 #endif
+
 }
 
 int Game::run()
@@ -128,6 +129,9 @@ bool Game::init()
 	initSuccess = initGL();
 #endif
 
+	//Init managers
+	PrimitiveManager::Initialize();
+
 	return initSuccess;
 }
 
@@ -147,11 +151,15 @@ void Game::render()
 
 	renderScene(); //Will be overridden 
 
+	PrimitiveManager::DrawPrimitives();
+	
 #ifdef D3D_SUPPORT
 	swapBuffersD3D();
 #else
 	swapBuffersGL();
 #endif
+
+	PrimitiveManager::ClearPrimitives();
 
 	GameTime::frameEnd();
 }
@@ -191,6 +199,7 @@ bool Game::initGL()
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_LIGHTING);
+	glEnable(GL_PROGRAM_POINT_SIZE);
 	glClearColor(1.0, 1.0, 1.0, 1.0);
 
 	glfwSetInputMode(glWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
@@ -355,8 +364,6 @@ void Game::startRenderGL()
 void Game::swapBuffersGL()
 {
 	glfwSwapBuffers(glWindow);
-
-	//TODO: populate input class
 }
 
 void Game::endGL()
@@ -646,4 +653,5 @@ void Game::endD3D()
 
 Game::~Game()
 {
+	PrimitiveManager::Destroy();
 }

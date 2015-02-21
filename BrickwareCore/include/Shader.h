@@ -40,6 +40,7 @@ struct ConstVariableInfo{
 class Shader
 {
 	friend class Material;
+	friend class PrimitiveManager;
 
 public:
 	BRICKWARE_CORE_API Shader(char* vertexShaderFileName, char* pixelShaderFileName);

@@ -20,10 +20,13 @@ public:
 	Matrix4(Vector3 one, Vector3 two, Vector3 three, Vector3 four);
 	Matrix4(Vector4 one, Vector4 two, Vector4 three, Vector4 four);
 
+	static Matrix4 getIdentityMatrix();
+
 	//Accessors
 	float* getAsArray();
 
 	//Operators
+	float* operator[] (int i);
 	Matrix4 operator* (Matrix4 mat);
 	Vector3 operator* (Vector3 vec);
 	Vector4 operator* (Vector4 vec);
@@ -33,7 +36,8 @@ public:
 	~Matrix4();
 
 private:
-	float matrix[16];
+	float rawMatrix[16];
+	float matrix[4][4];
 };
 
 #endif

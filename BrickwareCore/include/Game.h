@@ -46,6 +46,8 @@
 #include "MeshRenderer.h"
 #include "Texture.h"
 #include "GameTime.h"
+#include "PrimitiveManager.h"
+#include "Primitive.h"
 
 using namespace std;
 

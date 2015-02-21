@@ -26,20 +26,30 @@
 #include <glfw3.h>
 #endif
 
-#include "Octree.h"
+#include "Transform.h"
+#include "Matrix4.h"
 #include "GameObject.h"
+
+//Used to avoid warnings about exporting std::vectors
+class Camera;
+template class BRICKWARE_CORE_API std::vector <Camera*>;
 
 class BRICKWARE_CORE_API Camera : public Component
 {
 public:
-	Octree* renderingOctree;
+	static Camera* GetActiveCamera();
 
 	Camera(float FoV, float width, float height, float zNear, float zFar);
 	Camera(Transform* transform, float FoV, float width, float height, float zNear, float zFar);
 	~Camera(void);
 
 	Vector3 getLookAt();
+	Matrix4 getViewMatrix();
+	Matrix4 getProjectionMatrix();
+	
 	void setLookAt(Vector3 lookAt);
+
+	void setActive();
 
 	void moveForward();
 	void moveBackward();
@@ -48,9 +58,14 @@ public:
 
 	virtual void Start() override;
 	virtual void Update() override;
-	virtual void Render() override;	
+	void Render(Material* material);	
 
 private:
+	static std::vector<Camera*> SceneCameras;
+	static Camera* ActiveCamera;
+
+	bool active = false;
+
 	float FoV;
 	float width;
 	float height;
@@ -65,12 +80,6 @@ private:
 
 	Matrix4 calcViewMatrix();
 	Matrix4 calcProjectionMatrix();
-
-	void startGL(Material* material);
-	void startD3D(Material* material);
-
-	void renderGL(Material* material);
-	void renderD3D(Material* material);
 };
 
 #endif

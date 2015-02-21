@@ -98,9 +98,12 @@ bool TestGame::init()
 	triangle->addComponent(triangleSpin);
 
 	//Create Camera
+	Camera* cameraComp = new Camera(50, 0.1f, 0.1f, 0.1f, 100.0f);
+	cameraComp->setActive();
+
 	GameObject* camera = new GameObject();
 	camera->addComponent(new Material(shader));
-	camera->addComponent(new Camera(50, 0.1f, 0.1f, 0.1f, 100.0f));
+	camera->addComponent(cameraComp);
 	camera->addComponent(new Spawner(cube));
 
 	for (unsigned int i = 0; i < gameObjects.size(); i++)
@@ -122,6 +125,11 @@ void TestGame::renderScene()
 {
 	for (unsigned int i = 0; i < gameObjects.size(); i++)
 		gameObjects[i]->OnRender();
+
+	//Test primitive drawing of a point
+	Primitive::SetPointSize(10.0f);
+	Primitive::SetColor(Vector4(1.0f, 0.0f, 0.0f, 1.0f));
+	Primitive::DrawPoint(Vector3(0, 1, 0));
 }
 
 TestGame::~TestGame()

@@ -46,14 +46,15 @@ void BoxCollider::Start()
 	float zSizeHalf = size.getZ()/2.0f;
 
 	Vector3 scale = transform->getScale();
+	size = Vector3(size[0] * scale[0], size[1] * scale[1], size[2] * scale[2]);
 	halfSize = Vector3(xSizeHalf * scale[0], ySizeHalf * scale[1], zSizeHalf * scale[2]);
 
 	//We can find three normals along each axis; don't need to find the other three
 	//Because they're just opposites of the ones we're storing
 	normals.clear();
-	normals.push_back(Vector3(1, 0, 0));
-	normals.push_back(Vector3(0, 1, 0));
-	normals.push_back(Vector3(0, 0, -1));
+	normals.push_back(Vector3(-1, 0, 0));
+	normals.push_back(Vector3(0, -1, 0));
+	normals.push_back(Vector3(0, 0, 1));
 }
 
 //Accessors and Mutators
@@ -137,7 +138,7 @@ bool BoxCollider::isCollidingWithBox(BoxCollider* other)
 	radiusOther = (other->halfSize[0] * absRot[0][1]) + (other->halfSize[1] * absRot[0][0]);
 	if (fabsf((translation[2] * rot[1][2]) - (translation[1] * rot[2][2]))
 		> radiusThis + radiusOther)
-		return false;
+ 		return false;
 
 	//------------------------------------------------------------------
 

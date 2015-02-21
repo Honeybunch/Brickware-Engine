@@ -298,11 +298,6 @@ void Mesh::bufferGL()
 	glGenBuffers(1, &ibo);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexSize, indices, GL_STATIC_DRAW);
-
-	//Load texture with SOIL 
-	//TODO: REMOVE THIS AND LOAD BMP OURSELVES
-	//if (textureFileName != "" && textureFileName != NULL)
-	//	texture = SOIL_load_OGL_texture(textureFileName, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y);
 }
 #endif
 

@@ -28,6 +28,9 @@ void Material::bindShader()
 		if (texPair.second != NULL)
 			texPair.second->bindTexture();
 	}
+
+	//Make sure that the camera data is sent to this materials
+	Camera::GetActiveCamera()->Render(this);
 }
 
 void Material::freeShader()
@@ -99,6 +102,15 @@ void Material::setMatrix4(char* valueName, Matrix4 value)
 	setMatrix4D3D(valueName, value);
 #else
 	setMatrix4GL(valueName, value);
+#endif
+}
+
+void Material::setMatrix3(char* valueName, Matrix3 value)
+{
+#ifdef D3D_SUPPORT
+	setMatrix3D3D(valueName, value);
+#else
+	setMatrix3GL(valueName, value);
 #endif
 }
 

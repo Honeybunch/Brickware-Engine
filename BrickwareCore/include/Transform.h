@@ -24,7 +24,6 @@ class GameObject;
 
 #include "Shader.h"
 #include "Component.h"
-#include "Material.h"
 
 #include "Vector3.h"
 #include "Vector4.h"

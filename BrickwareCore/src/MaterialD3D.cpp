@@ -142,4 +142,24 @@ void Material::setMatrix4D3D(char* valueName, Matrix4 value)
 	memcpy(bufferData + variableOffset, data, variableSize);
 }
 
+void Material::setMatrix3D3D(char* valueName, Matrix3 value)
+{
+	ConstVariableInfo constVariableInfo = shader->getVariableInfoByName(valueName);
+
+	//We didn't find any variable with that name if the bufferIndex is still -1
+	if (constVariableInfo.bufferIndex < 0)
+		return;
+
+	//Get info about variable
+	int variableOffset = constVariableInfo.variableInfo.StartOffset;
+	int variableSize = constVariableInfo.variableInfo.Size;
+
+	float* data = value.getAsArray();
+
+	char* bufferData = shader->constantBufferData[constVariableInfo.bufferIndex];
+
+	//Copy our data into the buffer's data
+	memcpy(bufferData + variableOffset, data, variableSize);
+}
+
 #endif

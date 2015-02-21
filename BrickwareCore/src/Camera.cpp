@@ -3,10 +3,10 @@
 #include "FrustumCollider.h"
 #include "Camera.h"
 
+Camera* Camera::GetActiveCamera(){ return ActiveCamera; }
+
 Camera::Camera(float FoV = 50, float width = 0.1f, float height = 0.1f, float zNear = 0.1f, float zFar = 100.0f)
 {
-	renderingOctree = new Octree(3, 8, Vector3(), zFar);
-
 	this->FoV = FoV;
 	this->width = width;
 	this->height = height;
@@ -17,23 +17,32 @@ Camera::Camera(float FoV = 50, float width = 0.1f, float height = 0.1f, float zN
 	speed = 0.1f;
 
 	lookAt = Vector3();
+
+	SceneCameras.push_back(this);
 }
 
 void Camera::Start()
 {
 	getGameObject()->addComponent(new FrustumCollider(zNear, zFar, FoV, width / height));
-
-	Material* material = getGameObject()->getComponent<Material>();
-	
-#ifdef D3D_SUPPORT
-	startD3D(material);
-#else
-	startGL(material);
-#endif
 }
 
 Vector3 Camera::getLookAt(){ return lookAt; }
+Matrix4 Camera::getViewMatrix(){ return viewMatrix; }
+Matrix4 Camera::getProjectionMatrix(){ return projectionMatrix; }
+
 void Camera::setLookAt(Vector3 lookAt){ this->lookAt = lookAt; }
+
+void Camera::setActive()
+{
+	for (unsigned int i = 0; i < SceneCameras.size(); i++)
+	{
+		if (SceneCameras[i]->active == true)
+			SceneCameras[i]->active = false;
+	}
+
+	ActiveCamera = this;
+	active = true;
+}
 
 void Camera::moveForward()
 {
@@ -124,59 +133,19 @@ void Camera::Update()
 	Input::setMousePosition(Vector2(screenCenterX, screenCenterY));
 }
 
-void Camera::Render()
+void Camera::Render(Material* material)
 {	
-	Material* material = getGameObject()->getComponent<Material>();
-	FrustumCollider* collider = getGameObject()->getComponent<FrustumCollider>();
-
-	material->setMatrix4("viewMatrix", viewMatrix);
-	material->setMatrix4("projectionMatrix", projectionMatrix);
-
 	material->setVector3("lookAt", lookAt);
 	material->setVector3("eyePoint", getGameObject()->getTransform()->getPosition());
 	material->setVector3("up", getGameObject()->getTransform()->getUp());
-
-	//Look through the rendering octree, see which octents collide with the camera's Frustum and then render objects in those nodes
-	vector<OctreeNode*> collidingNodes = renderingOctree->getCollidingChildren(collider);
-	vector<GameObject*> alreadyRendered;
-
-	int drawCalls = 0;
-
-	for (unsigned int i = 0; i < collidingNodes.size(); i++)
-	{
-		OctreeNode* node = collidingNodes[i];
-		vector<GameObject*> nodeObjects = node->getObjects();
-		for (unsigned int j = 0; j < nodeObjects.size(); j++)
-		{
-			GameObject* object = nodeObjects[j];
-			MeshRenderer* objectMesh = object->getComponent<MeshRenderer>();
-
-			Bounds meshBounds = objectMesh->getBounds();
-
-			bool isColliding = collider->isColliding(meshBounds);
-
-			if (isColliding)
-			{
-				bool rendered = false;
-
-				for (unsigned int j = 0; j < alreadyRendered.size(); j++)
-				{
-					if (object == alreadyRendered[j])
-						rendered = true;
-				}
-
-				if (rendered == false)
-				{
-					object->OnRender();
-					drawCalls++;
-					alreadyRendered.push_back(object);
-				}
-			}
-		}
-	}
-
-	//std::cout << collidingNodes.size() << " , " << drawCalls << " , " << renderingOctree->nodeCount << std::endl;
 }
+
+/* 
+	Private Methods and Statics
+*/
+
+std::vector<Camera*> Camera::SceneCameras;
+Camera* Camera::ActiveCamera;
 
 Matrix4 Camera::calcViewMatrix()
 {
@@ -222,26 +191,6 @@ Matrix4 Camera::calcProjectionMatrix()
 					   0, 0, qn, 0);
 
 	return projection;
-}
-
-void Camera::startGL(Material* material)
-{
-
-}
-void Camera::startD3D(Material* material)
-{
-	//TODO
-}
-
-void Camera::renderGL(Material* material)
-{
-	
-}
-void Camera::renderD3D(Material* material)
-{
-	
-
-	
 }
 
 Camera::~Camera(void)

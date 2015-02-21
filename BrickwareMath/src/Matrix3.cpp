@@ -14,10 +14,14 @@ Matrix3::Matrix3()
 
 Matrix3::Matrix3(float rawArray[])
 {
+	int index = 0;
 	for (int i = 0; i < 3; i++)
 	{
 		for (int j = 0; j < 3; j++)
-			matrix[i][j] = rawArray[i*j];
+		{
+			matrix[i][j] = rawArray[index];
+			index++;
+		}
 	}
 }
 
@@ -40,26 +44,32 @@ Matrix3::Matrix3(Vector3 one, Vector3 two, Vector3 three)
 //Accessor
 float* Matrix3::getAsArray()
 {
+	int index = 0;
 	for (int i = 0; i < 3; i++)
+	{
 		for (int j = 0; j < 3; j++)
-			rawMatrix[i*j] = matrix[i][j];
+		{
+			rawMatrix[index] = matrix[i][j];
+			index++;
+		}
+	}
 	return rawMatrix;
 }
 
 //Operators
 
-Matrix3 Matrix3::operator*(Matrix3 mat)
+Matrix3 Matrix3::operator*(Matrix3 m)
 {
 	float product[9];
 	int index = 0;
 
-	for (int col = 0; col < 3; col++)
+	for (int i = 0; i < 3; i++)
 	{
-		for (int row = 0; row < 3; row++)
+		for (int j = 0; j < 3; j++)
 		{
-			float value = (matrix[row][0] * mat[0][col]) +
-						  (matrix[row][1] *	mat[1][col]) +
-						  (matrix[row][2] *	mat[2][col]);
+			float value = (matrix[j][0] * m[0][i]) +
+						  (matrix[j][1] * m[1][i]) +
+						  (matrix[j][2] * m[2][i]);
 			product[index] = value;
 
 			index++;

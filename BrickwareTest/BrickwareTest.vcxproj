@@ -89,6 +89,8 @@ xcopy $(SolutionDir)\$(Configuration)\BrickwareMath.lib $(ProjectDir)\lib\ /y</C
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\PixelShader.glsl" />
+    <None Include="Shaders\PrimitivePixel.glsl" />
+    <None Include="Shaders\PrimitiveVertex.glsl" />
     <None Include="Shaders\VertexShader.glsl" />
   </ItemGroup>
   <ItemGroup>

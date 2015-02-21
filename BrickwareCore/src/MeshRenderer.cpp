@@ -53,7 +53,7 @@ void MeshRenderer::renderGL(Material* material)
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->getIBO());
 
-	// draw your shape
+	//Draw Shape
 	glDrawElements(GL_TRIANGLES, mesh->getNumberOfVerts(), GL_UNSIGNED_SHORT, (void *)0);
 }
 #endif

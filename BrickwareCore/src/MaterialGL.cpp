@@ -49,7 +49,7 @@ void Material::setMatrix4GL(char* valueName, Matrix4 value)
 void Material::setMatrix3GL(char* valueName, Matrix3 value)
 {
 	GLuint uniformLocation = (GLuint)(shader->uniformMap[std::string(valueName)]);
-	glUniformMatrix4fv(uniformLocation, 1, false, value.getAsArray());
+	glUniformMatrix3fv(uniformLocation, 1, false, value.getAsArray());
 }
 
 #endif

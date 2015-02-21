@@ -1,13 +1,22 @@
 
-// Defines the input to this pixel shader
-// - Should match the output of our corresponding vertex shader
+texture2D diffuseTexture : register(t0);
+
+SamplerState MeshTextureSampler
+{
+	Filter = MIN_MAG_MIP_LINEAR;
+	AddressU = Wrap;
+	AddressV = Wrap;
+};
+
 struct VertexToPixel
 {
 	float4 position		: SV_POSITION;
-	float3 L : LIGHT_L;
-	float3 E : LIGHT_E;
-	float3 H : LIGHT_H;
-	float3 N : LIGHT_N;
+	float2 texCoord		: TEX_COORD;
+
+	float3 LightPos		: LIGHT_POS;
+	float3 EyePos		: EYE_POS;
+	float3 Halfway		: HALFWAY;
+	float3 Normal		: NORMAL;
 };
 
 // Entry point for this pixel shader
@@ -18,20 +27,20 @@ float4 main(VertexToPixel input) : SV_TARGET
 	float3 specularProduct = float3(.1, .1 , .1);
 
 	float gloss = 75.0;
+	
+	//Calculate the color for this pixel based on the texture
+	float4 hue = diffuseTexture.Sample(MeshTextureSampler, input.texCoord);
 
-	//Color is just green for now
-	float4 hue = float4(0.0f, 0.5f, 0.0f, 1.0f);
-
-	float Kd = max(dot(input.L, input.N), 0.0);
-	float Ks = pow(max(dot(input.N, input.H), 0.0), gloss);
+	float Kd = saturate(dot(input.LightPos, input.Normal));
+	float Ks = pow(saturate(dot(input.Normal, input.Halfway)), gloss);
 
 	float3 ambient = hue.rgb * ambientProduct;
 	float3 diffuse = hue.rgb * Kd * diffuseProduct;
-	float3 specular = float3(1, 1, 1) * Ks * specularProduct;
+	float3 specular = Ks * specularProduct;
 
-	if (dot(input.L, input.N) < 0.0)
+	if (dot(input.LightPos, input.Normal) < 0.0)
 		specular = float3(0.0, 0.0, 0.0);
 
-	float4 color = float4((ambient + diffuse + specular), hue.a);
-	return color;
+	float3 color = float3(ambient + diffuse + specular);
+	return float4(color, hue.a);
 }

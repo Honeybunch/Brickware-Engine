@@ -57,31 +57,33 @@ void PrimitiveManager::Destroy()
 
 void PrimitiveManager::DrawPrimitiveGL(Primitive* p, Matrix4 modelMatrix, Matrix4 viewMatrix, Matrix4 projectionMatrix)
 {
+	GLenum drawType;
+
 	switch (p->drawType)
 	{
 	case PrimitiveType::POINT:
-		glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
+		drawType = GL_POINT;
 		break;
 	case PrimitiveType::LINE:
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		drawType = GL_LINE;
 		break;
 	case PrimitiveType::FILL:
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		drawType = GL_FILL;
 		break;
 	}
-
+	
 	SetColorGL(p->color);
 	SetPointSizeGL(p->pointSize);
 	SetLineWidthGL(p->lineWidth);
 
 	GLuint modelLocation = (GLuint)(shader->uniformMap[std::string("modelMatrix")]);
-	glUniform4fv(modelLocation, 1, modelMatrix.getAsArray());
+	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, modelMatrix.getAsArray());
 
 	GLuint viewLocaton = (GLuint)(shader->uniformMap[std::string("viewMatrix")]);
-	glUniform4fv(viewLocaton, 1, viewMatrix.getAsArray());
+	glUniformMatrix4fv(viewLocaton, 1, GL_FALSE, viewMatrix.getAsArray());
 
 	GLuint projectionLocation = (GLuint)(shader->uniformMap[std::string("projectionMatrix")]);
-	glUniform4fv(projectionLocation, 1, projectionMatrix.getAsArray());
+	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, projectionMatrix.getAsArray());
 
 	GLuint position = glGetAttribLocation(shader->shaderProgram, "position");
 	glEnableVertexAttribArray(position);

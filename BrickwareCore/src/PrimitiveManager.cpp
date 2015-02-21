@@ -41,7 +41,11 @@ void PrimitiveManager::DrawPrimitives()
 
 		Vector4 test = worldMatrix * Vector4(0, 1, 0, 1);
 
+#ifdef D3D_SUPPORT
+		//DrawPrimitiveD3D(p, modelMatrix, viewMatrix, projectionMatrix);
+#else
 		DrawPrimitiveGL(p, modelMatrix, viewMatrix, projectionMatrix);
+#endif
 	}
 
 	shader->freeShader();
@@ -61,13 +65,13 @@ void PrimitiveManager::DrawPrimitiveGL(Primitive* p, Matrix4 modelMatrix, Matrix
 
 	switch (p->drawType)
 	{
-	case PrimitiveType::POINT:
+	case PrimitiveType::P_POINT:
 		drawType = GL_POINT;
 		break;
-	case PrimitiveType::LINE:
+	case PrimitiveType::P_LINE:
 		drawType = GL_LINE;
 		break;
-	case PrimitiveType::FILL:
+	case PrimitiveType::P_FILL:
 		drawType = GL_FILL;
 		break;
 	}

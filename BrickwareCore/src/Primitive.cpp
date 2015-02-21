@@ -14,7 +14,7 @@ void Primitive::DrawPoint(Vector3 point)
 {
 	std::vector<Vector3> points;
 	points.push_back(point);
-	Primitive* p = new Primitive(points, PrimitiveType::POINT);
+	Primitive* p = new Primitive(points, PrimitiveType::P_POINT);
 }
 void Primitive::DrawLine(Vector3 start, Vector3 end)
 {
@@ -23,7 +23,7 @@ void Primitive::DrawLine(Vector3 start, Vector3 end)
 	points.push_back(start);
 	points.push_back(end);
 
-	Primitive* p = new Primitive(points, PrimitiveType::LINE);
+	Primitive* p = new Primitive(points, PrimitiveType::P_LINE);
 }
 void Primitive::DrawQuad(Vector3 topLeft, Vector3 topRight, Vector3 bottomRight, Vector3 bottomLeft, Vector3 rotation)
 {
@@ -35,7 +35,7 @@ void Primitive::DrawQuad(Vector3 topLeft, Vector3 topRight, Vector3 bottomRight,
 	points.push_back(bottomRight);
 	points.push_back(topRight);
 
-	Primitive* p = new Primitive(points, PrimitiveType::LINE);
+	Primitive* p = new Primitive(points, PrimitiveType::P_LINE);
 	p->rotation = Quaternion(rotation);
 }
 void Primitive::DrawCircle(Vector3 center, float radius, int pointCount, Vector3 rotation)
@@ -56,7 +56,7 @@ void Primitive::DrawCircle(Vector3 center, float radius, int pointCount, Vector3
 		points.push_back(Vector3(x,y,0));
 	}
 
-	Primitive* p = new Primitive(points, PrimitiveType::LINE);
+	Primitive* p = new Primitive(points, PrimitiveType::P_LINE);
 	p->rotation = Quaternion(rotation);
 }
 

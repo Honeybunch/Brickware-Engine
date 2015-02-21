@@ -18,9 +18,9 @@ template class BRICKWARE_CORE_API std::vector < Vector3 >;
 
 enum BRICKWARE_CORE_API PrimitiveType
 {
-	POINT,
-	LINE,
-	FILL
+	P_POINT,
+	P_LINE,
+	P_FILL
 };
 
 class BRICKWARE_CORE_API Primitive

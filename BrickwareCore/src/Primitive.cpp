@@ -25,13 +25,13 @@ void Primitive::DrawLine(Vector3 start, Vector3 end)
 	Vector3 delta = end - start;
 	float sqSum = (delta.getX() * delta.getX()) + (delta.getY() * delta.getY()) + (delta.getZ() * delta.getZ());
 	float distance = sqrtf(sqSum);
+
 	Vector3 scale(distance, 0, 0); //The original line buffer is just along x, so that's all we need to scale along
 
 	//Determine angle between points for rotation
 	Vector3 rotationAxis = Vector3::Normalize(Vector3::Cross(Vector3(1, 0, 0), Vector3::Normalize(delta)));
 
-	float cosOfAngle = Vector3::Dot(Vector3(1, 0, 0), delta) / 
-		(distance);
+	float cosOfAngle = Vector3::Dot(Vector3(1, 0, 0), delta) / (distance);
 		
 	float angle = acosf(cosOfAngle);
 	Vector4 angleAxisRotation = Vector4(rotationAxis, angle);

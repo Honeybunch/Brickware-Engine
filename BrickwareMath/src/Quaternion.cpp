@@ -54,6 +54,17 @@ Quaternion::Quaternion(Vector3 v)
 	normalize();
 }
 
+//Assuming from Angle-Axis
+Quaternion::Quaternion(Vector4 v)
+{
+	float halfAngle = v[3] / 2.0f;
+
+	q[0] = v[0] * sinf(halfAngle);
+	q[1] = v[1] * sinf(halfAngle);
+	q[2] = v[2] * sinf(halfAngle);
+	q[3] = cosf(halfAngle);
+}
+
 Quaternion Quaternion::getInverse()
 {
 	return Quaternion(-q[0], -q[1], -q[2], q[3]);

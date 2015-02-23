@@ -18,6 +18,7 @@ public:
 	Quaternion();
 	Quaternion(float x, float y, float z, float w);
 	Quaternion(Vector3 v);
+	Quaternion(Vector4 v);
 
 	~Quaternion();
 

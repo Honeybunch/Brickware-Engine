@@ -26,12 +26,33 @@ private:
 	static void ClearPrimitives();
 	static void DrawPrimitives();
 	static void Destroy();
-	
+
 	static std::vector<Primitive*> Primitives;
 	static Shader* shader;
 
 #ifdef GL_SUPPORT
-	static void DrawPrimitiveGL(Primitive* p, Matrix4 modelMatrix, Matrix4 viewMatrix, Matrix4 projectionMatrix);
+	//Primitive buffers
+	static GLuint pointVBO;
+	static GLuint pointIBO;
+
+	static GLuint lineVBO;
+	static GLuint lineIBO;
+
+	static GLuint lineQuadVBO;
+	static GLuint lineQuadIBO;
+
+	static GLuint lineCircleVBO;
+	static GLuint lineCircleIBO;
+
+	static GLuint fillQuadVBO;
+	static GLuint fillQuadIBO;
+
+	static GLuint fillCircleVBO;
+	static GLuint fillCircleIBO;
+
+	static void BufferDataGL();
+
+	static void DrawPrimitiveGL(Primitive* p);
 
 	static void SetColorGL(Vector4 color);
 	static void SetPointSizeGL(float pointSize);
@@ -39,6 +60,8 @@ private:
 #endif
 
 #ifdef D3D_SUPPORT
+	static void BufferDataD3D();
+
 	static void DrawPrimitiveD3D(Primitive* p, Matrix4 worldMatrix);
 
 	static void SetColorD3D(Vector4 color);

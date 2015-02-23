@@ -23,6 +23,14 @@ Vector4::Vector4(float x, float y, float z, float w)
 	this->vector[3] = w;
 }
 
+Vector4::Vector4(Vector3 v, float w)
+{
+	this->vector[0] = v[0];
+	this->vector[1] = v[1];
+	this->vector[2] = v[2];
+	this->vector[3] = w;
+}
+
 /*
 	Destructor
 */

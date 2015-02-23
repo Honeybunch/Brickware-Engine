@@ -68,8 +68,6 @@ void Transform::Render()
 	Matrix4 viewMatrix = currentCamera->getViewMatrix();
 	Matrix4 projectionMatrix = currentCamera->getProjectionMatrix();
 
-	Matrix4 test = viewMatrix * projectionMatrix;
-
 	//Matrix4 worldMatrix = (modelMatrix * viewMatrix) * projectionMatrix;
 
 	material->setMatrix4("modelMatrix", modelMatrix);

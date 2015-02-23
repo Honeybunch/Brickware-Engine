@@ -35,29 +35,26 @@ public:
 	static void DrawPoint(Vector3 point);
 	static void DrawLine(Vector3 start, Vector3 end);
 	static void DrawQuad(Vector3 topLeft, Vector3 topRight, Vector3 bottomRight, Vector3 bottomLeft, Vector3 rotation);
-	static void DrawCircle(Vector3 center, float radius, int pointCount, Vector3 rotation);
+	static void DrawCircle(Vector3 center, float radius, Vector3 rotation);
 
 	static void FillQuad(Vector3 topLeft, Vector3 topRight, Vector3 bottomRight, Vector3 bottomLeft, Vector3 rotation);
-	static void FillCircle(Vector3 center, float radius, int pointCount, Vector3 rotation);
+	static void FillCircle(Vector3 center, float radius, Vector3 rotation);
 
 private:
-	Primitive(std::vector<Vector3> points, PrimitiveType drawType);
+#ifdef GL_SUPPORT
+	Primitive(GLuint vbo, GLuint ibo, Vector3 translation, Vector3 scale, Quaternion rotation, PrimitiveType drawType);
+#endif
+	
+#ifdef D3D_SUPPORT
+	Primitive(ID3D11Buffer* vbo, ID3D11Buffer* ibo, Vector3 translation, Vector3 scale, Vector3 rotation, PrimitiveType drawType);
+#endif
 	~Primitive();
 
-	void createBuffers();
-	void freeBuffers();
-
 #ifdef GL_SUPPORT
-	void createBuffersGL();
-	void freeBuffersGL();
-
 	GLuint vbo;
 	GLuint ibo;
 #endif
 #ifdef D3D_SUPPORT
-	void createBuffersD3D();
-	void freeBuffersD3D();
-
 	ID3D11Buffer* positionBuffer;
 	ID3D11Buffer* indexBuffer;
 #endif
@@ -66,18 +63,13 @@ private:
 	static float currentPointSize;
 	static float currentLineWidth;
 
-	//We don't need to worry about UVs, or Normals for Primitives; just position and index data
-	float* pointElements;
-	unsigned short* pointIndices;
-
-	unsigned int elementCount;
-	unsigned int pointCount;
-
+	unsigned int pointCount; //Number of points in this primitive
 	Vector4 color;
 	float pointSize;
 	float lineWidth;
 	PrimitiveType drawType;
-	Quaternion rotation;
+	
+	Matrix4 worldMatrix;
 };
 
 #endif

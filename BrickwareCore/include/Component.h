@@ -6,6 +6,7 @@
 #include "Settings.h"
 #include "Screen.h"
 #include "GameTime.h"
+#include "Primitive.h"
 
 class GameObject;
 
@@ -25,8 +26,13 @@ public:
 	virtual void Start();
 
 	virtual void Update();
+	virtual void LateUpdate();
 
 	virtual void Render();
+
+#ifdef _DEBUG
+	virtual void DebugDraw();
+#endif
 
 	~Component();
 

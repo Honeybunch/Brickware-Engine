@@ -5,8 +5,10 @@
 
 #include <vector>
 
+#include "Matrix4.h"
+
 #include "Settings.h"
-#include "Material.h"
+#include "Shader.h"
 
 //Used to avoid warnings about exporting std::vectors
 class Primitive;

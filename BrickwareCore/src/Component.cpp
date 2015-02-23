@@ -22,8 +22,13 @@ Component* Component::Clone(){ return NULL; }
 void Component::Start(){}
 
 void Component::Update(){}
+void Component::LateUpdate(){}
 
 void Component::Render(){}
+
+#ifdef _DEBUG
+void Component::DebugDraw(){}
+#endif
 
 Component::~Component()
 {

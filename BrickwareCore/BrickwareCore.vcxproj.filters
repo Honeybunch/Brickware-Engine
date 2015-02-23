@@ -9,192 +9,228 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="Source Files\Components">
+      <UniqueIdentifier>{42b41398-2c27-4d0a-bbdf-7af79c4575c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Components\Colliders">
+      <UniqueIdentifier>{b5e14dac-d718-48d1-85cc-234b109fb0e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Data">
+      <UniqueIdentifier>{f7b73aa2-bf38-4671-856d-9ed88566e712}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game Core">
+      <UniqueIdentifier>{77622211-889e-4169-a4bf-e1fec1114327}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components">
+      <UniqueIdentifier>{910c1b00-5d84-455f-bc0d-e41bc5733f94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Components\Colliders">
+      <UniqueIdentifier>{012ce624-95c3-4f92-8d89-f9c311f74ef7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Data">
+      <UniqueIdentifier>{1cdae1aa-b644-4214-9f5e-0cdf3cd219f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game Core">
+      <UniqueIdentifier>{44e2fc31-1111-4f34-b013-144b5e4a138b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game Core\Debug">
+      <UniqueIdentifier>{da252497-89f6-47fb-9130-e242cd29d842}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game Core\Debug">
+      <UniqueIdentifier>{87baba38-b0f7-49db-aa35-ea632aed3e4f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Bounds.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\BoxCollider.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Collider.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Component.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\dxerr.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Input.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Light.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Material.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Mesh.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\MeshRenderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Octree.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Rigidbody.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Screen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Settings.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\SphereCollider.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Transform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Triangle.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\FrustumCollider.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\BrickwareCore.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Game Core</Filter>
     </ClInclude>
     <ClInclude Include="include\BrickwareCoreDLL.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Game Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Collider.h">
+      <Filter>Header Files\Components\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Camera.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Bounds.h">
+      <Filter>Header Files\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="include\dxerr.h">
+      <Filter>Header Files\Game Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BoxCollider.h">
+      <Filter>Header Files\Components\Colliders</Filter>
     </ClInclude>
     <ClInclude Include="include\GameTime.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Game Core</Filter>
     </ClInclude>
-    <ClInclude Include="include\PrimitiveManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\GameObject.h">
+      <Filter>Header Files\Game Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Light.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Octree.h">
+      <Filter>Header Files\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Settings.h">
+      <Filter>Header Files\Game Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Rigidbody.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Shader.h">
+      <Filter>Header Files\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Texture.h">
+      <Filter>Header Files\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Triangle.h">
+      <Filter>Header Files\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Mesh.h">
+      <Filter>Header Files\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Component.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Transform.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Material.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MeshRenderer.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FrustumCollider.h">
+      <Filter>Header Files\Components\Colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SphereCollider.h">
+      <Filter>Header Files\Game Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game.h">
+      <Filter>Header Files\Game Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Input.h">
+      <Filter>Header Files\Game Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Screen.h">
+      <Filter>Header Files\Game Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Utils.h">
+      <Filter>Header Files\Game Core</Filter>
     </ClInclude>
     <ClInclude Include="include\Primitive.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Game Core\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PrimitiveManager.h">
+      <Filter>Header Files\Game Core\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Debug.h">
+      <Filter>Header Files\Game Core\Debug</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Bounds.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\BoxCollider.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Collider.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="src\Component.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\dxerr.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Input.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Light.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="src\Material.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="src\MaterialD3D.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="src\MaterialGL.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Mesh.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="src\MeshRenderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Octree.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="src\Rigidbody.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Screen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Shader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ShaderD3D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ShaderGL.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\SphereCollider.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TextureD3D.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TextureGL.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="src\Transform.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="src\Triangle.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\BoxCollider.cpp">
+      <Filter>Source Files\Components\Colliders</Filter>
     </ClCompile>
-    <ClCompile Include="src\Utils.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\Collider.cpp">
+      <Filter>Source Files\Components\Colliders</Filter>
     </ClCompile>
     <ClCompile Include="src\FrustumCollider.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Components\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\SphereCollider.cpp">
+      <Filter>Source Files\Components\Colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Octree.cpp">
+      <Filter>Source Files\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Shader.cpp">
+      <Filter>Source Files\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ShaderD3D.cpp">
+      <Filter>Source Files\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ShaderGL.cpp">
+      <Filter>Source Files\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Texture.cpp">
+      <Filter>Source Files\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TextureD3D.cpp">
+      <Filter>Source Files\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TextureGL.cpp">
+      <Filter>Source Files\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Triangle.cpp">
+      <Filter>Source Files\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Light.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Mesh.cpp">
+      <Filter>Source Files\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Bounds.cpp">
+      <Filter>Source Files\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dxerr.cpp">
+      <Filter>Source Files\Game Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game.cpp">
+      <Filter>Source Files\Game Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObject.cpp">
+      <Filter>Source Files\Game Core</Filter>
     </ClCompile>
     <ClCompile Include="src\GameTime.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Game Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Input.cpp">
+      <Filter>Source Files\Game Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Screen.cpp">
+      <Filter>Source Files\Game Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utils.cpp">
+      <Filter>Source Files\Game Core</Filter>
     </ClCompile>
     <ClCompile Include="src\PrimitiveManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Game Core\Debug</Filter>
     </ClCompile>
     <ClCompile Include="src\Primitive.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Game Core\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Debug.cpp">
+      <Filter>Source Files\Game Core\Debug</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

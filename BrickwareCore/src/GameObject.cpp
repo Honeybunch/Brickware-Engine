@@ -107,7 +107,13 @@ void GameObject::OnRender()
 		material->bindShader();
 
 	for (unsigned int i = 0; i < components.size(); i++)
+	{
 		components[i]->Render();
+#ifdef _DEBUG
+		if (Debug::Debugging)
+			components[i]->DebugDraw();
+#endif
+	}
 
 	if (material)
 		material->freeShader();

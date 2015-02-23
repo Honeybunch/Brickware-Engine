@@ -117,6 +117,18 @@ void TestGame::updateScene()
 	if (Input::getKeyDown(KeyCode::escape))
 		running = false;
 
+#ifdef _DEBUG
+	if (Input::getKeyDown(KeyCode::F1) && dKeyDown == false)
+	{
+		Debug::Debugging = !Debug::Debugging;
+		dKeyDown = true;
+	}
+	else if (Input::getKeyUp(KeyCode::F1))
+	{
+		dKeyDown = false;
+	}
+#endif
+
 	for (unsigned int i = 0; i < gameObjects.size(); i++)
 		gameObjects[i]->Update();
 }
@@ -126,15 +138,20 @@ void TestGame::renderScene()
 	for (unsigned int i = 0; i < gameObjects.size(); i++)
 		gameObjects[i]->OnRender();
 
-	//Test primitive drawing of a point
-	Primitive::SetPointSize(10.0f);
-	Primitive::SetColor(Vector4(1.0f, 0.0f, 0.0f, 1.0f));
-	Primitive::DrawPoint(Vector3(0, 0, 0));
-	Primitive::DrawPoint(Vector3(-0.5f, -0.5f, -0.5f));
+	//Test primitive drawing
+	/*
+	if (Debug::Debugging)
+	{
+		Primitive::SetPointSize(10.0f);
+		Primitive::SetColor(Vector4(1.0f, 0.0f, 0.0f, 1.0f));
+		Primitive::DrawPoint(Vector3(0, 0, 0));
+		Primitive::DrawPoint(Vector3(-0.5f, -0.5f, -0.5f));
 
-	Primitive::SetColor(Vector4(0, 1, 0, 1));
-	Primitive::SetLineWidth(5.0f);
-	Primitive::DrawLine(Vector3(0, 0, 0), Vector3(-0.5f, -0.5f, -0.5f));
+		Primitive::SetColor(Vector4(0, 1, 0, 1));
+		Primitive::SetLineWidth(5.0f);
+		Primitive::DrawLine(Vector3(0, 0, 0), Vector3(-0.5f, -0.5f, -0.5f));
+	}
+	*/	
 }
 
 TestGame::~TestGame()

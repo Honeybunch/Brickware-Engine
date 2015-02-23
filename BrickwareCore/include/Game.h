@@ -49,6 +49,8 @@
 #include "PrimitiveManager.h"
 #include "Primitive.h"
 
+#include "Debug.h"
+
 using namespace std;
 
 class Game

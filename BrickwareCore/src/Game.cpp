@@ -352,6 +352,11 @@ void Game::handleInputGLFW()
 		Input::keys[KeyCode::space] = true;
 	else
 		Input::keys[KeyCode::space] = false;
+
+	if (glfwGetKey(glWindow, GLFW_KEY_F1) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_F1) == GLFW_REPEAT)
+		Input::keys[KeyCode::F1] = true;
+	else
+		Input::keys[KeyCode::F1] = false;
 }
 
 void Game::startRenderGL()

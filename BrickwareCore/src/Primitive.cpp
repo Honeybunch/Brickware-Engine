@@ -2,6 +2,8 @@
 
 #include "Primitive.h"
 
+#include "Camera.h"
+
 Vector4 Primitive::currentColor;
 float Primitive::currentPointSize;
 float Primitive::currentLineWidth;

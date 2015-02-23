@@ -83,6 +83,7 @@
     <ClInclude Include="include\Camera.h" />
     <ClInclude Include="include\Collider.h" />
     <ClInclude Include="include\Component.h" />
+    <ClInclude Include="include\Debug.h" />
     <ClInclude Include="include\dxerr.h" />
     <ClInclude Include="include\FrustumCollider.h" />
     <ClInclude Include="include\Game.h" />
@@ -112,6 +113,7 @@
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Collider.cpp" />
     <ClCompile Include="src\Component.cpp" />
+    <ClCompile Include="src\Debug.cpp" />
     <ClCompile Include="src\dxerr.cpp" />
     <ClCompile Include="src\FrustumCollider.cpp" />
     <ClCompile Include="src\Game.cpp" />

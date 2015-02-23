@@ -110,6 +110,9 @@ Vector3 Vector3::Normalize(Vector3 v)
 {
 	float magnitude = sqrt((v.vector[0] * v.vector[0]) + (v.vector[1] * v.vector[1]) + (v.vector[2] * v.vector[2]));
 
+	if (magnitude == 0)
+		magnitude = 1;
+
 	Vector3 normalizedVec(v.vector[0] / magnitude,
 					      v.vector[1] / magnitude,
 					      v.vector[2] / magnitude);

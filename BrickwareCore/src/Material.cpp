@@ -18,7 +18,6 @@ Material::Material(Shader* shader)
 	this->setTexture("diffuseTexture", Material::defaultTexture);
 }
 
-
 void Material::bindShader()
 {
 	shader->bindShader();

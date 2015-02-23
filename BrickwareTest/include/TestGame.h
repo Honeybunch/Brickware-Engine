@@ -14,6 +14,10 @@ public:
 
 	virtual bool init();
 
+#ifdef _DEBUG
+	bool dKeyDown = false;
+#endif
+
 	~TestGame();
 
 private:

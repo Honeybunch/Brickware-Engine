@@ -57,6 +57,55 @@ void BoxCollider::Start()
 	normals.push_back(Vector3(0, 0, 1));
 }
 
+#ifdef _DEBUG
+void BoxCollider::DebugDraw()
+{
+	Transform* transform = getGameObject()->getTransform();
+	Camera* camera = Camera::GetActiveCamera();
+
+	Vector3 position = transform->getPosition();
+
+	//Gotta get that world matrix (don't need scale)
+	Matrix4 rotationMatrix = transform->getRotation().getRotationMatrix();
+
+	Matrix4 translationMatrix(1, 0, 0, 0,
+							  0, 1, 0, 0,
+							  0, 0, 1, 0,
+							  position[0], position[1], position[2], 1);
+
+	Matrix4 worldMatrix = rotationMatrix * translationMatrix;
+
+	//Get world points
+	Vector3 topLeftForward = worldMatrix *Vector3(-halfSize[0], halfSize[1], -halfSize[2]);
+	Vector3 topRightForward = worldMatrix *Vector3(halfSize[0], halfSize[1], -halfSize[2]);
+	Vector3 topLeftBackward = worldMatrix *Vector3(-halfSize[0], halfSize[1], halfSize[2]);
+	Vector3 topRightBackward = worldMatrix *Vector3(halfSize[0], halfSize[1], halfSize[2]);
+
+	Vector3 bottomLeftForward = worldMatrix *Vector3(-halfSize[0], -halfSize[1], -halfSize[2]);
+	Vector3 bottomRightForward = worldMatrix *Vector3(halfSize[0], -halfSize[1], -halfSize[2]);
+	Vector3 bottomLeftBackward = worldMatrix *Vector3(-halfSize[0], -halfSize[1], halfSize[2]);
+	Vector3 bottomRightBackward = worldMatrix *Vector3(halfSize[0], -halfSize[1], halfSize[2]);
+
+	//Draw!
+	Primitive::SetLineWidth(2.0f);
+
+	Primitive::DrawLine(topLeftBackward, topRightBackward);
+	Primitive::DrawLine(topLeftBackward, bottomLeftBackward);
+	Primitive::DrawLine(topRightBackward, bottomRightBackward);
+	Primitive::DrawLine(bottomLeftBackward, bottomRightBackward);
+
+	Primitive::DrawLine(topLeftForward, topRightForward);
+	Primitive::DrawLine(topLeftForward, bottomLeftForward);
+	Primitive::DrawLine(topRightForward, bottomRightForward);
+	Primitive::DrawLine(bottomLeftForward, bottomRightForward);
+
+	Primitive::DrawLine(topLeftBackward, topLeftForward);
+	Primitive::DrawLine(topRightBackward, topRightForward);
+	Primitive::DrawLine(bottomLeftBackward, bottomLeftForward);
+	Primitive::DrawLine(bottomRightBackward, bottomRightForward);
+}
+#endif
+
 //Accessors and Mutators
 Vector3 BoxCollider::getCenter(){ return center; }
 Vector3 BoxCollider::getSize(){ return size; }

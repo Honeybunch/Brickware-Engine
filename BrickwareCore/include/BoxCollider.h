@@ -19,6 +19,10 @@ public:
 	virtual Component* Clone();
 	virtual void Start();
 
+#ifdef _DEBUG
+	virtual void DebugDraw() override;
+#endif
+
 private:
 	Vector3 size; //Each element of this vector represents width on one axis
 	Vector3 halfSize;

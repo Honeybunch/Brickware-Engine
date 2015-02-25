@@ -353,6 +353,13 @@ void Game::handleInputGLFW()
 	else
 		Input::keys[KeyCode::space] = false;
 
+	if (glfwGetKey(glWindow, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_LEFT_SHIFT) == GLFW_REPEAT)
+		Input::keys[KeyCode::shift] = true;
+	else
+		Input::keys[KeyCode::shift] = false;
+
+	//F Keys
+
 	if (glfwGetKey(glWindow, GLFW_KEY_F1) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_F1) == GLFW_REPEAT)
 		Input::keys[KeyCode::F1] = true;
 	else
@@ -464,6 +471,20 @@ LRESULT Game::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			Input::keys[KeyCode::escape] = true;
 		else if (msg == WM_KEYUP)
 			Input::keys[KeyCode::escape] = false;
+		return 0;
+
+	case VK_SHIFT:
+		if (msg == WM_KEYDOWN)
+			Input::keys[KeyCode::shift] = true;
+		else if (msg == WM_KEYUP)
+			Input::keys[KeyCode::shift] = false;
+		return 0;
+
+	case VK_F1:
+		if (msg == WM_KEYDOWN)
+			Input::keys[KeyCode::F1] = true;
+		else if (msg == WM_KEYUP)
+			Input::keys[KeyCode::F1] = false;
 		return 0;
 	}
 

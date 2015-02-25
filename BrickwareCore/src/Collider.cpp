@@ -39,19 +39,15 @@ bool Collider::isColliding(Bounds bounds)
 
 void Collider::calculateWorldData()
 {
-	Transform* transform = getGameObject()->getTransform();
-
-	center = transform->getPosition();
-
 	worldNormals.clear();
 
-	Matrix3 rotationMatrix = transform->getRotation().getRotationMatrix();
+	Matrix3 rotationMatrix = getGameObject()->getTransform()->getRotation().getRotationMatrix();
 
 	for (unsigned int i = 0; i < normals.size(); i++)
 	{
 		Vector3 worldNormal = rotationMatrix * normals[i];
 
-		//Renormalize after being rotated and scaled and whatnot
+		//Renormalize after being rotated
 		worldNormals.push_back(Vector3::Normalize(worldNormal));
 	}	
 }

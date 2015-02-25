@@ -14,7 +14,7 @@ Camera::Camera(float FoV = 50, float width = 0.1f, float height = 0.1f, float zN
 	this->zFar = zFar;
 
 	//Setup speed and velocity
-	speed = 0.1f;
+	speed = 1.0f;
 
 	lookAt = Vector3();
 
@@ -49,9 +49,14 @@ void Camera::moveForward()
 	Vector3 pos = getGameObject()->getTransform()->getPosition();
 	Vector3 rot = getGameObject()->getTransform()->getEulerRotation();
 
-	pos.setX(pos.getX() - speed * sin(rot.getY()));
-	pos.setY(pos.getY() + speed * sin(rot.getX()));
-	pos.setZ(pos.getZ() - speed * cos(rot.getY()));
+	float deltaSpeed = speed * GameTime::getDeltaTime();
+
+	if (Input::getKeyDown(KeyCode::shift))
+		deltaSpeed *= 5;
+
+	pos.setX(pos.getX() - deltaSpeed * sin(rot.getY()));
+	pos.setY(pos.getY() + deltaSpeed * sin(rot.getX()));
+	pos.setZ(pos.getZ() - deltaSpeed * cos(rot.getY()));
 
 	getGameObject()->getTransform()->setPosition(pos);
 }
@@ -61,8 +66,13 @@ void Camera::moveBackward()
 	Vector3 pos = getGameObject()->getTransform()->getPosition();
 	Vector3 rot = getGameObject()->getTransform()->getEulerRotation();
 
-	pos.setX(pos.getX() + speed * sin(rot.getY()));
-	pos.setZ(pos.getZ() + speed * cos(rot.getY()));
+	float deltaSpeed = speed * GameTime::getDeltaTime();
+
+	if (Input::getKeyDown(KeyCode::shift))
+		deltaSpeed *= 5;
+
+	pos.setX(pos.getX() + deltaSpeed * sin(rot.getY()));
+	pos.setZ(pos.getZ() + deltaSpeed * cos(rot.getY()));
 
 	getGameObject()->getTransform()->setPosition(pos);
 }
@@ -72,8 +82,13 @@ void Camera::moveLeft()
 	Vector3 pos = getGameObject()->getTransform()->getPosition();
 	Vector3 rot = getGameObject()->getTransform()->getEulerRotation();
 
-	pos.setX(pos.getX() - speed * cos(rot.getY()));
-	pos.setZ(pos.getZ() + speed * sin(rot.getY()));
+	float deltaSpeed = speed * GameTime::getDeltaTime();
+
+	if (Input::getKeyDown(KeyCode::shift))
+		deltaSpeed *= 5;
+
+	pos.setX(pos.getX() - deltaSpeed * cos(rot.getY()));
+	pos.setZ(pos.getZ() + deltaSpeed * sin(rot.getY()));
 
 	getGameObject()->getTransform()->setPosition(pos);
 }
@@ -83,8 +98,13 @@ void Camera::moveRight()
 	Vector3 pos = getGameObject()->getTransform()->getPosition();
 	Vector3 rot = getGameObject()->getTransform()->getEulerRotation();
 
-	pos.setX(pos.getX() + speed * cos(rot.getY()));
-	pos.setZ(pos.getZ() - speed * sin(rot.getY()));
+	float deltaSpeed = speed * GameTime::getDeltaTime();
+
+	if (Input::getKeyDown(KeyCode::shift))
+		deltaSpeed *= 5;
+
+	pos.setX(pos.getX() + deltaSpeed * cos(rot.getY()));
+	pos.setZ(pos.getZ() - deltaSpeed * sin(rot.getY()));
 
 	getGameObject()->getTransform()->setPosition(pos);
 }

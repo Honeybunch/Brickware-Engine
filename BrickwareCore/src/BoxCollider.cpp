@@ -52,8 +52,8 @@ void BoxCollider::Start()
 	//We can find three normals along each axis; don't need to find the other three
 	//Because they're just opposites of the ones we're storing
 	normals.clear();
-	normals.push_back(Vector3(-1, 0, 0));
-	normals.push_back(Vector3(0, -1, 0));
+	normals.push_back(Vector3(1, 0, 0));
+	normals.push_back(Vector3(0, 1, 0));
 	normals.push_back(Vector3(0, 0, 1));
 }
 
@@ -88,6 +88,7 @@ void BoxCollider::DebugDraw()
 
 	//Draw!
 	Primitive::SetLineWidth(2.0f);
+	Primitive::SetColor(Vector4(0, 0.7f, 0, 1));
 
 	Primitive::DrawLine(topLeftBackward, topRightBackward);
 	Primitive::DrawLine(topLeftBackward, bottomLeftBackward);
@@ -128,7 +129,6 @@ bool BoxCollider::isCollidingWithBox(BoxCollider* other)
 	
 	//Compute the translation vector
 	Vector3 translation = other->center - center;
-	Vector3 t = other->center - center;
 	//Make sure it's in this box's coordinate frame
 	translation = Vector3(Vector3::Dot(translation, worldNormals[0]),
 						  Vector3::Dot(translation, worldNormals[1]),

@@ -25,11 +25,11 @@ void Spawner::spawnObject()
 	newObject->getTransform()->setPosition(spherePos);
 	newObject->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
 
-	float randXRot = (float)((rand() % 314) / 100) + 1;
-	float randYRot = (float)((rand() % 314) / 100) + 1;
-	float randZRot = (float)((rand() % 314) / 100) + 1;
+	float xRot = (float)((rand() % 314) / 100) + 1;
+	float yRot = (float)((rand() % 314) / 100) + 1;
+	float zRot = (float)((rand() % 314) / 100) + 1;
 
-	newObject->getTransform()->setRotation(Vector3(randXRot, randYRot, randZRot));
+	newObject->getTransform()->setRotation(Vector3(xRot, yRot, zRot));
 
 	newObject->Start();
 

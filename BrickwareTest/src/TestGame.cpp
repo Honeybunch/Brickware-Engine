@@ -47,11 +47,24 @@ bool TestGame::init()
 	Mesh* circleMesh = new Mesh("Models/circle.obj");
 	Mesh* triangleMesh = new Mesh("Models/triangle.obj");
 
-	//Create Light
-	GameObject* light = new GameObject();
-	light->getTransform()->setPosition(Vector3(0.0f, 0.1f, 0.0f));
-	light->addComponent(new Material(shader));
-	light->addComponent(new Light());
+	//Create Lights
+	GameObject* light1 = new GameObject();
+	Light* light1Comp = new Light();
+	light1Comp->setDiffuseColor(Vector3(0, 1, 0));
+	light1Comp->setSpecularColor(Vector3(0, 1, 0));
+
+	light1->getTransform()->setPosition(Vector3(1.0f, 0.1f, 0.0f));
+	light1->addComponent(new Material(shader));
+	light1->addComponent(light1Comp);
+
+	GameObject* light2 = new GameObject();
+	Light* light2Comp = new Light();
+	light2Comp->setDiffuseColor(Vector3(1, 0, 0));
+	light2Comp->setSpecularColor(Vector3(1, 0, 0));
+
+	light2->getTransform()->setPosition(Vector3(-1.0f, 0.1f, 0.0f));
+	light2->addComponent(new Material(shader));
+	light2->addComponent(light2Comp);
 
 	//Create Objects
 	GameObject* castle = new GameObject();

@@ -8,7 +8,7 @@
 std::vector<ID3D11Buffer*> Material::getConstantBuffers(){ return shader->constantBuffers; }
 std::vector<char*> Material::getConstantBufferData(){ return shader->constantBufferData; }
 
-void Material::setVector4D3D(char* valueName, Vector4 value)
+void Material::setVector4D3D(const char* valueName, Vector4 value)
 {
 	ConstVariableInfo constVariableInfo = shader->getVariableInfoByName(valueName);
 
@@ -28,7 +28,7 @@ void Material::setVector4D3D(char* valueName, Vector4 value)
 	memcpy(bufferData + variableOffset, data, variableSize);
 }
 
-void Material::setVector3D3D(char* valueName, Vector3 value)
+void Material::setVector3D3D(const char* valueName, Vector3 value)
 {
 	ConstVariableInfo constVariableInfo = shader->getVariableInfoByName(valueName);
 
@@ -48,7 +48,7 @@ void Material::setVector3D3D(char* valueName, Vector3 value)
 	memcpy(bufferData + variableOffset, data, variableSize);
 }
 
-void Material::setVector2D3D(char* valueName, Vector2 value)
+void Material::setVector2D3D(const char* valueName, Vector2 value)
 {
 	ConstVariableInfo constVariableInfo = shader->getVariableInfoByName(valueName);
 
@@ -68,7 +68,7 @@ void Material::setVector2D3D(char* valueName, Vector2 value)
 	memcpy(bufferData + variableOffset, data, variableSize);
 }
 
-void Material::setIntD3D(char* valueName, int value)
+void Material::setIntD3D(const char* valueName, int value)
 {
 	ConstVariableInfo constVariableInfo = shader->getVariableInfoByName(valueName);
 
@@ -86,7 +86,7 @@ void Material::setIntD3D(char* valueName, int value)
 	memcpy(bufferData + variableOffset, &value, sizeof(int));
 }
 
-void Material::setFloatD3D(char* valueName, float value)
+void Material::setFloatD3D(const char* valueName, float value)
 {
 	ConstVariableInfo constVariableInfo = shader->getVariableInfoByName(valueName);
 
@@ -104,7 +104,7 @@ void Material::setFloatD3D(char* valueName, float value)
 	memcpy(bufferData + variableOffset, &value, sizeof(float));
 }
 
-void Material::setDoubleD3D(char* valueName, double value)
+void Material::setDoubleD3D(const char* valueName, double value)
 {
 	ConstVariableInfo constVariableInfo = shader->getVariableInfoByName(valueName);
 
@@ -122,7 +122,7 @@ void Material::setDoubleD3D(char* valueName, double value)
 	memcpy(bufferData + variableOffset, &value, sizeof(double));
 }
 
-void Material::setMatrix4D3D(char* valueName, Matrix4 value)
+void Material::setMatrix4D3D(const char* valueName, Matrix4 value)
 {
 	ConstVariableInfo constVariableInfo = shader->getVariableInfoByName(valueName);
 
@@ -142,7 +142,7 @@ void Material::setMatrix4D3D(char* valueName, Matrix4 value)
 	memcpy(bufferData + variableOffset, data, variableSize);
 }
 
-void Material::setMatrix3D3D(char* valueName, Matrix3 value)
+void Material::setMatrix3D3D(const char* valueName, Matrix3 value)
 {
 	ConstVariableInfo constVariableInfo = shader->getVariableInfoByName(valueName);
 

@@ -8,6 +8,7 @@
 #include "Vector3.h"
 
 #include <GL/glew.h>
+#include <string>
 
 #ifdef _WIN32
 #define GLFW_DLL
@@ -21,10 +22,23 @@ class BRICKWARE_CORE_API Light : public Component
 public:
 	Light();
 
+	static int LightCount;
+
+	void setAmbientColor(Vector3 ambientColor);
+	void setDiffuseColor(Vector3 diffuseColor);
+	void setSpecularColor(Vector3 specularColor);
+
 	virtual void Start();
 	virtual void Render();
 
 	~Light(void);
+
+private:
+	int lightCount;
+
+	Vector3 ambientColor;
+	Vector3 diffuseColor;
+	Vector3 specularColor;
 };
 
 #endif

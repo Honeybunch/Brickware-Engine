@@ -45,7 +45,7 @@ void Material::freeShader()
 
 Component* Material::Clone(){ return new Material(*this); }
 
-void Material::setVector4(char* valueName, Vector4 value)
+void Material::setVector4(const char* valueName, Vector4 value)
 {
 #ifdef D3D_SUPPORT
 	setVector4D3D(valueName, value);
@@ -53,7 +53,7 @@ void Material::setVector4(char* valueName, Vector4 value)
 	setVector4GL(valueName, value);
 #endif
 }
-void Material::setVector3(char* valueName, Vector3 value)
+void Material::setVector3(const char* valueName, Vector3 value)
 {
 #ifdef D3D_SUPPORT
 	setVector3D3D(valueName, value);
@@ -61,7 +61,7 @@ void Material::setVector3(char* valueName, Vector3 value)
 	setVector3GL(valueName, value);
 #endif
 }
-void Material::setVector2(char* valueName, Vector2 value)
+void Material::setVector2(const char* valueName, Vector2 value)
 {
 #ifdef D3D_SUPPORT
 	setVector2D3D(valueName, value);
@@ -70,7 +70,7 @@ void Material::setVector2(char* valueName, Vector2 value)
 #endif
 }
 
-void Material::setInt(char* valueName, int value)
+void Material::setInt(const char* valueName, int value)
 {
 #ifdef D3D_SUPPORT
 	setIntD3D(valueName, value);
@@ -78,7 +78,7 @@ void Material::setInt(char* valueName, int value)
 	setIntGL(valueName, value);
 #endif
 }
-void Material::setFloat(char* valueName, float value)
+void Material::setFloat(const char* valueName, float value)
 {
 #ifdef D3D_SUPPORT
 	setFloatD3D(valueName, value);
@@ -86,7 +86,7 @@ void Material::setFloat(char* valueName, float value)
 	setFloatGL(valueName, value);
 #endif
 }
-void Material::setDouble(char* valueName, double value)
+void Material::setDouble(const char* valueName, double value)
 {
 #ifdef D3D_SUPPORT
 	setDoubleD3D(valueName, value);
@@ -95,7 +95,7 @@ void Material::setDouble(char* valueName, double value)
 #endif
 }
 
-void Material::setMatrix4(char* valueName, Matrix4 value)
+void Material::setMatrix4(const char* valueName, Matrix4 value)
 {
 #ifdef D3D_SUPPORT
 	setMatrix4D3D(valueName, value);
@@ -104,7 +104,7 @@ void Material::setMatrix4(char* valueName, Matrix4 value)
 #endif
 }
 
-void Material::setMatrix3(char* valueName, Matrix3 value)
+void Material::setMatrix3(const char* valueName, Matrix3 value)
 {
 #ifdef D3D_SUPPORT
 	setMatrix3D3D(valueName, value);
@@ -113,7 +113,7 @@ void Material::setMatrix3(char* valueName, Matrix3 value)
 #endif
 }
 
-void Material::setTexture(char* textureName, Texture* texture)
+void Material::setTexture(const char* textureName, Texture* texture)
 {
 	std::string textureString (textureName);
 	if (textureMap.size() > 0 && textureMap.find(textureString) != textureMap.end())

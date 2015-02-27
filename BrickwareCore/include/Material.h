@@ -42,18 +42,18 @@ public:
 
 	BRICKWARE_CORE_API virtual Component* Clone() override;
 
-	BRICKWARE_CORE_API void setVector4(char* valueName, Vector4 value);
-	BRICKWARE_CORE_API void setVector3(char* valueName, Vector3 value);
-	BRICKWARE_CORE_API void setVector2(char* valueName, Vector2 value);
+	BRICKWARE_CORE_API void setVector4(const char* valueName, Vector4 value);
+	BRICKWARE_CORE_API void setVector3(const char* valueName, Vector3 value);
+	BRICKWARE_CORE_API void setVector2(const char* valueName, Vector2 value);
 
-	BRICKWARE_CORE_API void setInt(char* valueName, int value);
-	BRICKWARE_CORE_API void setFloat(char* valueName, float value);
-	BRICKWARE_CORE_API void setDouble(char* valueName, double value);
+	BRICKWARE_CORE_API void setInt    (const char* valueName, int value);
+	BRICKWARE_CORE_API void setFloat  (const char* valueName, float value);
+	BRICKWARE_CORE_API void setDouble (const char* valueName, double value);
 
-	BRICKWARE_CORE_API void setMatrix4(char* valueName, Matrix4 value);
-	BRICKWARE_CORE_API void setMatrix3(char* valueName, Matrix3 value);
+	BRICKWARE_CORE_API void setMatrix4(const char* valueName, Matrix4 value);
+	BRICKWARE_CORE_API void setMatrix3(const char* valueName, Matrix3 value);
 
-	BRICKWARE_CORE_API void setTexture(char* textureName, Texture* texture);
+	BRICKWARE_CORE_API void setTexture(const char* textureName, Texture* texture);
 
 	BRICKWARE_CORE_API ~Material();
 
@@ -66,29 +66,29 @@ private:
 	static BRICKWARE_CORE_API Texture* defaultTexture;
 
 #ifdef GL_SUPPORT
-	BRICKWARE_CORE_API void setVector4GL(char* valueName, Vector4 value);
-	BRICKWARE_CORE_API void setVector3GL(char* valueName, Vector3 value);
-	BRICKWARE_CORE_API void setVector2GL(char* valueName, Vector2 value);
+	BRICKWARE_CORE_API void setVector4GL(const char* valueName, Vector4 value);
+	BRICKWARE_CORE_API void setVector3GL(const char* valueName, Vector3 value);
+	BRICKWARE_CORE_API void setVector2GL(const char* valueName, Vector2 value);
 
-	BRICKWARE_CORE_API void setIntGL(char* valueName, int value);
-	BRICKWARE_CORE_API void setFloatGL(char* valueName, float value);
-	BRICKWARE_CORE_API void setDoubleGL(char* valueName, double value);
+	BRICKWARE_CORE_API void setIntGL    (const char* valueName, int value);
+	BRICKWARE_CORE_API void setFloatGL  (const char* valueName, float value);
+	BRICKWARE_CORE_API void setDoubleGL (const char* valueName, double value);
 
-	BRICKWARE_CORE_API void setMatrix4GL(char* valueName, Matrix4 value);
-	BRICKWARE_CORE_API void setMatrix3GL(char* valueName, Matrix3 value);
+	BRICKWARE_CORE_API void setMatrix4GL(const char* valueName, Matrix4 value);
+	BRICKWARE_CORE_API void setMatrix3GL(const char* valueName, Matrix3 value);
 #endif
 
 #ifdef D3D_SUPPORT
-	BRICKWARE_CORE_API void setVector4D3D(char* valueName, Vector4 value);
-	BRICKWARE_CORE_API void setVector3D3D(char* valueName, Vector3 value);
-	BRICKWARE_CORE_API void setVector2D3D(char* valueName, Vector2 value);
+	BRICKWARE_CORE_API void setVector4D3D(const char* valueName, Vector4 value);
+	BRICKWARE_CORE_API void setVector3D3D(const char* valueName, Vector3 value);
+	BRICKWARE_CORE_API void setVector2D3D(const char* valueName, Vector2 value);
 
-	BRICKWARE_CORE_API void setIntD3D(char* valueName, int value);
-	BRICKWARE_CORE_API void setFloatD3D(char* valueName, float value);
-	BRICKWARE_CORE_API void setDoubleD3D(char* valueName, double value);
+	BRICKWARE_CORE_API void setIntD3D    (const char* valueName, int value);
+	BRICKWARE_CORE_API void setFloatD3D  (const char* valueName, float value);
+	BRICKWARE_CORE_API void setDoubleD3D (const char* valueName, double value);
 
-	BRICKWARE_CORE_API void setMatrix4D3D(char* valueName, Matrix4 value);
-	BRICKWARE_CORE_API void setMatrix3D3D(char* valueName, Matrix3 value);
+	BRICKWARE_CORE_API void setMatrix4D3D(const char* valueName, Matrix4 value);
+	BRICKWARE_CORE_API void setMatrix3D3D(const char* valueName, Matrix3 value);
 #endif
 
 };

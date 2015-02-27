@@ -21,10 +21,9 @@ uniform vec3 eyePoint;
 //uniform vec3 up;
 
 //To be passed to the fragment shader
-out vec3 LightPos;
-out vec3 EyePos;
-out vec3 Halfway;
-out vec3 Normal;
+out vec3 worldNormal;
+out vec3 worldPosition;
+out vec3 eyePosition;
 
 out vec2 texCoord;
 
@@ -41,10 +40,16 @@ void main()
 	mat3 rotation = mat3(modelMatrix);
 	vec3 worldNormal3v = rotation * vNormal;
 
+	worldNormal = worldNormal3v;
+	worldPosition = worldCoord3v;
+	eyePosition = eyePoint;
+
+	/*
 	LightPos = normalize(lightPosition - worldCoord3v);
 	EyePos = normalize(eyePoint - worldCoord3v);
 	Halfway = normalize(LightPos + EyePos);
 	Normal = normalize(worldNormal3v);
+	*/
 
 	texCoord = vTexCoord;
 }

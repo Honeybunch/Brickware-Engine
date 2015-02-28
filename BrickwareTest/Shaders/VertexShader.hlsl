@@ -23,11 +23,11 @@ struct VertexShaderInput
 struct VertexToPixel
 {
 	float4 position		: SV_POSITION;
-	float2 texCoord		: TEX_COORD;
+	float2 texCoord		: TEX_COORD0;
 
-	float3 worldNormal	: WORLD_NORMAL;
-	float3 worldPosition: WORLD_POS;
-	float3 eyePosition	: EYE_POS;
+	float3 worldNormal	: TEX_COORD1;
+	float3 worldPosition: TEX_COORD2;
+	float3 eyePosition	: TEX_COORD3;
 };
 
 VertexToPixel main(VertexShaderInput input)

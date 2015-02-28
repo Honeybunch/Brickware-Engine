@@ -193,21 +193,42 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 			//If we have elements in this type description, it's an array
 			if (varTypeDescription.Elements > 0)
 			{
-				for (unsigned int i = 0; i < varTypeDescription.Elements; i++)
-				{
-					D3D11_SHADER_VARIABLE_DESC* variableDescription = new D3D11_SHADER_VARIABLE_DESC;
+				for (unsigned int k = 0; k < varTypeDescription.Elements; k++)
+				{					
+					std::string elementName = variableDescription->Name;
+					elementName.append("[");
+					elementName.append(std::to_string(k));
+					elementName.append("].");
+					
+					for (unsigned int l = 0; l < varTypeDescription.Members; l++)
+					{
+						D3D11_SHADER_VARIABLE_DESC* elementDesc = new D3D11_SHADER_VARIABLE_DESC;
 
+						D3D11_SHADER_TYPE_DESC typeDesc;
+						varType->GetMemberTypeByIndex(l)->GetDesc(&typeDesc);
+
+						std::string memberName = elementName;
+						memberName.append(varType->GetMemberTypeName(l));
+
+						elementDesc->Name = memberName.c_str();
+						elementDesc->StartOffset = bufferSize;
+						elementDesc->Size = typeDesc.Rows * 16;
+
+						bufferSize += elementDesc->Size;
+
+						//Add this member to the buffer map
+						(*bufferVarMap)[memberName] = elementDesc;
+					}					
 				}
 			}
 			else
 			{
+				bufferSize += variableDescription->Size;
+
 				//Add this variable to the buffer map
 				(*bufferVarMap)[std::string(variableDescription->Name)] = variableDescription;
 			}
-
-			//variable sizes need to be factors of 16 so we may need 
-			//to add on some extra space
-			bufferSize += variableDescription->Size;
+			
 		}
 		//Make sure buffer size is enough space for 16 byte alignment
 		bufferSize += 16 - (bufferSize % 16);

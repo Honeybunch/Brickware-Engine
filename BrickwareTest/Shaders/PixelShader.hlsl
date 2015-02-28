@@ -43,11 +43,11 @@ cbuffer pixelData : register(b1)
 struct VertexToPixel
 {
 	float4 position		: SV_POSITION;
-	float2 texCoord		: TEX_COORD;
+	float2 texCoord		: TEX_COORD0;
 
-	float3 worldNormal	: WORLD_NORMAL;
-	float3 worldPosition: WORLD_POS;
-	float3 eyePosition	: EYE_POS;
+	float3 worldNormal	: TEX_COORD1;
+	float3 worldPosition: TEX_COORD2;
+	float3 eyePosition	: TEX_COORD3;
 };
 
 // Entry point for this pixel shader
@@ -59,9 +59,14 @@ float4 main(VertexToPixel input) : SV_TARGET
 	//Get the color of the applied texture
 	float4 hue = diffuseTexture.Sample(MeshTextureSampler, input.texCoord);
 
-	float3 finalColor = float3(0,0,0);
+	float3 finalColor = float3(0, 0, 0);
 
 	float3 viewDirection = normalize(input.eyePosition - input.worldPosition);
+
+
+	float3 ambient;
+	float3 diffuse;
+	float3 specular;
 
 	//Calculate products of every point light applying to this object
 	for(int i = 0; i < lightCount; i++)
@@ -71,15 +76,15 @@ float4 main(VertexToPixel input) : SV_TARGET
 		float3 lightDir = normalize(light.position - input.worldPosition);
 		float3 reflectDir = reflect(-lightDir, input.worldNormal);
 
-		float diffusePower = max(dot(input.worldNormal, lightDir), 0.0); //TODO replace gloss
-		float specularPower = pow(max(dot(viewDirection, reflectDir), 0.0), 128);
+		float diffusePower = saturate(dot(input.worldNormal, lightDir)); //TODO replace gloss
+		float specularPower = pow(saturate(dot(viewDirection, reflectDir)), 128);
 
-		float3 ambient  = light.ambientColor  * hue.rgb;
-		float3 diffuse  = light.diffuseColor  * diffusePower  * hue.rgb;
-		float3 specular = light.specularColor * specularPower * hue.rgb;
-
-		finalColor += (ambient + diffuse + specular);
+		ambient += light.ambientColor  * hue.rgb;
+		diffuse += light.diffuseColor  * diffusePower  * hue.rgb;
+		specular += light.specularColor * specularPower * hue.rgb;		
 	}
 
-	return float4(finalColor, hue.a);;
+	finalColor += (ambient + diffuse + specular);
+
+	return float4(diffuse, hue.a);
 }

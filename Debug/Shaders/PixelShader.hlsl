@@ -1,6 +1,15 @@
+//Light Data
+static const int maxLights = 8;
+struct Light
+{
+	float3 position;
 
-texture2D diffuseTexture : register(t0);
+	float3 ambientColor;
+	float3 diffuseColor;
+	float3 specularColor;
+};
 
+//Texture Data
 SamplerState MeshTextureSampler
 {
 	Filter = MIN_MAG_MIP_LINEAR;
@@ -8,39 +17,69 @@ SamplerState MeshTextureSampler
 	AddressV = Wrap;
 };
 
+//Material Data
+struct Material
+{
+	float3 ambientColor;
+	float3 diffuseColor;
+	float3 specularColor;
+
+	float gloss;
+};
+
+//Constant Data
+texture2D diffuseTexture : register(t0);
+
+cbuffer pixelData : register(b1)
+{
+	int lightCount;
+	Light lights[maxLights];
+	float3 ambientLight;
+
+	Material material;
+}
+
+//Vertex Data
 struct VertexToPixel
 {
 	float4 position		: SV_POSITION;
 	float2 texCoord		: TEX_COORD;
 
-	float3 LightPos		: LIGHT_POS;
-	float3 EyePos		: EYE_POS;
-	float3 Halfway		: HALFWAY;
-	float3 Normal		: NORMAL;
+	float3 worldNormal	: WORLD_NORMAL;
+	float3 worldPosition: WORLD_POS;
+	float3 eyePosition	: EYE_POS;
 };
 
 // Entry point for this pixel shader
 float4 main(VertexToPixel input) : SV_TARGET
 {
-	float3 ambientProduct = float3(.1, .1, .1);
-	float3 diffuseProduct = float3(.8, .8, .8);
-	float3 specularProduct = float3(.1, .1 , .1);
+	float3 diffuseProduct;
+	float3 specularProduct;
 
-	float gloss = 75.0;
-	
-	//Calculate the color for this pixel based on the texture
+	//Get the color of the applied texture
 	float4 hue = diffuseTexture.Sample(MeshTextureSampler, input.texCoord);
 
-	float Kd = saturate(dot(input.LightPos, input.Normal));
-	float Ks = pow(saturate(dot(input.Normal, input.Halfway)), gloss);
+	float3 finalColor = float3(0,0,0);
 
-	float3 ambient = hue.rgb * ambientProduct;
-	float3 diffuse = hue.rgb * Kd * diffuseProduct;
-	float3 specular = Ks * specularProduct;
+	float3 viewDirection = normalize(input.eyePosition - input.worldPosition);
 
-	if (dot(input.LightPos, input.Normal) < 0.0)
-		specular = float3(0.0, 0.0, 0.0);
+	//Calculate products of every point light applying to this object
+	for(int i = 0; i < lightCount; i++)
+	{
+		Light light = lights[i];
 
-	float3 color = float3(ambient + diffuse + specular);
-	return float4(color, hue.a);
+		float3 lightDir = normalize(light.position - input.worldPosition);
+		float3 reflectDir = reflect(-lightDir, input.worldNormal);
+
+		float diffusePower = max(dot(input.worldNormal, lightDir), 0.0); //TODO replace gloss
+		float specularPower = pow(max(dot(viewDirection, reflectDir), 0.0), 128);
+
+		float3 ambient  = light.ambientColor  * hue.rgb;
+		float3 diffuse  = light.diffuseColor  * diffusePower  * hue.rgb;
+		float3 specular = light.specularColor * specularPower * hue.rgb;
+
+		finalColor += (ambient + diffuse + specular);
+	}
+
+	return float4(finalColor, hue.a);;
 }

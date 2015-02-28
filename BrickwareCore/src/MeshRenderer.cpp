@@ -76,6 +76,7 @@ void MeshRenderer::renderD3D(Material* material)
 			0);			
 		
 		Game::deviceContext->VSSetConstantBuffers(i, 1, &(constantBuffers[i])); 
+		Game::deviceContext->PSSetConstantBuffers(i, 1, &(constantBuffers[i]));
 	}
 
 	//I CAN SET MORE THAN ONE BUFFER

@@ -12,8 +12,6 @@ uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
 
-uniform vec3 lightPosition;
-
 uniform sampler2D diffuseTexture;
 
 uniform vec3 lookAt;
@@ -43,13 +41,6 @@ void main()
 	worldNormal = worldNormal3v;
 	worldPosition = worldCoord3v;
 	eyePosition = eyePoint;
-
-	/*
-	LightPos = normalize(lightPosition - worldCoord3v);
-	EyePos = normalize(eyePoint - worldCoord3v);
-	Halfway = normalize(LightPos + EyePos);
-	Normal = normalize(worldNormal3v);
-	*/
 
 	texCoord = vTexCoord;
 }

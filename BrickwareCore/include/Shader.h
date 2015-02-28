@@ -79,7 +79,7 @@ private:
 	std::vector<char*> constantBufferData;
 	std::vector<std::map<std::string, D3D11_SHADER_VARIABLE_DESC*>*> constantBufferMaps;
 
-	BRICKWARE_CORE_API ConstVariableInfo getVariableInfoByName(char* valueName);
+	BRICKWARE_CORE_API ConstVariableInfo getVariableInfoByName(const char* valueName);
 
 	BRICKWARE_CORE_API void bindHLSL();
 	BRICKWARE_CORE_API void freeHLSL();

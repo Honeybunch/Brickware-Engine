@@ -32,6 +32,8 @@ class Material : public Component
 public:
 	BRICKWARE_CORE_API Material(Shader* shader);
 
+	static BRICKWARE_CORE_API std::vector<Material*> Materials;
+
 	BRICKWARE_CORE_API void bindShader();
 	BRICKWARE_CORE_API void freeShader();
 

@@ -2,11 +2,9 @@
 
 in vec3 position;
 
-uniform mat4 modelMatrix; 
-uniform mat4 viewMatrix;
-uniform mat4 projectionMatrix;
+uniform mat4 worldMatrix; 
 
 void main()
 {
-	gl_Position = (projectionMatrix * viewMatrix * modelMatrix) * vec4(position, 1.0f);
+	gl_Position = worldMatrix * vec4(position, 1.0f);
 }

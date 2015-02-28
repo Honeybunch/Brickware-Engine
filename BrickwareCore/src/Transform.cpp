@@ -64,17 +64,20 @@ void Transform::Render()
 	GameObject* go = this->getGameObject();
 	Material* material = go->getComponent<Material>();
 
-	Camera* currentCamera = Camera::GetActiveCamera();
-	Matrix4 viewMatrix = currentCamera->getViewMatrix();
-	Matrix4 projectionMatrix = currentCamera->getProjectionMatrix();
+	if (material)
+	{
+		Camera* currentCamera = Camera::GetActiveCamera();
+		Matrix4 viewMatrix = currentCamera->getViewMatrix();
+		Matrix4 projectionMatrix = currentCamera->getProjectionMatrix();
 
-	//Matrix4 worldMatrix = (modelMatrix * viewMatrix) * projectionMatrix;
+		//Matrix4 worldMatrix = (modelMatrix * viewMatrix) * projectionMatrix;
 
-	material->setMatrix4("modelMatrix", modelMatrix);
-	material->setMatrix4("viewMatrix", viewMatrix);
-	material->setMatrix4("projectionMatrix", projectionMatrix);
+		material->setMatrix4("modelMatrix", modelMatrix);
+		material->setMatrix4("viewMatrix", viewMatrix);
+		material->setMatrix4("projectionMatrix", projectionMatrix);
 
-	//material->setMatrix3("modelRotation", rotation.getRotationMatrix());
+		//material->setMatrix3("modelRotation", rotation.getRotationMatrix());
+	}
 }
 
 //Send info to GLSL Shader

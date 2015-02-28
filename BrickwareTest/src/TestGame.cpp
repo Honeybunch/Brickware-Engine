@@ -54,7 +54,6 @@ bool TestGame::init()
 	light1Comp->setSpecularColor(Vector3(0, 1, 0));
 
 	light1->getTransform()->setPosition(Vector3(1.0f, 0.1f, 0.0f));
-	light1->addComponent(new Material(shader));
 	light1->addComponent(light1Comp);
 
 	GameObject* light2 = new GameObject();
@@ -63,7 +62,6 @@ bool TestGame::init()
 	light2Comp->setSpecularColor(Vector3(1, 0, 0));
 
 	light2->getTransform()->setPosition(Vector3(-1.0f, 0.1f, 0.0f));
-	light2->addComponent(new Material(shader));
 	light2->addComponent(light2Comp);
 
 	//Create Objects

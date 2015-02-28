@@ -7,8 +7,6 @@ cbuffer perModel : register(b0)
 	matrix viewMatrix;
 	matrix projectionMatrix;
 
-	float3 lightPosition;
-
 	texture2D tex;
 
 	float3 lookAt;
@@ -27,10 +25,9 @@ struct VertexToPixel
 	float4 position		: SV_POSITION;
 	float2 texCoord		: TEX_COORD;
 
-	float3 LightPos		: LIGHT_POS;
-	float3 EyePos		: EYE_POS;
-	float3 Halfway		: HALFWAY;
-	float3 Normal		: NORMAL;
+	float3 worldNormal	: WORLD_NORMAL;
+	float3 worldPosition: WORLD_POS;
+	float3 eyePosition	: EYE_POS;
 };
 
 VertexToPixel main(VertexShaderInput input)
@@ -51,15 +48,9 @@ VertexToPixel main(VertexShaderInput input)
 	float3x3 rotation = (float3x3)modelMatrix;
 	float3 worldNormal3v = mul(input.normal, rotation);
 
-	float3 LightPos = normalize(lightPosition - worldCoord3v);
-	float3 EyePos = normalize(eyePoint - worldCoord3v);
-	float3 Halfway = normalize(LightPos + EyePos);
-	float3 Normal = normalize(worldNormal3v);
-
-	output.LightPos = LightPos;
-	output.EyePos = EyePos;
-	output.Halfway = Halfway;
-	output.Normal = Normal;
+	output.worldNormal = worldNormal3v;
+	output.worldPosition = worldCoord3v;
+	output.eyePosition = eyePoint;
 
 	return output;
 }

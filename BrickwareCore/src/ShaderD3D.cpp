@@ -151,13 +151,93 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 		constantBuffers.push_back(bufferSpace);
 	}
 
-	//Perform shader reflection on the Pixel Shader to get the texture names
+	//Perform shader reflection on the Pixel Shader to get the texture names and any constant buffers in the pixel shader
 	ID3D11ShaderReflection* pixelShaderReflection;
 	HR(D3DReflect(psBlob->GetBufferPointer(), psBlob->GetBufferSize(),
 		IID_ID3D11ShaderReflection, (void**)&pixelShaderReflection));
 
 	D3D11_SHADER_DESC pixelShaderDescription;
 	pixelShaderReflection->GetDesc(&pixelShaderDescription);
+
+	//Find all constant buffers
+	for (unsigned int i = 0; i < pixelShaderDescription.ConstantBuffers; i++)
+	{
+		D3D11_SHADER_BUFFER_DESC constantBufferDesc;
+		ID3D11ShaderReflectionConstantBuffer* constantBuffer =
+			pixelShaderReflection->GetConstantBufferByIndex(i);
+
+		constantBuffer->GetDesc(&constantBufferDesc);
+
+		unsigned int bufferSize = 0;
+		char* bufferData;
+
+		//Gonna map variable names to more data
+		std::map<std::string, D3D11_SHADER_VARIABLE_DESC*>* bufferVarMap =
+			new std::map<std::string, D3D11_SHADER_VARIABLE_DESC*>();
+
+		//Load the description and type of each variable 
+		for (unsigned int j = 0; j < constantBufferDesc.Variables; j++)
+		{
+			//Load description
+			ID3D11ShaderReflectionVariable* variable =
+				constantBuffer->GetVariableByIndex(j);
+
+			ID3D11ShaderReflectionType* varType = variable->GetType();
+
+			D3D11_SHADER_VARIABLE_DESC* variableDescription = new D3D11_SHADER_VARIABLE_DESC;
+			variable->GetDesc(variableDescription);
+
+			D3D11_SHADER_TYPE_DESC varTypeDescription;
+			varType->GetDesc(&varTypeDescription);
+
+			//If we have elements in this type description, it's an array
+			if (varTypeDescription.Elements > 0)
+			{
+				for (unsigned int i = 0; i < varTypeDescription.Elements; i++)
+				{
+					D3D11_SHADER_VARIABLE_DESC* variableDescription = new D3D11_SHADER_VARIABLE_DESC;
+
+				}
+			}
+			else
+			{
+				//Add this variable to the buffer map
+				(*bufferVarMap)[std::string(variableDescription->Name)] = variableDescription;
+			}
+
+			//variable sizes need to be factors of 16 so we may need 
+			//to add on some extra space
+			bufferSize += variableDescription->Size;
+		}
+		//Make sure buffer size is enough space for 16 byte alignment
+		bufferSize += 16 - (bufferSize % 16);
+
+		//Setup the bufferData
+		bufferData = new char[bufferSize];
+
+		//Add the map to the map vector and the bufferData to the data vector
+		//These vectors are essentially mapped to one another
+		constantBufferData.push_back(bufferData);
+		constantBufferMaps.push_back(bufferVarMap);
+
+		//Hack to allocate space for a new constant buffer
+		ID3D11Buffer* bufferSpace = 0;
+
+		//Actually create a constant buffer object
+		D3D11_BUFFER_DESC cBufferDesc;
+		cBufferDesc.ByteWidth = bufferSize;
+		cBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+		cBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+		cBufferDesc.CPUAccessFlags = 0;
+		cBufferDesc.MiscFlags = 0;
+		cBufferDesc.StructureByteStride = 0;
+		HR(Game::device->CreateBuffer(
+			&cBufferDesc,
+			NULL,
+			&bufferSpace));
+
+		constantBuffers.push_back(bufferSpace);
+	}
 
 	for (unsigned int i = 0; i < pixelShaderDescription.BoundResources; i++)
 	{
@@ -182,7 +262,7 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 	return true;
 }
 
-ConstVariableInfo Shader::getVariableInfoByName(char* valueName)
+ConstVariableInfo Shader::getVariableInfoByName(const char* valueName)
 {
 	ConstVariableInfo constVariableInfo;
 

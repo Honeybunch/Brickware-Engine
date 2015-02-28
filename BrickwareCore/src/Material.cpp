@@ -4,6 +4,8 @@
 
 Texture* Material::defaultTexture;
 
+std::vector <Material*> Material::Materials;
+
 Material::Material(Shader* shader)
 {
 	this->shader = shader;
@@ -16,6 +18,18 @@ Material::Material(Shader* shader)
 		defaultTexture = new Texture("Textures/defaultTexture.bmp");
 
 	this->setTexture("diffuseTexture", Material::defaultTexture);
+
+	//Add this material to the list of materials if there isn't already a material stored with the same shader
+	bool add = true;
+
+	for (unsigned int i = 0; i < Materials.size(); i++)
+	{
+		if (this->shader == Materials[i]->shader)
+			add = false;
+	}
+
+	if (add)
+		Materials.push_back(this);
 }
 
 void Material::bindShader()

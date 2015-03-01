@@ -63,11 +63,6 @@ float4 main(VertexToPixel input) : SV_TARGET
 
 	float3 viewDirection = normalize(input.eyePosition - input.worldPosition);
 
-
-	float3 ambient;
-	float3 diffuse;
-	float3 specular;
-
 	//Calculate products of every point light applying to this object
 	for(int i = 0; i < lightCount; i++)
 	{
@@ -79,12 +74,12 @@ float4 main(VertexToPixel input) : SV_TARGET
 		float diffusePower = saturate(dot(input.worldNormal, lightDir)); //TODO replace gloss
 		float specularPower = pow(saturate(dot(viewDirection, reflectDir)), 128);
 
-		ambient += light.ambientColor  * hue.rgb;
-		diffuse += light.diffuseColor  * diffusePower  * hue.rgb;
-		specular += light.specularColor * specularPower * hue.rgb;		
+		float3 ambient = light.ambientColor * hue.rgb;
+		float3 diffuse = light.diffuseColor* (diffusePower  * hue.rgb);
+		float3 specular = light.specularColor * (specularPower * hue.rgb);
+		
+		finalColor += (ambient + diffuse + specular);	
 	}
 
-	finalColor += (ambient + diffuse + specular);
-
-	return float4(diffuse, hue.a);
+	return float4(finalColor, hue.a);
 }

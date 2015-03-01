@@ -127,10 +127,12 @@ bool Game::init()
 	initSuccess = initD3D();
 #else
 	initSuccess = initGL();
-#endif
 
 	//Init managers
 	PrimitiveManager::Initialize();
+#endif
+
+	
 
 	return initSuccess;
 }
@@ -151,15 +153,13 @@ void Game::render()
 
 	renderScene(); //Will be overridden 
 
-	PrimitiveManager::DrawPrimitives();
-	
 #ifdef D3D_SUPPORT
 	swapBuffersD3D();
 #else
+	PrimitiveManager::DrawPrimitives();
 	swapBuffersGL();
-#endif
-
 	PrimitiveManager::ClearPrimitives();
+#endif
 
 	GameTime::frameEnd();
 }

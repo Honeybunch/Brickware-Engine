@@ -64,7 +64,7 @@ void main()
 		vec3 diffuse  = light.diffuseColor  * diffusePower  * hue.rgb;
 		vec3 specular = light.specularColor * specularPower * hue.rgb;
 
-		finalColor += (ambient + diffuse + specular);
+		finalColor = (ambient + diffuse + specular);
 	}
 
     fragColor = vec4(finalColor, hue.a);

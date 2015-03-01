@@ -225,13 +225,14 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 			{
 				bufferSize += variableDescription->Size;
 
+				//Make sure buffer size is enough space for 16 byte alignment
+				bufferSize += 16 - (bufferSize % 16);
+
 				//Add this variable to the buffer map
 				(*bufferVarMap)[std::string(variableDescription->Name)] = variableDescription;
 			}
 			
 		}
-		//Make sure buffer size is enough space for 16 byte alignment
-		bufferSize += 16 - (bufferSize % 16);
 
 		//Setup the bufferData
 		bufferData = new char[bufferSize];

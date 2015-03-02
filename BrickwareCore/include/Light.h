@@ -31,6 +31,10 @@ public:
 	virtual void Start();
 	virtual void Render();
 
+#ifdef _DEBUG
+	virtual void DebugDraw();
+#endif
+
 	~Light(void);
 
 private:

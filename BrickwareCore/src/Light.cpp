@@ -49,6 +49,16 @@ void Light::Render()
 	}
 }
 
+#ifdef _DEBUG
+void Light::DebugDraw()
+{
+	Primitive::SetColor(Vector4(1, 1, 0, 1));
+	Primitive::SetPointSize(20.0f);
+
+	Primitive::DrawPoint(getGameObject()->getTransform()->getPosition());
+}
+#endif
+
 Light::~Light(void)
 {
 }

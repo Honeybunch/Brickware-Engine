@@ -38,19 +38,19 @@ Component* Transform::Clone(){ return new Transform(*this); }
 
 void Transform::Update()
 {
-	Matrix4 rotationMat = rotation.getRotationMatrix();
+	Matrix4 rotationMatrix = rotation.getRotationMatrix();
 
-	Matrix4 translationMat(1.0f, 0.0f, 0.0f, 0.0f,
+	Matrix4 translationMatrix(1.0f, 0.0f, 0.0f, 0.0f,
 						   0.0f, 1.0f, 0.0f, 0.0f,
 						   0.0f, 0.0f, 1.0f, 0.0f,
 						   position.getX(), position.getY(), position.getZ(), 1.0f);
 
-	Matrix4 scaleMat(scale.getX(), 0.0f, 0.0f, 0.0f,
+	Matrix4 scaleMatrix(scale.getX(), 0.0f, 0.0f, 0.0f,
 					 0.0f, scale.getY(), 0.0f, 0.0f,
 					 0.0f, 0.0f, scale.getZ(), 0.0f,
 					 0.0f, 0.0f, 0.0f, 1.0f);
 
-	modelMatrix = scaleMat * rotationMat * translationMat;
+	modelMatrix = scaleMatrix * rotationMatrix * translationMatrix;
 
 	//Recalculate forward, right and up
 
@@ -70,11 +70,11 @@ void Transform::Render()
 		Matrix4 viewMatrix = currentCamera->getViewMatrix();
 		Matrix4 projectionMatrix = currentCamera->getProjectionMatrix();
 
-		//Matrix4 worldMatrix = (modelMatrix * viewMatrix) * projectionMatrix;
+		Matrix4 worldMatrix = (modelMatrix * viewMatrix) * projectionMatrix;
 
+		material->setMatrix4("worldMatrix", worldMatrix);
 		material->setMatrix4("modelMatrix", modelMatrix);
-		material->setMatrix4("viewMatrix", viewMatrix);
-		material->setMatrix4("projectionMatrix", projectionMatrix);
+		material->setMatrix4("rotationMatrix", rotation.getRotationMatrix());
 
 		//material->setMatrix3("modelRotation", rotation.getRotationMatrix());
 	}

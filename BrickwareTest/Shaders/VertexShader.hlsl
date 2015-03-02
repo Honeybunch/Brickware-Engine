@@ -3,9 +3,9 @@
 
 cbuffer perModel : register(b0)
 {
+	matrix worldMatrix;
 	matrix modelMatrix;
-	matrix viewMatrix;
-	matrix projectionMatrix;
+	matrix rotationMatrix;
 
 	texture2D tex;
 
@@ -35,8 +35,7 @@ VertexToPixel main(VertexShaderInput input)
 	VertexToPixel output;
 
 	// Calculate output position
-	matrix modelViewProj = mul(mul(modelMatrix, viewMatrix), projectionMatrix);
-	output.position = mul(float4(input.position, 1.0f), modelViewProj);
+	output.position = mul(float4(input.position, 1.0f), worldMatrix);
 	output.texCoord = input.texCoord;
 
 	//try to do some lighting
@@ -45,7 +44,7 @@ VertexToPixel main(VertexShaderInput input)
 								 worldCoord4v.y / worldCoord4v.w,
 								 worldCoord4v.z / worldCoord4v.w);
 
-	float3x3 rotation = (float3x3)modelMatrix;
+	float3x3 rotation = (float3x3)rotationMatrix;
 	float3 worldNormal3v = mul(input.normal, rotation);
 
 	output.worldNormal = worldNormal3v;

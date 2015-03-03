@@ -29,7 +29,9 @@ GameObject::GameObject(GameObject& other)
 	components = vector<Component*>();
 
 	//Copy components that are able to be copied over
-	for (unsigned int i = 0; i < other.componentCount; i++)
+	unsigned int componentCount = other.components.size();
+
+	for (unsigned int i = 0; i < componentCount; i++)
 	{
 		Component* copiedComponent = other.components[i]->Clone();
 		if (copiedComponent)
@@ -38,8 +40,6 @@ GameObject::GameObject(GameObject& other)
 			copiedComponent->setGameObject(this);
 		}
 	}
-
-	componentCount = components.size();
 
 	//Determine which of the copied components is the Transform
 	for (unsigned int i = 0; i < componentCount; i++)
@@ -67,8 +67,6 @@ void GameObject::addComponent(Component* newComponent)
 {
 	newComponent->setGameObject(this);
 	components.push_back(newComponent);
-
-	componentCount = components.size();
 }
 
 void GameObject::Start()
@@ -94,6 +92,9 @@ void GameObject::Update()
 
 	for (unsigned int i = 0; i < components.size(); i++)
 		components[i]->Update();
+
+	//Incase object is deleted
+	material = getComponent<Material>();
 
 	if (material)
 		material->freeShader();
@@ -122,7 +123,10 @@ void GameObject::OnRender()
 GameObject::~GameObject()
 {
 	for (unsigned int i = 0; i < components.size(); i++)
+	{
 		delete components[i];
+		components[i] = NULL;
+	}
 
 	//Before the GameObject is deleted make sure to remove it from the collection
 	for (unsigned int i = 0; i < Game::gameObjects.size(); i++)

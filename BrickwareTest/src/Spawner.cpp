@@ -31,6 +31,7 @@ void Spawner::spawnObject()
 
 	newObject->getTransform()->setRotation(Vector3(xRot, yRot, zRot));
 	newObject->addComponent(new Rigidbody());
+	newObject->addComponent(new Despawn());
 
 	newObject->Start();
 

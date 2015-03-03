@@ -2,12 +2,12 @@ d:\users\amt3824\git\brickware-engine\debug\brickwarecore.lib
 d:\users\amt3824\git\brickware-engine\debug\brickwarecore.exp
 d:\users\amt3824\git\brickware-engine\brickwarecore\debug\vc120.pdb
 d:\users\amt3824\git\brickware-engine\brickwarecore\debug\vc120.idb
-d:\users\amt3824\git\brickware-engine\brickwarecore\debug\material.obj
 d:\users\amt3824\git\brickware-engine\brickwarecore\debug\materiald3d.obj
 d:\users\amt3824\git\brickware-engine\brickwarecore\debug\materialgl.obj
 d:\users\amt3824\git\brickware-engine\brickwarecore\debug\mesh.obj
 d:\users\amt3824\git\brickware-engine\brickwarecore\debug\meshrenderer.obj
 d:\users\amt3824\git\brickware-engine\brickwarecore\debug\octree.obj
+d:\users\amt3824\git\brickware-engine\brickwarecore\debug\physicsmanager.obj
 d:\users\amt3824\git\brickware-engine\brickwarecore\debug\primitive.obj
 d:\users\amt3824\git\brickware-engine\brickwarecore\debug\primitivemanager.obj
 d:\users\amt3824\git\brickware-engine\brickwarecore\debug\rigidbody.obj
@@ -35,7 +35,7 @@ d:\users\amt3824\git\brickware-engine\brickwarecore\debug\gameobject.obj
 d:\users\amt3824\git\brickware-engine\brickwarecore\debug\gametime.obj
 d:\users\amt3824\git\brickware-engine\brickwarecore\debug\input.obj
 d:\users\amt3824\git\brickware-engine\brickwarecore\debug\light.obj
-d:\users\amt3824\git\brickware-engine\brickwarecore\debug\physicsmanager.obj
+d:\users\amt3824\git\brickware-engine\brickwarecore\debug\material.obj
 d:\users\amt3824\git\brickware-engine\debug\brickwarecore.ilk
 d:\users\amt3824\git\brickware-engine\debug\brickwarecore.dll
 d:\users\amt3824\git\brickware-engine\debug\brickwarecore.pdb

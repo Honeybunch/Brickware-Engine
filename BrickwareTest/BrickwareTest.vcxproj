@@ -77,11 +77,13 @@ xcopy $(SolutionDir)\$(Configuration)\BrickwareMath.lib $(ProjectDir)\lib\ /y</C
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\Despawn.h" />
     <ClInclude Include="include\Spawner.h" />
     <ClInclude Include="include\Spin.h" />
     <ClInclude Include="include\TestGame.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Despawn.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Spawner.cpp" />
     <ClCompile Include="src\Spin.cpp" />

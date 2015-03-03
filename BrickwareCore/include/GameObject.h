@@ -33,7 +33,7 @@ public:
 	//If none are found; return null
 	template<class T> T* getComponent()
 	{
-		for (unsigned int i = 0; i < componentCount; i++)
+		for (unsigned int i = 0; i < components.size(); i++)
 		{
 			T* type = dynamic_cast<T*>(components[i]);
 			if(type)
@@ -58,7 +58,6 @@ protected:
 
 	//Other Components
 	vector<Component*> components;
-	unsigned int componentCount; 
 };
 
 #endif

@@ -9,6 +9,7 @@
 #include "MeshRenderer.h"
 #include "Camera.h"
 #include "Rigidbody.h"
+#include "Despawn.h"
 
 class Spawner :
 	public Component

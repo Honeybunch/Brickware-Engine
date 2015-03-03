@@ -23,6 +23,9 @@
     <ClInclude Include="include\TestGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\Despawn.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -35,6 +38,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\TestGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Despawn.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

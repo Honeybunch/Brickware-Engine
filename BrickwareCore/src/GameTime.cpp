@@ -4,12 +4,21 @@
 
 using namespace std::chrono;
 
+long long GameTime::startTime = duration_cast<milliseconds>
+								(high_resolution_clock::now().time_since_epoch()).count();
+
 long long GameTime::frameStartTime;
 float GameTime::deltaTime;
 
-float GameTime::getDeltaTime()
+float GameTime::GetDeltaTime()
 {
 	return deltaTime;
+}
+
+long long GameTime::GetMillisSinceStart()
+{
+	return (duration_cast<milliseconds>
+		(high_resolution_clock::now().time_since_epoch()).count() - startTime);
 }
 
 void GameTime::frameStart()

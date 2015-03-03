@@ -48,6 +48,7 @@
 #include "GameTime.h"
 #include "PrimitiveManager.h"
 #include "Primitive.h"
+#include "PhysicsManager.h"
 
 #include "Debug.h"
 

@@ -32,6 +32,8 @@ Material::Material(Shader* shader)
 		Materials.push_back(this);
 }
 
+Material::~Material(){}
+
 void Material::bindShader()
 {
 	shader->bindShader();

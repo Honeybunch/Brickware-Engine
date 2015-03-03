@@ -1,6 +1,7 @@
 #define BRICKWARE_CORE_EXPORTS
 
 #include "Component.h"
+#include "Collider.h"
 
 Component::Component()
 {
@@ -23,6 +24,10 @@ void Component::Start(){}
 
 void Component::Update(){}
 void Component::LateUpdate(){}
+void Component::FixedUpdate(){}
+
+void Component::OnCollision(Collider* other){}
+void Component::OnTrigger(Collider* other){}
 
 void Component::Render(){}
 

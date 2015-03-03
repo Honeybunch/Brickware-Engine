@@ -64,6 +64,14 @@ bool TestGame::init()
 	light2->getTransform()->setPosition(Vector3(-1.0f, 0.1f, 0.0f));
 	light2->addComponent(light2Comp);
 
+	GameObject* light3 = new GameObject();
+	Light* light3Comp = new Light();
+	light3Comp->setDiffuseColor(Vector3(0, 0, .5f));
+	light3Comp->setSpecularColor(Vector3(0, 0, .5f));
+
+	light3->getTransform()->setPosition(Vector3(0.0f, 1.0f, 0.0f));
+	light3->addComponent(light3Comp);
+
 	//Create Objects
 	GameObject* castle = new GameObject();
 	castle->getTransform()->setPosition(Vector3(0.0f, -1.0f, 0.0f));

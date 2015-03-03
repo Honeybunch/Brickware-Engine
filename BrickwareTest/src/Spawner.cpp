@@ -30,6 +30,7 @@ void Spawner::spawnObject()
 	float zRot = (float)((rand() % 314) / 100) + 1;
 
 	newObject->getTransform()->setRotation(Vector3(xRot, yRot, zRot));
+	newObject->addComponent(new Rigidbody());
 
 	newObject->Start();
 

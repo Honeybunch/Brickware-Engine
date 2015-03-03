@@ -65,32 +65,32 @@ private:
 	std::map<std::string, Texture*> textureMap;
 
 	//Default texture to be loaded once and passed by default to every material
-	static BRICKWARE_CORE_API Texture* defaultTexture;
+	static Texture* defaultTexture;
 
 #ifdef GL_SUPPORT
-	BRICKWARE_CORE_API void setVector4GL(const char* valueName, Vector4 value);
-	BRICKWARE_CORE_API void setVector3GL(const char* valueName, Vector3 value);
-	BRICKWARE_CORE_API void setVector2GL(const char* valueName, Vector2 value);
+	void setVector4GL(const char* valueName, Vector4 value);
+	void setVector3GL(const char* valueName, Vector3 value);
+	void setVector2GL(const char* valueName, Vector2 value);
 
-	BRICKWARE_CORE_API void setIntGL    (const char* valueName, int value);
-	BRICKWARE_CORE_API void setFloatGL  (const char* valueName, float value);
-	BRICKWARE_CORE_API void setDoubleGL (const char* valueName, double value);
+	void setIntGL    (const char* valueName, int value);
+	void setFloatGL  (const char* valueName, float value);
+	void setDoubleGL (const char* valueName, double value);
 
-	BRICKWARE_CORE_API void setMatrix4GL(const char* valueName, Matrix4 value);
-	BRICKWARE_CORE_API void setMatrix3GL(const char* valueName, Matrix3 value);
+	void setMatrix4GL(const char* valueName, Matrix4 value);
+	void setMatrix3GL(const char* valueName, Matrix3 value);
 #endif
 
 #ifdef D3D_SUPPORT
-	BRICKWARE_CORE_API void setVector4D3D(const char* valueName, Vector4 value);
-	BRICKWARE_CORE_API void setVector3D3D(const char* valueName, Vector3 value);
-	BRICKWARE_CORE_API void setVector2D3D(const char* valueName, Vector2 value);
+	void setVector4D3D(const char* valueName, Vector4 value);
+	void setVector3D3D(const char* valueName, Vector3 value);
+	void setVector2D3D(const char* valueName, Vector2 value);
 
-	BRICKWARE_CORE_API void setIntD3D    (const char* valueName, int value);
-	BRICKWARE_CORE_API void setFloatD3D  (const char* valueName, float value);
-	BRICKWARE_CORE_API void setDoubleD3D (const char* valueName, double value);
+	void setIntD3D    (const char* valueName, int value);
+	void setFloatD3D  (const char* valueName, float value);
+	void setDoubleD3D (const char* valueName, double value);
 
-	BRICKWARE_CORE_API void setMatrix4D3D(const char* valueName, Matrix4 value);
-	BRICKWARE_CORE_API void setMatrix3D3D(const char* valueName, Matrix3 value);
+	void setMatrix4D3D(const char* valueName, Matrix4 value);
+	void setMatrix3D3D(const char* valueName, Matrix3 value);
 #endif
 
 };

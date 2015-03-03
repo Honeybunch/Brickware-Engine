@@ -95,6 +95,7 @@
     <ClInclude Include="include\Mesh.h" />
     <ClInclude Include="include\MeshRenderer.h" />
     <ClInclude Include="include\Octree.h" />
+    <ClInclude Include="include\PhysicsManager.h" />
     <ClInclude Include="include\Primitive.h" />
     <ClInclude Include="include\PrimitiveManager.h" />
     <ClInclude Include="include\Rigidbody.h" />
@@ -127,6 +128,7 @@
     <ClCompile Include="src\Mesh.cpp" />
     <ClCompile Include="src\MeshRenderer.cpp" />
     <ClCompile Include="src\Octree.cpp" />
+    <ClCompile Include="src\PhysicsManager.cpp" />
     <ClCompile Include="src\Primitive.cpp" />
     <ClCompile Include="src\PrimitiveManager.cpp" />
     <ClCompile Include="src\Rigidbody.cpp" />

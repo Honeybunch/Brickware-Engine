@@ -41,7 +41,9 @@ void Collider::calculateWorldData()
 {
 	worldNormals.clear();
 
-	Matrix3 rotationMatrix = getGameObject()->getTransform()->getRotation().getRotationMatrix();
+	Transform* transform = getGameObject()->getTransform();
+	center = transform->getPosition();
+	Matrix3 rotationMatrix = transform->getRotation().getRotationMatrix();
 
 	for (unsigned int i = 0; i < normals.size(); i++)
 	{

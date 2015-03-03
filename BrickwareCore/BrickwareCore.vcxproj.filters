@@ -131,6 +131,9 @@
     <ClInclude Include="include\Debug.h">
       <Filter>Header Files\Game Core\Debug</Filter>
     </ClInclude>
+    <ClInclude Include="include\PhysicsManager.h">
+      <Filter>Header Files\Game Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Camera.cpp">
@@ -223,14 +226,17 @@
     <ClCompile Include="src\Utils.cpp">
       <Filter>Source Files\Game Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\PrimitiveManager.cpp">
-      <Filter>Source Files\Game Core\Debug</Filter>
-    </ClCompile>
     <ClCompile Include="src\Primitive.cpp">
       <Filter>Source Files\Game Core\Debug</Filter>
     </ClCompile>
     <ClCompile Include="src\Debug.cpp">
       <Filter>Source Files\Game Core\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PhysicsManager.cpp">
+      <Filter>Source Files\Game Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\PrimitiveManager.cpp">
+      <Filter>Source Files\Game Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

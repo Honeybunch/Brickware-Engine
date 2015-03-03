@@ -9,6 +9,7 @@
 #include "Primitive.h"
 
 class GameObject;
+class Collider;
 
 #include "Input.h"
 
@@ -27,6 +28,10 @@ public:
 
 	virtual void Update();
 	virtual void LateUpdate();
+	virtual void FixedUpdate();
+
+	virtual void OnCollision(Collider* other);
+	virtual void OnTrigger(Collider* other);
 
 	virtual void Render();
 
@@ -34,7 +39,7 @@ public:
 	virtual void DebugDraw();
 #endif
 
-	~Component();
+	virtual ~Component();
 
 private:
 	GameObject* gameObject;

@@ -38,10 +38,22 @@ public:
 	static Vector3 Normalize(Vector3 v);
 
 	//Operators
-	float operator* (Vector3 u);
 	Vector3 operator* (float s);
+	Vector3 operator/ (float s);
+	Vector3 operator- (float s);
+	Vector3 operator+ (float s);
+
+	Vector3 operator*= (float s);
+	Vector3 operator/= (float s);
+	Vector3 operator-= (float s);
+	Vector3 operator+= (float s);
+
+	float operator* (Vector3 u);
 	Vector3 operator+ (Vector3 u);
 	Vector3 operator- (Vector3 u);
+	Vector3 operator+= (Vector3 u);
+	Vector3 operator-= (Vector3 u);
+
 	float& operator[] (int i);
 
 	friend std::ostream& operator<< (std::ostream& output, Vector3& h);

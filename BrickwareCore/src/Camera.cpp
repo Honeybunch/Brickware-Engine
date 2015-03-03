@@ -49,7 +49,7 @@ void Camera::moveForward()
 	Vector3 pos = getGameObject()->getTransform()->getPosition();
 	Vector3 rot = getGameObject()->getTransform()->getEulerRotation();
 
-	float deltaSpeed = speed * GameTime::getDeltaTime();
+	float deltaSpeed = speed * GameTime::GetDeltaTime();
 
 	if (Input::getKeyDown(KeyCode::shift))
 		deltaSpeed *= 5;
@@ -66,7 +66,7 @@ void Camera::moveBackward()
 	Vector3 pos = getGameObject()->getTransform()->getPosition();
 	Vector3 rot = getGameObject()->getTransform()->getEulerRotation();
 
-	float deltaSpeed = speed * GameTime::getDeltaTime();
+	float deltaSpeed = speed * GameTime::GetDeltaTime();
 
 	if (Input::getKeyDown(KeyCode::shift))
 		deltaSpeed *= 5;
@@ -82,7 +82,7 @@ void Camera::moveLeft()
 	Vector3 pos = getGameObject()->getTransform()->getPosition();
 	Vector3 rot = getGameObject()->getTransform()->getEulerRotation();
 
-	float deltaSpeed = speed * GameTime::getDeltaTime();
+	float deltaSpeed = speed * GameTime::GetDeltaTime();
 
 	if (Input::getKeyDown(KeyCode::shift))
 		deltaSpeed *= 5;
@@ -98,7 +98,7 @@ void Camera::moveRight()
 	Vector3 pos = getGameObject()->getTransform()->getPosition();
 	Vector3 rot = getGameObject()->getTransform()->getEulerRotation();
 
-	float deltaSpeed = speed * GameTime::getDeltaTime();
+	float deltaSpeed = speed * GameTime::GetDeltaTime();
 
 	if (Input::getKeyDown(KeyCode::shift))
 		deltaSpeed *= 5;

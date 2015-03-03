@@ -66,21 +66,17 @@ int Game::run()
 	MSG msg = { 0 };
 #endif
 
-	float ticksPerSecond = 25.0f;
-	int skipTicks = (int)(1000.0f / ticksPerSecond);
-	float maxFrameskip = 5;
+	const int ticksPerSecond = 60;
+	const int skipTicks = (int)(1000.0f / ticksPerSecond);
+	const int maxFrameskip = 5;
 
-	int nextGameTick = 0;
-
-	int loops = 0;
+	long long nextGameTick = GameTime::GetMillisSinceStart();
 
 	running = true;
-	ticks = 0;
+	int loops;
 
 	while (running)
 	{
-		ticks++;
-
 		//Handle windows messages
 #ifdef D3D_SUPPORT
 		if (msg.message == WM_QUIT)
@@ -100,11 +96,11 @@ int Game::run()
 
 		updateScene();
 
-		//Update physics 25 times per second
+		//Update physics "ticksPerSecond" times per second
 		loops = 0;
-		while (ticks > nextGameTick && loops < maxFrameskip)
+		while (GameTime::GetMillisSinceStart() > nextGameTick && loops < maxFrameskip)
 		{
-			//physics go here
+			PhysicsManager::Update();
 
 			nextGameTick += skipTicks;
 			loops++;
@@ -127,11 +123,11 @@ bool Game::init()
 	initSuccess = initD3D();
 #else
 	initSuccess = initGL();
+#endif
 
 	//Init managers
 	PrimitiveManager::Initialize();
-#endif
-
+	PhysicsManager::Initialize();
 	
 
 	return initSuccess;
@@ -680,4 +676,5 @@ void Game::endD3D()
 Game::~Game()
 {
 	PrimitiveManager::Destroy();
+	PhysicsManager::Destroy();
 }

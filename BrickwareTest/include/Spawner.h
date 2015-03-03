@@ -8,6 +8,7 @@
 #include "Vector3.h"
 #include "MeshRenderer.h"
 #include "Camera.h"
+#include "Rigidbody.h"
 
 class Spawner :
 	public Component

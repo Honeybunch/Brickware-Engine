@@ -107,9 +107,6 @@
     <ClInclude Include="include\FrustumCollider.h">
       <Filter>Header Files\Components\Colliders</Filter>
     </ClInclude>
-    <ClInclude Include="include\SphereCollider.h">
-      <Filter>Header Files\Game Core</Filter>
-    </ClInclude>
     <ClInclude Include="include\Game.h">
       <Filter>Header Files\Game Core</Filter>
     </ClInclude>
@@ -133,6 +130,9 @@
     </ClInclude>
     <ClInclude Include="include\PhysicsManager.h">
       <Filter>Header Files\Game Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SphereCollider.h">
+      <Filter>Header Files\Components\Colliders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

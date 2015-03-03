@@ -25,14 +25,14 @@ private:
 	static void Destroy();
 	
 	static void AddRigidbody(Rigidbody* rigidbody);
-	//static void AddCollider(Collider* collider);
+	static void AddCollider(Collider* collider);
 
 	static void RemoveRigidbody(Rigidbody* rigidbody);
-	//static void RemoveCollider(Collider* collider);
+	static void RemoveCollider(Collider* collider);
 
 	//Using unordered map for faster removals
 	static std::unordered_map<Rigidbody*, int> rigidbodies;
-	//static std::unordered_map<Collider*, Collider> colliders;
+	static std::unordered_map<Collider*, int> colliders;
 	static float gravity;
 };
 

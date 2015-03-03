@@ -23,7 +23,7 @@ Camera::Camera(float FoV = 50, float width = 0.1f, float height = 0.1f, float zN
 
 void Camera::Start()
 {
-	getGameObject()->addComponent(new FrustumCollider(zNear, zFar, FoV, width / height));
+	//getGameObject()->addComponent(new FrustumCollider(zNear, zFar, FoV, width / height));
 }
 
 Vector3 Camera::getLookAt(){ return lookAt; }

@@ -16,8 +16,8 @@ Rigidbody::Rigidbody()
 
 	mass = 1.0f;
 
-	drag = 0.1f;
-	angularDrag = 0.1f;
+	drag = .90f;
+	angularDrag = .90f;
 
 	detectCollisions = true;
 	isKinematic = false;
@@ -67,11 +67,21 @@ void Rigidbody::FixedUpdate()
 	getGameObject()->getTransform()->setPosition(position);
 
 	//If velocity is within range of the sleep velocity, we set the velocity to 0
-	if (velocity[1] < sleepVelocity[1] && acceleration[1] < 0)
-		velocity[1] = 0;
-	if (velocity[1] > -sleepVelocity[1] && acceleration[1] > 0)
-		velocity[1] = 0;
+	//if (velocity[1] < sleepVelocity[1] && acceleration[1] < 0)
+	//	velocity[1] = 0;
+	//if (velocity[1] > -sleepVelocity[1] && acceleration[1] > 0)
+	//	velocity[1] = 0;
 
+	//Apply drag
+	acceleration *= drag;
+	angularAcceleration *= angularDrag;
+
+	//Add gravity
+	acceleration[1] += PhysicsManager::gravity;
+}
+void Rigidbody::OnCollision(Collider* other)
+{
+	std::cout << "Collision" << std::endl;
 }
 
 Rigidbody::~Rigidbody()

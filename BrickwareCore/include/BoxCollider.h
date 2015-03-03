@@ -11,6 +11,7 @@ class BRICKWARE_CORE_API BoxCollider : public Collider
 {
 public:
 	BoxCollider();
+	BoxCollider(BoxCollider& other);
 	~BoxCollider();
 
 	Vector3 getCenter();

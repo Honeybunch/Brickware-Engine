@@ -36,6 +36,7 @@ public:
 
 	void Start();
 	void FixedUpdate();
+	void OnCollision(Collider* other);
 
 	~Rigidbody();
 

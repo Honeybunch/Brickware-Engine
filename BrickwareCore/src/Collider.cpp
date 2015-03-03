@@ -6,11 +6,13 @@
 #include "Bounds.h"
 #include "Transform.h"
 #include "GameObject.h"
+#include "PhysicsManager.h"
 
 Collider::Collider()
 {
 	enabled = true;
 	isTrigger = false;
+	PhysicsManager::AddCollider(this);
 }
 
 bool Collider::isColliding(Collider* other)
@@ -56,4 +58,5 @@ void Collider::calculateWorldData()
 
 Collider::~Collider()
 {
+	PhysicsManager::RemoveCollider(this);
 }

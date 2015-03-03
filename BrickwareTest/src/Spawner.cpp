@@ -21,6 +21,7 @@ void Spawner::spawnObject()
 
 	Camera* camera = getGameObject()->getComponent<Camera>();
 	Vector3 spherePos = Vector3(camera->getLookAt());
+	Rigidbody* rigidbody = new Rigidbody();
 
 	newObject->getTransform()->setPosition(spherePos);
 	newObject->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
@@ -30,8 +31,10 @@ void Spawner::spawnObject()
 	float zRot = (float)((rand() % 314) / 100) + 1;
 
 	newObject->getTransform()->setRotation(Vector3(xRot, yRot, zRot));
-	newObject->addComponent(new Rigidbody());
+	newObject->addComponent(rigidbody);
 	newObject->addComponent(new Despawn());
+
+	rigidbody->addForce(Vector3::Normalize(camera->getLookAt() - camera->getGameObject()->getTransform()->getPosition()) *.03f);
 
 	newObject->Start();
 

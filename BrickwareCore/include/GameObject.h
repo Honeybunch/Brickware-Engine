@@ -48,6 +48,8 @@ public:
 
 	virtual BRICKWARE_CORE_API void Start();
 	virtual BRICKWARE_CORE_API void Update();
+	virtual BRICKWARE_CORE_API void FixedUpdate();
+	virtual BRICKWARE_CORE_API void OnCollisionEnter(Collider* other);
 	virtual BRICKWARE_CORE_API void OnRender();
 
 	BRICKWARE_CORE_API ~GameObject();

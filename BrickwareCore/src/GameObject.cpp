@@ -100,6 +100,29 @@ void GameObject::Update()
 		material->freeShader();
 }
 
+void GameObject::FixedUpdate()
+{
+	Material* material = getComponent<Material>();
+
+	if (material)
+		material->bindShader();
+
+	for (unsigned int i = 0; i < components.size(); i++)
+		components[i]->FixedUpdate();
+
+	//Incase object is deleted
+	material = getComponent<Material>();
+
+	if (material)
+		material->freeShader();
+}
+
+void GameObject::OnCollisionEnter(Collider* other)
+{
+	for (unsigned int i = 0; i < components.size(); i++)
+		components[i]->OnCollision(other);
+}
+
 void GameObject::OnRender()
 {
 	Material* material = getComponent<Material>();

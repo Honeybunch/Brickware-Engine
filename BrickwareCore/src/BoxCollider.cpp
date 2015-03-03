@@ -7,7 +7,11 @@
 #include "BoxCollider.h"
 #include "MeshRenderer.h"
 
-BoxCollider::BoxCollider()
+BoxCollider::BoxCollider() : Collider()
+{
+}
+
+BoxCollider::BoxCollider(BoxCollider& other) : Collider()
 {
 }
 

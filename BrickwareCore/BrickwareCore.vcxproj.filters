@@ -134,6 +134,9 @@
     <ClInclude Include="include\SphereCollider.h">
       <Filter>Header Files\Components\Colliders</Filter>
     </ClInclude>
+    <ClInclude Include="include\Collision.h">
+      <Filter>Header Files\Data</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Camera.cpp">
@@ -237,6 +240,9 @@
     </ClCompile>
     <ClCompile Include="src\PrimitiveManager.cpp">
       <Filter>Source Files\Game Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Collision.cpp">
+      <Filter>Source Files\Data</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

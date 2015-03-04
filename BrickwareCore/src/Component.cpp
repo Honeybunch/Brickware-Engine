@@ -26,8 +26,8 @@ void Component::Update(){}
 void Component::LateUpdate(){}
 void Component::FixedUpdate(){}
 
-void Component::OnCollision(Collider* other){}
-void Component::OnTrigger(Collider* other){}
+void Component::OnCollision(Collision* other){}
+void Component::OnTrigger(Collision* other){}
 
 void Component::Render(){}
 

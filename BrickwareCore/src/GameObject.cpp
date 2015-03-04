@@ -117,10 +117,10 @@ void GameObject::FixedUpdate()
 		material->freeShader();
 }
 
-void GameObject::OnCollisionEnter(Collider* other)
+void GameObject::OnCollisionEnter(Collision* collision)
 {
 	for (unsigned int i = 0; i < components.size(); i++)
-		components[i]->OnCollision(other);
+		components[i]->OnCollision(collision);
 }
 
 void GameObject::OnRender()

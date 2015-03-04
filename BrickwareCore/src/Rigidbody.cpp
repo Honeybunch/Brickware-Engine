@@ -79,9 +79,33 @@ void Rigidbody::FixedUpdate()
 	//Add gravity
 	acceleration[1] += PhysicsManager::gravity;
 }
-void Rigidbody::OnCollision(Collider* other)
+void Rigidbody::OnCollision(Collision* collision)
 {
-	std::cout << "Collision" << std::endl;
+	Rigidbody* otherRigidbody = collision->getRigidbody();
+
+	float otherMass = 1.0f;
+	Vector3 otherVelocity;
+
+	if (otherRigidbody)
+	{
+		otherMass = otherRigidbody->mass;
+		otherVelocity = otherRigidbody->velocity;
+	}
+
+	float massTotal = otherMass + mass;
+	Vector3 finalVelocity;
+
+	//Perform calculations on every axis
+	for (unsigned int i = 0; i < 3; i++)
+	{
+		float velComp = velocity[i];
+		float otherVelComp = otherVelocity[i];
+
+		float finalVelComp = ((velComp * mass) - (otherVelComp * otherMass)) / massTotal;
+		finalVelocity[i] = finalVelComp;
+	}
+
+	velocity = finalVelocity;
 }
 
 Rigidbody::~Rigidbody()

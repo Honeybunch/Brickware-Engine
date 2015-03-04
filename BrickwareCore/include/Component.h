@@ -7,6 +7,7 @@
 #include "Screen.h"
 #include "GameTime.h"
 #include "Primitive.h"
+#include "Collision.h"
 
 class GameObject;
 class Collider;
@@ -30,8 +31,8 @@ public:
 	virtual void LateUpdate();
 	virtual void FixedUpdate();
 
-	virtual void OnCollision(Collider* other);
-	virtual void OnTrigger(Collider* other);
+	virtual void OnCollision(Collision* collision);
+	virtual void OnTrigger(Collision* collision);
 
 	virtual void Render();
 

@@ -43,8 +43,11 @@ void PhysicsManager::Update()
 				GameObject* testObj = test->getGameObject();
 				GameObject* otherObj = other->getGameObject();
 
-				testObj->OnCollisionEnter(other);
-				otherObj->OnCollisionEnter(test);
+				Collision* testCollision = new Collision(otherObj->getComponent<Rigidbody>(), other, std::vector<Vector3>());
+				Collision* otherCollision = new Collision(testObj->getComponent<Rigidbody>(), test, std::vector<Vector3>());
+
+				testObj->OnCollisionEnter(testCollision);
+				otherObj->OnCollisionEnter(otherCollision);
 			}
 		}
 	}

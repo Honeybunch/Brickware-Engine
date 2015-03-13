@@ -83,6 +83,10 @@ void Rigidbody::OnCollision(Collision* collision)
 {
 	Rigidbody* otherRigidbody = collision->getRigidbody();
 
+	//Reposition rigidbody's game object back to where the collision happened so that it no longer intersects
+
+
+	//Calculate new forces
 	float otherMass = 1.0f;
 	Vector3 otherVelocity;
 

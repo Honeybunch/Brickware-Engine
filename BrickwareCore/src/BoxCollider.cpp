@@ -121,7 +121,7 @@ bool BoxCollider::isCollidingWithSphere(SphereCollider* other)
 }
 
 //TODO: Implement
-bool BoxCollider::isCollidingWithBox(BoxCollider* other)
+bool BoxCollider::isCollidingWithBox(BoxCollider* other, std::vector<Vector3>& pointsOfContact)
 {
 	float radiusThis, radiusOther;
 	Matrix3 rot, absRot;
@@ -153,6 +153,12 @@ bool BoxCollider::isCollidingWithBox(BoxCollider* other)
 
 		if (fabsf(translation[i]) > radiusThis + radiusOther)
 			return false;
+		else
+		{
+			Vector3 mtv;
+			mtv[i] = (other->center - center)[i] - (radiusThis + radiusOther);
+			pointsOfContact.push_back(center + mtv);
+		}
 	}
 
 	//Test local axes of other box
@@ -168,6 +174,14 @@ bool BoxCollider::isCollidingWithBox(BoxCollider* other)
 				   (translation[2] * rot[2][i]))
 		> radiusThis + radiusOther)
 			return false;
+		else
+		{
+			Vector3 mtv;
+			mtv[0] = (radiusThis + radiusOther) - translation[0];
+			mtv[1] = (radiusThis + radiusOther) - translation[1];
+			mtv[2] = (radiusThis + radiusOther) - translation[2];
+			//pointsOfContact.push_back(center + mtv);
+		}
 	}
 
 	//------------------------------------------------------------------

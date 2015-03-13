@@ -33,9 +33,22 @@ void PhysicsManager::Update()
 		{
 			Collider* other = it2->first;
 
+			std::vector<Vector3> pointsOfContact;
+
 			bool colliding = false;
 			if (other != test)
-				colliding = test->isColliding(other);
+				colliding = test->isColliding(other, pointsOfContact);
+			
+#ifdef _DEBUG
+			if (Debug::Debugging)
+			{
+				Primitive::SetColor(Vector4(1, 0, .8f, 1));
+				Primitive::SetPointSize(10.0f);
+
+				for (unsigned int i = 0; i < pointsOfContact.size(); i++)
+					Primitive::DrawPoint(pointsOfContact[i]);
+			}
+#endif
 
 			if (other != test && colliding)
 			{

@@ -15,7 +15,7 @@ Collider::Collider()
 	PhysicsManager::AddCollider(this);
 }
 
-bool Collider::isColliding(Collider* other)
+bool Collider::isColliding(Collider* other, std::vector<Vector3>& pointsOfContact)
 {
 	SphereCollider* otherSphere = dynamic_cast<SphereCollider*>(other);
 	BoxCollider* otherAxisAlignedBox = dynamic_cast<BoxCollider*>(other);
@@ -27,7 +27,7 @@ bool Collider::isColliding(Collider* other)
 	if (otherSphere)
 		return isCollidingWithSphere(otherSphere);
 	else if (otherAxisAlignedBox)
-		return isCollidingWithBox(otherAxisAlignedBox);
+		return isCollidingWithBox(otherAxisAlignedBox, pointsOfContact);
 	else if(otherFrustumCollider)
 		return isCollidingWithFrustum(otherFrustumCollider);
 

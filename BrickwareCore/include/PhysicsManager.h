@@ -8,6 +8,11 @@
 #include "Settings.h"
 #include "Rigidbody.h"
 #include "Collider.h"
+#include "Primitive.h"
+
+#ifdef _DEBUG
+#include "Debug.h"
+#endif
 
 class PhysicsManager
 {

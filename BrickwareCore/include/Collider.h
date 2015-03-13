@@ -25,7 +25,7 @@ class BRICKWARE_CORE_API Collider : public Component
 public:
 	Collider();
 
-	bool isColliding(Collider* collider);
+	bool isColliding(Collider* collider, std::vector<Vector3>& pointsOfContact = std::vector<Vector3>());
 	bool isColliding(Bounds bounds);
 
 	~Collider();
@@ -42,7 +42,7 @@ protected:
 
 private:
 	virtual bool isCollidingWithSphere(SphereCollider* other) = 0;
-	virtual bool isCollidingWithBox(BoxCollider* other) = 0;
+	virtual bool isCollidingWithBox(BoxCollider* other, std::vector<Vector3>& pointsOfContact) = 0;
 	virtual bool isCollidingWithFrustum(FrustumCollider* other) = 0;
 	virtual bool isCollidingWithBounds(Bounds other) = 0;
 };

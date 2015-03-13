@@ -29,7 +29,7 @@ private:
 	Vector3 halfSize;
 
 	bool isCollidingWithSphere(SphereCollider* other);
-	bool isCollidingWithBox(BoxCollider* other);
+	bool isCollidingWithBox(BoxCollider* other, std::vector<Vector3>& pointsOfContact);
 	bool isCollidingWithFrustum(FrustumCollider* other);
 	bool isCollidingWithBounds(Bounds other);
 };

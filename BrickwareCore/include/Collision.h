@@ -9,8 +9,6 @@ class Rigidbody;
 class Collider;
 class Vector3;
 
-template class BRICKWARE_CORE_API std::vector <Vector3>;
-
 class BRICKWARE_CORE_API Collision 
 {
 	friend class PhysicsManager;

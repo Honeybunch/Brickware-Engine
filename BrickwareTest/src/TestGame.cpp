@@ -116,6 +116,15 @@ bool TestGame::init()
 	triangleSpin->rotationDelta = Vector3(0.05f, 0.0f, 0.05f);
 	triangle->addComponent(triangleSpin);
 
+	GameObject* nonSpinBox = new GameObject();
+	Rigidbody* rigidbody = new Rigidbody();
+	rigidbody->setUseGravity(false);
+	nonSpinBox->addComponent(rigidbody);
+	nonSpinBox->addComponent(new MeshRenderer(cubeMesh));	
+	nonSpinBox->addComponent(cubeMaterial);
+	nonSpinBox->addComponent(new BoxCollider());
+	nonSpinBox->getTransform()->setPosition(Vector3(0, .5f, .5f));
+
 	//Create Camera
 	Camera* cameraComp = new Camera(50, 0.1f, 0.1f, 0.1f, 100.0f);
 	cameraComp->setActive();

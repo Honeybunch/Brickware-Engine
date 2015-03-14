@@ -5,9 +5,10 @@
 
 #include <vector>
 
+#include "Vector3.h"
+
 class Rigidbody;
 class Collider;
-class Vector3;
 
 template class BRICKWARE_CORE_API std::vector<Vector3>;
 
@@ -18,15 +19,15 @@ class BRICKWARE_CORE_API Collision
 public:
 	Rigidbody* getRigidbody();
 	Collider* getCollider();
-	std::vector<Vector3> getPointsOfContact();
+	Vector3 getMTV();
 
 private:
-	Collision(Rigidbody* otherRigidbody, Collider* otherCollider, std::vector<Vector3> pointsOfContact);
+	Collision(Rigidbody* otherRigidbody, Collider* otherCollider, Vector3 MTV);
 	~Collision();
 
 	Rigidbody* otherRigidbody;
 	Collider* otherCollider;
-	std::vector<Vector3> pointsOfContact;
+	Vector3 MTV;
 };
 
 #endif

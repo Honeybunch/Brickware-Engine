@@ -6,6 +6,7 @@
 #include "Collider.h"
 
 #include <iostream>
+#include <limits>
 
 class BRICKWARE_CORE_API BoxCollider : public Collider
 {
@@ -29,7 +30,7 @@ private:
 	Vector3 halfSize;
 
 	bool isCollidingWithSphere(SphereCollider* other);
-	bool isCollidingWithBox(BoxCollider* other, std::vector<Vector3>& pointsOfContact);
+	bool isCollidingWithBox(BoxCollider* other, Vector3& MTV);
 	bool isCollidingWithFrustum(FrustumCollider* other);
 	bool isCollidingWithBounds(Bounds other);
 };

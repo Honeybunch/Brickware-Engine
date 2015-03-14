@@ -30,13 +30,13 @@ void Spawner::spawnObject()
 	float yRot = (float)((rand() % 314) / 100) + 1;
 	float zRot = (float)((rand() % 314) / 100) + 1;
 
-	newObject->getTransform()->setRotation(Vector3(xRot, yRot, zRot));
+	newObject->getTransform()->setRotation(Vector3(0, 0, 0));
 	newObject->addComponent(rigidbody);
 	newObject->addComponent(new Despawn());
 
-	rigidbody->addForce(Vector3::Normalize(camera->getLookAt() - camera->getGameObject()->getTransform()->getPosition()) *.03f);
-
 	newObject->Start();
+
+	rigidbody->addForce(Vector3::Normalize(camera->getLookAt() - camera->getGameObject()->getTransform()->getPosition()) *.03f);
 
 	//Check if the spheres are colliding
 	Collider* collider = newObject->getComponent<Collider>();

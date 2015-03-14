@@ -26,6 +26,7 @@ public:
 	Vector3 getWorldCenterOfMass();
 
 	//Mutators
+	void setUseGravity(bool useGravity);
 
 	//Functions to manipulate rigidbody
 	void addForce(Vector3 force);

@@ -55,6 +55,8 @@ float Vector3::getZ(){ return vector[2];}
 
 float* Vector3::getAsArray(){ return vector; }
 
+float Vector3::getMagnitude(){ return sqrt((vector[0] * vector[0]) + (vector[1] * vector[1]) + (vector[2] * vector[2])); }
+
 void Vector3::setX(float x){ Vector3::vector[0] = x; }
 void Vector3::setY(float y){ Vector3::vector[1] = y; }
 void Vector3::setZ(float z){ Vector3::vector[2] = z; }
@@ -108,7 +110,7 @@ Vector3 Vector3::ScalarProduct(Vector3 v, float s)
 //Normalize a vector
 Vector3 Vector3::Normalize(Vector3 v)
 {
-	float magnitude = sqrt((v.vector[0] * v.vector[0]) + (v.vector[1] * v.vector[1]) + (v.vector[2] * v.vector[2]));
+	float magnitude = v.getMagnitude();
 
 	if (magnitude == 0)
 		magnitude = 1;
@@ -174,6 +176,9 @@ Vector3 Vector3::operator+=(float s)
 
 	return (*this);
 }
+
+bool Vector3::operator>(Vector3 u){ return getMagnitude() > u.getMagnitude(); }
+bool Vector3::operator<(Vector3 u){ return getMagnitude() < u.getMagnitude(); }
 
 //Vector operators
 float Vector3::operator* (Vector3 u)

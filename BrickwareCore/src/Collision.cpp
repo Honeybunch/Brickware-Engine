@@ -4,17 +4,17 @@
 
 #include "Rigidbody.h"
 #include "Collider.h"
-#include "Vector3.h"
+
 
 Rigidbody* Collision::getRigidbody(){ return otherRigidbody; }
 Collider* Collision::getCollider(){ return otherCollider; }
-std::vector<Vector3> Collision::getPointsOfContact(){ return pointsOfContact; }
+Vector3 Collision::getMTV(){ return MTV; }
 
-Collision::Collision(Rigidbody* otherRigidbody, Collider* otherCollider, std::vector<Vector3> pointsOfContact)
+Collision::Collision(Rigidbody* otherRigidbody, Collider* otherCollider, Vector3 MTV)
 {
 	this->otherRigidbody = otherRigidbody;
 	this->otherCollider = otherCollider;
-	this->pointsOfContact = pointsOfContact;
+	this->MTV = MTV;
 }
 
 Collision::~Collision(){}

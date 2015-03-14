@@ -24,6 +24,8 @@ public:
 	float getY();
 	float getZ();
 
+	float getMagnitude();
+
 	float* getAsArray();
 
 	void setX(float x);
@@ -47,6 +49,9 @@ public:
 	Vector3 operator/= (float s);
 	Vector3 operator-= (float s);
 	Vector3 operator+= (float s);
+
+	bool operator>(Vector3 u);
+	bool operator<(Vector3 u);
 
 	float operator* (Vector3 u);
 	Vector3 operator+ (Vector3 u);

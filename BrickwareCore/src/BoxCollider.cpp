@@ -121,10 +121,12 @@ bool BoxCollider::isCollidingWithSphere(SphereCollider* other)
 }
 
 //TODO: Implement
-bool BoxCollider::isCollidingWithBox(BoxCollider* other, std::vector<Vector3>& pointsOfContact)
+bool BoxCollider::isCollidingWithBox(BoxCollider* other, Vector3& MTV)
 {
 	float radiusThis, radiusOther;
+	float projectedTranslation;
 	Matrix3 rot, absRot;
+	Vector3 possibleMTV = Vector3(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
 
 	//Calculate rot matrix expressing the other box in this box's coordinate frame
 	for (int i = 0; i < 3; i++)
@@ -146,113 +148,259 @@ bool BoxCollider::isCollidingWithBox(BoxCollider* other, std::vector<Vector3>& p
 	//Test local axes of this box
 	for (int i = 0; i < 3; i++)
 	{
+		projectedTranslation = fabsf(translation[i]);
+
 		radiusThis = halfSize[i];
 		radiusOther = other->halfSize[0] * absRot[i][0]
 					+ other->halfSize[1] * absRot[i][1]
 					+ other->halfSize[2] * absRot[i][2];
 
-		if (fabsf(translation[i]) > radiusThis + radiusOther)
+		if (projectedTranslation > radiusThis + radiusOther)
 			return false;
 		else
 		{
-			Vector3 mtv;
-			mtv[i] = (other->center - center)[i] - (radiusThis + radiusOther);
-			pointsOfContact.push_back(center + mtv);
+			float overlap = (radiusThis + radiusOther) - projectedTranslation;
+			Vector3 axis = worldNormals[i];
+
+			if (axis.getMagnitude() > 0)
+			{
+				Vector3 translationVector = axis * overlap;
+
+				if (translationVector < possibleMTV)
+					possibleMTV = translationVector;
+			}
 		}
 	}
 
 	//Test local axes of other box
 	for (int i = 0; i < 3; i++)
 	{
+		projectedTranslation = fabsf((translation[0] * rot[0][i]) +
+									 (translation[1] * rot[1][i]) +
+									 (translation[2] * rot[2][i]));
+
 		radiusThis = halfSize[0] * absRot[0][i]
 				   + halfSize[1] * absRot[1][i]
 				   + halfSize[2] * absRot[2][i];
 		radiusOther = other->halfSize[i];
 
-		if (fabsf((translation[0] * rot[0][i]) + 
-				   (translation[1] * rot[1][i]) + 
-				   (translation[2] * rot[2][i]))
-		> radiusThis + radiusOther)
+		if (projectedTranslation > radiusThis + radiusOther)
 			return false;
 		else
 		{
-			Vector3 mtv;
-			mtv[0] = (radiusThis + radiusOther) - translation[0];
-			mtv[1] = (radiusThis + radiusOther) - translation[1];
-			mtv[2] = (radiusThis + radiusOther) - translation[2];
-			//pointsOfContact.push_back(center + mtv);
+			float overlap = (radiusThis + radiusOther) - projectedTranslation;
+			Vector3 axis = other->worldNormals[i];
+			axis = Vector3::Normalize(axis);
+
+			if (axis.getMagnitude() > 0)
+			{
+				Vector3 translationVector = axis * overlap;
+
+				if (translationVector < possibleMTV)
+					possibleMTV = translationVector;
+			}
 		}
 	}
 
 	//------------------------------------------------------------------
 
 	//Test axis ThisX x OtherX
+	projectedTranslation = fabsf((translation[2] * rot[1][0]) - (translation[1] * rot[2][0]));
 	radiusThis = (		  halfSize[1] * absRot[2][0]) + (		halfSize[2] * absRot[1][0]);
 	radiusOther = (other->halfSize[1] * absRot[0][2]) + (other->halfSize[2] * absRot[0][1]);
-	if (fabsf((translation[2] * rot[1][0]) - (translation[1] * rot[2][0]))
-		> radiusThis + radiusOther)
+	if (projectedTranslation > radiusThis + radiusOther)
 		return false;
+	else
+	{
+		float overlap = (radiusThis + radiusOther) - projectedTranslation;
+		Vector3 axis = Vector3::Cross(worldNormals[0], other->worldNormals[0]);
+		axis = Vector3::Normalize(axis);
+
+		if (axis.getMagnitude() > 0)
+		{
+			Vector3 translationVector = axis * overlap;
+
+			if (translationVector < possibleMTV)
+				possibleMTV = translationVector;
+		}
+	}
 
 	//Test axis ThisX x OtherY
+	projectedTranslation = fabsf((translation[2] * rot[1][1]) - (translation[1] * rot[2][1]));
 	radiusThis = (		  halfSize[1] * absRot[2][1]) + (		halfSize[2] * absRot[1][1]);
 	radiusOther = (other->halfSize[0] * absRot[0][2]) + (other->halfSize[2] * absRot[0][0]);
-	if (fabsf((translation[2] * rot[1][1]) - (translation[1] * rot[2][1]))
-	> radiusThis + radiusOther)
+	if (projectedTranslation > radiusThis + radiusOther)
 		return false;
+	else
+	{
+		float overlap = (radiusThis + radiusOther) - projectedTranslation;
+		Vector3 axis = Vector3::Cross(worldNormals[0], other->worldNormals[1]);
+		axis = Vector3::Normalize(axis);
+
+		if (axis.getMagnitude() > 0)
+		{
+
+			Vector3 translationVector = axis * overlap;
+
+			if (translationVector < possibleMTV)
+				possibleMTV = translationVector;
+		}
+	}
 
 	//Test axis ThisX x OtherZ
+	projectedTranslation = fabsf((translation[2] * rot[1][2]) - (translation[1] * rot[2][2]));
 	radiusThis = (		  halfSize[1] * absRot[2][2]) + (		halfSize[2] * absRot[1][2]);
 	radiusOther = (other->halfSize[0] * absRot[0][1]) + (other->halfSize[1] * absRot[0][0]);
-	if (fabsf((translation[2] * rot[1][2]) - (translation[1] * rot[2][2]))
-		> radiusThis + radiusOther)
+	if (projectedTranslation > radiusThis + radiusOther)
  		return false;
+	else
+	{
+		float overlap = (radiusThis + radiusOther) - projectedTranslation;
+		Vector3 axis = Vector3::Cross(worldNormals[0], other->worldNormals[2]);
+		axis = Vector3::Normalize(axis);
+
+		if (axis.getMagnitude() > 0)
+		{
+			Vector3 translationVector = axis * overlap;
+
+			if (translationVector < possibleMTV)
+				possibleMTV = translationVector;
+		}
+	}
 
 	//------------------------------------------------------------------
 
 	//Test axis ThisY x OtherX
+	projectedTranslation = fabsf((translation[0] * rot[2][0]) - (translation[2] * rot[0][0]));
 	radiusThis = (		  halfSize[0] * absRot[2][0]) + (		halfSize[2] * absRot[0][0]);
 	radiusOther = (other->halfSize[1] * absRot[1][2]) + (other->halfSize[2] * absRot[1][1]);
-	if (fabsf((translation[0] * rot[2][0]) - (translation[2] * rot[0][0]))
-	> radiusThis + radiusOther)
+	if (projectedTranslation > radiusThis + radiusOther)
 		return false;
+	else
+	{
+		float overlap = (radiusThis + radiusOther) - projectedTranslation;
+		Vector3 axis = Vector3::Cross(worldNormals[1], other->worldNormals[0]);
+		axis = Vector3::Normalize(axis);
+
+		if (axis.getMagnitude() > 0)
+		{
+			Vector3 translationVector = axis * overlap;
+
+			if (translationVector < possibleMTV)
+				possibleMTV = translationVector;
+		}
+	}
 
 	//Test axis ThisY x OtherY
+	projectedTranslation = fabsf((translation[0] * rot[2][1]) - (translation[2] * rot[0][1]));
 	radiusThis = (		  halfSize[0] * absRot[2][1]) + (		halfSize[2] * absRot[0][1]);
 	radiusOther = (other->halfSize[0] * absRot[1][2]) + (other->halfSize[2] * absRot[1][0]);
-	if (fabsf((translation[0] * rot[2][1]) - (translation[2] * rot[0][1]))
-	> radiusThis + radiusOther)
+	if (projectedTranslation > radiusThis + radiusOther)
 		return false;
+	else
+	{
+		float overlap = (radiusThis + radiusOther) - projectedTranslation;
+		Vector3 axis = Vector3::Cross(worldNormals[1], other->worldNormals[1]);
+		axis = Vector3::Normalize(axis);
+
+		if (axis.getMagnitude() > 0)
+		{
+			Vector3 translationVector = axis * overlap;
+
+			if (translationVector < possibleMTV)
+				possibleMTV = translationVector;
+		}
+	}
 
 	//Test axis ThisY x OtherZ
+	projectedTranslation = fabsf((translation[0] * rot[2][2]) - (translation[2] * rot[0][2]));
 	radiusThis = (		  halfSize[0] * absRot[2][2]) + (		halfSize[2] * absRot[0][2]);
 	radiusOther = (other->halfSize[0] * absRot[1][1]) + (other->halfSize[1] * absRot[1][0]);
-	if (fabsf((translation[0] * rot[2][2]) - (translation[2] * rot[0][2]))
-		> radiusThis + radiusOther)
+	if (projectedTranslation > radiusThis + radiusOther)
 		return false;
+	else
+	{
+		float overlap = (radiusThis + radiusOther) - projectedTranslation;
+		Vector3 axis = Vector3::Cross(worldNormals[1], other->worldNormals[2]);
+		axis = Vector3::Normalize(axis);
+
+		if (axis.getMagnitude() > 0)
+		{
+			Vector3 translationVector = axis * overlap;
+
+			if (translationVector < possibleMTV)
+				possibleMTV = translationVector;
+		}
+	}
 
 	//------------------------------------------------------------------
 
 	//Test axis ThisZ x OtherX
+	projectedTranslation = fabsf((translation[1] * rot[0][0]) - (translation[0] * rot[1][0]));
 	radiusThis = (		  halfSize[0] * absRot[1][0]) + (		halfSize[1] * absRot[0][0]);
 	radiusOther = (other->halfSize[1] * absRot[2][2]) + (other->halfSize[2] * absRot[2][1]);
-	if (fabsf((translation[1] * rot[0][0]) - (translation[0] * rot[1][0]))
-	> radiusThis + radiusOther)
+	if (projectedTranslation > radiusThis + radiusOther)
 		return false;
+	else
+	{
+		float overlap = (radiusThis + radiusOther) - projectedTranslation;
+		Vector3 axis = Vector3::Cross(worldNormals[2], other->worldNormals[0]);
+		axis = Vector3::Normalize(axis);
+
+		if (axis.getMagnitude() > 0)
+		{
+			Vector3 translationVector = axis * overlap;
+
+			if (translationVector < possibleMTV)
+				possibleMTV = translationVector;
+		}
+	}
 
 	//Test axis ThisZ x OtherY
+	projectedTranslation = fabsf((translation[1] * rot[0][1]) - (translation[0] * rot[1][1]));
 	radiusThis = (		  halfSize[0] * absRot[1][1]) + (		halfSize[1] * absRot[0][1]);
 	radiusOther = (other->halfSize[0] * absRot[2][2]) + (other->halfSize[2] * absRot[2][0]);
-	if (fabsf((translation[1] * rot[0][1]) - (translation[0] * rot[1][1]))
-	> radiusThis + radiusOther)
+	if (projectedTranslation > radiusThis + radiusOther)
 		return false;
+	else
+	{
+		float overlap = (radiusThis + radiusOther) - projectedTranslation;
+		Vector3 axis = Vector3::Cross(worldNormals[2], other->worldNormals[1]);
+		axis = Vector3::Normalize(axis);
+
+		if (axis.getMagnitude() > 0)
+		{
+			Vector3 translationVector = axis * overlap;
+
+			if (translationVector < possibleMTV)
+				possibleMTV = translationVector;
+		}
+	}
 
 	//Test axis ThisZ x OtherZ
+	projectedTranslation = fabsf((translation[1] * rot[0][2]) - (translation[0] * rot[1][2]));
 	radiusThis = (		  halfSize[0] * absRot[1][2]) + (		halfSize[1] * absRot[0][2]);
 	radiusOther = (other->halfSize[0] * absRot[2][1]) + (other->halfSize[1] * absRot[2][0]);
-	if (fabsf((translation[1] * rot[0][2]) - (translation[0] * rot[1][2]))
-		> radiusThis + radiusOther)
+	if (projectedTranslation > radiusThis + radiusOther)
 		return false;
+	else
+	{
+		float overlap = (radiusThis + radiusOther) - projectedTranslation;
+		Vector3 axis = Vector3::Cross(worldNormals[2], other->worldNormals[2]);
+		axis = Vector3::Normalize(axis);
+
+		if (axis.getMagnitude() > 0)
+		{
+			Vector3 translationVector = axis * overlap;
+
+			if (translationVector < possibleMTV)
+				possibleMTV = translationVector;
+		}
+	}
 		
+	//Only want to send this back if there is a collision
+	MTV = possibleMTV;
+
   	return true;
 }
 

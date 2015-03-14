@@ -33,20 +33,20 @@ void PhysicsManager::Update()
 		{
 			Collider* other = it2->first;
 
-			std::vector<Vector3> pointsOfContact;
+			Vector3 MTV;
 
 			bool colliding = false;
 			if (other != test)
-				colliding = test->isColliding(other, pointsOfContact);
+				colliding = test->isColliding(other, MTV);
 			
 #ifdef _DEBUG
 			if (Debug::Debugging)
 			{
 				Primitive::SetColor(Vector4(1, 0, .8f, 1));
-				Primitive::SetPointSize(10.0f);
 
-				for (unsigned int i = 0; i < pointsOfContact.size(); i++)
-					Primitive::DrawPoint(pointsOfContact[i]);
+				Vector3 center = test->getGameObject()->getTransform()->getPosition();
+
+				Primitive::DrawLine(center, center + MTV);
 			}
 #endif
 
@@ -56,8 +56,8 @@ void PhysicsManager::Update()
 				GameObject* testObj = test->getGameObject();
 				GameObject* otherObj = other->getGameObject();
 
-				Collision* testCollision = new Collision(otherObj->getComponent<Rigidbody>(), other, std::vector<Vector3>());
-				Collision* otherCollision = new Collision(testObj->getComponent<Rigidbody>(), test, std::vector<Vector3>());
+				Collision* testCollision = new Collision(otherObj->getComponent<Rigidbody>(), other, MTV);
+				Collision* otherCollision = new Collision(testObj->getComponent<Rigidbody>(), test, MTV);
 
 				testObj->OnCollisionEnter(testCollision);
 				otherObj->OnCollisionEnter(otherCollision);

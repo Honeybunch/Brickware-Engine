@@ -22,14 +22,14 @@ Rigidbody::Rigidbody()
 	detectCollisions = true;
 	isKinematic = false;
 	useGravity = true;
-
-	//Apply gravity
-	if (useGravity)
-		acceleration = Vector3(0, PhysicsManager::gravity, 0);
 }
 
 void Rigidbody::Start()
 {
+	//Apply gravity
+	if (useGravity)
+		acceleration = Vector3(0, PhysicsManager::gravity, 0);
+
 	//Register into the physics system
 	PhysicsManager::AddRigidbody(this);
 }
@@ -43,6 +43,9 @@ Vector3 Rigidbody::getAngluarSleepVelocity(){ return angularSleepVelocity; }
 
 Vector3 Rigidbody::getCenterOfMass(){ return centerOfMass; }
 Vector3 Rigidbody::getWorldCenterOfMass(){ return worldCenterOfMass; }
+
+//Mutators
+void Rigidbody::setUseGravity(bool useGravity){ this->useGravity = useGravity; }
 
 //Functions to manipulate rigidbody
 void Rigidbody::addForce(Vector3 force)
@@ -77,14 +80,16 @@ void Rigidbody::FixedUpdate()
 	angularAcceleration *= angularDrag;
 
 	//Add gravity
-	acceleration[1] += PhysicsManager::gravity;
+	if (useGravity)
+		acceleration[1] += PhysicsManager::gravity;
 }
 void Rigidbody::OnCollision(Collision* collision)
 {
 	Rigidbody* otherRigidbody = collision->getRigidbody();
 
 	//Reposition rigidbody's game object back to where the collision happened so that it no longer intersects
-
+	Vector3 MTV = collision->getMTV();
+	getGameObject()->getTransform()->setPosition(getGameObject()->getTransform()->getPosition() + MTV);
 
 	//Calculate new forces
 	float otherMass = 1.0f;

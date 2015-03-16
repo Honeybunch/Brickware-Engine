@@ -13,6 +13,7 @@
 #include "Material.h"
 #include "Mesh.h"
 #include "Collision.h"
+#include "Rigidbody.h"
 
 class Camera;
 

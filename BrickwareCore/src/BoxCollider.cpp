@@ -121,12 +121,15 @@ bool BoxCollider::isCollidingWithSphere(SphereCollider* other)
 }
 
 //TODO: Implement
-bool BoxCollider::isCollidingWithBox(BoxCollider* other, Vector3& MTV)
+bool BoxCollider::isCollidingWithBox(BoxCollider* other, Collision* collision)
 {
 	float radiusThis, radiusOther;
 	float projectedTranslation;
 	Matrix3 rot, absRot;
+	
+	//Things we may end up returning
 	Vector3 possibleMTV = Vector3(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
+	std::vector<Vector3> pointsOfCollision;
 
 	//Calculate rot matrix expressing the other box in this box's coordinate frame
 	for (int i = 0; i < 3; i++)
@@ -160,11 +163,17 @@ bool BoxCollider::isCollidingWithBox(BoxCollider* other, Vector3& MTV)
 		else
 		{
 			float overlap = (radiusThis + radiusOther) - projectedTranslation;
+			float distanceToPoint = radiusThis - overlap;
+
 			Vector3 axis = worldNormals[i];
+			axis = Vector3::Normalize(axis);
 
 			if (axis.getMagnitude() > 0)
 			{
 				Vector3 translationVector = axis * overlap;
+				Vector3 pointOfCollision = center + (axis * distanceToPoint);
+
+				pointsOfCollision.push_back(pointOfCollision);
 
 				if (translationVector < possibleMTV)
 					possibleMTV = translationVector;
@@ -189,12 +198,17 @@ bool BoxCollider::isCollidingWithBox(BoxCollider* other, Vector3& MTV)
 		else
 		{
 			float overlap = (radiusThis + radiusOther) - projectedTranslation;
+			float distanceToPoint = radiusThis - overlap;
+
 			Vector3 axis = other->worldNormals[i];
 			axis = Vector3::Normalize(axis);
 
 			if (axis.getMagnitude() > 0)
 			{
 				Vector3 translationVector = axis * overlap;
+				Vector3 pointOfCollision = center + (axis * distanceToPoint);
+
+				pointsOfCollision.push_back(pointOfCollision);
 
 				if (translationVector < possibleMTV)
 					possibleMTV = translationVector;
@@ -213,12 +227,17 @@ bool BoxCollider::isCollidingWithBox(BoxCollider* other, Vector3& MTV)
 	else
 	{
 		float overlap = (radiusThis + radiusOther) - projectedTranslation;
+		float distanceToPoint = radiusThis - overlap;
+
 		Vector3 axis = Vector3::Cross(worldNormals[0], other->worldNormals[0]);
 		axis = Vector3::Normalize(axis);
 
 		if (axis.getMagnitude() > 0)
 		{
 			Vector3 translationVector = axis * overlap;
+			Vector3 pointOfCollision = center + (axis * distanceToPoint);
+
+			pointsOfCollision.push_back(pointOfCollision);
 
 			if (translationVector < possibleMTV)
 				possibleMTV = translationVector;
@@ -234,13 +253,17 @@ bool BoxCollider::isCollidingWithBox(BoxCollider* other, Vector3& MTV)
 	else
 	{
 		float overlap = (radiusThis + radiusOther) - projectedTranslation;
+		float distanceToPoint = radiusThis - overlap;
+
 		Vector3 axis = Vector3::Cross(worldNormals[0], other->worldNormals[1]);
 		axis = Vector3::Normalize(axis);
 
 		if (axis.getMagnitude() > 0)
 		{
-
 			Vector3 translationVector = axis * overlap;
+			Vector3 pointOfCollision = center + (axis * distanceToPoint);
+
+			pointsOfCollision.push_back(pointOfCollision);
 
 			if (translationVector < possibleMTV)
 				possibleMTV = translationVector;
@@ -256,12 +279,17 @@ bool BoxCollider::isCollidingWithBox(BoxCollider* other, Vector3& MTV)
 	else
 	{
 		float overlap = (radiusThis + radiusOther) - projectedTranslation;
+		float distanceToPoint = radiusThis - overlap;
+
 		Vector3 axis = Vector3::Cross(worldNormals[0], other->worldNormals[2]);
 		axis = Vector3::Normalize(axis);
 
 		if (axis.getMagnitude() > 0)
 		{
 			Vector3 translationVector = axis * overlap;
+			Vector3 pointOfCollision = center + (axis * distanceToPoint);
+
+			pointsOfCollision.push_back(pointOfCollision);
 
 			if (translationVector < possibleMTV)
 				possibleMTV = translationVector;
@@ -279,12 +307,17 @@ bool BoxCollider::isCollidingWithBox(BoxCollider* other, Vector3& MTV)
 	else
 	{
 		float overlap = (radiusThis + radiusOther) - projectedTranslation;
+		float distanceToPoint = radiusThis - overlap;
+
 		Vector3 axis = Vector3::Cross(worldNormals[1], other->worldNormals[0]);
 		axis = Vector3::Normalize(axis);
 
 		if (axis.getMagnitude() > 0)
 		{
 			Vector3 translationVector = axis * overlap;
+			Vector3 pointOfCollision = center + (axis * distanceToPoint);
+
+			pointsOfCollision.push_back(pointOfCollision);
 
 			if (translationVector < possibleMTV)
 				possibleMTV = translationVector;
@@ -300,12 +333,17 @@ bool BoxCollider::isCollidingWithBox(BoxCollider* other, Vector3& MTV)
 	else
 	{
 		float overlap = (radiusThis + radiusOther) - projectedTranslation;
+		float distanceToPoint = radiusThis - overlap;
+
 		Vector3 axis = Vector3::Cross(worldNormals[1], other->worldNormals[1]);
 		axis = Vector3::Normalize(axis);
 
 		if (axis.getMagnitude() > 0)
 		{
 			Vector3 translationVector = axis * overlap;
+			Vector3 pointOfCollision = center + (axis * distanceToPoint);
+
+			pointsOfCollision.push_back(pointOfCollision);
 
 			if (translationVector < possibleMTV)
 				possibleMTV = translationVector;
@@ -321,12 +359,17 @@ bool BoxCollider::isCollidingWithBox(BoxCollider* other, Vector3& MTV)
 	else
 	{
 		float overlap = (radiusThis + radiusOther) - projectedTranslation;
+		float distanceToPoint = radiusThis - overlap;
+
 		Vector3 axis = Vector3::Cross(worldNormals[1], other->worldNormals[2]);
 		axis = Vector3::Normalize(axis);
 
 		if (axis.getMagnitude() > 0)
 		{
 			Vector3 translationVector = axis * overlap;
+			Vector3 pointOfCollision = center + (axis * distanceToPoint);
+
+			pointsOfCollision.push_back(pointOfCollision);
 
 			if (translationVector < possibleMTV)
 				possibleMTV = translationVector;
@@ -344,12 +387,17 @@ bool BoxCollider::isCollidingWithBox(BoxCollider* other, Vector3& MTV)
 	else
 	{
 		float overlap = (radiusThis + radiusOther) - projectedTranslation;
+		float distanceToPoint = radiusThis - overlap;
+
 		Vector3 axis = Vector3::Cross(worldNormals[2], other->worldNormals[0]);
 		axis = Vector3::Normalize(axis);
 
 		if (axis.getMagnitude() > 0)
 		{
 			Vector3 translationVector = axis * overlap;
+			Vector3 pointOfCollision = center + (axis * distanceToPoint);
+
+			pointsOfCollision.push_back(pointOfCollision);
 
 			if (translationVector < possibleMTV)
 				possibleMTV = translationVector;
@@ -365,12 +413,17 @@ bool BoxCollider::isCollidingWithBox(BoxCollider* other, Vector3& MTV)
 	else
 	{
 		float overlap = (radiusThis + radiusOther) - projectedTranslation;
+		float distanceToPoint = radiusThis - overlap;
+
 		Vector3 axis = Vector3::Cross(worldNormals[2], other->worldNormals[1]);
 		axis = Vector3::Normalize(axis);
 
 		if (axis.getMagnitude() > 0)
 		{
 			Vector3 translationVector = axis * overlap;
+			Vector3 pointOfCollision = center + (axis * distanceToPoint);
+
+			pointsOfCollision.push_back(pointOfCollision);
 
 			if (translationVector < possibleMTV)
 				possibleMTV = translationVector;
@@ -386,20 +439,31 @@ bool BoxCollider::isCollidingWithBox(BoxCollider* other, Vector3& MTV)
 	else
 	{
 		float overlap = (radiusThis + radiusOther) - projectedTranslation;
+		float distanceToPoint = radiusThis - overlap;
+
 		Vector3 axis = Vector3::Cross(worldNormals[2], other->worldNormals[2]);
 		axis = Vector3::Normalize(axis);
 
 		if (axis.getMagnitude() > 0)
 		{
 			Vector3 translationVector = axis * overlap;
+			Vector3 pointOfCollision = center + (axis * distanceToPoint);
+
+			pointsOfCollision.push_back(pointOfCollision);
 
 			if (translationVector < possibleMTV)
 				possibleMTV = translationVector;
 		}
 	}
 		
-	//Only want to send this back if there is a collision
-	MTV = possibleMTV;
+	//Fill collision data if we were given an object to fill
+	if (collision)
+	{
+		collision->setCollider(other);
+		collision->setRigidbody(other->getGameObject()->getComponent<Rigidbody>());
+		collision->setMTV(possibleMTV);
+		collision->setPointsOfCollision(pointsOfCollision);
+	}
 
   	return true;
 }
@@ -407,7 +471,7 @@ bool BoxCollider::isCollidingWithBox(BoxCollider* other, Vector3& MTV)
 //TODO: Refactor to mesh collision
 bool BoxCollider::isCollidingWithFrustum(FrustumCollider* other)
 {
-	return other->isColliding(this);
+	return other->isColliding(this, NULL);
 }
 
 //Don't really care yet

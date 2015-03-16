@@ -20,14 +20,21 @@ public:
 	Rigidbody* getRigidbody();
 	Collider* getCollider();
 	Vector3 getMTV();
+	std::vector<Vector3> getPointsOfCollision();
+
+	void setRigidbody(Rigidbody* rigidbody);
+	void setCollider(Collider* collider);
+	void setMTV(Vector3 MTV);
+	void setPointsOfCollision(std::vector<Vector3> pointsOfCollision);
 
 private:
-	Collision(Rigidbody* otherRigidbody, Collider* otherCollider, Vector3 MTV);
+	Collision();
 	~Collision();
 
 	Rigidbody* otherRigidbody;
 	Collider* otherCollider;
 	Vector3 MTV;
+	std::vector<Vector3> pointsOfCollision;
 };
 
 #endif

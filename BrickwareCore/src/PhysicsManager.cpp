@@ -36,31 +36,19 @@ void PhysicsManager::Update()
 			Vector3 MTV;
 
 			bool colliding = false;
+			Collision* collision = new Collision();
 			if (other != test)
-				colliding = test->isColliding(other, MTV);
-			
-#ifdef _DEBUG
-			if (Debug::Debugging)
-			{
-				Primitive::SetColor(Vector4(1, 0, .8f, 1));
-
-				Vector3 center = test->getGameObject()->getTransform()->getPosition();
-
-				Primitive::DrawLine(center, center + MTV);
-			}
-#endif
+				colliding = test->isColliding(other, collision);
 
 			if (other != test && colliding)
 			{
-				//Dispatch collisions
-				GameObject* testObj = test->getGameObject();
-				GameObject* otherObj = other->getGameObject();
+				//Dispatch collision
+				if (collision)
+				{
+					GameObject* testObj = test->getGameObject();
 
-				Collision* testCollision = new Collision(otherObj->getComponent<Rigidbody>(), other, MTV);
-				Collision* otherCollision = new Collision(testObj->getComponent<Rigidbody>(), test, MTV);
-
-				testObj->OnCollisionEnter(testCollision);
-				otherObj->OnCollisionEnter(otherCollision);
+					testObj->OnCollisionEnter(collision);
+				}
 			}
 		}
 	}

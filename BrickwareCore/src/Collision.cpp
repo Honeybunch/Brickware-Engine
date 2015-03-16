@@ -6,15 +6,20 @@
 #include "Collider.h"
 
 
-Rigidbody* Collision::getRigidbody(){ return otherRigidbody; }
-Collider* Collision::getCollider(){ return otherCollider; }
-Vector3 Collision::getMTV(){ return MTV; }
+Rigidbody* Collision::getRigidbody() { return otherRigidbody; }
+Collider* Collision::getCollider() { return otherCollider; }
+Vector3	Collision::getMTV()	{ return MTV; }
+std::vector<Vector3>	Collision::getPointsOfCollision() { return pointsOfCollision; }
 
-Collision::Collision(Rigidbody* otherRigidbody, Collider* otherCollider, Vector3 MTV)
+void Collision::setRigidbody(Rigidbody* rigidbody) { this->otherRigidbody = rigidbody; }
+void Collision::setCollider(Collider* collider)	{ this->otherCollider = collider; }
+void Collision::setMTV(Vector3 MTV) { this->MTV = MTV; }
+void Collision::setPointsOfCollision(std::vector<Vector3> pointsOfCollision) { this->pointsOfCollision = pointsOfCollision; }
+
+Collision::Collision()
 {
-	this->otherRigidbody = otherRigidbody;
-	this->otherCollider = otherCollider;
-	this->MTV = MTV;
+	this->otherRigidbody = NULL;
+	this->otherCollider = NULL;
 }
 
 Collision::~Collision(){}

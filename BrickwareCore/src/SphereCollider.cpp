@@ -41,13 +41,13 @@ bool SphereCollider::isCollidingWithSphere(SphereCollider* other)
 
 bool SphereCollider::isCollidingWithBox(BoxCollider* other)
 {
-	return other->isColliding(this);
+	return other->isColliding(this, NULL);
 }
 
 //TODO: refactor to mesh collision
 bool SphereCollider::isCollidingWithFrustum(FrustumCollider* other)
 {
-	return other->isColliding(this);
+	return other->isColliding(this, NULL);
 }
 
 bool SphereCollider::isCollidingWithBounds(Bounds* other)

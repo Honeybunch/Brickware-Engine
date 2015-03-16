@@ -101,19 +101,36 @@ void Rigidbody::OnCollision(Collision* collision)
 		otherVelocity = otherRigidbody->velocity;
 	}
 
-	float massTotal = otherMass + mass;
-	Vector3 finalVelocity;
+	//Calculate which point we're going to use as the "Point of collision"
+	std::vector<Vector3> pointsOfCollision = collision->getPointsOfCollision();
+	Vector3 pointOfCollision;
 
-	//Perform calculations on every axis
-	for (unsigned int i = 0; i < 3; i++)
+	unsigned int bestPointIndex = 0;
+	float bestPointDot = std::numeric_limits<float>::min();
+
+	if (pointsOfCollision.size() > 1)
 	{
-		float velComp = velocity[i];
-		float otherVelComp = otherVelocity[i];
-
-		float finalVelComp = ((velComp * mass) - (otherVelComp * otherMass)) / massTotal;
-		finalVelocity[i] = finalVelComp;
+		for (unsigned int i = 0; i < pointsOfCollision.size(); i++)
+		{
+			float dot = Vector3::Dot(pointsOfCollision[i], MTV);
+			if (dot > bestPointDot)
+			{
+				bestPointDot = dot;
+				bestPointIndex = i;
+			}
+		}
 	}
 
+	pointOfCollision = pointsOfCollision[bestPointIndex];
+
+	//Determine the impulse based on Chris Hecker's formula
+	float e = 0.5f; //elasticity
+	Vector3 relativeVelocity = velocity - otherVelocity;
+	float impulse = Vector3::Dot(relativeVelocity * -(1 + e), MTV);
+	impulse /= Vector3::Dot(MTV, MTV * ((1/mass) + (1/otherMass)));
+
+	//Apply to find the resulting velocity
+	Vector3 finalVelocity = velocity + (MTV * (impulse / mass));
 	velocity = finalVelocity;
 }
 

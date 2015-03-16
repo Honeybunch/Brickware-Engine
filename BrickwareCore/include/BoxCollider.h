@@ -30,7 +30,7 @@ private:
 	Vector3 halfSize;
 
 	bool isCollidingWithSphere(SphereCollider* other);
-	bool isCollidingWithBox(BoxCollider* other, Vector3& MTV);
+	bool isCollidingWithBox(BoxCollider* other, Collision* collision);
 	bool isCollidingWithFrustum(FrustumCollider* other);
 	bool isCollidingWithBounds(Bounds other);
 };

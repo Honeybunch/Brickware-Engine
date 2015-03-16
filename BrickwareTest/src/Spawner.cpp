@@ -54,7 +54,7 @@ void Spawner::spawnObject()
 			//If the game object we're looking at has a collider
 			if (otherCollider)
 			{
-				if (otherObject != newObject && otherCollider->isColliding(collider))
+				if (otherObject != newObject && otherCollider->isColliding(collider, NULL))
 				{
 					collided = true;
 					break;

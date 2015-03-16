@@ -15,7 +15,7 @@ Collider::Collider()
 	PhysicsManager::AddCollider(this);
 }
 
-bool Collider::isColliding(Collider* other, Vector3& MTV)
+bool Collider::isColliding(Collider* other, Collision* collision)
 {
 	SphereCollider* otherSphere = dynamic_cast<SphereCollider*>(other);
 	BoxCollider* otherAxisAlignedBox = dynamic_cast<BoxCollider*>(other);
@@ -27,7 +27,7 @@ bool Collider::isColliding(Collider* other, Vector3& MTV)
 	if (otherSphere)
 		return isCollidingWithSphere(otherSphere);
 	else if (otherAxisAlignedBox)
-		return isCollidingWithBox(otherAxisAlignedBox, MTV);
+		return isCollidingWithBox(otherAxisAlignedBox, collision);
 	else if(otherFrustumCollider)
 		return isCollidingWithFrustum(otherFrustumCollider);
 

@@ -2,10 +2,15 @@
 #define VECTOR3_H
 
 #include <iostream>
+#include <ostream>
 
 #include "BrickwareMathDLL.h"
 
 class Vector4;
+class Vector3;
+
+BRICKWARE_MATH_API std::ostream& operator<< (std::ostream& output, Vector3& h);
+BRICKWARE_MATH_API std::istream& operator>> (std::istream& input, Vector3& h);
 
 class BRICKWARE_MATH_API Vector3
 {
@@ -60,9 +65,6 @@ public:
 	Vector3 operator-= (Vector3 u);
 
 	float& operator[] (int i);
-
-	friend std::ostream& operator<< (std::ostream& output, Vector3& h);
-	friend std::istream& operator>> (std::istream& input, Vector3& h);
 
 	operator Vector4();
 

@@ -33,8 +33,6 @@ void PhysicsManager::Update()
 		{
 			Collider* other = it2->first;
 
-			Vector3 MTV;
-
 			bool colliding = false;
 			Collision* collision = new Collision();
 			if (other != test)

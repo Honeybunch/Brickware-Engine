@@ -129,7 +129,7 @@ void Rigidbody::OnCollision(Collision* collision)
 	float impulse = Vector3::Dot(relativeVelocity * -(1 + e), MTV);
 	impulse /= Vector3::Dot(MTV, MTV * ((1/mass) + (1/otherMass)));
 
-	//Apply to find the resulting velocity
+	//Add the resulting impulse force
 	Vector3 finalVelocity = velocity + (MTV * (impulse / mass));
 	velocity = finalVelocity;
 }

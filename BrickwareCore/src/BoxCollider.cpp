@@ -459,6 +459,10 @@ bool BoxCollider::isCollidingWithBox(BoxCollider* other, Collision* collision)
 	//Fill collision data if we were given an object to fill
 	if (collision)
 	{
+		//If our MTV is pointed into our object, just reverse it
+		if (Vector3::Dot(other->center - center, possibleMTV) > 0)
+			possibleMTV *= -1;
+
 		collision->setCollider(other);
 		collision->setRigidbody(other->getGameObject()->getComponent<Rigidbody>());
 		collision->setMTV(possibleMTV);

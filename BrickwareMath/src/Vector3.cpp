@@ -226,7 +226,13 @@ std::ostream& operator<<(std::ostream& output, Vector3& v)
 //Insertion
 std::istream& operator>>(std::istream& input, Vector3& v)
 {
-	input >> v.vector[0] >> v.vector[1] >> v.vector[2];
+	float x, y, z;
+	input >> x >> y >> z;
+
+	v.setX(x);
+	v.setY(y);
+	v.setZ(z);
+
 	return input;
 }
 

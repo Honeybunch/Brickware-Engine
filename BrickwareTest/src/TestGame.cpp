@@ -124,6 +124,7 @@ bool TestGame::init()
 	nonSpinBox->addComponent(cubeMaterial);
 	nonSpinBox->addComponent(new BoxCollider());
 	nonSpinBox->getTransform()->setPosition(Vector3(0, .5f, .5f));
+	nonSpinBox->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
 
 	//Create Camera
 	Camera* cameraComp = new Camera(50, 0.1f, 0.1f, 0.1f, 100.0f);

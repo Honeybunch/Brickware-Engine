@@ -17,7 +17,7 @@ Rigidbody::Rigidbody()
 	mass = 1.0f;
 
 	drag = .90f;
-	angularDrag = .90f;
+	angularDrag = 1.0f;
 
 	detectCollisions = true;
 	isKinematic = false;
@@ -56,25 +56,30 @@ void Rigidbody::addForce(Vector3 force)
 void Rigidbody::addForceAtPosition(Vector3 force, Vector3 position){}
 void Rigidbody::addExplosionForce(Vector3 force, Vector3 position, float radius){}
 
-void Rigidbody::addTorque(Vector3 torque){}
+void Rigidbody::addTorque(Vector3 torque)
+{
+	angularAcceleration += torque / mass;
+}
 
 //Called on a fixed timestep for physics calculations
 void Rigidbody::FixedUpdate()
 {
 	//Derive velocity from acceleration 
 	velocity += acceleration;
+	angularVelocity += angularAcceleration;
+
+	Transform* transform = getGameObject()->getTransform();
 
 	//Apply velocity to position
-	Vector3 position = getGameObject()->getTransform()->getPosition();
+	Vector3 position = transform->getPosition();
 	position += velocity;
-	getGameObject()->getTransform()->setPosition(position);
+	transform->setPosition(position);
 
-	//If velocity is within range of the sleep velocity, we set the velocity to 0
-	//if (velocity[1] < sleepVelocity[1] && acceleration[1] < 0)
-	//	velocity[1] = 0;
-	//if (velocity[1] > -sleepVelocity[1] && acceleration[1] > 0)
-	//	velocity[1] = 0;
-
+	//Apply angular velocity to rotation
+	Vector3 eulerRotation = transform->getEulerRotation();
+	eulerRotation += angularVelocity;
+	transform->setRotation(eulerRotation);
+	
 	//Apply drag
 	acceleration *= drag;
 	angularAcceleration *= angularDrag;
@@ -89,16 +94,19 @@ void Rigidbody::OnCollision(Collision* collision)
 
 	//Reposition rigidbody's game object back to where the collision happened so that it no longer intersects
 	Vector3 MTV = collision->getMTV();
+	Vector3 normal = Vector3::Normalize(MTV);
 	getGameObject()->getTransform()->setPosition(getGameObject()->getTransform()->getPosition() + MTV);
 
 	//Calculate new forces
 	float otherMass = 1.0f;
 	Vector3 otherVelocity;
+	Vector3 otherAngularVelocity;
 
 	if (otherRigidbody)
 	{
 		otherMass = otherRigidbody->mass;
 		otherVelocity = otherRigidbody->velocity;
+		otherAngularVelocity = otherRigidbody->angularVelocity;
 	}
 
 	//Calculate which point we're going to use as the "Point of collision"
@@ -126,11 +134,16 @@ void Rigidbody::OnCollision(Collision* collision)
 	//Determine the impulse based on Chris Hecker's formula
 	float e = 0.5f; //elasticity
 	Vector3 relativeVelocity = velocity - otherVelocity;
-	float impulse = Vector3::Dot(relativeVelocity * -(1 + e), MTV);
-	impulse /= Vector3::Dot(MTV, MTV * ((1/mass) + (1/otherMass)));
+	float impulse = Vector3::Dot((relativeVelocity * mass) * -(1 + e), normal);
+	impulse /= Vector3::Dot(normal, normal * ((1 / mass) + (1 / otherMass)));
 
-	//Add the resulting impulse force
-	Vector3 finalVelocity = velocity + (MTV * (impulse / mass));
+	//Determine radius of collision point
+	Vector3 radius = pointOfCollision - centerOfMass;
+	Vector3 resultantAngularAccel = angularAcceleration + (Vector3::Cross(radius, normal * impulse));
+	angularAcceleration = resultantAngularAccel;
+
+	//Determine resulting velocity
+	Vector3 finalVelocity = velocity + ((normal * impulse)/mass);
 	velocity = finalVelocity;
 }
 

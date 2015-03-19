@@ -7,6 +7,8 @@
 #include "Transform.h"
 #include "Component.h"
 #include "Vector3.h"
+#include "Vector4.h"
+#include "Quaternion.h"
 
 class BRICKWARE_CORE_API Rigidbody : public Component
 {

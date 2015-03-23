@@ -113,6 +113,9 @@ void Rigidbody::OnCollision(Collision* collision)
 	std::vector<Vector3> pointsOfCollision = collision->getPointsOfCollision();
 	Vector3 pointOfCollision;
 
+	if (pointsOfCollision.size() == 0)
+		return;
+
 	unsigned int bestPointIndex = 0;
 	float bestPointDot = std::numeric_limits<float>::min();
 

@@ -116,6 +116,9 @@ void Rigidbody::OnCollision(Collision* collision)
 	unsigned int bestPointIndex = 0;
 	float bestPointDot = std::numeric_limits<float>::min();
 
+	if (pointsOfCollision.size() == 0)
+		return;
+
 	if (pointsOfCollision.size() > 1)
 	{
 		for (unsigned int i = 0; i < pointsOfCollision.size(); i++)
@@ -126,9 +129,9 @@ void Rigidbody::OnCollision(Collision* collision)
 				bestPointDot = dot;
 				bestPointIndex = i;
 			}
-		}
+		}	
 	}
-
+	
 	pointOfCollision = pointsOfCollision[bestPointIndex];
 
 	//Determine the impulse based on Chris Hecker's formula

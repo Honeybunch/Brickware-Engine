@@ -1,37 +1,5 @@
-﻿Build started 3/22/2015 11:45:22 PM.
-     1>Project "C:\Users\arsen\Git\Brickware-Engine\BrickwareTest\BrickwareTest.vcxproj" on node 2 (Build target(s)).
-     1>PreBuildEvent:
-         xcopy C:\Users\arsen\Git\Brickware-Engine\\Debug\BrickwareCore.lib C:\Users\arsen\Git\Brickware-Engine\BrickwareTest\\lib\ /y 
-         xcopy C:\Users\arsen\Git\Brickware-Engine\\Debug\BrickwareMath.lib C:\Users\arsen\Git\Brickware-Engine\BrickwareTest\\lib\ /y
-         :VCEnd
-         C:\Users\arsen\Git\Brickware-Engine\\Debug\BrickwareCore.lib
-         1 File(s) copied
-         C:\Users\arsen\Git\Brickware-Engine\\Debug\BrickwareMath.lib
-         1 File(s) copied
-       ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\arsen\Git\Brickware-Engine\\GL\include" /I"C:\Users\arsen\Git\Brickware-Engine\\GLFW\include" /I"C:\Users\arsen\Git\Brickware-Engine\\BrickwareTest\include" /I"C:\Users\arsen\Git\Brickware-Engine\\BrickwareMath\include" /I"C:\Users\arsen\Git\Brickware-Engine\\BrickwareCore\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\Despawn.cpp src\Main.cpp src\Spawner.cpp src\Spin.cpp src\TestGame.cpp
-         Spawner.cpp
-         Generating Code...
-         Compiling...
-         TestGame.cpp
-         Spin.cpp
-         Main.cpp
-         Despawn.cpp
-         Generating Code...
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\arsen\Git\Brickware-Engine\Debug\BrickwareTest.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\arsen\Git\Brickware-Engine\\GL\lib\Win32\\" /LIBPATH:"C:\Users\arsen\Git\Brickware-Engine\\GLFW\lib\Win32\\" /LIBPATH:"C:\Users\arsen\Git\Brickware-Engine\BrickwareTest\\lib" BrickwareCore.lib dxguid.lib d3d11.lib d3dcompiler.lib glew32.lib glfw3dll.lib BrickwareMath.lib opengl32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\arsen\Git\Brickware-Engine\Debug\BrickwareTest.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\arsen\Git\Brickware-Engine\Debug\BrickwareTest.lib" /MACHINE:X86 Debug\Despawn.obj
-         Debug\Main.obj
-         Debug\Spawner.obj
-         Debug\Spin.obj
-         Debug\TestGame.obj
-         BrickwareTest.vcxproj -> C:\Users\arsen\Git\Brickware-Engine\Debug\BrickwareTest.exe
-       PostBuildEvent:
-         for /R C:\Users\arsen\Git\Brickware-Engine\Debug %%f in (*.cso) do copy %%f C:\Users\arsen\Git\Brickware-Engine\BrickwareTest\ /y 
-         :VCEnd
-                 1 file(s) copied.
-                 1 file(s) copied.
-     1>Done Building Project "C:\Users\arsen\Git\Brickware-Engine\BrickwareTest\BrickwareTest.vcxproj" (Build target(s)).
+﻿Build started 3/19/2015 7:06:51 PM.
 
 Build succeeded.
 
-Time Elapsed 00:00:11.04
+Time Elapsed 00:00:00.03

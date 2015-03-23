@@ -1,52 +1,5 @@
-﻿Build started 3/22/2015 11:48:29 PM.
-     1>Project "C:\Users\arsen\Git\Brickware-Engine\BrickwareCore\BrickwareCore.vcxproj" on node 2 (Build target(s)).
-     1>PreBuildEvent:
-         xcopy C:\Users\arsen\Git\Brickware-Engine\\Debug\BrickwareMath.lib C:\Users\arsen\Git\Brickware-Engine\BrickwareCore\\lib\ /y
-         :VCEnd
-         C:\Users\arsen\Git\Brickware-Engine\\Debug\BrickwareMath.lib
-         1 File(s) copied
-       ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\arsen\Git\Brickware-Engine\\GLFW\include" /I"C:\Users\arsen\Git\Brickware-Engine\\GL\include" /I"C:\Users\arsen\Git\Brickware-Engine\\BrickwareMath\include" /I"C:\Users\arsen\Git\Brickware-Engine\BrickwareCore\\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _WINDLL /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\Rigidbody.cpp
-         Rigidbody.cpp
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\arsen\Git\Brickware-Engine\Debug\BrickwareCore.dll" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\arsen\Git\Brickware-Engine\BrickwareCore\\lib" /LIBPATH:"C:\Users\arsen\Git\Brickware-Engine\\GL\lib\Win32" /LIBPATH:"C:\Users\arsen\Git\Brickware-Engine\\GLFW\lib\Win32" dxguid.lib d3d11.lib d3dcompiler.lib BrickwareMath.lib glew32.lib glfw3dll.lib opengl32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\arsen\Git\Brickware-Engine\Debug\BrickwareCore.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\arsen\Git\Brickware-Engine\Debug\BrickwareCore.lib" /MACHINE:X86 /DLL Debug\Bounds.obj
-         Debug\BoxCollider.obj
-         Debug\Camera.obj
-         Debug\Collider.obj
-         Debug\Collision.obj
-         Debug\Component.obj
-         Debug\Debug.obj
-         Debug\dxerr.obj
-         Debug\FrustumCollider.obj
-         Debug\Game.obj
-         Debug\GameObject.obj
-         Debug\GameTime.obj
-         Debug\Input.obj
-         Debug\Light.obj
-         Debug\Material.obj
-         Debug\MaterialD3D.obj
-         Debug\MaterialGL.obj
-         Debug\Mesh.obj
-         Debug\MeshRenderer.obj
-         Debug\Octree.obj
-         Debug\PhysicsManager.obj
-         Debug\Primitive.obj
-         Debug\PrimitiveManager.obj
-         Debug\Rigidbody.obj
-         Debug\Screen.obj
-         Debug\Shader.obj
-         Debug\ShaderD3D.obj
-         Debug\ShaderGL.obj
-         Debug\SphereCollider.obj
-         Debug\Texture.obj
-         Debug\TextureD3D.obj
-         Debug\TextureGL.obj
-         Debug\Transform.obj
-         Debug\Triangle.obj
-         Debug\Utils.obj
-         BrickwareCore.vcxproj -> C:\Users\arsen\Git\Brickware-Engine\Debug\BrickwareCore.dll
-     1>Done Building Project "C:\Users\arsen\Git\Brickware-Engine\BrickwareCore\BrickwareCore.vcxproj" (Build target(s)).
+﻿Build started 3/19/2015 7:06:51 PM.
 
 Build succeeded.
 
-Time Elapsed 00:00:03.72
+Time Elapsed 00:00:00.02

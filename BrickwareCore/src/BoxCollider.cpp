@@ -463,10 +463,14 @@ bool BoxCollider::isCollidingWithBox(BoxCollider* other, Collision* collision)
 		if (Vector3::Dot(other->center - center, possibleMTV) > 0)
 			possibleMTV *= -1;
 
+		collision->setThisObject(getGameObject());
 		collision->setThisRigidbody(this->getGameObject()->getComponent<Rigidbody>());
 		collision->setThisCollider(this);
+
+		collision->setOtherObject(other->getGameObject());
 		collision->setOtherCollider(other);
 		collision->setOtherRigidbody(other->getGameObject()->getComponent<Rigidbody>());
+
 		collision->setMTV(possibleMTV);
 		collision->setPointsOfCollision(pointsOfCollision);
 	}

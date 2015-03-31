@@ -14,7 +14,7 @@ void PhysicsManager::SetGravity(float gravity){ PhysicsManager::gravity = gravit
 
 void PhysicsManager::Initialize()
 {
-	gravity = -.0004905f;
+	gravity = -.004905f;
 }
 
 bool PhysicsManager::IsCollisionActive(Collision* collision)
@@ -23,7 +23,17 @@ bool PhysicsManager::IsCollisionActive(Collision* collision)
 	{
 		Collision* activeCollision = activeCollisions[i];
 
-		if ((*activeCollision) == (*collision))
+		if (activeCollision->getThisObject() == collision->getThisObject() &&
+			activeCollision->getOtherObject() == collision->getOtherObject())
+			return true;
+	}
+
+	for (unsigned int i = 0; i < lastFrameActiveCollisions.size(); i++)
+	{
+		Collision* activeCollision = lastFrameActiveCollisions[i];
+
+		if (activeCollision->getThisObject() == collision->getThisObject() &&
+			activeCollision->getOtherObject() == collision->getOtherObject())
 			return true;
 	}
 
@@ -61,7 +71,7 @@ void PhysicsManager::Update()
 					GameObject* testObj = test->getGameObject();
 
 					//If there isn't any identical collision, we will send a collision enter call
-					if (!IsCollisionActive(collision))
+					if (IsCollisionActive(collision) == false)
 					{
 						testObj->OnCollisionEnter(collision);
 

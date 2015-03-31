@@ -41,7 +41,7 @@ void Spawner::spawnObject()
 
 	newObject->Start();
 
-	rigidbody->addForce(Vector3::Normalize(camera->getLookAt() - camera->getGameObject()->getTransform()->getPosition()) *.03f);
+	rigidbody->addForce(Vector3::Normalize(camera->getLookAt() - camera->getGameObject()->getTransform()->getPosition()) * .2f);
 	rigidbody->addTorque(Vector3(xTorque, yTorque, zTorque));
 
 	//Check if the spheres are colliding

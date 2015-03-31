@@ -55,6 +55,10 @@ private:
 	Vector3 centerOfMass;
 	Vector3 worldCenterOfMass;
 
+	Vector3 inertiaTensor;
+
+	Matrix3 momentOfInertia();
+
 	bool detectCollisions;
 	bool isKinematic;
 	bool useGravity;

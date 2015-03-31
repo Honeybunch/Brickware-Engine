@@ -18,6 +18,8 @@ public:
 	Matrix3(Vector3 one, Vector3 two, Vector3 three);
 
 	//Accessors
+	Matrix3 getTranspose();
+	Matrix3 getInverse();
 	float* getAsArray();
 
 	//Operators

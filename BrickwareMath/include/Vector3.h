@@ -57,6 +57,8 @@ public:
 
 	bool operator>(Vector3 u);
 	bool operator<(Vector3 u);
+	bool operator==(Vector3 u);
+	bool operator!=(Vector3 u);
 
 	float operator* (Vector3 u);
 	Vector3 operator+ (Vector3 u);

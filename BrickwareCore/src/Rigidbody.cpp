@@ -17,7 +17,7 @@ Rigidbody::Rigidbody()
 	mass = 1.0f;
 
 	drag = .90f;
-	angularDrag = .999f;
+	angularDrag = .99f;
 
 	detectCollisions = true;
 	isKinematic = false;
@@ -32,9 +32,9 @@ void Rigidbody::Start()
 
 	//We should probably get an inertia tensor from a collider or mesh but we'll just assume it's a box
 	Vector3 scale = getGameObject()->getTransform()->getScale();
-	float inertiaTensorX = (mass * (powf(scale[1], 2) + powf(scale[2], 2))) * 12;
-	float inertiaTensorY = (mass * (powf(scale[0], 2) + powf(scale[2], 2))) * 12;
-	float inertiaTensorZ = (mass * (powf(scale[0], 2) + powf(scale[1], 2))) * 12;
+	float inertiaTensorX = (mass * (powf(scale[1], 2) + powf(scale[2], 2))) / 12;
+	float inertiaTensorY = (mass * (powf(scale[0], 2) + powf(scale[2], 2))) / 12;
+	float inertiaTensorZ = (mass * (powf(scale[0], 2) + powf(scale[1], 2))) / 12;
 
 	inertiaTensor = Vector3(inertiaTensorX, inertiaTensorY, inertiaTensorZ);
 
@@ -112,8 +112,8 @@ void Rigidbody::FixedUpdate()
 }
 void Rigidbody::OnCollision(Collision* collision)
 {
-	Rigidbody* otherRigidbody = collision->getRigidbody();
-	Collider* otherCollider = collision->getCollider();
+	Rigidbody* otherRigidbody = collision->getOtherRigidbody();
+	Collider* otherCollider = collision->getOtherCollider();
 
 	//Reposition rigidbody's game object back to where the collision happened so that it no longer intersects
 	Vector3 MTV = collision->getMTV();
@@ -122,7 +122,7 @@ void Rigidbody::OnCollision(Collision* collision)
 
 
 	//Calculate new forces
-	float otherMass = 1.0f;
+	float otherMass = std::numeric_limits<float>::max();
 	Vector3 otherVelocity;
 	Vector3 otherAngularVelocity;
 	Vector3 otherCenterOfMass;
@@ -176,7 +176,7 @@ void Rigidbody::OnCollision(Collision* collision)
 	float e = 0.5f; //elasticity
 	Vector3 relativeVelocity = velocity - otherVelocity;
 	float impulse = Vector3::Dot((relativeVelocity * mass) * -(1 + e), normal);
-	impulse /= Vector3::Dot(normal, normal * ((1 / mass) + (1 / otherMass))) + 
+	impulse /= Vector3::Dot(normal, normal * ((1 / mass) + (1 / otherMass))) +
 		Vector3::Dot((Vector3::Cross(momentOfInertia * Vector3::Cross(radius, normal), radius) +
 					  Vector3::Cross(otherMomentOfInertia * Vector3::Cross(otherRadius, normal), otherRadius)), 
 					  normal);

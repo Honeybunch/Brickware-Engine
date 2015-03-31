@@ -29,6 +29,8 @@ private:
 	static void Update();
 	static void Destroy();
 	
+	static bool IsCollisionActive(Collision* collision);
+
 	static void AddRigidbody(Rigidbody* rigidbody);
 	static void AddCollider(Collider* collider);
 
@@ -36,6 +38,8 @@ private:
 	static void RemoveCollider(Collider* collider);
 
 	//Using unordered map for faster removals
+	static std::vector<Collision*> activeCollisions;
+	static std::vector<Collision*> lastFrameActiveCollisions;
 	static std::unordered_map<Rigidbody*, int> rigidbodies;
 	static std::unordered_map<Collider*, int> colliders;
 	static float gravity;

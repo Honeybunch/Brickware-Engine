@@ -31,9 +31,9 @@ void Spawner::spawnObject()
 	float zRot = (float)((rand() % 314) / 100.0f);
 
 	//Calculate some random torque to apply
-	float xTorque = (float)(rand() % 100) / 1000.0f;
-	float yTorque = (float)(rand() % 100) / 1000.0f;
-	float zTorque = (float)(rand() % 100) / 1000.0f;
+	float xTorque = (float)(rand() % 100) / 1000000.0f;
+	float yTorque = (float)(rand() % 100) / 1000000.0f;
+	float zTorque = (float)(rand() % 100) / 1000000.0f;
 
 	newObject->getTransform()->setRotation(Vector3(xRot, yRot, zRot));
 	newObject->addComponent(rigidbody);

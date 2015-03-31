@@ -179,6 +179,28 @@ Vector3 Vector3::operator+=(float s)
 
 bool Vector3::operator>(Vector3 u){ return getMagnitude() > u.getMagnitude(); }
 bool Vector3::operator<(Vector3 u){ return getMagnitude() < u.getMagnitude(); }
+bool Vector3::operator==(Vector3 u)
+{
+	if (vector[0] != u[0])
+		return false;
+	if (vector[1] != u[1])
+		return false;
+	if (vector[2] != u[2])
+		return false;
+
+	return true;
+}
+bool Vector3::operator!=(Vector3 u)
+{
+	if (vector[0] != u[0])
+		return true;
+	if (vector[1] != u[1])
+		return true;
+	if (vector[2] != u[2])
+		return true;
+
+	return false;
+}
 
 //Vector operators
 float Vector3::operator* (Vector3 u)

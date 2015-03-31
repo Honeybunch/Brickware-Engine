@@ -3,6 +3,8 @@
 #include "PhysicsManager.h"
 
 //Statics
+std::vector<Collision*> PhysicsManager::activeCollisions;
+std::vector<Collision*> PhysicsManager::lastFrameActiveCollisions;
 std::unordered_map<Rigidbody*, int> PhysicsManager::rigidbodies;
 std::unordered_map<Collider*, int> PhysicsManager::colliders;
 float PhysicsManager::gravity;
@@ -13,6 +15,19 @@ void PhysicsManager::SetGravity(float gravity){ PhysicsManager::gravity = gravit
 void PhysicsManager::Initialize()
 {
 	gravity = -.0004905f;
+}
+
+bool PhysicsManager::IsCollisionActive(Collision* collision)
+{
+	for (unsigned int i = 0; i < activeCollisions.size(); i++)
+	{
+		Collision* activeCollision = activeCollisions[i];
+
+		if ((*activeCollision) == (*collision))
+			return true;
+	}
+
+	return false;
 }
 
 void PhysicsManager::Update()
@@ -45,11 +60,48 @@ void PhysicsManager::Update()
 				{
 					GameObject* testObj = test->getGameObject();
 
-					testObj->OnCollisionEnter(collision);
+					//If there isn't any identical collision, we will send a collision enter call
+					if (!IsCollisionActive(collision))
+					{
+						testObj->OnCollisionEnter(collision);
+
+						activeCollisions.push_back(collision);
+					}
+					//Otherwise we will send a collision continue call
+					else
+					{
+						//TODO
+					}
 				}
 			}
 		}
 	}
+
+	//Any collisions that were active last frame that are not active now can be untracked
+	for (unsigned int i = 0; i < lastFrameActiveCollisions.size(); i++)
+	{
+		Collision* toCheck = lastFrameActiveCollisions[i];
+		bool shouldRemove = true;
+		for (unsigned int j = 0; j < activeCollisions.size(); j++)
+		{
+			if (toCheck == activeCollisions[j])
+			{
+				shouldRemove = false;
+				break;
+			}
+		}
+		if (shouldRemove)
+		{
+			lastFrameActiveCollisions.erase(lastFrameActiveCollisions.begin() + i, lastFrameActiveCollisions.begin() + i + 1);
+			//TODO: fire off collision end event
+		}
+	}
+
+	//Any active collisions are stored 
+	for (unsigned int i = 0; i < activeCollisions.size(); i++)
+		lastFrameActiveCollisions.push_back(activeCollisions[i]);
+	
+	activeCollisions.clear();
 }
 
 void PhysicsManager::Destroy()

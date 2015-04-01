@@ -9,41 +9,47 @@
 #include "Primitive.h"
 #include "Collision.h"
 
-class GameObject;
-class Collider;
-
 #include "Input.h"
 
-class BRICKWARE_CORE_API Component
+namespace Brickware
 {
-public:
-	Component();
-	
-	GameObject* getGameObject();
-	
-	void setGameObject(GameObject* gameObject);
+	namespace Core
+	{
+		class GameObject;
+		class Collider;
 
-	virtual Component* Clone();
+		class BRICKWARE_CORE_API Component
+		{
+		public:
+			Component();
 
-	virtual void Start();
+			GameObject* getGameObject();
 
-	virtual void Update();
-	virtual void LateUpdate();
-	virtual void FixedUpdate();
+			void setGameObject(GameObject* gameObject);
 
-	virtual void OnCollision(Collision* collision);
-	virtual void OnTrigger(Collision* collision);
+			virtual Component* Clone();
 
-	virtual void Render();
+			virtual void Start();
+
+			virtual void Update();
+			virtual void LateUpdate();
+			virtual void FixedUpdate();
+
+			virtual void OnCollision(Collision* collision);
+			virtual void OnTrigger(Collision* collision);
+
+			virtual void Render();
 
 #ifdef _DEBUG
-	virtual void DebugDraw();
+			virtual void DebugDraw();
 #endif
 
-	virtual ~Component();
+			virtual ~Component();
 
-private:
-	GameObject* gameObject;
+		private:
+			GameObject* gameObject;
+		};
+	};
 };
 
 #endif

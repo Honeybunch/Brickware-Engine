@@ -44,15 +44,18 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)\GLFW\include;$(SolutionDir)\GL\include;$(SolutionDir)\BrickwareMath\include;$(ProjectDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\BrickwareUtils\include;$(SolutionDir)\BrickwareGraphics\include;$(SolutionDir)\GLFW\include;$(SolutionDir)\GL\include;$(SolutionDir)\BrickwareMath\include;$(ProjectDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_WINDLL;%(PreprocessorDefinitions);GL_SUPPORT</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>dxguid.lib;d3d11.lib;d3dcompiler.lib;BrickwareMath.lib;glew32.lib;glfw3dll.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>dxguid.lib;d3d11.lib;d3dcompiler.lib;BrickwareGraphics.lib;BrickwareUtils.lib;BrickwareMath.lib;glew32.lib;glfw3dll.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(ProjectDir)\lib;$(SolutionDir)\GL\lib\Win32;$(SolutionDir)\GLFW\lib\Win32</AdditionalLibraryDirectories>
     </Link>
     <PreBuildEvent>
-      <Command>xcopy $(SolutionDir)\$(Configuration)\BrickwareMath.lib $(ProjectDir)\lib\ /y</Command>
+      <Command>xcopy $(SolutionDir)$(Configuration)\BrickwareMath.lib $(ProjectDir)lib\ /y 
+xcopy $(SolutionDir)$(Configuration)\BrickwareUtils.lib $(ProjectDir)lib\ /y
+xcopy $(SolutionDir)$(Configuration)\BrickwareGraphics.lib $(ProjectDir)lib\ /y</Command>
     </PreBuildEvent>
     <Lib>
       <AdditionalDependencies>glfw3dll.lib;glew32.lib</AdditionalDependencies>
@@ -76,7 +79,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="include\Bounds.h" />
     <ClInclude Include="include\BoxCollider.h" />
     <ClInclude Include="include\BrickwareCore.h" />
     <ClInclude Include="include\BrickwareCoreDLL.h" />
@@ -91,26 +93,18 @@
     <ClInclude Include="include\GameObject.h" />
     <ClInclude Include="include\GameTime.h" />
     <ClInclude Include="include\Input.h" />
-    <ClInclude Include="include\Light.h" />
-    <ClInclude Include="include\Material.h" />
-    <ClInclude Include="include\Mesh.h" />
+    <ClInclude Include="include\MaterialComponent.h" />
     <ClInclude Include="include\MeshRenderer.h" />
     <ClInclude Include="include\Octree.h" />
     <ClInclude Include="include\PhysicsManager.h" />
-    <ClInclude Include="include\Primitive.h" />
-    <ClInclude Include="include\PrimitiveManager.h" />
     <ClInclude Include="include\Rigidbody.h" />
     <ClInclude Include="include\Screen.h" />
     <ClInclude Include="include\Settings.h" />
-    <ClInclude Include="include\Shader.h" />
     <ClInclude Include="include\SphereCollider.h" />
-    <ClInclude Include="include\Texture.h" />
     <ClInclude Include="include\Transform.h" />
     <ClInclude Include="include\Triangle.h" />
-    <ClInclude Include="include\Utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Bounds.cpp" />
     <ClCompile Include="src\BoxCollider.cpp" />
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\Collider.cpp" />
@@ -123,28 +117,15 @@
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\GameTime.cpp" />
     <ClCompile Include="src\Input.cpp" />
-    <ClCompile Include="src\Light.cpp" />
-    <ClCompile Include="src\Material.cpp" />
-    <ClCompile Include="src\MaterialD3D.cpp" />
-    <ClCompile Include="src\MaterialGL.cpp" />
-    <ClCompile Include="src\Mesh.cpp" />
+    <ClCompile Include="src\MaterialComponent.cpp" />
     <ClCompile Include="src\MeshRenderer.cpp" />
     <ClCompile Include="src\Octree.cpp" />
     <ClCompile Include="src\PhysicsManager.cpp" />
-    <ClCompile Include="src\Primitive.cpp" />
-    <ClCompile Include="src\PrimitiveManager.cpp" />
     <ClCompile Include="src\Rigidbody.cpp" />
     <ClCompile Include="src\Screen.cpp" />
-    <ClCompile Include="src\Shader.cpp" />
-    <ClCompile Include="src\ShaderD3D.cpp" />
-    <ClCompile Include="src\ShaderGL.cpp" />
     <ClCompile Include="src\SphereCollider.cpp" />
-    <ClCompile Include="src\Texture.cpp" />
-    <ClCompile Include="src\TextureD3D.cpp" />
-    <ClCompile Include="src\TextureGL.cpp" />
     <ClCompile Include="src\Transform.cpp" />
     <ClCompile Include="src\Triangle.cpp" />
-    <ClCompile Include="src\Utils.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

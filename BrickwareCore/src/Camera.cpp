@@ -1,5 +1,9 @@
 #define BRICKWARE_CORE_EXPORTS
 
+using namespace Brickware;
+using namespace Core;
+using namespace Math;
+
 #include "FrustumCollider.h"
 #include "Camera.h"
 
@@ -153,11 +157,20 @@ void Camera::Update()
 	Input::setMousePosition(Vector2(screenCenterX, screenCenterY));
 }
 
-void Camera::Render(Material* material)
+void Camera::Render()
 {	
-	material->setVector3("lookAt", lookAt);
-	material->setVector3("eyePoint", getGameObject()->getTransform()->getPosition());
-	material->setVector3("up", getGameObject()->getTransform()->getUp());
+	for (unsigned int i = 0; i < Material::materials; i++)
+	{
+		Material material = Material::materials[i];
+
+		material->bindShader();
+
+		material->setVector3("lookAt", lookAt);
+		material->setVector3("eyePoint", getGameObject()->getTransform()->getPosition());
+		material->setVector3("up", getGameObject()->getTransform()->getUp());
+
+		material->freeShader();
+	}
 }
 
 /* 

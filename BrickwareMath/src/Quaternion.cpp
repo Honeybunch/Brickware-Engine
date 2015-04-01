@@ -2,6 +2,9 @@
 
 #include "Quaternion.h"
 
+using namespace Brickware;
+using namespace Math;
+
 /*
 	Constructors
 */

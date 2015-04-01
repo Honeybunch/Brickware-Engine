@@ -53,7 +53,7 @@
     </Link>
     <PreBuildEvent>
       <Command>xcopy $(SolutionDir)\$(Configuration)\BrickwareCore.lib $(ProjectDir)\lib\ /y 
-xcopy $(SolutionDir)\$(Configuration)\BrickwareMath.lib $(ProjectDir)\lib\ /y</Command>
+xcopy $(SolutionDir)\$(Configuration)\BrickwareMath.lib $(ProjectDir)\lib\ /y xcopy $(SolutionDir)\$(Configuration)\BrickwareUtils.lib $(ProjectDir)\lib\ /y xcopy $(SolutionDir)\$(Configuration)\BrickwareGraphics.lib $(ProjectDir)\lib\ /y</Command>
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>for /R $(SolutionDir)$(Configuration) %%f in (*.cso) do copy %%f $(ProjectDir) /y </Command>

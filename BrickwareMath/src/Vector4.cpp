@@ -3,6 +3,9 @@
 #include "Vector4.h"
 #include "Vector3.h"
 
+using namespace Brickware;
+using namespace Math;
+
 /*
 	Constructors
 */
@@ -75,7 +78,14 @@ std::ostream& operator<<(std::ostream& output, Vector4& v4)
 //Insertion
 std::istream& operator>> (std::istream& input, Vector4& v4)
 {
-	input >> v4.vector[0] >> v4.vector[1] >> v4.vector[2] >> v4.vector[3];
+	float x, y, z, w;
+	input >> x >> y >> z >> w;
+
+	v4.setX(x);
+	v4.setY(y);
+	v4.setZ(z);
+	v4.setW(w);
+
 	return input;
 }
 

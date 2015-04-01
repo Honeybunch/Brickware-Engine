@@ -3,7 +3,12 @@
 #include "Matrix3.h"
 #include "Matrix4.h"
 
-//Constructors
+using namespace Brickware;
+using namespace Math;
+
+/*
+	Constructors
+*/
 
 Matrix3::Matrix3()
 {
@@ -41,7 +46,10 @@ Matrix3::Matrix3(Vector3 one, Vector3 two, Vector3 three)
 	matrix[2][0] = three.getX(); matrix[2][1] = three.getY(); matrix[2][2] = three.getZ();
 }
 
-//Accessors
+/*
+	Accessors and Mutators
+*/
+
 Matrix3 Matrix3::getTranspose()
 {
 	Matrix3 transpose;
@@ -102,7 +110,9 @@ float* Matrix3::getAsArray()
 	return rawMatrix;
 }
 
-//Operators
+/*
+	Operators
+*/
 
 Matrix3 Matrix3::operator*(Matrix3 m)
 {
@@ -150,6 +160,8 @@ Matrix3::operator Matrix4()
 
 float* Matrix3::operator[](int i){ return matrix[i]; }
 
-//Destructor
+/*
+	Destructor
+*/
 
 Matrix3::~Matrix3(){}

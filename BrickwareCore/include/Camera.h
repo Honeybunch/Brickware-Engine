@@ -1,85 +1,90 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include "BrickwareCoreDLL.h"
-
+//Pre-Include Defines
 #define _USE_MATH_DEFINES
 
-#include <iostream>
-#include <vector>
-#include <math.h>
+//DLL Header
+#include "BrickwareCoreDLL.h"
 
-#include "Settings.h"
-
+//Graphics Headers
 #ifdef D3D_SUPPORT
 #include <windows.h>
 #endif
 
 #ifdef GL_SUPPORT
 #include <GL/glew.h>
-
-#ifdef _WIN32
-#define GLFW_DLL
 #endif
 
-#define GLFW_INCLUDE_GLU
-#include <glfw3.h>
-#endif
-
-#include "Transform.h"
+//Other Brickware Project Headers
 #include "Matrix4.h"
+
+//System Level Headers
+#include <iostream>
+#include <vector>
+#include <math.h>
+
+//Project Headers
+#include "Settings.h"
+#include "Transform.h"
 #include "GameObject.h"
 
-//Used to avoid warnings about exporting std::vectors
-class Camera;
-template class BRICKWARE_CORE_API std::vector <Camera*>;
-
-class BRICKWARE_CORE_API Camera : public Component
+namespace Brickware
 {
-public:
-	static Camera* GetActiveCamera();
+	namespace Core
+	{
+		//Used to avoid warnings about exporting std::vectors
+		class Camera;
+		template class BRICKWARE_CORE_API std::vector < Camera* > ;
 
-	Camera(float FoV, float width, float height, float zNear, float zFar);
-	Camera(Transform* transform, float FoV, float width, float height, float zNear, float zFar);
-	~Camera(void);
+		class BRICKWARE_CORE_API Camera : public Component
+		{
+		public:
+			static Camera* GetActiveCamera();
 
-	Vector3 getLookAt();
-	Matrix4 getViewMatrix();
-	Matrix4 getProjectionMatrix();
-	
-	void setLookAt(Vector3 lookAt);
+			Camera(float FoV, float width, float height, float zNear, float zFar);
+			Camera(Transform* transform, float FoV, float width, float height, float zNear, float zFar);
+			~Camera(void);
 
-	void setActive();
+			Math::Vector3 getLookAt();
+			Math::Matrix4 getViewMatrix();
+			Math::Matrix4 getProjectionMatrix();
 
-	void moveForward();
-	void moveBackward();
-	void moveLeft();
-	void moveRight();
+			void setLookAt(Math::Vector3 lookAt);
 
-	virtual void Start() override;
-	virtual void Update() override;
-	void Render(Material* material);	
+			void setActive();
 
-private:
-	static std::vector<Camera*> SceneCameras;
-	static Camera* ActiveCamera;
+			void moveForward();
+			void moveBackward();
+			void moveLeft();
+			void moveRight();
 
-	bool active = false;
+			virtual void Start() override;
+			virtual void Update() override;
+			void Render();
 
-	float FoV;
-	float width;
-	float height;
-	float zNear;
-	float zFar;
+		private:
+			static std::vector<Camera*> SceneCameras;
+			static Camera* ActiveCamera;
 
-	Matrix4 viewMatrix;
-	Matrix4 projectionMatrix;
+			bool active = false;
 
-	float speed;
-	Vector3 lookAt;
+			float FoV;
+			float width;
+			float height;
+			float zNear;
+			float zFar;
 
-	Matrix4 calcViewMatrix();
-	Matrix4 calcProjectionMatrix();
+			Math::Matrix4 viewMatrix;
+			Math::Matrix4 projectionMatrix;
+
+			float speed;
+			Math::Vector3 lookAt;
+
+			Math::Matrix4 calcViewMatrix();
+			Math::Matrix4 calcProjectionMatrix();
+		};
+	};
 };
 
 #endif

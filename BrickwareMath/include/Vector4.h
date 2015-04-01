@@ -1,46 +1,53 @@
 #ifndef VECTOR4_H
 #define VECTOR4_H
 
-#include <iostream>
-
+//DLL Header
 #include "BrickwareMathDLL.h"
 
-class Vector3;
+//System Level Headers
+#include <iostream>
 
-class BRICKWARE_MATH_API Vector4
+namespace Brickware
 {
-public: 
-	//Constructors
-	Vector4();
-	Vector4(float x, float y, float z, float w);
-	Vector4(Vector3 v, float w);
+	namespace Math
+	{
+		class Vector3;
 
-	//Destructor
-	~Vector4();
-	
-	//Accessors and mutators
-	float getX();
-	float getY();
-	float getZ();
-	float getW();
+		class BRICKWARE_MATH_API Vector4
+		{
+		public:
+			//Constructors
+			Vector4();
+			Vector4(float x, float y, float z, float w);
+			Vector4(Vector3 v, float w);
 
-	float* getAsArray();
+			//Destructor
+			~Vector4();
 
-	void setX(float x);
-	void setY(float y);
-	void setZ(float z);
-	void setW(float w);
+			//Accessors and mutators
+			float getX();
+			float getY();
+			float getZ();
+			float getW();
 
-	float& operator[] (int i);
+			float* getAsArray();
 
-	friend std::ostream& operator<< (std::ostream& output, Vector4& v4);
-	friend std::istream& operator>> (std::istream& input, Vector4& v4);
+			void setX(float x);
+			void setY(float y);
+			void setZ(float z);
+			void setW(float w);
 
-	operator Vector3();
+			float& operator[] (int i);
 
-private:
-	float vector[4];
+			friend std::ostream& operator<< (std::ostream& output, Vector4& v4);
+			friend std::istream& operator>> (std::istream& input, Vector4& v4);
 
+			operator Vector3();
+
+		private:
+			float vector[4];
+		};
+	};
 };
 
 #endif

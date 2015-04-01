@@ -20,7 +20,7 @@
 #include <glfw3.h>
 #endif
 
-class GameObject;
+
 
 #include "Shader.h"
 #include "Component.h"
@@ -31,50 +31,58 @@ class GameObject;
 #include "Matrix3.h"
 #include "Quaternion.h"
 
-class BRICKWARE_CORE_API Transform : public Component
+namespace Brickware
 {
-public:
-	Transform();
+	namespace Core
+	{
+		class GameObject;
 
-	//Accessors
-	Vector3 getPosition();
-	Vector3 getEulerRotation();
-	Quaternion getRotation();
-	Vector3 getScale();
+		class BRICKWARE_CORE_API Transform : public Component
+		{
+		public:
+			Transform();
 
-	Vector3 getForward();
-	Vector3 getRight();
-	Vector3 getUp();
+			//Accessors
+			Math::Vector3 getPosition();
+			Math::Vector3 getEulerRotation();
+			Math::Quaternion getRotation();
+			Math::Vector3 getScale();
 
-	Matrix4 getModelMatrix();
-	
-	//Mutators
-	void setPosition(Vector3 newPosition);
-	void setEulerRotation(Vector3 newRotation);
-	void setRotation(Quaternion newRotation);
-	void setScale(Vector3 newScale);
+			Math::Vector3 getForward();
+			Math::Vector3 getRight();
+			Math::Vector3 getUp();
 
-	//Component Overrides
-	virtual Component* Clone() override;
-	virtual void Update();
-	virtual void Render();
+			Math::Matrix4 getModelMatrix();
 
-	~Transform();
+			//Mutators
+			void setPosition(Math::Vector3 newPosition);
+			void setEulerRotation(Math::Vector3 newRotation);
+			void setRotation(Math::Quaternion newRotation);
+			void setScale(Math::Vector3 newScale);
 
-private:
-	Vector3 position;
-	Quaternion rotation;
-	Vector3 eulerRotation;
-	Vector3 scale;
+			//Component Overrides
+			virtual Component* Clone() override;
+			virtual void Update();
+			virtual void Render();
 
-	Vector3 forward;
-	Vector3 right;
-	Vector3 up;
+			~Transform();
 
-	Matrix4 modelMatrix;
+		private:
+			Math::Vector3 position;
+			Math::Quaternion rotation;
+			Math::Vector3 eulerRotation;
+			Math::Vector3 scale;
 
-	void renderGL(Material* material);
-	void renderD3D(Material* material);
+			Math::Vector3 forward;
+			Math::Vector3 right;
+			Math::Vector3 up;
+
+			Math::Matrix4 modelMatrix;
+
+			void renderGL(Material* material);
+			void renderD3D(Material* material);
+		};
+	};
 };
 
 #endif

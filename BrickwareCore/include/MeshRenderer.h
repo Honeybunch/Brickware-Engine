@@ -5,27 +5,33 @@
 
 #include "BrickwareCoreDLL.h"
 
-#include "Mesh.h"
 #include "Component.h"
 #include "Bounds.h"
+#include "Mesh.h"
+#include "RenderingManager.h"
 
-class BRICKWARE_CORE_API MeshRenderer : public Component
+namespace Brickware
 {
-public:
-	MeshRenderer(Mesh* mesh);
+	namespace Core
+	{
+		class BRICKWARE_CORE_API MeshRenderer : public Component
+		{
+		public:
+			MeshRenderer(Graphics::Mesh* mesh);
 
-	Bounds getBounds();
+			Bounds getBounds();
 
-	virtual Component* Clone() override;
-	virtual void Render();
+			virtual Component* Clone() override;
+			virtual void Render();
 
-	~MeshRenderer();
+			~MeshRenderer();
 
-private:
-	Mesh* mesh;
+		private:
+			Graphics::Mesh* mesh;
 
-	void renderGL(Material* material);
-	void renderD3D(Material* material);
+			void renderGL(Graphics::Material* material);
+			void renderD3D(Graphics::Material* material);
+		};
+	};
 };
-
 #endif

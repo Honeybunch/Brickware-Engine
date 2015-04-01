@@ -8,9 +8,9 @@ in vec3 vNormal;
 in vec2 vTexCoord;
 
 //Uniforms
-uniform mat4 modelMatrix; 
-uniform mat4 viewMatrix;
-uniform mat4 projectionMatrix;
+uniform mat4 worldMatrix; 
+uniform mat4 modelMatrix;
+uniform mat4 rotationMatrix;
 
 uniform sampler2D diffuseTexture;
 
@@ -27,7 +27,7 @@ out vec2 texCoord;
 
 void main()
 {
-    gl_Position = (projectionMatrix * viewMatrix * modelMatrix) * vec4(vPosition, 1.0f);
+    gl_Position = worldMatrix * vec4(vPosition, 1.0f);
 
 	//Shading
 	vec4 worldCoord4v = modelMatrix * vec4(vPosition, 1.0f);
@@ -35,7 +35,7 @@ void main()
 							 worldCoord4v.y / worldCoord4v.w,
 							 worldCoord4v.z / worldCoord4v.w);
 
-	mat3 rotation = mat3(modelMatrix);
+	mat3 rotation = mat3(rotationMatrix);
 	vec3 worldNormal3v = rotation * vNormal;
 
 	worldNormal = worldNormal3v;

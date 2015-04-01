@@ -2,6 +2,9 @@
 
 #include "Vector2.h"
 
+using namespace Brickware;
+using namespace Math;
+
 /*
 	Constructors
 */
@@ -126,6 +129,11 @@ std::ostream& operator<<(std::ostream& output, Vector2& v)
 //Insertion
 std::istream& operator>>(std::istream& input, Vector2& v)
 {
-	input >> v.vector[0] >> v.vector[1];
+	float x, y;
+	input >> x >> y;
+
+	v.setX(x);
+	v.setY(y);
+
 	return input;
 }

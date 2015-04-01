@@ -3,6 +3,9 @@
 #include "Vector3.h"
 #include "Vector4.h"
 
+using namespace Brickware;
+using namespace Math;
+
 /*
 	Constructors
 */

@@ -53,9 +53,6 @@
     <ClInclude Include="include\Camera.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="include\Bounds.h">
-      <Filter>Header Files\Data</Filter>
-    </ClInclude>
     <ClInclude Include="include\dxerr.h">
       <Filter>Header Files\Game Core</Filter>
     </ClInclude>
@@ -68,9 +65,6 @@
     <ClInclude Include="include\GameObject.h">
       <Filter>Header Files\Game Core</Filter>
     </ClInclude>
-    <ClInclude Include="include\Light.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="include\Octree.h">
       <Filter>Header Files\Data</Filter>
     </ClInclude>
@@ -80,25 +74,13 @@
     <ClInclude Include="include\Rigidbody.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="include\Shader.h">
-      <Filter>Header Files\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Texture.h">
-      <Filter>Header Files\Data</Filter>
-    </ClInclude>
     <ClInclude Include="include\Triangle.h">
-      <Filter>Header Files\Data</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Mesh.h">
       <Filter>Header Files\Data</Filter>
     </ClInclude>
     <ClInclude Include="include\Component.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="include\Transform.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Material.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="include\MeshRenderer.h">
@@ -116,15 +98,6 @@
     <ClInclude Include="include\Screen.h">
       <Filter>Header Files\Game Core</Filter>
     </ClInclude>
-    <ClInclude Include="include\Utils.h">
-      <Filter>Header Files\Game Core</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Primitive.h">
-      <Filter>Header Files\Game Core\Debug</Filter>
-    </ClInclude>
-    <ClInclude Include="include\PrimitiveManager.h">
-      <Filter>Header Files\Game Core\Debug</Filter>
-    </ClInclude>
     <ClInclude Include="include\Debug.h">
       <Filter>Header Files\Game Core\Debug</Filter>
     </ClInclude>
@@ -137,21 +110,15 @@
     <ClInclude Include="include\Collision.h">
       <Filter>Header Files\Data</Filter>
     </ClInclude>
+    <ClInclude Include="include\MaterialComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Camera.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="src\Component.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Material.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="src\MaterialD3D.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="src\MaterialGL.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="src\MeshRenderer.cpp">
@@ -178,34 +145,7 @@
     <ClCompile Include="src\Octree.cpp">
       <Filter>Source Files\Data</Filter>
     </ClCompile>
-    <ClCompile Include="src\Shader.cpp">
-      <Filter>Source Files\Data</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ShaderD3D.cpp">
-      <Filter>Source Files\Data</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ShaderGL.cpp">
-      <Filter>Source Files\Data</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Texture.cpp">
-      <Filter>Source Files\Data</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TextureD3D.cpp">
-      <Filter>Source Files\Data</Filter>
-    </ClCompile>
-    <ClCompile Include="src\TextureGL.cpp">
-      <Filter>Source Files\Data</Filter>
-    </ClCompile>
     <ClCompile Include="src\Triangle.cpp">
-      <Filter>Source Files\Data</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Light.cpp">
-      <Filter>Source Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Mesh.cpp">
-      <Filter>Source Files\Data</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Bounds.cpp">
       <Filter>Source Files\Data</Filter>
     </ClCompile>
     <ClCompile Include="src\dxerr.cpp">
@@ -226,23 +166,17 @@
     <ClCompile Include="src\Screen.cpp">
       <Filter>Source Files\Game Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Utils.cpp">
-      <Filter>Source Files\Game Core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Primitive.cpp">
-      <Filter>Source Files\Game Core\Debug</Filter>
-    </ClCompile>
     <ClCompile Include="src\Debug.cpp">
       <Filter>Source Files\Game Core\Debug</Filter>
     </ClCompile>
     <ClCompile Include="src\PhysicsManager.cpp">
       <Filter>Source Files\Game Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\PrimitiveManager.cpp">
-      <Filter>Source Files\Game Core</Filter>
-    </ClCompile>
     <ClCompile Include="src\Collision.cpp">
       <Filter>Source Files\Data</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MaterialComponent.cpp">
+      <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

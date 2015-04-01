@@ -10,62 +10,68 @@
 #include "Vector4.h"
 #include "Quaternion.h"
 
-class BRICKWARE_CORE_API Rigidbody : public Component
+namespace Brickware
 {
-	friend class PhysicsManager;
+	namespace Core
+	{
+		class BRICKWARE_CORE_API Rigidbody : public Component
+		{
+			friend class PhysicsManager;
 
-public:
-	Rigidbody();
+		public:
+			Rigidbody();
 
-	//Accessors
-	Vector3 getVelocity();
-	Vector3 getSleepVelocity();
+			//Accessors
+			Math::Vector3 getVelocity();
+			Math::Vector3 getSleepVelocity();
 
-	Vector3 getAngularVelocity();
-	Vector3 getAngluarSleepVelocity();
+			Math::Vector3 getAngularVelocity();
+			Math::Vector3 getAngluarSleepVelocity();
 
-	Vector3 getCenterOfMass();
-	Vector3 getWorldCenterOfMass();
+			Math::Vector3 getCenterOfMass();
+			Math::Vector3 getWorldCenterOfMass();
 
-	//Mutators
-	void setUseGravity(bool useGravity);
+			//Mutators
+			void setUseGravity(bool useGravity);
 
-	//Functions to manipulate rigidbody
-	void addForce(Vector3 force);
-	void addForceAtPosition(Vector3 force, Vector3 position);
-	void addExplosionForce(Vector3 force, Vector3 position, float radius);
+			//Functions to manipulate rigidbody
+			void addForce(Math::Vector3 force);
+			void addForceAtPosition(Math::Vector3 force, Math::Vector3 position);
+			void addExplosionForce(Math::Vector3 force, Math::Vector3 position, float radius);
 
-	void addTorque(Vector3 torque);
+			void addTorque(Math::Vector3 torque);
 
-	void Start();
-	void FixedUpdate();
-	void OnCollision(Collision* collision);
+			void Start();
+			void FixedUpdate();
+			void OnCollision(Collision* collision);
 
-	~Rigidbody();
+			~Rigidbody();
 
-private:
-	Vector3 acceleration;
-	Vector3 velocity;
-	Vector3 sleepVelocity;
-	
-	Vector3 angularAcceleration;
-	Vector3 angularVelocity;
-	Vector3 angularSleepVelocity;
+		private:
+			Math::Vector3 acceleration;
+			Math::Vector3 velocity;
+			Math::Vector3 sleepVelocity;
 
-	Vector3 centerOfMass;
-	Vector3 worldCenterOfMass;
+			Math::Vector3 angularAcceleration;
+			Math::Vector3 angularVelocity;
+			Math::Vector3 angularSleepVelocity;
 
-	Vector3 inertiaTensor;
+			Math::Vector3 centerOfMass;
+			Math::Vector3 worldCenterOfMass;
 
-	Matrix3 momentOfInertia();
+			Math::Vector3 inertiaTensor;
 
-	bool detectCollisions;
-	bool isKinematic;
-	bool useGravity;
+			Math::Matrix3 momentOfInertia();
 
-	float mass;
-	float drag;
-	float angularDrag;
+			bool detectCollisions;
+			bool isKinematic;
+			bool useGravity;
+
+			float mass;
+			float drag;
+			float angularDrag;
+		};
+	};
 };
 
 #endif

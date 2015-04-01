@@ -5,7 +5,9 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BrickwareCore", "BrickwareCore\BrickwareCore.vcxproj", "{0D642E01-B540-4F46-A6D7-DC45FEFB3856}"
 	ProjectSection(ProjectDependencies) = postProject
+		{240D881D-0132-43A6-BE76-9886939F4C62} = {240D881D-0132-43A6-BE76-9886939F4C62}
 		{DFAA7187-7C60-4205-A091-3388D1459E46} = {DFAA7187-7C60-4205-A091-3388D1459E46}
+		{B61D50A0-9B9B-4727-B4EF-2E97F235F935} = {B61D50A0-9B9B-4727-B4EF-2E97F235F935}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BrickwareMath", "BrickwareMath\BrickwareMath.vcxproj", "{DFAA7187-7C60-4205-A091-3388D1459E46}"
@@ -13,8 +15,17 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BrickwareTest", "BrickwareTest\BrickwareTest.vcxproj", "{502909B0-A870-47CC-8239-0AC4BF736DA3}"
 	ProjectSection(ProjectDependencies) = postProject
 		{0D642E01-B540-4F46-A6D7-DC45FEFB3856} = {0D642E01-B540-4F46-A6D7-DC45FEFB3856}
+		{240D881D-0132-43A6-BE76-9886939F4C62} = {240D881D-0132-43A6-BE76-9886939F4C62}
 		{DFAA7187-7C60-4205-A091-3388D1459E46} = {DFAA7187-7C60-4205-A091-3388D1459E46}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BrickwareGraphics", "BrickwareGraphics\BrickwareGraphics.vcxproj", "{240D881D-0132-43A6-BE76-9886939F4C62}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DFAA7187-7C60-4205-A091-3388D1459E46} = {DFAA7187-7C60-4205-A091-3388D1459E46}
+		{B61D50A0-9B9B-4727-B4EF-2E97F235F935} = {B61D50A0-9B9B-4727-B4EF-2E97F235F935}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BrickwareUtils", "BrickwareUtils\BrickwareUtils.vcxproj", "{B61D50A0-9B9B-4727-B4EF-2E97F235F935}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +45,14 @@ Global
 		{502909B0-A870-47CC-8239-0AC4BF736DA3}.Debug|Win32.Build.0 = Debug|Win32
 		{502909B0-A870-47CC-8239-0AC4BF736DA3}.Release|Win32.ActiveCfg = Release|Win32
 		{502909B0-A870-47CC-8239-0AC4BF736DA3}.Release|Win32.Build.0 = Release|Win32
+		{240D881D-0132-43A6-BE76-9886939F4C62}.Debug|Win32.ActiveCfg = Debug|Win32
+		{240D881D-0132-43A6-BE76-9886939F4C62}.Debug|Win32.Build.0 = Debug|Win32
+		{240D881D-0132-43A6-BE76-9886939F4C62}.Release|Win32.ActiveCfg = Release|Win32
+		{240D881D-0132-43A6-BE76-9886939F4C62}.Release|Win32.Build.0 = Release|Win32
+		{B61D50A0-9B9B-4727-B4EF-2E97F235F935}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B61D50A0-9B9B-4727-B4EF-2E97F235F935}.Debug|Win32.Build.0 = Debug|Win32
+		{B61D50A0-9B9B-4727-B4EF-2E97F235F935}.Release|Win32.ActiveCfg = Release|Win32
+		{B61D50A0-9B9B-4727-B4EF-2E97F235F935}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

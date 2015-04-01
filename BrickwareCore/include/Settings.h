@@ -1,10 +1,6 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-//TEST DEFINES, PLEASE SET IN COMPILER
-//#define D3D_SUPPORT 
-#define GL_SUPPORT
-
 //If we're not on windows, we can't use DirectX
 #ifndef _WIN32
 #define GL_SUPPORT

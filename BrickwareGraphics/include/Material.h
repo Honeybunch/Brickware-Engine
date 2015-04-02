@@ -53,6 +53,7 @@ namespace Brickware
 
 		public:
 			Material(Shader* shader);
+			Material(const Material& material);
 
 			static std::vector<Material*> Materials;
 

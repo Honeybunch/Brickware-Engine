@@ -24,7 +24,7 @@ Rigidbody::Rigidbody()
 	angularDrag = .999f;
 
 	detectCollisions = true;
-	isKinematic = false;
+	isKinematic = true;
 	useGravity = true;
 }
 
@@ -57,6 +57,7 @@ Vector3 Rigidbody::getCenterOfMass(){ return centerOfMass; }
 Vector3 Rigidbody::getWorldCenterOfMass(){ return worldCenterOfMass; }
 
 //Mutators
+void Rigidbody::setIsKinematic(bool isKinematic){ this->isKinematic = isKinematic; }
 void Rigidbody::setUseGravity(bool useGravity){ this->useGravity = useGravity; }
 
 //Functions to manipulate rigidbody
@@ -116,6 +117,9 @@ void Rigidbody::FixedUpdate()
 }
 void Rigidbody::OnCollision(Collision* collision)
 {
+	if (!isKinematic)
+		return;
+
 	Rigidbody* otherRigidbody = collision->getOtherRigidbody();
 	Collider* otherCollider = collision->getOtherCollider();
 
@@ -125,25 +129,15 @@ void Rigidbody::OnCollision(Collision* collision)
 	getGameObject()->getTransform()->setPosition(getGameObject()->getTransform()->getPosition() + MTV);
 
 	//Calculate new forces
-	float otherMass = std::numeric_limits<float>::max();
-	Vector3 otherVelocity;
-	Vector3 otherAngularVelocity;
-	Vector3 otherCenterOfMass;
-	Matrix3 otherMomentOfInertia;
+	float   otherMass = otherRigidbody->mass;
+	Vector3 otherVelocity = otherRigidbody->velocity;
+	Vector3 otherAngularVelocity = otherRigidbody->angularVelocity;
+	Vector3 otherCenterOfMass = otherRigidbody->centerOfMass;
+	Vector3 otherInertiaTensor = otherRigidbody->inertiaTensor;
+	Matrix3 otherRotationMatrix = otherRigidbody->getGameObject()->getTransform()->getRotation().getRotationMatrix();
 
-	if (otherRigidbody)
-	{
-		otherMass = otherRigidbody->mass;
-		otherVelocity = otherRigidbody->velocity;
-		otherAngularVelocity = otherRigidbody->angularVelocity;
-		otherCenterOfMass = otherRigidbody->centerOfMass;
-
-		Vector3 otherInertiaTensor = otherRigidbody->inertiaTensor;
-		Matrix3 otherRotationMatrix = otherRigidbody->getGameObject()->getTransform()->getRotation().getRotationMatrix();
-
-		otherMomentOfInertia = otherRigidbody->momentOfInertia();
-	}
-
+	Matrix3 otherMomentOfInertia = otherRigidbody->momentOfInertia();
+	
 	//Calculate which point we're going to use as the "Point of collision"
 	std::vector<Vector3> pointsOfCollision = collision->getPointsOfCollision();
 	Vector3 pointOfCollision;

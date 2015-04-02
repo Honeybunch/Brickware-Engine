@@ -23,17 +23,26 @@ Material::Material(Shader* shader)
 
 	this->setTexture("diffuseTexture", Material::defaultTexture);
 
-	//Add this material to the list of materials if there isn't already a material stored with the same shader
-	bool add = true;
+	Materials.push_back(this);
+}
 
-	for (unsigned int i = 0; i < Materials.size(); i++)
-	{
-		if (this->shader == Materials[i]->shader)
-			add = true;
-	}
+Material::Material(const Material& other)
+{
+	this->shader = other.shader;
+	this->vector2Map = other.vector2Map;
+	this->vector3Map = other.vector3Map;
+	this->vector4Map = other.vector4Map;
 
-	if (add)
-		Materials.push_back(this);
+	this->intMap = other.intMap;
+	this->floatMap = other.floatMap;
+	this->doubleMap = other.doubleMap;
+
+	this->matrix3Map = other.matrix3Map;
+	this->matrix4Map = other.matrix4Map;
+
+	this->textureMap = other.textureMap;
+
+	Materials.push_back(this);
 }
 
 Material::~Material(){}

@@ -34,20 +34,15 @@ void RenderingManager::DrawMesh(Mesh* mesh)
 
 void RenderingManager::Render()
 {
-	//Send light data to all materials
-	std::vector<Material*> materials = Material::Materials;
-	for (unsigned int i = 0; i < materials.size(); i++)
-	{
-		Material* material = materials[i];
-		for (unsigned int j = 0; j < lights.size(); j++)
-		{
-			lights[j]->Render(material);
-		}
-	}
-
 	//Render every renderable object
 	for (unsigned int i = 0; i < renderables.size(); i++)
 	{
+		//Send light data to the renderable material
+		for (unsigned int j = 0; j < lights.size(); j++)
+		{
+			lights[j]->Render(renderables[i].material);
+		}
+
 #ifdef GL_SUPPORT
 		RenderGL(renderables[i]);
 #endif

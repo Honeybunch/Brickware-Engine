@@ -91,7 +91,12 @@ bool TestGame::init()
 	sphere->addComponent(sphereSpin);
 	GameObject* cube = new GameObject();
 	cube->getTransform()->setPosition(Vector3(-3.0f, 1.0f, -5.0f));
+	//cube->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
 	cube->addComponent(new MeshRenderer(cubeMesh, cubeMaterial));
+	Rigidbody* cubeRigidbody = new Rigidbody();
+	cubeRigidbody->setUseGravity(false);
+	cubeRigidbody->setIsKinematic(false);
+	cube->addComponent(cubeRigidbody);
 	Spin* cubeSpin = new Spin();
 	cubeSpin->rotationDelta = Vector3(0.05f, 0.0f, 0.0f);
 	cube->addComponent(cubeSpin);

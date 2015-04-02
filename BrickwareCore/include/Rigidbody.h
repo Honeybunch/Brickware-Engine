@@ -37,6 +37,7 @@ namespace Brickware
 
 			//Mutators
 			void setUseGravity(bool useGravity);
+			void setIsKinematic(bool isKinematic);
 
 			//Functions to manipulate rigidbody
 			void addForce(Math::Vector3 force);

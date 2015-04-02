@@ -57,6 +57,7 @@ Vector3 Rigidbody::getCenterOfMass(){ return centerOfMass; }
 Vector3 Rigidbody::getWorldCenterOfMass(){ return worldCenterOfMass; }
 
 //Mutators
+void Rigidbody::setMass(float mass){ this->mass = mass; }
 void Rigidbody::setIsKinematic(bool isKinematic){ this->isKinematic = isKinematic; }
 void Rigidbody::setUseGravity(bool useGravity){ this->useGravity = useGravity; }
 
@@ -126,7 +127,7 @@ void Rigidbody::OnCollision(Collision* collision)
 	//Reposition rigidbody's game object back to where the collision happened so that it no longer intersects
 	Vector3 MTV = collision->getMTV();
 	Vector3 normal = Vector3::Normalize(MTV);
-	getGameObject()->getTransform()->setPosition(getGameObject()->getTransform()->getPosition() + MTV);
+	//getGameObject()->getTransform()->setPosition(getGameObject()->getTransform()->getPosition() + MTV);
 
 	//Calculate new forces
 	float   otherMass = otherRigidbody->mass;
@@ -173,16 +174,16 @@ void Rigidbody::OnCollision(Collision* collision)
 	float e = 0.5f; //elasticity
 	Vector3 relativeVelocity = velocity - otherVelocity;
 	float impulse = Vector3::Dot((relativeVelocity * mass) * -(1 + e), normal);
-	impulse /= Vector3::Dot(normal, normal * ((1 / mass) + (1 / otherMass)));/* +
+	impulse /= Vector3::Dot(normal, normal * ((1 / mass) + (1 / otherMass))) +
 		Vector3::Dot((Vector3::Cross(momentOfInertia * Vector3::Cross(radius, normal), radius) +
 					  Vector3::Cross(otherMomentOfInertia * Vector3::Cross(otherRadius, normal), otherRadius)), 
-					  normal);*/
+					  normal);
 
 	//Determine resultant angularVelocity
 	angularVelocity += momentOfInertia * Vector3::Cross(radius, normal * impulse);
 
 	//Determine resulting velocity
-	velocity += (normal * impulse/mass);
+	velocity += (normal * (impulse/mass));
 }
 
 Rigidbody::~Rigidbody()

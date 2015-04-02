@@ -36,6 +36,7 @@ namespace Brickware
 			Math::Vector3 getWorldCenterOfMass();
 
 			//Mutators
+			void setMass(float mass);
 			void setUseGravity(bool useGravity);
 			void setIsKinematic(bool isKinematic);
 

@@ -65,7 +65,9 @@ void PhysicsManager::Update()
 			bool colliding = false;
 			Collision* collision = new Collision();
 			if (other != test)
+			{
 				colliding = test->isColliding(other, collision);
+			}
 
 			if (other != test && colliding)
 			{

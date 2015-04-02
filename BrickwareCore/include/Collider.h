@@ -1,50 +1,61 @@
 #ifndef COLLIDER_H
 #define COLLIDER_H
 
+//DLL Headers
 #include "BrickwareCoreDLL.h"
 
+//Other Brickware Project Headers
+#include "Matrix3.h"
+#include "Quaternion.h"
+#include "Vector3.h"
+#include "Bounds.h"
+#include "Primitive.h"
+
+//System Level Headers
 #include <vector>
 #include <limits>
 
-#include "Vector3.h"
-#include "Matrix3.h"
-#include "Quaternion.h"
-
-class SphereCollider;
-class BoxCollider;
-class FrustumCollider;
-class Bounds;
-
+//Project Headers
 #include "Component.h"
 
-//Used to avoid warnings about exporting std::vectors
-template class BRICKWARE_CORE_API std::vector < Vector3 > ;
-
-class BRICKWARE_CORE_API Collider : public Component
+namespace Brickware
 {
-public:
-	Collider();
+	namespace Core
+	{
+		class SphereCollider;
+		class BoxCollider;
+		class FrustumCollider;
 
-	bool isColliding(Collider* collider, Collision* collsion);
-	bool isColliding(Bounds bounds);
+		//Used to avoid warnings about exporting std::vectors
+		template class BRICKWARE_CORE_API std::vector < Math::Vector3 > ;
 
-	~Collider();
+		class BRICKWARE_CORE_API Collider : public Component
+		{
+		public:
+			Collider();
 
-protected:
-	bool enabled;
-	bool isTrigger;
+			bool isColliding(Collider* collider, Collision* collsion);
+			bool isColliding(Math::Bounds bounds);
 
-	Vector3 center;
-	std::vector<Vector3> normals;
-	std::vector<Vector3> worldNormals;
+			~Collider();
 
-	void calculateWorldData();
+		protected:
+			bool enabled;
+			bool isTrigger;
 
-private:
-	virtual bool isCollidingWithSphere(SphereCollider* other) = 0;
-	virtual bool isCollidingWithBox(BoxCollider* other, Collision* collision) = 0;
-	virtual bool isCollidingWithFrustum(FrustumCollider* other) = 0;
-	virtual bool isCollidingWithBounds(Bounds other) = 0;
-};
+			Math::Vector3 center;
+			std::vector<Math::Vector3> normals;
+			std::vector<Math::Vector3> worldNormals;
+
+			void calculateWorldData();
+
+		private:
+			virtual bool isCollidingWithSphere(SphereCollider* other) = 0;
+			virtual bool isCollidingWithBox(BoxCollider* other, Collision* collision) = 0;
+			virtual bool isCollidingWithFrustum(FrustumCollider* other) = 0;
+			virtual bool isCollidingWithBounds(Math::Bounds other) = 0;
+		};
+	}
+}
 
 #endif

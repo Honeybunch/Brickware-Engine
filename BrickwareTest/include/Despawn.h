@@ -6,7 +6,7 @@
 #include "Transform.h"
 #include "Vector3.h"
 
-class Despawn : public Component
+class Despawn : public Brickware::Core::Component
 {
 public:
 	Despawn();

@@ -101,6 +101,6 @@ namespace Brickware
 			void bufferD3D();
 #endif
 		};
-	};
-};
+	}
+}
 #endif

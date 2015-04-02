@@ -3,14 +3,20 @@
 #ifndef DEBUG_H
 #define DEBUG_H
 
+//DLL Header
 #include "BrickwareCoreDLL.h"
 
-class BRICKWARE_CORE_API Debug
+namespace Brickware
 {
-public:
-	static bool Debugging;
-};
-
+	namespace Core
+	{
+		class BRICKWARE_CORE_API Debug
+		{
+		public:
+			static bool Debugging;
+		};
+	}
+}
 #endif
 
 #endif

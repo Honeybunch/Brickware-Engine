@@ -25,7 +25,6 @@
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 #endif
 
-
 //Special DirectX macros
 #ifdef D3D_SUPPORT
 

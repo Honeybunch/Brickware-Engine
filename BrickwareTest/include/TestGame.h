@@ -7,7 +7,7 @@
 
 #include <iostream>
 
-class TestGame : public Game
+class TestGame : public Brickware::Core::Game
 {
 public:
 	TestGame();

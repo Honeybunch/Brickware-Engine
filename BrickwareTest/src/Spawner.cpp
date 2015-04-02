@@ -1,6 +1,12 @@
 #include "Spawner.h"
 #include <iostream>
 
+using namespace Brickware;
+using namespace Core;
+using namespace Graphics;
+using namespace Math;
+using namespace Utility;
+
 Spawner::Spawner(GameObject* gameObject)
 {
 	this->spawnable = gameObject;

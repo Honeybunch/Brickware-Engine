@@ -44,8 +44,7 @@ namespace Brickware
 			Math::Vector3 diffuseColor;
 			Math::Vector3 specularColor;
 		};
-	};
-};
-
+	}
+}
 #endif
 

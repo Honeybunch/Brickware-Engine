@@ -1,10 +1,10 @@
 #ifndef TRANSFORM_H
 #define TRANSFORM_H
 
+//DLL Header
 #include "BrickwareCoreDLL.h"
 
-#include "Settings.h"
-
+//Graphics Headers
 #ifdef D3D_SUPPORT
 #include <windows.h>
 #endif
@@ -20,16 +20,18 @@
 #include <glfw3.h>
 #endif
 
-
-
-#include "Shader.h"
-#include "Component.h"
-
+//Other Brickware Project Headers
 #include "Vector3.h"
 #include "Vector4.h"
 #include "Matrix4.h"
 #include "Matrix3.h"
 #include "Quaternion.h"
+
+#include "Shader.h"
+
+//Project Headers
+#include "Settings.h"
+#include "Component.h"
 
 namespace Brickware
 {
@@ -78,11 +80,7 @@ namespace Brickware
 			Math::Vector3 up;
 
 			Math::Matrix4 modelMatrix;
-
-			void renderGL(Material* material);
-			void renderD3D(Material* material);
 		};
-	};
-};
-
+	}
+}
 #endif

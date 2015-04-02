@@ -1,7 +1,5 @@
 #define BRICKWARE_GRAPHICS_EXPORTS
 
-#include "BrickwareGraphicsDLL.h"
-
 #include "RenderingManager.h"
 
 using namespace Brickware;
@@ -30,6 +28,8 @@ void RenderingManager::DrawMesh(Mesh* mesh)
 	Renderable renderable;
 	renderable.mesh = mesh;
 	renderable.material = currentMaterial;
+
+	renderables.push_back(renderable);
 }
 
 void RenderingManager::Render()
@@ -55,6 +55,9 @@ void RenderingManager::Render()
 		RenderD3D(renderables[i]);
 #endif
 	}
+
+	lights.clear();
+	renderables.clear();
 }
 
 void RenderingManager::Destroy()

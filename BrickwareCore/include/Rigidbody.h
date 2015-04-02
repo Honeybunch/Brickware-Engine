@@ -1,14 +1,18 @@
 #ifndef RIGIDBODY_H
 #define RIGIDBODY_H
 
+//DLL Header
 #include "BrickwareCoreDLL.h"
 
-#include "GameObject.h"
-#include "Transform.h"
-#include "Component.h"
+//Other Brickware Project Headers
 #include "Vector3.h"
 #include "Vector4.h"
 #include "Quaternion.h"
+
+//Project Headers
+#include "GameObject.h"
+#include "Transform.h"
+#include "Component.h"
 
 namespace Brickware
 {
@@ -71,7 +75,6 @@ namespace Brickware
 			float drag;
 			float angularDrag;
 		};
-	};
-};
-
+	}
+}
 #endif

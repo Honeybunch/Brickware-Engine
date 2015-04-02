@@ -62,70 +62,38 @@ void Material::freeShader()
 
 void Material::setVector4(const char* valueName, Vector4 value)
 {
-#ifdef D3D_SUPPORT
-	setVector4D3D(valueName, value);
-#else
-	setVector4GL(valueName, value);
-#endif
+	vector4Map[std::string(valueName)] = value;
 }
 void Material::setVector3(const char* valueName, Vector3 value)
 {
-#ifdef D3D_SUPPORT
-	setVector3D3D(valueName, value);
-#else
-	setVector3GL(valueName, value);
-#endif
+	vector3Map[std::string(valueName)] = value;
 }
 void Material::setVector2(const char* valueName, Vector2 value)
 {
-#ifdef D3D_SUPPORT
-	setVector2D3D(valueName, value);
-#else
-	setVector2GL(valueName, value);
-#endif
+	vector2Map[std::string(valueName)] = value;
 }
 
 void Material::setInt(const char* valueName, int value)
 {
-#ifdef D3D_SUPPORT
-	setIntD3D(valueName, value);
-#else
-	setIntGL(valueName, value);
-#endif
+	intMap[std::string(valueName)] = value;
 }
 void Material::setFloat(const char* valueName, float value)
 {
-#ifdef D3D_SUPPORT
-	setFloatD3D(valueName, value);
-#else
-	setFloatGL(valueName, value);
-#endif
+	floatMap[std::string(valueName)] = value;
 }
 void Material::setDouble(const char* valueName, double value)
 {
-#ifdef D3D_SUPPORT
-	setDoubleD3D(valueName, value);
-#else
-	setDoubleGL(valueName, value);
-#endif
+	doubleMap[std::string(valueName)] = value;
 }
 
 void Material::setMatrix4(const char* valueName, Matrix4 value)
 {
-#ifdef D3D_SUPPORT
-	setMatrix4D3D(valueName, value);
-#else
-	setMatrix4GL(valueName, value);
-#endif
+	matrix4Map[std::string(valueName)] = value;
 }
 
 void Material::setMatrix3(const char* valueName, Matrix3 value)
 {
-#ifdef D3D_SUPPORT
-	setMatrix3D3D(valueName, value);
-#else
-	setMatrix3GL(valueName, value);
-#endif
+	matrix3Map[std::string(valueName)] = value;
 }
 
 void Material::setTexture(const char* textureName, Texture* texture)
@@ -134,5 +102,88 @@ void Material::setTexture(const char* textureName, Texture* texture)
 	if (textureMap.size() > 0 && textureMap.find(textureString) != textureMap.end())
 	{
 		textureMap[textureString] = texture;
+	}
+}
+
+void Material::sendDataToGPU()
+{
+	for (auto iter : vector2Map)
+	{
+#ifdef GL_SUPPORT
+		setVector2GL(iter.first.c_str(), iter.second);
+#endif
+#ifdef D3D_SUPPORT
+		setVector2D3D(iter.first.c_str(), iter.second);
+#endif
+	}
+
+	for (auto iter : vector3Map)
+	{
+#ifdef GL_SUPPORT
+		setVector3GL(iter.first.c_str(), iter.second);
+#endif
+#ifdef D3D_SUPPORT
+		setVector3D3D(iter.first.c_str(), iter.second);
+#endif
+	}
+
+	for (auto iter : vector4Map)
+	{
+#ifdef GL_SUPPORT
+		setVector4GL(iter.first.c_str(), iter.second);
+#endif
+#ifdef D3D_SUPPORT
+		setVector4D3D(iter.first.c_str(), iter.second);
+#endif
+	}
+
+	for (auto iter : intMap)
+	{
+#ifdef GL_SUPPORT
+		setIntGL(iter.first.c_str(), iter.second);
+#endif
+#ifdef D3D_SUPPORT
+		setIntD3D(iter.first.c_str(), iter.second);
+#endif
+	}
+
+	for (auto iter : floatMap)
+	{
+#ifdef GL_SUPPORT
+		setFloatGL(iter.first.c_str(), iter.second);
+#endif
+#ifdef D3D_SUPPORT
+		setFloatD3D(iter.first.c_str(), iter.second);
+#endif
+	}
+
+	for (auto iter : doubleMap)
+	{
+#ifdef GL_SUPPORT
+		setDoubleGL(iter.first.c_str(), iter.second);
+#endif
+#ifdef D3D_SUPPORT
+		setDoubleD3D(iter.first.c_str(), iter.second);
+#endif
+	}
+
+	for (auto iter : matrix3Map)
+	{
+#ifdef GL_SUPPORT
+		setMatrix3GL(iter.first.c_str(), iter.second);
+#endif
+#ifdef D3D_SUPPORT
+		setMatrix3D3D(iter.first.c_str(), iter.second);
+#endif
+	}
+
+	for (auto iter : matrix4Map)
+	{
+#ifdef GL_SUPPORT
+		setMatrix4GL(iter.first.c_str(), iter.second);
+#endif
+#ifdef D3D_SUPPORT
+		setMatrix4D3D(iter.first.c_str(), iter.second);
+#endif
 	}
 }

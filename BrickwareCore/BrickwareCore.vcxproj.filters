@@ -74,9 +74,6 @@
     <ClInclude Include="include\Rigidbody.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="include\Triangle.h">
-      <Filter>Header Files\Data</Filter>
-    </ClInclude>
     <ClInclude Include="include\Component.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
@@ -110,7 +107,7 @@
     <ClInclude Include="include\Collision.h">
       <Filter>Header Files\Data</Filter>
     </ClInclude>
-    <ClInclude Include="include\MaterialComponent.h">
+    <ClInclude Include="include\PointLight.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
@@ -145,9 +142,6 @@
     <ClCompile Include="src\Octree.cpp">
       <Filter>Source Files\Data</Filter>
     </ClCompile>
-    <ClCompile Include="src\Triangle.cpp">
-      <Filter>Source Files\Data</Filter>
-    </ClCompile>
     <ClCompile Include="src\dxerr.cpp">
       <Filter>Source Files\Game Core</Filter>
     </ClCompile>
@@ -175,7 +169,7 @@
     <ClCompile Include="src\Collision.cpp">
       <Filter>Source Files\Data</Filter>
     </ClCompile>
-    <ClCompile Include="src\MaterialComponent.cpp">
+    <ClCompile Include="src\PointLight.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
   </ItemGroup>

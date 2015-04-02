@@ -2,8 +2,13 @@
 
 #include "Transform.h"
 #include "GameObject.h"
+#include "Camera.h"
 
 #include <iostream>
+
+using namespace Brickware;
+using namespace Core;
+using namespace Math;
 
 Transform::Transform()
 {
@@ -61,11 +66,12 @@ void Transform::Update()
 
 void Transform::Render()
 {
-	GameObject* go = this->getGameObject();
-	Material* material = go->getComponent<Material>();
-
-	if (material)
+	MeshRenderer* meshRenderer = this->getGameObject()->getComponent<MeshRenderer>();
+	
+	if (meshRenderer)
 	{
+		Graphics::Material* material = meshRenderer->getMaterial();
+
 		Camera* currentCamera = Camera::GetActiveCamera();
 		Matrix4 viewMatrix = currentCamera->getViewMatrix();
 		Matrix4 projectionMatrix = currentCamera->getProjectionMatrix();
@@ -75,21 +81,7 @@ void Transform::Render()
 		material->setMatrix4("worldMatrix", worldMatrix);
 		material->setMatrix4("modelMatrix", modelMatrix);
 		material->setMatrix4("rotationMatrix", rotation.getRotationMatrix());
-
-		//material->setMatrix3("modelRotation", rotation.getRotationMatrix());
 	}
-}
-
-//Send info to GLSL Shader
-void Transform::renderGL(Material* material)
-{
-	
-}
-
-//Send info to HLSL Shader
-void Transform::renderD3D(Material* material)
-{
-	//TODO
 }
 
 Transform::~Transform()

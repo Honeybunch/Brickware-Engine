@@ -1,48 +1,57 @@
 #ifndef FRUSTRUMCOLLIDER_H
 #define FRUSTRUMCOLLIDER_H
 
-#include "BrickwareCoreDLL.h"
-
+//Pre-Include Headers
 #define USE_MATH_DEFINES
 
+//DLL Header
+#include "BrickwareCoreDLL.h"
+
+//System Level Header
 #include <math.h>
 
+//Project Headers
 #include "Collider.h"
 
-class BRICKWARE_CORE_API FrustumCollider : public Collider
+namespace Brickware
 {
-public:
-	FrustumCollider(float zNear, float zFar, float FoV, float aspectRatio);
+	namespace Core
+	{
+		class BRICKWARE_CORE_API FrustumCollider : public Collider
+		{
+		public:
+			FrustumCollider(float zNear, float zFar, float FoV, float aspectRatio);
 
-	virtual void Update();
-	virtual void Render();
+			virtual void Update();
+			virtual void Render();
 
-	~FrustumCollider();
+			~FrustumCollider();
 
-private:
-	float zNear;
-	float zFar;
-	
-	float frustumNearWidth;
-	float frustumNearHeight;
+		private:
+			float zNear;
+			float zFar;
 
-	float frustumFarWidth;
-	float frustumFarHeight;
+			float frustumNearWidth;
+			float frustumNearHeight;
 
-	Vector3 nearBottomLeft;
-	Vector3 nearBottomRight;
-	Vector3 nearTopLeft;
-	Vector3 nearTopRight;
+			float frustumFarWidth;
+			float frustumFarHeight;
 
-	Vector3 farBottomLeft;
-	Vector3 farBottomRight;
-	Vector3 farTopLeft;
-	Vector3 farTopRight;
+			Math::Vector3 nearBottomLeft;
+			Math::Vector3 nearBottomRight;
+			Math::Vector3 nearTopLeft;
+			Math::Vector3 nearTopRight;
 
-	bool isCollidingWithSphere(SphereCollider* other);
-	bool isCollidingWithBox(BoxCollider* other);
-	bool isCollidingWithFrustum(FrustumCollider* other);
-	bool isCollidingWithBounds(Bounds other);
-};
+			Math::Vector3 farBottomLeft;
+			Math::Vector3 farBottomRight;
+			Math::Vector3 farTopLeft;
+			Math::Vector3 farTopRight;
 
+			bool isCollidingWithSphere(SphereCollider* other);
+			bool isCollidingWithBox(BoxCollider* other);
+			bool isCollidingWithFrustum(FrustumCollider* other);
+			bool isCollidingWithBounds(Math::Bounds other);
+		};
+	}
+}
 #endif

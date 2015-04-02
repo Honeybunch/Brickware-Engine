@@ -92,8 +92,8 @@ xcopy $(SolutionDir)$(Configuration)\BrickwareGraphics.lib $(ProjectDir)lib\ /y<
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\GameObject.h" />
     <ClInclude Include="include\GameTime.h" />
+    <ClInclude Include="include\PointLight.h" />
     <ClInclude Include="include\Input.h" />
-    <ClInclude Include="include\MaterialComponent.h" />
     <ClInclude Include="include\MeshRenderer.h" />
     <ClInclude Include="include\Octree.h" />
     <ClInclude Include="include\PhysicsManager.h" />
@@ -102,7 +102,6 @@ xcopy $(SolutionDir)$(Configuration)\BrickwareGraphics.lib $(ProjectDir)lib\ /y<
     <ClInclude Include="include\Settings.h" />
     <ClInclude Include="include\SphereCollider.h" />
     <ClInclude Include="include\Transform.h" />
-    <ClInclude Include="include\Triangle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\BoxCollider.cpp" />
@@ -117,15 +116,14 @@ xcopy $(SolutionDir)$(Configuration)\BrickwareGraphics.lib $(ProjectDir)lib\ /y<
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\GameTime.cpp" />
     <ClCompile Include="src\Input.cpp" />
-    <ClCompile Include="src\MaterialComponent.cpp" />
     <ClCompile Include="src\MeshRenderer.cpp" />
     <ClCompile Include="src\Octree.cpp" />
     <ClCompile Include="src\PhysicsManager.cpp" />
+    <ClCompile Include="src\PointLight.cpp" />
     <ClCompile Include="src\Rigidbody.cpp" />
     <ClCompile Include="src\Screen.cpp" />
     <ClCompile Include="src\SphereCollider.cpp" />
     <ClCompile Include="src\Transform.cpp" />
-    <ClCompile Include="src\Triangle.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

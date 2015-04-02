@@ -3,6 +3,10 @@
 #include "Game.h"
 #include "Input.h"
 
+using namespace Brickware;
+using namespace Core;
+using namespace Math;
+
 bool Input::keys[77];
 bool Input::buttons[3];
 Vector2 Input::mousePosition;

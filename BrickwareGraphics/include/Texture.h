@@ -75,7 +75,6 @@ namespace Brickware
 
 			unsigned char* pixels;
 		};
-	};
-};
-
+	}
+}
 #endif

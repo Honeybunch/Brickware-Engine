@@ -18,6 +18,7 @@
 
 //Other Brickware Project Headers
 #include "Matrix4.h"
+#include "Material.h"
 
 //System Level Headers
 #include <iostream>
@@ -84,8 +85,7 @@ namespace Brickware
 			Math::Matrix4 calcViewMatrix();
 			Math::Matrix4 calcProjectionMatrix();
 		};
-	};
-};
-
+	}
+}
 #endif
 

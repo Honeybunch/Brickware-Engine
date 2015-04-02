@@ -55,7 +55,6 @@ namespace Brickware
 		private:
 			static char* strtok_single(char* string, char const* delimeters);
 		};
-	};
-};
-
+	}
+}
 #endif

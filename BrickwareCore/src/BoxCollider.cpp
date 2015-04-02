@@ -1,11 +1,15 @@
 #define BRICKWARE_CORE_EXPORTS
 
 #include "GameObject.h"
-#include "Bounds.h"
 #include "SphereCollider.h"
 #include "FrustumCollider.h"
 #include "BoxCollider.h"
 #include "MeshRenderer.h"
+
+using namespace Brickware;
+using namespace Core;
+using namespace Graphics;
+using namespace Math;
 
 BoxCollider::BoxCollider() : Collider()
 {
@@ -35,13 +39,13 @@ void BoxCollider::Start()
 		float zSize = bounds.getZWidth();
 
 		//Store halfwidths
-		size = Vector3(xSize, ySize, zSize);
+		size = Math::Vector3(xSize, ySize, zSize);
 	}
 
 	//Otherwise we can just assume a size of 1,1,1
 	else
 	{
-		size = Vector3(1,1,1);
+		size = Math::Vector3(1,1,1);
 	}
 
 	//We store half size because it's more useful in SAT calculations
@@ -49,9 +53,9 @@ void BoxCollider::Start()
 	float ySizeHalf = size.getY()/2.0f;
 	float zSizeHalf = size.getZ()/2.0f;
 
-	Vector3 scale = transform->getScale();
-	size = Vector3(size[0] * scale[0], size[1] * scale[1], size[2] * scale[2]);
-	halfSize = Vector3(xSizeHalf * scale[0], ySizeHalf * scale[1], zSizeHalf * scale[2]);
+	Math::Vector3 scale = transform->getScale();
+	size = Math::Vector3(size[0] * scale[0], size[1] * scale[1], size[2] * scale[2]);
+	halfSize = Math::Vector3(xSizeHalf * scale[0], ySizeHalf * scale[1], zSizeHalf * scale[2]);
 
 	//We can find three normals along each axis; don't need to find the other three
 	//Because they're just opposites of the ones we're storing

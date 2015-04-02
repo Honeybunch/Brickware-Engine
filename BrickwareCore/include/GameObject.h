@@ -1,67 +1,79 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
+//DLL Header
 #include "BrickwareCoreDLL.h"
 
+//Other Brickware Project Headers
+#include "Mesh.h"
+
+//System Level Headers
 #include <vector>
 #include <typeinfo>
 
+//Project Headers
 #include "Settings.h"
-
 #include "Component.h"
 #include "Transform.h"
-#include "Material.h"
-#include "Mesh.h"
 #include "Collision.h"
 #include "Rigidbody.h"
+#include "MeshRenderer.h"
 
-class Camera;
-
-class GameObject
+namespace Brickware
 {
-public:
-	
-	BRICKWARE_CORE_API GameObject();
-	BRICKWARE_CORE_API GameObject(Transform* transform);
-	BRICKWARE_CORE_API GameObject(GameObject& other);
-
-	static BRICKWARE_CORE_API vector<GameObject*> getGameObjects();
-
-	//Accessors
-	BRICKWARE_CORE_API Transform* getTransform();
-
-	BRICKWARE_CORE_API vector<Component*>& getComponents();
-	//Return the first component of the given type
-	//If none are found; return null
-	template<class T> T* getComponent()
+	namespace Core
 	{
-		for (unsigned int i = 0; i < components.size(); i++)
+		class Camera;
+
+		template class BRICKWARE_CORE_API std::vector < GameObject* > ;
+		template class BRICKWARE_CORE_API std::vector < Component* >;
+
+		class BRICKWARE_CORE_API GameObject
 		{
-			T* type = dynamic_cast<T*>(components[i]);
-			if(type)
-				return type;
-		}
+		public:
 
-		return NULL;
+			GameObject();
+			GameObject(Transform* transform);
+			GameObject(GameObject& other);
+
+			static std::vector<GameObject*> getGameObjects();
+
+			//Accessors
+			Transform* getTransform();
+
+			vector<Component*>& getComponents();
+			//Return the first component of the given type
+			//If none are found; return null
+			template<class T> T* getComponent()
+			{
+				for (unsigned int i = 0; i < components.size(); i++)
+				{
+					T* type = dynamic_cast<T*>(components[i]);
+					if (type)
+						return type;
+				}
+
+				return NULL;
+			}
+
+			//Mutators 
+			void addComponent(Component* newComponent);
+
+			virtual void Start();
+			virtual void Update();
+			virtual void FixedUpdate();
+			virtual void OnCollisionEnter(Collision* collision);
+			virtual void OnRender();
+
+			~GameObject();
+
+		protected:
+			//Necessary Components
+			Transform* transform;
+
+			//Other Components
+			std::vector<Component*> components;
+		};
 	}
-
-	//Mutators 
-	BRICKWARE_CORE_API void addComponent(Component* newComponent);
-
-	virtual BRICKWARE_CORE_API void Start();
-	virtual BRICKWARE_CORE_API void Update();
-	virtual BRICKWARE_CORE_API void FixedUpdate();
-	virtual BRICKWARE_CORE_API void OnCollisionEnter(Collision* collision);
-	virtual BRICKWARE_CORE_API void OnRender();
-
-	BRICKWARE_CORE_API ~GameObject();
-
-protected:
-	//Necessary Components
-	Transform* transform;
-
-	//Other Components
-	vector<Component*> components;
-};
-
+}
 #endif

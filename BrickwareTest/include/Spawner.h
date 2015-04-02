@@ -12,17 +12,17 @@
 #include "Despawn.h"
 
 class Spawner :
-	public Component
+	public Brickware::Core::Component
 {
 public:
-	Spawner(GameObject* gameObject);
+	Spawner(Brickware::Core::GameObject* gameObject);
 
 	virtual void Update() override;
 
 	~Spawner();
 
 private:
-	GameObject* spawnable;
+	Brickware::Core::GameObject* spawnable;
 	bool keyDown;
 
 	void spawnObject();

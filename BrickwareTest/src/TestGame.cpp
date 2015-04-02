@@ -1,5 +1,11 @@
 #include "TestGame.h"
 
+using namespace Brickware;
+using namespace Core;
+using namespace Graphics;
+using namespace Math;
+using namespace Utility;
+
 TestGame::TestGame() : Game(800, 600)
 {
 }
@@ -49,7 +55,7 @@ bool TestGame::init()
 
 	//Create Lights
 	GameObject* light1 = new GameObject();
-	Light* light1Comp = new Light();
+	PointLight* light1Comp = new PointLight();
 	light1Comp->setDiffuseColor(Vector3(0, 1, 0));
 	light1Comp->setSpecularColor(Vector3(0, 1, 0));
 
@@ -57,7 +63,7 @@ bool TestGame::init()
 	light1->addComponent(light1Comp);
 
 	GameObject* light2 = new GameObject();
-	Light* light2Comp = new Light();
+	PointLight* light2Comp = new PointLight();
 	light2Comp->setDiffuseColor(Vector3(1, 0, 0));
 	light2Comp->setSpecularColor(Vector3(1, 0, 0));
 
@@ -65,7 +71,7 @@ bool TestGame::init()
 	light2->addComponent(light2Comp);
 
 	GameObject* light3 = new GameObject();
-	Light* light3Comp = new Light();
+	PointLight* light3Comp = new PointLight();
 	light3Comp->setDiffuseColor(Vector3(0, 0, .5f));
 	light3Comp->setSpecularColor(Vector3(0, 0, .5f));
 
@@ -75,20 +81,17 @@ bool TestGame::init()
 	//Create Objects
 	GameObject* castle = new GameObject();
 	castle->getTransform()->setPosition(Vector3(0.0f, -1.0f, 0.0f));
-	castle->addComponent(castleMaterial);
-	castle->addComponent(new MeshRenderer(castleMesh));
+	castle->addComponent(new MeshRenderer(castleMesh, castleMaterial));
 
 	GameObject* sphere = new GameObject();
 	sphere->getTransform()->setPosition(Vector3(-6.0f, 1.0f, -5.0f));
-	sphere->addComponent(sphereMaterial);
-	sphere->addComponent(new MeshRenderer(sphereMesh));
+	sphere->addComponent(new MeshRenderer(sphereMesh, sphereMaterial));
 	Spin* sphereSpin = new Spin();
 	sphereSpin->rotationDelta = Vector3(0.05f, 0.05f, 0.0f);
 	sphere->addComponent(sphereSpin);
 	GameObject* cube = new GameObject();
 	cube->getTransform()->setPosition(Vector3(-3.0f, 1.0f, -5.0f));
-	cube->addComponent(cubeMaterial);
-	cube->addComponent(new MeshRenderer(cubeMesh));
+	cube->addComponent(new MeshRenderer(cubeMesh, cubeMaterial));
 	Spin* cubeSpin = new Spin();
 	cubeSpin->rotationDelta = Vector3(0.05f, 0.0f, 0.0f);
 	cube->addComponent(cubeSpin);
@@ -96,22 +99,19 @@ bool TestGame::init()
 
 	GameObject* square = new GameObject();
 	square->getTransform()->setPosition(Vector3(0.0f, 1.0f, -5.0f));
-	square->addComponent(squareMaterial);
-	square->addComponent(new MeshRenderer(squareMesh));
+	square->addComponent(new MeshRenderer(squareMesh, squareMaterial));
 	Spin* squareSpin = new Spin();
 	squareSpin->rotationDelta = Vector3(0.0f, 0.05f, 0.0f);
 	square->addComponent(squareSpin);
 	GameObject* circle = new GameObject();
 	circle->getTransform()->setPosition(Vector3(3.0f, 1.0f, -5.0f));
-	circle->addComponent(circleMaterial);
-	circle->addComponent(new MeshRenderer(circleMesh));
+	circle->addComponent(new MeshRenderer(circleMesh, circleMaterial));
 	Spin* circleSpin = new Spin();
 	circleSpin->rotationDelta = Vector3(0.01f, 0.0f, 0.05f);
 	circle->addComponent(circleSpin);
 	GameObject* triangle = new GameObject();
 	triangle->getTransform()->setPosition(Vector3(6.0f, 1.0f, -5.0f));
-	triangle->addComponent(triangleMaterial);
-	triangle->addComponent(new MeshRenderer(triangleMesh));
+	triangle->addComponent(new MeshRenderer(triangleMesh, triangleMaterial));
 	Spin* triangleSpin = new Spin();
 	triangleSpin->rotationDelta = Vector3(0.05f, 0.0f, 0.05f);
 	triangle->addComponent(triangleSpin);
@@ -120,8 +120,7 @@ bool TestGame::init()
 	Rigidbody* rigidbody = new Rigidbody();
 	rigidbody->setUseGravity(false);
 	nonSpinBox->addComponent(rigidbody);
-	nonSpinBox->addComponent(new MeshRenderer(cubeMesh));	
-	nonSpinBox->addComponent(cubeMaterial);
+	nonSpinBox->addComponent(new MeshRenderer(cubeMesh, cubeMaterial));	
 	nonSpinBox->addComponent(new BoxCollider());
 	nonSpinBox->getTransform()->setPosition(Vector3(0, .5f, .5f));
 	nonSpinBox->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
@@ -131,7 +130,6 @@ bool TestGame::init()
 	cameraComp->setActive();
 
 	GameObject* camera = new GameObject();
-	camera->addComponent(new Material(shader));
 	camera->addComponent(cameraComp);
 	camera->addComponent(new Spawner(cube));
 

@@ -2,6 +2,10 @@
 
 #include "Game.h"
 
+using namespace Brickware;
+using namespace Core;
+using namespace Math;
+
 //Window is static so that it can be easily accessed by static friends like Input and Screen
 #ifdef GL_SUPPORT
 GLFWwindow* Game::glWindow;
@@ -126,9 +130,9 @@ bool Game::init()
 #endif
 
 	//Init managers
-	PrimitiveManager::Initialize();
+	Graphics::PrimitiveManager::Initialize();
+	Graphics::RenderingManager::Initialize();
 	PhysicsManager::Initialize();
-	
 
 	return initSuccess;
 }
@@ -152,9 +156,11 @@ void Game::render()
 #ifdef D3D_SUPPORT
 	swapBuffersD3D();
 #else
-	PrimitiveManager::DrawPrimitives();
+	Camera* camera = Camera::GetActiveCamera();
+	Graphics::PrimitiveManager::DrawPrimitives(camera->getViewMatrix(), camera->getProjectionMatrix());
+	Graphics::RenderingManager::Render();
 	swapBuffersGL();
-	PrimitiveManager::ClearPrimitives();
+	Graphics::PrimitiveManager::ClearPrimitives();
 #endif
 
 	GameTime::frameEnd();
@@ -686,6 +692,7 @@ void Game::endD3D()
 
 Game::~Game()
 {
-	PrimitiveManager::Destroy();
+	Graphics::PrimitiveManager::Destroy();
+	Graphics::RenderingManager::Destroy();
 	PhysicsManager::Destroy();
 }

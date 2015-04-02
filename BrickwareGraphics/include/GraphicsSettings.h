@@ -5,7 +5,6 @@ namespace Brickware
 {
 	namespace Graphics
 	{
-	};
-};
-
+	}
+}
 #endif

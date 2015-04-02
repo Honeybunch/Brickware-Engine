@@ -1,21 +1,27 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 
+//DLL Header
 #include "BrickwareCoreDLL.h"
 
-class Screen
+namespace Brickware
 {
-	friend class Game;
+	namespace Core
+	{
+		class BRICKWARE_CORE_API Screen
+		{
+			friend class Game;
 
-public:
-	static BRICKWARE_CORE_API int getWidth();
-	static BRICKWARE_CORE_API int getHeight();
+		public:
+			static int getWidth();
+			static int getHeight();
 
-	static BRICKWARE_CORE_API float getAspectRatio();
+			static float getAspectRatio();
 
-private:
-	static int width;
-	static int height;
-};
-
+		private:
+			static int width;
+			static int height;
+		};
+	}
+}
 #endif

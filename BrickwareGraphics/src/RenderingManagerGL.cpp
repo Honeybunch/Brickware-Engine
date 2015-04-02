@@ -14,6 +14,7 @@ void RenderingManager::RenderGL(Renderable renderable)
 	Material* material = renderable.material;
 
 	material->bindShader();
+	material->sendDataToGPU();
 
 	GLint shaderProgram;
 	glGetIntegerv(GL_CURRENT_PROGRAM, &shaderProgram);

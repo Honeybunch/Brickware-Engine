@@ -48,7 +48,6 @@ namespace Brickware
 			Vector3 minBound;
 			Vector3 maxBound;
 		};
-	};
-};
-
+	}
+}
 #endif

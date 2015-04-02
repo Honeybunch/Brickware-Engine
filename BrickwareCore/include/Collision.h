@@ -1,11 +1,14 @@
 #ifndef COLLISION_H
 #define COLLISION_H
 
+//DLL Header
 #include "BrickwareCoreDLL.h"
 
-#include <vector>
-
+//Other Brickware Project Headers
 #include "Vector3.h"
+
+//System Level Headers
+#include <vector>
 
 namespace Brickware
 {
@@ -53,7 +56,6 @@ namespace Brickware
 			Math::Vector3 MTV;
 			std::vector<Math::Vector3> pointsOfCollision;
 		};
-	};
-};
-
+	}
+}
 #endif

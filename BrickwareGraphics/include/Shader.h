@@ -1,14 +1,13 @@
 #ifndef SHADER_H
 #define SHADER_H
 
-#include "BrickwareGraphicsDLL.h"
-
+//Pre-Include Defines
 #define _CRT_SECURE_NO_WARNINGS
 
-#include <vector>
-#include <map>
-#include <string>
+//DLL Header
+#include "BrickwareGraphicsDLL.h"
 
+//Graphics Headers
 #ifdef D3D_SUPPORT
 #include <windows.h>
 #include <d3d11.h>
@@ -26,13 +25,21 @@ struct ConstVariableInfo{
 #include <GL/glew.h>
 #endif
 
+//System Level Headers
+#include <vector>
+#include <map>
+#include <string>
+
+//Project Headers
 #include "Texture.h"
 
 namespace Brickware
 {
 	namespace Graphics
 	{
+#ifdef GL_SUPPORT
 		template class BRICKWARE_GRAPHICS_API std::map < std::string, GLuint > ;
+#endif
 		template class BRICKWARE_GRAPHICS_API std::map < std::string, Texture* > ;
 
 		class BRICKWARE_GRAPHICS_API Shader
@@ -85,7 +92,6 @@ namespace Brickware
 			bool loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName);
 #endif
 		};
-	};
-};
-
+	}
+}
 #endif

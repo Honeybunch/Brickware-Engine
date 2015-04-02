@@ -6,6 +6,11 @@
 #include "Game.h"
 #include "GameObject.h"
 
+using namespace Brickware;
+using namespace Core;
+using namespace Math;
+using namespace Graphics;
+
 GameObject::GameObject()
 {
 	transform = new Transform();
@@ -71,50 +76,20 @@ void GameObject::addComponent(Component* newComponent)
 
 void GameObject::Start()
 {
-	Material* material = getComponent<Material>();
-
-	if (material)
-		material->bindShader();
-
 	for (unsigned int i = 0; i < components.size(); i++)
 		components[i]->Start();
-
-	if (material)
-		material->freeShader();
 }
 
 void GameObject::Update()
 {
-	Material* material = getComponent<Material>();
-
-	if (material)
-		material->bindShader();
-
 	for (unsigned int i = 0; i < components.size(); i++)
 		components[i]->Update();
-
-	//Incase object is deleted
-	material = getComponent<Material>();
-
-	if (material)
-		material->freeShader();
 }
 
 void GameObject::FixedUpdate()
 {
-	Material* material = getComponent<Material>();
-
-	if (material)
-		material->bindShader();
-
 	for (unsigned int i = 0; i < components.size(); i++)
 		components[i]->FixedUpdate();
-
-	//Incase object is deleted
-	material = getComponent<Material>();
-
-	if (material)
-		material->freeShader();
 }
 
 void GameObject::OnCollisionEnter(Collision* collision)
@@ -125,11 +100,6 @@ void GameObject::OnCollisionEnter(Collision* collision)
 
 void GameObject::OnRender()
 {
-	Material* material = getComponent<Material>();
-
-	if (material)
-		material->bindShader();
-
 	for (unsigned int i = 0; i < components.size(); i++)
 	{
 		components[i]->Render();
@@ -138,9 +108,6 @@ void GameObject::OnRender()
 			components[i]->DebugDraw();
 #endif
 	}
-
-	if (material)
-		material->freeShader();
 }
 
 GameObject::~GameObject()

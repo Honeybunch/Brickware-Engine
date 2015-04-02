@@ -25,17 +25,16 @@ namespace Brickware
 
 		class BRICKWARE_GRAPHICS_API RenderingManager
 		{
-			friend class Game;
-
 		public:
 			static void AddLight(Light* light);
 			static void UseMaterial(Material* material);
 			static void DrawMesh(Mesh* mesh);
 
-		private:
 			static void Initialize();
-
 			static void Render();
+			static void Destroy();
+
+		private:
 
 #ifdef GL_SUPPORT
 			static void RenderGL(Renderable renderable);
@@ -43,14 +42,10 @@ namespace Brickware
 #ifdef D3D_SUPPORT
 			static void RenderD3D(Renderable* renderable);
 #endif
-
-			static void Destroy();
-
 			static Material* currentMaterial;
 			static std::vector <Renderable> renderables;
 			static std::vector <Light*> lights;
 		};
-	};
-};
-
+	}
+}
 #endif

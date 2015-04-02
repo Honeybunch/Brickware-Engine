@@ -45,7 +45,6 @@ namespace Brickware
 			float rawMatrix[16];
 			float matrix[4][4];
 		};
-	};
-};
-
+	}
+}
 #endif

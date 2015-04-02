@@ -1,74 +1,84 @@
 #ifndef OCTREE_H
 #define OCTREE_H
 
+//DLL Header
 #include "BrickwareCoreDLL.h"
 
+//Other Brickware Project Headers
+#include "Bounds.h"
+
+//System Level Headers
 #include <vector>
 
+//Project Headers
 #include "BoxCollider.h"
 #include "FrustumCollider.h"
 #include "GameObject.h"
-#include "Bounds.h"
 #include "MeshRenderer.h"
 
-class Octree;
-
-class OctreeNode
+namespace Brickware
 {
-public:
-	BRICKWARE_CORE_API OctreeNode(Octree* octree, OctreeNode* parent, float depth, Vector3 center, float width);
-	BRICKWARE_CORE_API ~OctreeNode();
+	namespace Core
+	{
+		class Octree;
 
-	//Accessors
-	vector<OctreeNode*> getChildren();
-	vector<GameObject*> getObjects();
-	BRICKWARE_CORE_API OctreeNode* getParent();
-	BRICKWARE_CORE_API bool getHasChildren();
+		class OctreeNode
+		{
+		public:
+			BRICKWARE_CORE_API OctreeNode(Octree* octree, OctreeNode* parent, float depth, Math::Vector3 center, float width);
+			BRICKWARE_CORE_API ~OctreeNode();
 
-	BRICKWARE_CORE_API void addObject(GameObject* object);
+			//Accessors
+			vector<OctreeNode*> getChildren();
+			vector<GameObject*> getObjects();
+			BRICKWARE_CORE_API OctreeNode* getParent();
+			BRICKWARE_CORE_API bool getHasChildren();
 
-	vector<OctreeNode*> getCollidingChildrenWithFrustum(FrustumCollider* collider);
+			BRICKWARE_CORE_API void addObject(GameObject* object);
 
-private:
-	Octree* octree;
-	OctreeNode* parent;
+			vector<OctreeNode*> getCollidingChildrenWithFrustum(FrustumCollider* collider);
 
-	bool hasChildren;
+		private:
+			Octree* octree;
+			OctreeNode* parent;
 
-	float depth;
+			bool hasChildren;
 
-	Bounds bounds;
+			float depth;
 
-	vector<OctreeNode*> childNodes;
-	vector<GameObject*> objects;
+			Math::Bounds bounds;
 
-	BRICKWARE_CORE_API void addToChildren(GameObject* object);
+			vector<OctreeNode*> childNodes;
+			vector<GameObject*> objects;
 
-	BRICKWARE_CORE_API void subdivide();
-};
+			BRICKWARE_CORE_API void addToChildren(GameObject* object);
 
-class Octree
-{
-public:
-	BRICKWARE_CORE_API Octree(int depthLimit, int perNodeLimit, Vector3 center, float width);
-	BRICKWARE_CORE_API ~Octree();
+			BRICKWARE_CORE_API void subdivide();
+		};
 
-	//Accessors
-	BRICKWARE_CORE_API int getDepthLimit();
-	BRICKWARE_CORE_API int getPerNodeLimit();
-	BRICKWARE_CORE_API OctreeNode* getRoot();
+		class Octree
+		{
+		public:
+			BRICKWARE_CORE_API Octree(int depthLimit, int perNodeLimit, Math::Vector3 center, float width);
+			BRICKWARE_CORE_API ~Octree();
 
-	int nodeCount;
+			//Accessors
+			BRICKWARE_CORE_API int getDepthLimit();
+			BRICKWARE_CORE_API int getPerNodeLimit();
+			BRICKWARE_CORE_API OctreeNode* getRoot();
 
-	vector<OctreeNode*> getCollidingChildren(Collider* collider);
+			int nodeCount;
 
-	BRICKWARE_CORE_API void addObject(GameObject* object);
+			vector<OctreeNode*> getCollidingChildren(Collider* collider);
 
-private:
-	int depthLimit;
-	int perNodeLimit;
+			BRICKWARE_CORE_API void addObject(GameObject* object);
 
-	OctreeNode* root;
-};
+		private:
+			int depthLimit;
+			int perNodeLimit;
 
+			OctreeNode* root;
+		};
+	}
+}
 #endif

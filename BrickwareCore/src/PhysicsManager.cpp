@@ -2,6 +2,10 @@
 
 #include "PhysicsManager.h"
 
+using namespace Brickware;
+using namespace Core;
+using namespace Math;
+
 //Statics
 std::vector<Collision*> PhysicsManager::activeCollisions;
 std::vector<Collision*> PhysicsManager::lastFrameActiveCollisions;

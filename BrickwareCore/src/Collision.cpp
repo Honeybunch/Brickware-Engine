@@ -6,6 +6,10 @@
 #include "Collider.h"
 #include "GameObject.h"
 
+using namespace Brickware;
+using namespace Core;
+using namespace Math;
+
 GameObject* Collision::getThisObject()		{ return thisObject; }
 Rigidbody* Collision::getThisRigidbody()	{ return thisRigidbody; }
 Collider* Collision::getThisCollider()		{ return thisCollider; }

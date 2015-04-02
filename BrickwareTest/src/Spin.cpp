@@ -1,5 +1,11 @@
 #include "Spin.h"
 
+using namespace Brickware;
+using namespace Core;
+using namespace Graphics;
+using namespace Math;
+using namespace Utility;
+
 Spin::Spin()
 {
 	rotationDelta = Vector3();

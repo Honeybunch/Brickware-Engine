@@ -1,25 +1,28 @@
 #ifndef PRIMITIVE_H
 #define PRIMITIVE_H
 
+//Pre-Include Headers
+#define _USE_MATH_DEFINES
+
+//DLL Header
 #include "BrickwareGraphicsDLL.h"
 
-#define _USE_MATH_DEFINES
-#include <vector>
-#include <cmath>
-
+//Other Brickware Project Headers
 #include "Vector3.h"
 #include "Vector4.h"
 #include "Quaternion.h"
 
+//System Level Headers
+#include <vector>
+#include <cmath>
+
+//Project Headers
 #include "PrimitiveManager.h"
 
 namespace Brickware
 {
 	namespace Graphics
 	{
-		//Used to avoid warnings about exporting std::vectors
-		template class BRICKWARE_GRAPHICS_API std::vector < Math::Vector3 > ;
-
 		enum BRICKWARE_GRAPHICS_API PrimitiveType
 		{
 			P_POINT,
@@ -62,7 +65,6 @@ namespace Brickware
 			ID3D11Buffer* positionBuffer;
 			ID3D11Buffer* indexBuffer;
 #endif
-
 			static Math::Vector4 currentColor;
 			static float currentPointSize;
 			static float currentLineWidth;
@@ -76,7 +78,6 @@ namespace Brickware
 			Math::Matrix4 modelMatrix;
 			Math::Matrix4 worldMatrix;
 		};
-	};
-};
-
+	}
+}
 #endif

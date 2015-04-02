@@ -3,6 +3,10 @@
 #include "Component.h"
 #include "Collider.h"
 
+using namespace Brickware;
+using namespace Core;
+using namespace Math;
+
 Component::Component()
 {
 }

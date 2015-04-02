@@ -8,6 +8,11 @@
 #include "GameObject.h"
 #include "FrustumCollider.h"
 
+using namespace Brickware;
+using namespace Core;
+using namespace Graphics;
+using namespace Math;
+
 FrustumCollider::FrustumCollider(float zNear, float zFar, float FoV, float aspectRatio)
 {
 	this->zNear = zNear;

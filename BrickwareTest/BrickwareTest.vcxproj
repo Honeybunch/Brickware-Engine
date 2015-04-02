@@ -44,16 +44,19 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)\GL\include;$(SolutionDir)\GLFW\include;$(SolutionDir)\BrickwareTest\include;$(SolutionDir)\BrickwareMath\include;$(SolutionDir)\BrickwareCore\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\BrickwareUtils\include;$(SolutionDir)\BrickwareGraphics\include;$(SolutionDir)\GL\include;$(SolutionDir)\GLFW\include;$(SolutionDir)\BrickwareTest\include;$(SolutionDir)\BrickwareMath\include;$(SolutionDir)\BrickwareCore\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)\GL\lib\Win32\;$(SolutionDir)\GLFW\lib\Win32\;$(ProjectDir)\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>BrickwareCore.lib;dxguid.lib;d3d11.lib;d3dcompiler.lib;glew32.lib;glfw3dll.lib;BrickwareMath.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>BrickwareGraphics.lib;BrickwareUtils.lib;BrickwareMath.lib;BrickwareCore.lib;dxguid.lib;d3d11.lib;d3dcompiler.lib;glew32.lib;glfw3dll.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>xcopy $(SolutionDir)\$(Configuration)\BrickwareCore.lib $(ProjectDir)\lib\ /y 
-xcopy $(SolutionDir)\$(Configuration)\BrickwareMath.lib $(ProjectDir)\lib\ /y xcopy $(SolutionDir)\$(Configuration)\BrickwareUtils.lib $(ProjectDir)\lib\ /y xcopy $(SolutionDir)\$(Configuration)\BrickwareGraphics.lib $(ProjectDir)\lib\ /y</Command>
+      <Command>xcopy $(SolutionDir)$(Configuration)\BrickwareCore.lib $(ProjectDir)lib\ /y
+
+xcopy $(SolutionDir)$(Configuration)\BrickwareMath.lib $(ProjectDir)lib\ /y
+xcopy $(SolutionDir)$(Configuration)\BrickwareUtils.lib $(ProjectDir)lib\ /y 
+xcopy $(SolutionDir)$(Configuration)\BrickwareGraphics.lib $(ProjectDir)lib\ /y</Command>
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>for /R $(SolutionDir)$(Configuration) %%f in (*.cso) do copy %%f $(ProjectDir) /y </Command>
@@ -90,18 +93,19 @@ xcopy $(SolutionDir)\$(Configuration)\BrickwareMath.lib $(ProjectDir)\lib\ /y xc
     <ClCompile Include="src\TestGame.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\PixelShader.glsl" />
-    <None Include="Shaders\PrimitivePixel.glsl" />
-    <None Include="Shaders\PrimitiveVertex.glsl" />
-    <None Include="Shaders\VertexShader.glsl" />
+    <None Include="..\Debug\Shaders\PixelShader.glsl" />
+    <None Include="..\Debug\Shaders\PrimitivePixel.glsl" />
+    <None Include="..\Debug\Shaders\PrimitiveVertex.glsl" />
+    <None Include="..\Debug\Shaders\VertexShader.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Shaders\PixelShader.hlsl">
+    <FxCompile Include="..\Debug\Shaders\PixelShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
     </FxCompile>
-    <FxCompile Include="Shaders\VertexShader.hlsl">
+    <FxCompile Include="..\Debug\Shaders\VertexShader.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
     </FxCompile>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

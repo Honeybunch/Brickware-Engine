@@ -32,8 +32,6 @@ void Light::Render(Material* material)
 	std::string lightString = "lights[";
 	lightString.append(std::to_string(LightCount));
 	lightString.append("].");
-	
-	material->bindShader();
 
 	//Make sure to let the material know how many lights there are
 	material->setInt("lightCount", LightCount);
@@ -43,8 +41,6 @@ void Light::Render(Material* material)
 	material->setVector3((lightString + "ambientColor").c_str(), ambientColor);
 	material->setVector3((lightString + "diffuseColor").c_str(), diffuseColor);
 	material->setVector3((lightString + "specularColor").c_str(), specularColor);
-
-	material->freeShader();
 }
 
 Light::~Light(void)

@@ -2,6 +2,9 @@
 
 #include "GameTime.h"
 
+using namespace Brickware;
+using namespace Core;
+
 using namespace std::chrono;
 
 long long GameTime::startTime = duration_cast<milliseconds>

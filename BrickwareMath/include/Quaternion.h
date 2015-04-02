@@ -57,7 +57,6 @@ namespace Brickware
 			float q[4];
 			void normalize();
 		};
-	};
-};
-
+	}
+}
 #endif

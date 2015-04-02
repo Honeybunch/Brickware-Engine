@@ -6,13 +6,12 @@
 #include "Vector3.h"
 #include "GameObject.h"
 
-class Spin :
-	public Component
+class Spin : public Brickware::Core::Component
 {
 public:
 	Spin();
 
-	Vector3 rotationDelta;
+	Brickware::Math::Vector3 rotationDelta;
 
 	virtual void Start();
 	virtual void Update();
@@ -20,7 +19,7 @@ public:
 	~Spin();
 
 private:
-	Transform* transform;
+	Brickware::Core::Transform* transform;
 };
 
 #endif

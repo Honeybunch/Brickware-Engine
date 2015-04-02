@@ -1,28 +1,35 @@
 #ifndef SPHERECOLLIDER_H
 #define SPHERECOLLIDER_H
 
+//DLL Header
 #include "BrickwareCoreDLL.h"
 
+//Project Headers
 #include "Collider.h"
 
-class BRICKWARE_CORE_API SphereCollider : public Collider
+namespace Brickware
 {
-public:
-	SphereCollider(Vector3* center = new Vector3(0, 0, 0), float radius = 1.0f);
+	namespace Core
+	{
+		class BRICKWARE_CORE_API SphereCollider : public Collider
+		{
+		public:
+			SphereCollider(Math::Vector3 center = Math::Vector3(0, 0, 0), float radius = 1.0f);
 
-	Vector3* getCenter();
-	float getRadius();
+			Math::Vector3 getCenter();
+			float getRadius();
 
-	~SphereCollider();
+			~SphereCollider();
 
-private:
-	Vector3* center; //Measured in local space
-	float radius;
+		private:
+			Math::Vector3 center; //Measured in local space
+			float radius;
 
-	bool isCollidingWithSphere(SphereCollider* other);
-	bool isCollidingWithBox(BoxCollider* other);
-	bool isCollidingWithFrustum(FrustumCollider* other);
-	bool isCollidingWithBounds(Bounds* other);
-};
-
+			bool isCollidingWithSphere(SphereCollider* other);
+			bool isCollidingWithBox(BoxCollider* other);
+			bool isCollidingWithFrustum(FrustumCollider* other);
+			bool isCollidingWithBounds(Math::Bounds* other);
+		};
+	}
+}
 #endif

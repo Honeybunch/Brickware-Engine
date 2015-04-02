@@ -47,7 +47,6 @@ namespace Brickware
 		private:
 			float vector[4];
 		};
-	};
-};
-
+	}
+}
 #endif

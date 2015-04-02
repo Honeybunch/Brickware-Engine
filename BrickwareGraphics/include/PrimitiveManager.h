@@ -29,15 +29,15 @@ namespace Brickware
 
 		class BRICKWARE_GRAPHICS_API PrimitiveManager
 		{
-			friend class Game;
 			friend class Primitive;
 
-		private:
+		public:
 			static void Initialize();
 			static void ClearPrimitives();
 			static void DrawPrimitives(Math::Matrix4 viewMatrix, Math::Matrix4 projectionMatrix);
 			static void Destroy();
 
+		private:
 			static std::vector<Primitive*> Primitives;
 			static Shader* shader;
 
@@ -80,6 +80,6 @@ namespace Brickware
 			static void SetLineWidthD3D(float lineWidth);
 #endif
 		};
-	};
-};
+	}
+}
 #endif

@@ -1,14 +1,20 @@
 #ifndef MESHRENDERER_H
 #define MESHRENDERER_H
 
-#include <limits>
-
+//DLL Header
 #include "BrickwareCoreDLL.h"
 
-#include "Component.h"
+//Other Brickware Project Headers
 #include "Bounds.h"
+
 #include "Mesh.h"
 #include "RenderingManager.h"
+
+//System Level Headers
+#include <limits>
+
+//Project Headers
+#include "Component.h"
 
 namespace Brickware
 {
@@ -17,9 +23,11 @@ namespace Brickware
 		class BRICKWARE_CORE_API MeshRenderer : public Component
 		{
 		public:
-			MeshRenderer(Graphics::Mesh* mesh);
+			MeshRenderer(Graphics::Mesh* mesh, Graphics::Material* material);
 
-			Bounds getBounds();
+			Graphics::Mesh* getMesh();
+			Graphics::Material* getMaterial();
+			Math::Bounds getBounds();
 
 			virtual Component* Clone() override;
 			virtual void Render();
@@ -28,10 +36,8 @@ namespace Brickware
 
 		private:
 			Graphics::Mesh* mesh;
-
-			void renderGL(Graphics::Material* material);
-			void renderD3D(Graphics::Material* material);
+			Graphics::Material* material;
 		};
-	};
-};
+	}
+}
 #endif

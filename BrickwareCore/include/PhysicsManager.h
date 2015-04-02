@@ -1,12 +1,16 @@
 #ifndef PHYSICSMANAGER_H
 #define PHYSICSMANAGER_H
 
+//DLL Header
 #include "BrickwareCoreDLL.h"
 
+//System Level Headers
 #include <unordered_map>
 
+//Project Headers
 #include "Settings.h"
 #include "Rigidbody.h"
+#include "GameObject.h"
 #include "Collider.h"
 #include "Primitive.h"
 
@@ -14,35 +18,40 @@
 #include "Debug.h"
 #endif
 
-class PhysicsManager
+namespace Brickware
 {
-	friend class Game;
-	friend class Rigidbody;
-	friend class Collider;
+	namespace Core
+	{
+		class PhysicsManager
+		{
+			friend class Game;
+			friend class Rigidbody;
+			friend class Collider;
 
-public: 
-	static BRICKWARE_CORE_API float GetGravity();
-	static BRICKWARE_CORE_API void SetGravity(float gravity);
+		public:
+			static float GetGravity();
+			static void SetGravity(float gravity);
 
-private:
-	static void Initialize();
-	static void Update();
-	static void Destroy();
-	
-	static bool IsCollisionActive(Collision* collision);
+		private:
+			static void Initialize();
+			static void Update();
+			static void Destroy();
 
-	static void AddRigidbody(Rigidbody* rigidbody);
-	static void AddCollider(Collider* collider);
+			static bool IsCollisionActive(Collision* collision);
 
-	static void RemoveRigidbody(Rigidbody* rigidbody);
-	static void RemoveCollider(Collider* collider);
+			static void AddRigidbody(Rigidbody* rigidbody);
+			static void AddCollider(Collider* collider);
 
-	//Using unordered map for faster removals
-	static std::vector<Collision*> activeCollisions;
-	static std::vector<Collision*> lastFrameActiveCollisions;
-	static std::unordered_map<Rigidbody*, int> rigidbodies;
-	static std::unordered_map<Collider*, int> colliders;
-	static float gravity;
-};
+			static void RemoveRigidbody(Rigidbody* rigidbody);
+			static void RemoveCollider(Collider* collider);
 
+			//Using unordered map for faster removals
+			static std::vector<Collision*> activeCollisions;
+			static std::vector<Collision*> lastFrameActiveCollisions;
+			static std::unordered_map<Rigidbody*, int> rigidbodies;
+			static std::unordered_map<Collider*, int> colliders;
+			static float gravity;
+		};
+	}
+}
 #endif

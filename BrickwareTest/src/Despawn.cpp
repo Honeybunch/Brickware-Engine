@@ -1,5 +1,8 @@
 #include "Despawn.h"
 
+using namespace Brickware;
+using namespace Core;
+
 Despawn::Despawn(){}
 
 void Despawn::Update()

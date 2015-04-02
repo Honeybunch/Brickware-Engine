@@ -1,8 +1,8 @@
+#ifdef D3D_SUPPORT
+
 #define BRICKWARE_GRAPHICS_EXPORTS
 
 #include "Shader.h"
-
-#ifdef D3D_SUPPORT
 
 using namespace Brickware;
 using namespace Graphics;

@@ -36,8 +36,21 @@ namespace Brickware
 		template class BRICKWARE_GRAPHICS_API std::map < std::string, Texture* > ;
 		template class BRICKWARE_GRAPHICS_API std::vector < Material* > ;
 
+		template class BRICKWARE_GRAPHICS_API std::map < std::string, Math::Vector2 > ;
+		template class BRICKWARE_GRAPHICS_API std::map < std::string, Math::Vector3 > ;
+		template class BRICKWARE_GRAPHICS_API std::map < std::string, Math::Vector4 > ;
+
+		template class BRICKWARE_GRAPHICS_API std::map < std::string, int > ;
+		template class BRICKWARE_GRAPHICS_API std::map < std::string, float > ;
+		template class BRICKWARE_GRAPHICS_API std::map < std::string, double > ;
+
+		template class BRICKWARE_GRAPHICS_API std::map < std::string, Math::Matrix3 > ;
+		template class BRICKWARE_GRAPHICS_API std::map < std::string, Math::Matrix4 > ;
+
 		class BRICKWARE_GRAPHICS_API Material
 		{
+			friend class RenderingManager;
+
 		public:
 			Material(Shader* shader);
 
@@ -69,7 +82,20 @@ namespace Brickware
 		private:
 			Shader* shader;
 
+			std::map<std::string, Math::Vector2> vector2Map;
+			std::map<std::string, Math::Vector3> vector3Map;
+			std::map<std::string, Math::Vector4> vector4Map;
+
+			std::map<std::string, int> intMap;
+			std::map<std::string, float> floatMap;
+			std::map<std::string, double> doubleMap;
+
+			std::map<std::string, Math::Matrix3> matrix3Map;
+			std::map<std::string, Math::Matrix4> matrix4Map;
+
 			std::map<std::string, Texture*> textureMap;
+
+			void sendDataToGPU();
 
 			//Default texture to be loaded once and passed by default to every material
 			static Texture* defaultTexture;
@@ -100,6 +126,6 @@ namespace Brickware
 			void setMatrix3D3D(const char* valueName, Matrix3 value);
 #endif
 		};
-	};
-};
+	}
+}
 #endif

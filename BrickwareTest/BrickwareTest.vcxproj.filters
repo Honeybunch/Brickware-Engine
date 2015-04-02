@@ -45,24 +45,24 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\PixelShader.glsl">
+    <None Include="..\Debug\Shaders\PixelShader.glsl">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Shaders\VertexShader.glsl">
+    <None Include="..\Debug\Shaders\PrimitivePixel.glsl">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Shaders\PrimitivePixel.glsl">
+    <None Include="..\Debug\Shaders\PrimitiveVertex.glsl">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Shaders\PrimitiveVertex.glsl">
+    <None Include="..\Debug\Shaders\VertexShader.glsl">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Shaders\PixelShader.hlsl">
+    <FxCompile Include="..\Debug\Shaders\PixelShader.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
-    <FxCompile Include="Shaders\VertexShader.hlsl">
+    <FxCompile Include="..\Debug\Shaders\VertexShader.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
   </ItemGroup>

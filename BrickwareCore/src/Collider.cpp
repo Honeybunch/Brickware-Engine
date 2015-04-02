@@ -8,6 +8,11 @@
 #include "GameObject.h"
 #include "PhysicsManager.h"
 
+using namespace Brickware;
+using namespace Core;
+using namespace Graphics;
+using namespace Math;
+
 Collider::Collider()
 {
 	enabled = true;
@@ -58,10 +63,7 @@ void Collider::calculateWorldData()
 
 		if (Debug::Debugging)
 			Primitive::DrawLine(center, center + worldNormals[i] * 2);
-		
-	}	
-
-	
+	}
 }
 
 Collider::~Collider()

@@ -1,11 +1,11 @@
 #define BRICKWARE_CORE_EXPORTS
 
+#include "FrustumCollider.h"
+#include "Camera.h"
+
 using namespace Brickware;
 using namespace Core;
 using namespace Math;
-
-#include "FrustumCollider.h"
-#include "Camera.h"
 
 Camera* Camera::GetActiveCamera(){ return ActiveCamera; }
 
@@ -159,9 +159,9 @@ void Camera::Update()
 
 void Camera::Render()
 {	
-	for (unsigned int i = 0; i < Material::materials; i++)
+	for (unsigned int i = 0; i < Graphics::Material::Materials.size(); i++)
 	{
-		Material material = Material::materials[i];
+		Graphics::Material* material = Graphics::Material::Materials[i];
 
 		material->bindShader();
 

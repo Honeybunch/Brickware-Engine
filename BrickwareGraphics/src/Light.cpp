@@ -18,6 +18,7 @@ Light::Light()
 	diffuseColor = Vector3(1.0f, 1.0f, 1.0f);
 	specularColor = Vector3(1.0f, 1.0f, 1.0f);
 
+	lightIndex = LightCount;
 	LightCount++;
 }
 
@@ -30,7 +31,7 @@ void Light::Render(Material* material)
 {
 	//Using a string just for easy concatanation 
 	std::string lightString = "lights[";
-	lightString.append(std::to_string(LightCount));
+	lightString.append(std::to_string(lightIndex));
 	lightString.append("].");
 
 	//Make sure to let the material know how many lights there are

@@ -29,7 +29,7 @@ Material::Material(Shader* shader)
 	for (unsigned int i = 0; i < Materials.size(); i++)
 	{
 		if (this->shader == Materials[i]->shader)
-			add = false;
+			add = true;
 	}
 
 	if (add)

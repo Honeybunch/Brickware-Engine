@@ -39,6 +39,8 @@ namespace Brickware
 			~Light(void);
 
 		private:
+			int lightIndex;
+
 			Math::Vector3 position;
 			Math::Vector3 ambientColor;
 			Math::Vector3 diffuseColor;

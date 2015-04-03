@@ -45,6 +45,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)\BrickwareUtils\include;$(SolutionDir)\BrickwareGraphics\include;$(SolutionDir)\GL\include;$(SolutionDir)\GLFW\include;$(SolutionDir)\BrickwareTest\include;$(SolutionDir)\BrickwareMath\include;$(SolutionDir)\BrickwareCore\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions);GL_SUPPORT;_NO_DEBUG_HEAP</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

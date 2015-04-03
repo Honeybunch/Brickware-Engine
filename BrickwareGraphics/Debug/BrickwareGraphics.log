@@ -1,5 +1,52 @@
-﻿Build started 4/2/2015 4:53:37 PM.
+﻿Build started 4/2/2015 8:13:44 PM.
+     1>Project "D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\BrickwareGraphics.vcxproj" on node 2 (Build target(s)).
+     1>PreBuildEvent:
+         xcopy D:\Users\amt3824\Git\Brickware-Engine\Debug\BrickwareMath.lib D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\lib\ /y
+         xcopy D:\Users\amt3824\Git\Brickware-Engine\Debug\BrickwareUtils.lib D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\lib\ /y
+         :VCEnd
+         D:\Users\amt3824\Git\Brickware-Engine\Debug\BrickwareMath.lib
+         1 File(s) copied
+         D:\Users\amt3824\Git\Brickware-Engine\Debug\BrickwareUtils.lib
+         1 File(s) copied
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"D:\Users\amt3824\Git\Brickware-Engine\\GL\include" /I"D:\Users\amt3824\Git\Brickware-Engine\\BrickwareUtils\include" /I"D:\Users\amt3824\Git\Brickware-Engine\\BrickwareMath\include" /I"D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /D _WINDLL /D _MBCS /D GL_SUPPORT /D _NO_DEBUG_HEAP /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\Light.cpp src\Material.cpp src\MaterialD3D.cpp src\MaterialGL.cpp src\Mesh.cpp src\Primitive.cpp src\PrimitiveManager.cpp src\RenderingManager.cpp src\RenderingManagerD3D.cpp src\RenderingManagerGL.cpp src\Shader.cpp src\ShaderD3D.cpp src\ShaderGL.cpp src\Texture.cpp src\TextureD3D.cpp src\TextureGL.cpp
+         TextureGL.cpp
+         TextureD3D.cpp
+         Texture.cpp
+         ShaderGL.cpp
+         ShaderD3D.cpp
+         Shader.cpp
+         RenderingManagerGL.cpp
+         RenderingManagerD3D.cpp
+         RenderingManager.cpp
+         PrimitiveManager.cpp
+         Primitive.cpp
+         Mesh.cpp
+         MaterialGL.cpp
+         MaterialD3D.cpp
+         Material.cpp
+         Light.cpp
+         Generating Code...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Users\amt3824\Git\Brickware-Engine\Debug\BrickwareGraphics.dll" /INCREMENTAL /NOLOGO /LIBPATH:"D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\\lib" /LIBPATH:"D:\Users\amt3824\Git\Brickware-Engine\\GL\lib\Win32" dxguid.lib d3d11.lib d3dcompiler.lib BrickwareUtils.lib BrickwareUtils.lib BrickwareMath.lib glew32.lib opengl32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Users\amt3824\Git\Brickware-Engine\Debug\BrickwareGraphics.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Users\amt3824\Git\Brickware-Engine\Debug\BrickwareGraphics.lib" /MACHINE:X86 /DLL Debug\Light.obj
+         Debug\Material.obj
+         Debug\MaterialD3D.obj
+         Debug\MaterialGL.obj
+         Debug\Mesh.obj
+         Debug\Primitive.obj
+         Debug\PrimitiveManager.obj
+         Debug\RenderingManager.obj
+         Debug\RenderingManagerD3D.obj
+         Debug\RenderingManagerGL.obj
+         Debug\Shader.obj
+         Debug\ShaderD3D.obj
+         Debug\ShaderGL.obj
+         Debug\Texture.obj
+         Debug\TextureD3D.obj
+         Debug\TextureGL.obj
+         BrickwareGraphics.vcxproj -> D:\Users\amt3824\Git\Brickware-Engine\Debug\BrickwareGraphics.dll
+     1>Done Building Project "D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\BrickwareGraphics.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.03
+Time Elapsed 00:00:14.83

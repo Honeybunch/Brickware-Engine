@@ -1,6 +1,7 @@
 #define BRICKWARE_GRAPHICS_EXPORTS
 
 #include "Texture.h"
+#include "RenderingManager.h"
 
 using namespace Brickware;
 using namespace Graphics;
@@ -33,7 +34,7 @@ void Texture::bufferD3D()
 	pixelData.SysMemPitch = width * 4;
 	pixelData.SysMemSlicePitch = height * width * 4;
 
-	HR(Game::device->CreateTexture2D(&textureDesc, &pixelData, &d3dTexture));
+	HR(RenderingManager::device->CreateTexture2D(&textureDesc, &pixelData, &d3dTexture));
 
 	//Create a description of the resource view
 	D3D11_SHADER_RESOURCE_VIEW_DESC resourceDesc;
@@ -41,7 +42,7 @@ void Texture::bufferD3D()
 	resourceDesc.Texture2D.MipLevels = 1;
 
 	//Create the SRV
-	HR(Game::device->CreateShaderResourceView(d3dTexture, NULL, &d3dTextureSRV));
+	HR(RenderingManager::device->CreateShaderResourceView(d3dTexture, NULL, &d3dTextureSRV));
 
 	//Clear out descriptions
 	ZeroMemory(&textureDesc, sizeof(textureDesc));
@@ -51,7 +52,7 @@ void Texture::bufferD3D()
 
 void Texture::bindD3D()
 {
-	Game::deviceContext->PSSetShaderResources(0, 1, &d3dTextureSRV);
+	RenderingManager::deviceContext->PSSetShaderResources(0, 1, &d3dTextureSRV);
 }
 
 void Texture::freeD3D()

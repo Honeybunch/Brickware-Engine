@@ -10,9 +10,17 @@ Material* RenderingManager::currentMaterial;
 std::vector<Renderable> RenderingManager::renderables;
 std::vector<Light*> RenderingManager::lights;
 
-void RenderingManager::Initialize()
+#ifdef D3D_SUPPORT
+ID3D11Device* RenderingManager::device;
+ID3D11DeviceContext* RenderingManager::deviceContext;
+#endif
+
+void RenderingManager::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext)
 {
-	
+#ifdef D3D_SUPPORT
+	RenderingManager::device = device;
+	RenderingManager::deviceContext = deviceContext;
+#endif
 }
 
 void RenderingManager::AddLight(Light* light)

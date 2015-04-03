@@ -14,6 +14,7 @@ void RenderingManager::RenderD3D(Renderable renderable)
 	Material* material = renderable.material;
 
 	material->bindShader();
+	material->sendDataToGPU();
 
 	std::vector<ID3D11Buffer*> constantBuffers = material->getConstantBuffers();
 	std::vector<char*> constantBufferData = material->getConstantBufferData();
@@ -21,7 +22,7 @@ void RenderingManager::RenderD3D(Renderable renderable)
 	for (unsigned int i = 0; i < constantBuffers.size(); i++)
 	{
 		//Do this on variable setting
-		Game::deviceContext->UpdateSubresource(
+		deviceContext->UpdateSubresource(
 			constantBuffers[i],
 			0,
 			NULL,
@@ -29,8 +30,8 @@ void RenderingManager::RenderD3D(Renderable renderable)
 			0,
 			0);
 
-		Game::deviceContext->VSSetConstantBuffers(i, 1, &(constantBuffers[i]));
-		Game::deviceContext->PSSetConstantBuffers(i, 1, &(constantBuffers[i]));
+		deviceContext->VSSetConstantBuffers(i, 1, &(constantBuffers[i]));
+		deviceContext->PSSetConstantBuffers(i, 1, &(constantBuffers[i]));
 	}
 
 	//I CAN SET MORE THAN ONE BUFFER
@@ -46,14 +47,14 @@ void RenderingManager::RenderD3D(Renderable renderable)
 
 	ID3D11Buffer* indexBuffer = mesh->getIndexBuffer();
 
-	Game::deviceContext->IASetVertexBuffers(0, 1, &positionBuffer, &posStride, &offset);
-	Game::deviceContext->IASetVertexBuffers(1, 1, &normalBuffer, &normStride, &offset);
-	Game::deviceContext->IASetVertexBuffers(2, 1, &texCoordBuffer, &texCoordStride, &offset);
+	deviceContext->IASetVertexBuffers(0, 1, &positionBuffer, &posStride, &offset);
+	deviceContext->IASetVertexBuffers(1, 1, &normalBuffer, &normStride, &offset);
+	deviceContext->IASetVertexBuffers(2, 1, &texCoordBuffer, &texCoordStride, &offset);
 
-	Game::deviceContext->IASetIndexBuffer(indexBuffer, DXGI_FORMAT_R32_UINT, 0);
+	deviceContext->IASetIndexBuffer(indexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
 	//DRAW
-	Game::deviceContext->DrawIndexed(mesh->getNumberOfVerts(), 0, 0);
+	deviceContext->DrawIndexed(mesh->getNumberOfVerts(), 0, 0);
 
 	material->freeShader();
 }

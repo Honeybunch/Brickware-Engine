@@ -115,16 +115,16 @@ namespace Brickware
 #endif
 
 #ifdef D3D_SUPPORT
-			void setVector4D3D(const char* valueName, Vector4 value);
-			void setVector3D3D(const char* valueName, Vector3 value);
-			void setVector2D3D(const char* valueName, Vector2 value);
+			void setVector4D3D(const char* valueName, Math::Vector4 value);
+			void setVector3D3D(const char* valueName, Math::Vector3 value);
+			void setVector2D3D(const char* valueName, Math::Vector2 value);
 
 			void setIntD3D    (const char* valueName, int value);
 			void setFloatD3D  (const char* valueName, float value);
 			void setDoubleD3D (const char* valueName, double value);
 
-			void setMatrix4D3D(const char* valueName, Matrix4 value);
-			void setMatrix3D3D(const char* valueName, Matrix3 value);
+			void setMatrix4D3D(const char* valueName, Math::Matrix4 value);
+			void setMatrix3D3D(const char* valueName, Math::Matrix3 value);
 #endif
 		};
 	}

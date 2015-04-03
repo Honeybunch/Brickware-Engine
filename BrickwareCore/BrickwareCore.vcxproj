@@ -45,7 +45,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SolutionDir)\BrickwareUtils\include;$(SolutionDir)\BrickwareGraphics\include;$(SolutionDir)\GLFW\include;$(SolutionDir)\GL\include;$(SolutionDir)\BrickwareMath\include;$(ProjectDir)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_WINDLL;%(PreprocessorDefinitions);GL_SUPPORT;_NO_DEBUG_HEAP</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDLL;%(PreprocessorDefinitions);D3D_SUPPORT;_NO_DEBUG_HEAP</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -87,7 +87,6 @@ xcopy $(SolutionDir)$(Configuration)\BrickwareGraphics.lib $(ProjectDir)lib\ /y<
     <ClInclude Include="include\Collision.h" />
     <ClInclude Include="include\Component.h" />
     <ClInclude Include="include\Debug.h" />
-    <ClInclude Include="include\dxerr.h" />
     <ClInclude Include="include\FrustumCollider.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\GameObject.h" />
@@ -110,7 +109,6 @@ xcopy $(SolutionDir)$(Configuration)\BrickwareGraphics.lib $(ProjectDir)lib\ /y<
     <ClCompile Include="src\Collision.cpp" />
     <ClCompile Include="src\Component.cpp" />
     <ClCompile Include="src\Debug.cpp" />
-    <ClCompile Include="src\dxerr.cpp" />
     <ClCompile Include="src\FrustumCollider.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GameObject.cpp" />

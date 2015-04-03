@@ -9,11 +9,18 @@
 #include "Material.h"
 #include "Mesh.h"
 #include "Light.h"
+#include "GraphicsSettings.h"
 
 namespace Brickware
 {
 	namespace Graphics
 	{
+		//Some forward declaration if D3D is not being used
+#ifdef GL_SUPPORT
+		struct ID3D11Device;
+		struct ID3D11DeviceContext;
+#endif
+
 		struct Renderable
 		{
 			Mesh* mesh;
@@ -25,12 +32,18 @@ namespace Brickware
 
 		class BRICKWARE_GRAPHICS_API RenderingManager
 		{
+			friend class Material;
+			friend class Shader;
+			friend class Mesh;
+			friend class Light;
+			friend class Texture;
+
 		public:
 			static void AddLight(Light* light);
 			static void UseMaterial(Material* material);
 			static void DrawMesh(Mesh* mesh);
 
-			static void Initialize();
+			static void Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext);
 			static void Render();
 			static void Destroy();
 
@@ -40,7 +53,10 @@ namespace Brickware
 			static void RenderGL(Renderable renderable);
 #endif
 #ifdef D3D_SUPPORT
-			static void RenderD3D(Renderable* renderable);
+			static ID3D11Device* device;
+			static ID3D11DeviceContext* deviceContext;
+
+			static void RenderD3D(Renderable renderable);
 #endif
 			static Material* currentMaterial;
 			static std::vector <Renderable> renderables;

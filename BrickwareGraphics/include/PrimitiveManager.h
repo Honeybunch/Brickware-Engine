@@ -73,7 +73,7 @@ namespace Brickware
 #ifdef D3D_SUPPORT
 			static void BufferDataD3D();
 
-			static void DrawPrimitiveD3D(Primitive* p, Matrix4 worldMatrix);
+			static void DrawPrimitiveD3D(Primitive* p, Math::Matrix4 worldMatrix);
 
 			static void SetColorD3D(Math::Vector4 color);
 			static void SetPointSizeD3D(float pointSize);

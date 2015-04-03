@@ -6,8 +6,7 @@
 
 using namespace Brickware;
 using namespace Graphics;
-
-#include "Game.h"
+using namespace Math;
 
 std::vector<ID3D11Buffer*> Material::getConstantBuffers(){ return shader->constantBuffers; }
 std::vector<char*> Material::getConstantBufferData(){ return shader->constantBufferData; }

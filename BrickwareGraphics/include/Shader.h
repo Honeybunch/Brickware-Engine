@@ -13,6 +13,7 @@
 #include <d3d11.h>
 #include <d3dcompiler.h>
 #include <d3d11shader.h>
+#include "dxerr.h"
 
 //Quick struct to hold D3D11_SHADER_VARIABLE_DESCs and the index of the buffer it belongs to
 struct ConstVariableInfo{
@@ -31,6 +32,7 @@ struct ConstVariableInfo{
 #include <string>
 
 //Project Headers
+#include "GraphicsSettings.h"
 #include "Texture.h"
 
 namespace Brickware
@@ -39,6 +41,12 @@ namespace Brickware
 	{
 #ifdef GL_SUPPORT
 		template class BRICKWARE_GRAPHICS_API std::map < std::string, GLuint > ;
+#endif
+#ifdef D3D_SUPPORT
+		template class BRICKWARE_GRAPHICS_API std::vector < ID3D11Buffer* > ;
+		template class BRICKWARE_GRAPHICS_API std::vector < char* > ;
+		template class BRICKWARE_GRAPHICS_API std::map < std::string, D3D11_SHADER_VARIABLE_DESC* >;
+		template class BRICKWARE_GRAPHICS_API std::vector < std::map<std::string, D3D11_SHADER_VARIABLE_DESC*>* >;
 #endif
 		template class BRICKWARE_GRAPHICS_API std::map < std::string, Texture* > ;
 

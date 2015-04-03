@@ -53,7 +53,7 @@ namespace Brickware
 #endif
 
 #ifdef D3D_SUPPORT
-			Primitive(ID3D11Buffer* vbo, ID3D11Buffer* ibo, Vector3 translation, Vector3 scale, Vector3 rotation, PrimitiveType drawType);
+			Primitive(ID3D11Buffer* vbo, ID3D11Buffer* ibo, Math::Vector3 translation, Math::Vector3 scale, Math::Vector3 rotation, PrimitiveType drawType);
 #endif
 			~Primitive();
 

@@ -53,9 +53,6 @@
     <ClInclude Include="include\Camera.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="include\dxerr.h">
-      <Filter>Header Files\Game Core</Filter>
-    </ClInclude>
     <ClInclude Include="include\BoxCollider.h">
       <Filter>Header Files\Components\Colliders</Filter>
     </ClInclude>
@@ -141,9 +138,6 @@
     </ClCompile>
     <ClCompile Include="src\Octree.cpp">
       <Filter>Source Files\Data</Filter>
-    </ClCompile>
-    <ClCompile Include="src\dxerr.cpp">
-      <Filter>Source Files\Game Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Game.cpp">
       <Filter>Source Files\Game Core</Filter>

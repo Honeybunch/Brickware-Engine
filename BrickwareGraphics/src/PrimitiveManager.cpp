@@ -37,12 +37,11 @@ GLuint PrimitiveManager::fillCircleIBO;
 //Used to load the basic shader and buffer data
 void PrimitiveManager::Initialize()
 {
-	shader = new Shader("Shaders/PrimitiveVertex", "Shaders/PrimitivePixel");
-
 	//We want to create basic buffers of our few basic shapes
 #ifdef D3D_SUPPORT
 	BufferDataD3D();
 #else
+	shader = new Shader("Shaders/PrimitiveVertex", "Shaders/PrimitivePixel");
 	BufferDataGL();
 #endif
 }

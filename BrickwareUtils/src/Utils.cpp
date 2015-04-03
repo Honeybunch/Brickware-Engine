@@ -118,7 +118,6 @@ char* Utils::trimToLastChar(char* string, char lastChar)
 	return toReturn;
 }
 
-#ifdef GL_SUPPORT
 void Utils::printShaderInfoLog(GLuint obj)
 {
 	GLint infologLength = 0;
@@ -155,9 +154,7 @@ void Utils::printProgramInfoLog(GLuint obj)
 		delete infoLog;
 	}
 }
-#endif
 
-#ifdef D3D_SUPPORT
 WCHAR* Utils::stringToWideString(char* string)
 {
 	int stringSize = strlen(string) + 1;
@@ -179,7 +176,6 @@ char* Utils::wideStringToString(WCHAR* wideString)
 
 	return string;
 }
-#endif
 
 /*
 	Private Functions

@@ -1,6 +1,7 @@
 #define BRICKWARE_GRAPHICS_EXPORTS
 
 #include "Mesh.h"
+#include "RenderingManager.h"
 
 using namespace Brickware;
 using namespace Graphics;
@@ -342,9 +343,9 @@ void Mesh::bufferD3D()
 	texCoordData.pSysMem = texCoords;
 
 	//Buffer
-	HR(Game::device->CreateBuffer(&positionBufferDesc, &positionData, &positionBuffer));
-	HR(Game::device->CreateBuffer(&normalBufferDesc, &normalData, &normalBuffer));
-	HR(Game::device->CreateBuffer(&texCoordBufferDesc, &texCoordData, &texCoordBuffer));
+	HR(RenderingManager::device->CreateBuffer(&positionBufferDesc, &positionData, &positionBuffer));
+	HR(RenderingManager::device->CreateBuffer(&normalBufferDesc, &normalData, &normalBuffer));
+	HR(RenderingManager::device->CreateBuffer(&texCoordBufferDesc, &texCoordData, &texCoordBuffer));
 
 	//Need to have ints rather than shorts
 	unsigned int* d3dIndices = new unsigned int[numberOfVerts];
@@ -365,7 +366,7 @@ void Mesh::bufferD3D()
 	indexData.pSysMem = d3dIndices;
 
 	//Buffer
-	HR(Game::device->CreateBuffer(&indexBufferDesc, &indexData, &indexBuffer));
+	HR(RenderingManager::device->CreateBuffer(&indexBufferDesc, &indexData, &indexBuffer));
 }
 #endif
 

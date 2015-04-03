@@ -2,6 +2,10 @@ d:\users\amt3824\git\brickware-engine\debug\brickwaregraphics.lib
 d:\users\amt3824\git\brickware-engine\debug\brickwaregraphics.exp
 d:\users\amt3824\git\brickware-engine\brickwaregraphics\debug\vc120.pdb
 d:\users\amt3824\git\brickware-engine\brickwaregraphics\debug\vc120.idb
+d:\users\amt3824\git\brickware-engine\brickwaregraphics\debug\renderingmanagergl.obj
+d:\users\amt3824\git\brickware-engine\brickwaregraphics\debug\shadergl.obj
+d:\users\amt3824\git\brickware-engine\brickwaregraphics\debug\texture.obj
+d:\users\amt3824\git\brickware-engine\brickwaregraphics\debug\texturegl.obj
 d:\users\amt3824\git\brickware-engine\brickwaregraphics\debug\light.obj
 d:\users\amt3824\git\brickware-engine\brickwaregraphics\debug\material.obj
 d:\users\amt3824\git\brickware-engine\brickwaregraphics\debug\materiald3d.obj
@@ -11,13 +15,10 @@ d:\users\amt3824\git\brickware-engine\brickwaregraphics\debug\primitive.obj
 d:\users\amt3824\git\brickware-engine\brickwaregraphics\debug\primitivemanager.obj
 d:\users\amt3824\git\brickware-engine\brickwaregraphics\debug\renderingmanager.obj
 d:\users\amt3824\git\brickware-engine\brickwaregraphics\debug\renderingmanagerd3d.obj
-d:\users\amt3824\git\brickware-engine\brickwaregraphics\debug\renderingmanagergl.obj
 d:\users\amt3824\git\brickware-engine\brickwaregraphics\debug\shader.obj
 d:\users\amt3824\git\brickware-engine\brickwaregraphics\debug\shaderd3d.obj
-d:\users\amt3824\git\brickware-engine\brickwaregraphics\debug\shadergl.obj
-d:\users\amt3824\git\brickware-engine\brickwaregraphics\debug\texture.obj
 d:\users\amt3824\git\brickware-engine\brickwaregraphics\debug\textured3d.obj
-d:\users\amt3824\git\brickware-engine\brickwaregraphics\debug\texturegl.obj
+d:\users\amt3824\git\brickware-engine\brickwaregraphics\debug\dxerr.obj
 d:\users\amt3824\git\brickware-engine\debug\brickwaregraphics.ilk
 d:\users\amt3824\git\brickware-engine\debug\brickwaregraphics.dll
 d:\users\amt3824\git\brickware-engine\debug\brickwaregraphics.pdb

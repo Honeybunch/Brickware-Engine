@@ -131,7 +131,12 @@ bool Game::init()
 
 	//Init managers
 	Graphics::PrimitiveManager::Initialize();
-	Graphics::RenderingManager::Initialize();
+#ifdef GL_SUPPORT
+	Graphics::RenderingManager::Initialize(NULL, NULL);
+#endif
+#ifdef D3D_SUPPORT
+	Graphics::RenderingManager::Initialize(device, deviceContext);
+#endif
 	PhysicsManager::Initialize();
 
 	return initSuccess;
@@ -153,12 +158,14 @@ void Game::render()
 
 	renderScene(); //Will be overridden 
 
+
+	Graphics::RenderingManager::Render();
+
 #ifdef D3D_SUPPORT
 	swapBuffersD3D();
 #else
 	Camera* camera = Camera::GetActiveCamera();
 	Graphics::PrimitiveManager::DrawPrimitives(camera->getViewMatrix(), camera->getProjectionMatrix());
-	Graphics::RenderingManager::Render();
 	swapBuffersGL();
 	Graphics::PrimitiveManager::ClearPrimitives();
 #endif

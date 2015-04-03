@@ -3,22 +3,22 @@
 #define BRICKWARE_GRAPHICS_EXPORTS
 
 #include "Shader.h"
+#include "RenderingManager.h"
 
 using namespace Brickware;
 using namespace Graphics;
-
-#include "Game.h"
-#include "GameObject.h"
+using namespace Math;
+using namespace Utility;
 
 void Shader::bindHLSL()
 {
 	//Setup input layout
-	Game::deviceContext->IASetInputLayout(inputLayout);
-	Game::deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	RenderingManager::deviceContext->IASetInputLayout(inputLayout);
+	RenderingManager::deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	//Setup shaders
-	Game::deviceContext->VSSetShader(vertexShader, NULL, 0);
-	Game::deviceContext->PSSetShader(pixelShader, NULL, 0);
+	RenderingManager::deviceContext->VSSetShader(vertexShader, NULL, 0);
+	RenderingManager::deviceContext->PSSetShader(pixelShader, NULL, 0);
 }
 void Shader::freeHLSL(){}
 
@@ -52,14 +52,14 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 	}
 
 	// Create the shader on the device
-	HR(Game::device->CreateVertexShader(
+	HR(RenderingManager::device->CreateVertexShader(
 		vsBlob->GetBufferPointer(),
 		vsBlob->GetBufferSize(),
 		NULL,
 		&vertexShader));
 
 	// Before cleaning up the data, create the input layout
-	HR(Game::device->CreateInputLayout(
+	HR(RenderingManager::device->CreateInputLayout(
 		vertexDesc,
 		ARRAYSIZE(vertexDesc),
 		vsBlob->GetBufferPointer(),
@@ -75,7 +75,7 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 	}
 
 	// Create the shader on the device
-	HR(Game::device->CreatePixelShader(
+	HR(RenderingManager::device->CreatePixelShader(
 		psBlob->GetBufferPointer(),
 		psBlob->GetBufferSize(),
 		NULL,
@@ -146,7 +146,7 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 		cBufferDesc.CPUAccessFlags = 0;
 		cBufferDesc.MiscFlags = 0;
 		cBufferDesc.StructureByteStride = 0;
-		HR(Game::device->CreateBuffer(
+		HR(RenderingManager::device->CreateBuffer(
 			&cBufferDesc,
 			NULL,
 			&bufferSpace));
@@ -256,7 +256,7 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 		cBufferDesc.CPUAccessFlags = 0;
 		cBufferDesc.MiscFlags = 0;
 		cBufferDesc.StructureByteStride = 0;
-		HR(Game::device->CreateBuffer(
+		HR(RenderingManager::device->CreateBuffer(
 			&cBufferDesc,
 			NULL,
 			&bufferSpace));

@@ -7,13 +7,9 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 //Graphics Headers
-#ifdef D3D_SUPPORT
 #include <windows.h>
-#endif
 
-#ifdef GL_SUPPORT
 #include <GL/glew.h>
-#endif 
 
 //Other Project Headers
 
@@ -42,15 +38,11 @@ namespace Brickware
 
 			static char* trimToLastChar(char* string, char lastChar);
 
-#ifdef GL_SUPPORT
 			static void printShaderInfoLog(GLuint obj);
 			static void printProgramInfoLog(GLuint obj);
-#endif
 
-#ifdef D3D_SUPPORT
 			static WCHAR* stringToWideString(char* string);
 			static char* wideStringToString(WCHAR* wideString);
-#endif
 
 		private:
 			static char* strtok_single(char* string, char const* delimeters);

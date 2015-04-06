@@ -43,13 +43,13 @@ bool Shader::loadGLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 	GLuint program;
 
 	// Read in shader source
-	vertexShaderSource = Utils::textFileRead(glslVertexFileName);
+	vertexShaderSource = StringUtils::textFileRead(glslVertexFileName);
 	if (!vertexShaderSource) {
 		cerr << "Error reading vertex shader " << glslVertexFileName << endl;
 		shaderProgram = 0;
 		return false;
 	}
-	pixelShaderSource = Utils::textFileRead(glslPixelFileName);
+	pixelShaderSource = StringUtils::textFileRead(glslPixelFileName);
 	if (!pixelShaderSource) {
 		cerr << "Error reading fragment shader " << glslPixelFileName << endl;
 		shaderProgram = 0;
@@ -66,18 +66,18 @@ bool Shader::loadGLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 	// Compile the shader
 	glCompileShader(vertexShader);
 	glCompileShader(pixelShader);
-	Utils::printShaderInfoLog(vertexShader);
-	Utils::printShaderInfoLog(pixelShader);
+	StringUtils::printShaderInfoLog(vertexShader);
+	StringUtils::printShaderInfoLog(pixelShader);
 
 	// Create the program -- attaching your shaders
 	program = glCreateProgram();
 	glAttachShader(program, vertexShader);
 	glAttachShader(program, pixelShader);
-	Utils::printProgramInfoLog(program);
+	StringUtils::printProgramInfoLog(program);
 
 	// Link the program
 	glLinkProgram(program);
-	Utils::printProgramInfoLog(program);
+	StringUtils::printProgramInfoLog(program);
 
 	glUseProgram(program);
 

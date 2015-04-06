@@ -68,11 +68,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Utils.cpp" />
+    <ClCompile Include="src\JSONParser.cpp" />
+    <ClCompile Include="src\StringUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\BrickwareUtilsDLL.h" />
-    <ClInclude Include="include\Utils.h" />
+    <ClInclude Include="include\JSONParser.h" />
+    <ClInclude Include="include\StringUtils.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

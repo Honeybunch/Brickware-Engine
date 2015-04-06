@@ -5,6 +5,8 @@
 #include "Spin.h"
 #include "Spawner.h"
 
+#include "JSONParser.h"
+
 #include <iostream>
 
 class TestGame : public Brickware::Core::Game

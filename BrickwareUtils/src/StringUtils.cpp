@@ -1,6 +1,6 @@
-#define BRICKWARE_UTILS_EXPORTS
+#define BRICKWARE_UTILITY_EXPORTS
 
-#include "Utils.h"
+#include "StringUtils.h"
 
 using namespace Brickware;
 using namespace Utility;
@@ -10,7 +10,7 @@ using namespace Utility;
 */
 
 //return a vector of c-strings split by a delimeter
-vector<char*> Utils::stringSplit(char* toSplit, char* delimiter)
+vector<char*> StringUtils::stringSplit(char* toSplit, char* delimiter)
 {
 	//Modify the given string to add a delimeter to the end of the string so that the last value will be parsed
 	char* toSplitMod = new char[strlen(toSplit) + 1];
@@ -37,7 +37,7 @@ vector<char*> Utils::stringSplit(char* toSplit, char* delimiter)
 	return split;
 }
 
-char* Utils::textFileRead(char *fileName){
+char* StringUtils::textFileRead(char *fileName){
 
 	FILE *file;
 	char *content = NULL;
@@ -66,13 +66,13 @@ char* Utils::textFileRead(char *fileName){
 	}
 	else
 	{
-		fprintf(stderr, "Error reading %s\n", fileName);
+		fprintf(stderr, "Invalid file name");
 	}
 
 	return content;
 }
 
-int Utils::textFileWrite(char *fileName, char *stringToWrite)
+int StringUtils::textFileWrite(char *fileName, char *stringToWrite)
 {
 	FILE *file;
 	int status = 0;
@@ -92,7 +92,7 @@ int Utils::textFileWrite(char *fileName, char *stringToWrite)
 	return(status);
 }
 
-char* Utils::trimToLastChar(char* string, char lastChar)
+char* StringUtils::trimToLastChar(char* string, char lastChar)
 {
 	unsigned int stringLength = strlen(string);
 	int lastIndex = 0;
@@ -118,7 +118,7 @@ char* Utils::trimToLastChar(char* string, char lastChar)
 	return toReturn;
 }
 
-void Utils::printShaderInfoLog(GLuint obj)
+void StringUtils::printShaderInfoLog(GLuint obj)
 {
 	GLint infologLength = 0;
 	GLsizei charsWritten = 0;
@@ -136,7 +136,7 @@ void Utils::printShaderInfoLog(GLuint obj)
 	}
 }
 
-void Utils::printProgramInfoLog(GLuint obj)
+void StringUtils::printProgramInfoLog(GLuint obj)
 {
 	GLint infologLength = 0;
 	GLsizei charsWritten = 0;
@@ -155,7 +155,7 @@ void Utils::printProgramInfoLog(GLuint obj)
 	}
 }
 
-WCHAR* Utils::stringToWideString(char* string)
+WCHAR* StringUtils::stringToWideString(char* string)
 {
 	int stringSize = strlen(string) + 1;
 
@@ -166,7 +166,7 @@ WCHAR* Utils::stringToWideString(char* string)
 	return wideString;
 }
 
-char* Utils::wideStringToString(WCHAR* wideString)
+char* StringUtils::wideStringToString(WCHAR* wideString)
 {
 	int stringLength = wcslen(wideString);
 
@@ -182,7 +182,7 @@ char* Utils::wideStringToString(WCHAR* wideString)
 */
 
 //Used to more split a string while handling two consecutive delimeters which strok does not do by default
-char* Utils::strtok_single(char* string, char const* delimeters)
+char* StringUtils::strtok_single(char* string, char const* delimeters)
 {
 	static char* src = NULL;
 	char* p = 0;

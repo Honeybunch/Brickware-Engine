@@ -46,8 +46,6 @@ namespace Brickware
 			//Static functions
 			static Vector3 Cross(Vector3 v, Vector3 u);
 			static float Dot(Vector3 v, Vector3 u);
-			static Vector3 Sum(Vector3 v, Vector3 u);
-			static Vector3 ScalarProduct(Vector3 v, float s);
 			static Vector3 Normalize(Vector3 v);
 
 			//Operators

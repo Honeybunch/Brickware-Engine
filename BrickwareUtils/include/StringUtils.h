@@ -1,17 +1,16 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+//Pre-Include Defines
+#define _CRT_SECURE_NO_WARNINGS
+
 //DLL Header
 #include "BrickwareUtilsDLL.h"
-
-#define _CRT_SECURE_NO_WARNINGS
 
 //Graphics Headers
 #include <windows.h>
 
 #include <GL/glew.h>
-
-//Other Project Headers
 
 //System Level Headers
 #include <stdio.h>
@@ -28,7 +27,7 @@ namespace Brickware
 {
 	namespace Utility
 	{
-		class BRICKWARE_UTILS_API Utils
+		class BRICKWARE_UTILITY_API StringUtils
 		{
 		public:
 			static std::vector<char*> stringSplit(char* toSplit, char* delimiter);

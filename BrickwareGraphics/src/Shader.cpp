@@ -3,7 +3,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "Shader.h"
-#include "Utils.h"
+#include "StringUtils.h"
 
 using namespace Brickware;
 using namespace Graphics;
@@ -12,8 +12,8 @@ using namespace Utility;
 Shader::Shader(char* vertexShaderFileName, char* pixelShaderFileName)
 {
 	//TODO: Strip existing file extension if any
-	char* trimmedVertexFileName = Utils::trimToLastChar(vertexShaderFileName, '/');
-	char* trimmedPixelFileName = Utils::trimToLastChar(pixelShaderFileName, '/');
+	char* trimmedVertexFileName = StringUtils::trimToLastChar(vertexShaderFileName, '/');
+	char* trimmedPixelFileName = StringUtils::trimToLastChar(pixelShaderFileName, '/');
 
 #ifdef D3D_SUPPORT
 	loadHLSL(trimmedVertexFileName, trimmedPixelFileName);

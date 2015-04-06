@@ -90,26 +90,6 @@ float Vector3::Dot(Vector3 v, Vector3 u)
 	return output;
 }
 
-//Sum two vectors together
-Vector3 Vector3::Sum(Vector3 u, Vector3 v)
-{
-	Vector3 output;
-
-	output = v + u;
-
-	return output;
-}
-
-//Multiply a vector by a scalar
-Vector3 Vector3::ScalarProduct(Vector3 v, float s)
-{
-	Vector3 output;
-
-	output = v * s;
-
-	return output;
-}
-
 //Normalize a vector
 Vector3 Vector3::Normalize(Vector3 v)
 {

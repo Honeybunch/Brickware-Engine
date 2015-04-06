@@ -45,7 +45,7 @@ unsigned char* Texture::getPixels(){ return pixels; }
 
 void Texture::loadBMP(char* textureFileName)
 {
-	char* bmpBytes = Utils::textFileRead(textureFileName);
+	char* bmpBytes = StringUtils::textFileRead(textureFileName);
 
 	if (bmpBytes == NULL)
 	{

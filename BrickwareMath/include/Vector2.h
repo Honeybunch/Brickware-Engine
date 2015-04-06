@@ -33,8 +33,6 @@ namespace Brickware
 
 			//Static functions
 			static float Dot(Vector2 v, Vector2 u);
-			static Vector2 Sum(Vector2 v, Vector2 u);
-			static Vector2 ScalarProduct(Vector2 v, float s);
 			static Vector2 Normalize(Vector2 v);
 
 			//Operators

@@ -10,7 +10,7 @@
 #endif
 
 //Other Brickware Project Headers
-#include "Utils.h"
+#include "StringUtils.h"
 
 #include "Matrix3.h"
 #include "Matrix4.h"

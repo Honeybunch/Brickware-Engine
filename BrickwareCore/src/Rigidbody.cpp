@@ -127,6 +127,9 @@ void Rigidbody::OnCollision(Collision* collision)
 	Rigidbody* otherRigidbody = collision->getOtherRigidbody();
 	Collider* otherCollider = collision->getOtherCollider();
 
+	if (otherRigidbody == NULL)
+		return;
+
 	//Reposition rigidbody's game object back to where the collision happened so that it no longer intersects
 	Vector3 MTV = collision->getMTV();
 	Vector3 normal = Vector3::Normalize(MTV);

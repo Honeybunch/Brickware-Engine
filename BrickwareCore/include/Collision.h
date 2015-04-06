@@ -43,7 +43,7 @@ namespace Brickware
 			void setMTV(Math::Vector3 MTV);
 			void setPointsOfCollision(std::vector<Math::Vector3> pointsOfCollision);
 
-			~Collision();
+			virtual ~Collision();
 
 		private:
 			Collision();

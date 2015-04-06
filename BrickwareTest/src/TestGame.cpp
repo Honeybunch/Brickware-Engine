@@ -91,10 +91,12 @@ bool TestGame::init()
 	sphere->addComponent(sphereSpin);
 	GameObject* cube = new GameObject();
 	cube->getTransform()->setPosition(Vector3(-3.0f, 1.0f, -5.0f));
+	cube->getTransform()->setScale(Vector3(1.0f, 1.0f, 1.0f));
 	cube->addComponent(new MeshRenderer(cubeMesh, cubeMaterial));
 	Rigidbody* cubeRigidbody = new Rigidbody();
 	cubeRigidbody->setUseGravity(false);
-	cubeRigidbody->setIsKinematic(true);
+	cubeRigidbody->setMass(1.0f);
+	cubeRigidbody->setIsKinematic(false);
 	cube->addComponent(cubeRigidbody);
 	Spin* cubeSpin = new Spin();
 	cubeSpin->rotationDelta = Vector3(0.05f, 0.0f, 0.0f);
@@ -123,11 +125,12 @@ bool TestGame::init()
 	GameObject* nonSpinBox = new GameObject();
 	Rigidbody* rigidbody = new Rigidbody();
 	rigidbody->setUseGravity(false);
+	rigidbody->setMass(1.0f);
 	nonSpinBox->addComponent(rigidbody);
 	nonSpinBox->addComponent(new MeshRenderer(cubeMesh, cubeMaterial));	
 	nonSpinBox->addComponent(new BoxCollider());
-	nonSpinBox->getTransform()->setPosition(Vector3(0, .5f, .5f));
-	nonSpinBox->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
+	nonSpinBox->getTransform()->setPosition(Vector3(0, .5f, 2.0f));
+	nonSpinBox->getTransform()->setScale(Vector3(1.0f, 1.0f, 1.0f));
 
 	//Create Camera
 	Camera* cameraComp = new Camera(50, 0.1f, 0.1f, 0.1f, 100.0f);

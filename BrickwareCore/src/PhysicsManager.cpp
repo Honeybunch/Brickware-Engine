@@ -57,16 +57,22 @@ void PhysicsManager::Update()
 	for (auto it1 = colliders.begin(); it1 != colliders.end(); it1++)
 	{
 		Collider* test = it1->first;
+		if (test->getGameObject()->getComponent<Rigidbody>() == NULL)
+			return;
 
 		for (auto it2 = colliders.begin(); it2 != colliders.end(); it2++)
 		{
 			Collider* other = it2->first;
+			if (other->getGameObject()->getComponent<Rigidbody>() == NULL)
+				return;
 
 			bool colliding = false;
 			Collision* collision = new Collision();
+			Collision* oppositeCollision = new Collision();
 			if (other != test)
 			{
 				colliding = test->isColliding(other, collision);
+				other->isColliding(test, oppositeCollision);
 			}
 
 			if (other != test && colliding)
@@ -75,16 +81,19 @@ void PhysicsManager::Update()
 				if (collision)
 				{
 					GameObject* testObj = test->getGameObject();
+					GameObject* otherObj = other->getGameObject();
 
 					//If there isn't any identical collision, we will send a collision enter call
-					if (IsCollisionActive(collision) == false)
+					//if (IsCollisionActive(collision) == false && IsCollisionActive(oppositeCollision) == false)
 					{
 						testObj->OnCollisionEnter(collision);
+						otherObj->OnCollisionEnter(oppositeCollision);
 
 						activeCollisions.push_back(collision);
+						activeCollisions.push_back(oppositeCollision);
 					}
 					//Otherwise we will send a collision continue call
-					else
+					//else
 					{
 						//TODO
 					}
@@ -97,17 +106,10 @@ void PhysicsManager::Update()
 	for (unsigned int i = 0; i < lastFrameActiveCollisions.size(); i++)
 	{
 		Collision* toCheck = lastFrameActiveCollisions[i];
-		bool shouldRemove = true;
-		for (unsigned int j = 0; j < activeCollisions.size(); j++)
+
+		if (!IsCollisionActive(toCheck))
 		{
-			if (toCheck == activeCollisions[j])
-			{
-				shouldRemove = false;
-				break;
-			}
-		}
-		if (shouldRemove)
-		{
+			delete lastFrameActiveCollisions[i];
 			lastFrameActiveCollisions.erase(lastFrameActiveCollisions.begin() + i, lastFrameActiveCollisions.begin() + i + 1);
 			//TODO: fire off collision end event
 		}

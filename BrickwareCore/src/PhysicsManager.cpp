@@ -98,6 +98,11 @@ void PhysicsManager::Update()
 						//TODO
 					}
 				}
+				else
+				{
+					delete collision;
+					delete oppositeCollision;
+				}
 			}
 		}
 	}
@@ -106,8 +111,17 @@ void PhysicsManager::Update()
 	for (unsigned int i = 0; i < lastFrameActiveCollisions.size(); i++)
 	{
 		Collision* toCheck = lastFrameActiveCollisions[i];
+		bool activeThisFrame = false;
+		for (unsigned int j = 0; j < activeCollisions.size(); j++)
+		{
+			if (toCheck == activeCollisions[j])
+			{
+				activeThisFrame = true;
+				break;
+			}
+		}
 
-		if (!IsCollisionActive(toCheck))
+		if (!activeThisFrame)
 		{
 			delete lastFrameActiveCollisions[i];
 			lastFrameActiveCollisions.erase(lastFrameActiveCollisions.begin() + i, lastFrameActiveCollisions.begin() + i + 1);

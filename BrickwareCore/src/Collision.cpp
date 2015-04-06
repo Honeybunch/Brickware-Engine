@@ -37,4 +37,6 @@ Collision::Collision()
 	this->otherCollider = NULL;
 }
 
-Collision::~Collision(){}
+Collision::~Collision()
+{
+}

@@ -115,13 +115,14 @@ GameObject::~GameObject()
 	for (unsigned int i = 0; i < components.size(); i++)
 	{
 		delete components[i];
-		components[i] = NULL;
 	}
+
+	components.clear();
 
 	//Before the GameObject is deleted make sure to remove it from the collection
 	for (unsigned int i = 0; i < Game::gameObjects.size(); i++)
 	{
 		if (Game::gameObjects[i] == this)
-			Game::gameObjects.erase(Game::gameObjects.begin() + i, Game::gameObjects.begin() + 1 + i);
+ 			Game::gameObjects.erase(Game::gameObjects.begin() + i, Game::gameObjects.begin() + 1 + i);
 	}
 }

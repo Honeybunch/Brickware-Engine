@@ -20,7 +20,7 @@ Rigidbody::Rigidbody()
 
 	mass = 1.0f;
 
-	drag = .90f;
+	drag = .999f;
 	angularDrag = .999f;
 
 	detectCollisions = true;
@@ -36,9 +36,9 @@ void Rigidbody::Start()
 
 	//We should probably get an inertia tensor from a collider or mesh but we'll just assume it's a box
 	Vector3 scale = getGameObject()->getTransform()->getScale();
-	float inertiaTensorX = (mass * (powf(scale[1], 2) + powf(scale[2], 2))) / 12;
-	float inertiaTensorY = (mass * (powf(scale[0], 2) + powf(scale[2], 2))) / 12;
-	float inertiaTensorZ = (mass * (powf(scale[0], 2) + powf(scale[1], 2))) / 12;
+	float inertiaTensorX = (mass * (powf(scale[1] * 2, 2) + powf(scale[2] * 2, 2))) / 12;
+	float inertiaTensorY = (mass * (powf(scale[0] * 2, 2) + powf(scale[2] * 2, 2))) / 12;
+	float inertiaTensorZ = (mass * (powf(scale[0] * 2, 2) + powf(scale[1] * 2, 2))) / 12;
 
 	inertiaTensor = Vector3(inertiaTensorX, inertiaTensorY, inertiaTensorZ);
 
@@ -92,10 +92,6 @@ Matrix3 Rigidbody::momentOfInertia()
 //Called on a fixed timestep for physics calculations
 void Rigidbody::FixedUpdate()
 {
-	//Derive velocity from acceleration 
-	velocity += acceleration;
-	angularVelocity += angularAcceleration;
-
 	Transform* transform = getGameObject()->getTransform();
 
 	//Apply velocity to position
@@ -108,7 +104,14 @@ void Rigidbody::FixedUpdate()
 	eulerRotation += angularVelocity;
 	transform->setEulerRotation(eulerRotation);
 	
+	//Derive velocity from acceleration 
+	velocity += acceleration;
+	angularVelocity += angularAcceleration;
+
 	//Apply drag
+	velocity *= drag;
+	angularVelocity *= angularDrag;
+
 	acceleration = Vector3();
 	angularAcceleration = Vector3();
 
@@ -127,7 +130,8 @@ void Rigidbody::OnCollision(Collision* collision)
 	//Reposition rigidbody's game object back to where the collision happened so that it no longer intersects
 	Vector3 MTV = collision->getMTV();
 	Vector3 normal = Vector3::Normalize(MTV);
-	//getGameObject()->getTransform()->setPosition(getGameObject()->getTransform()->getPosition() + MTV);
+
+	getGameObject()->getTransform()->setPosition(getGameObject()->getTransform()->getPosition() + MTV);
 
 	//Calculate new forces
 	float   otherMass = otherRigidbody->mass;
@@ -171,13 +175,44 @@ void Rigidbody::OnCollision(Collision* collision)
 	Matrix3 momentOfInertia = this->momentOfInertia();
 
 	//Determine the impulse based on Chris Hecker's formula
-	float e = 0.5f; //elasticity
-	Vector3 relativeVelocity = velocity - otherVelocity;
-	float impulse = Vector3::Dot((relativeVelocity * mass) * -(1 + e), normal);
-	impulse /= Vector3::Dot(normal, normal * ((1 / mass) + (1 / otherMass))) +
-		Vector3::Dot((Vector3::Cross(momentOfInertia * Vector3::Cross(radius, normal), radius) +
-					  Vector3::Cross(otherMomentOfInertia * Vector3::Cross(otherRadius, normal), otherRadius)), 
-					  normal);
+	float e = 0.9f;
+	Vector3 relativeVelocity;
+
+	//Calculate the numerator of the impulse calculation
+	Vector3 totalVelocity1 = Vector3::Cross(angularVelocity, radius);
+	totalVelocity1 += velocity;
+
+	Vector3 totalVelocity2 = Vector3::Cross(otherAngularVelocity, otherRadius);
+	totalVelocity2 += otherVelocity;
+
+	relativeVelocity = totalVelocity1 - totalVelocity2;
+
+	float relativeNormalVelocity = Vector3::Dot(relativeVelocity, normal);
+	float numerator = (-1 - e) * relativeNormalVelocity;
+	
+	//Calculate the denominator
+
+	Vector3 torque1 = Vector3::Cross(radius, normal);
+	Vector3 torque2 = Vector3::Cross(otherRadius, normal);
+
+	Vector3 velFromTorque1 = momentOfInertia * torque1;
+	Vector3 velFromTorque2 = otherMomentOfInertia * torque2;
+
+	velFromTorque1 = Vector3::Cross(velFromTorque1, radius);
+	velFromTorque2 = Vector3::Cross(velFromTorque2, otherRadius);
+
+	Vector3 velFromTorques = velFromTorque1;
+	if (otherRigidbody->isKinematic)
+		velFromTorques += velFromTorque2;
+
+	float inverseMassSum = (1 / mass);
+	if (otherRigidbody->isKinematic)
+		inverseMassSum += (1 / otherMass);
+
+	float denominator = inverseMassSum + Vector3::Dot(velFromTorques, normal);
+
+	//Finally calculate impulse
+	float impulse = numerator / denominator;
 
 	//Determine resultant angularVelocity
 	angularVelocity += momentOfInertia * Vector3::Cross(radius, normal * impulse);

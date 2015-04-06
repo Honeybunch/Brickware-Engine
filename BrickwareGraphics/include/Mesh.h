@@ -7,9 +7,10 @@
 //DLL Header
 #include "BrickwareGraphicsDLL.h"
 
+#define NOMINMAX //Without this windows.h will break std::limits
+
 //Graphics Headers
 #ifdef D3D_SUPPORT
-#define NOMINMAX //Without this windows.h will break std::limits
 #include <windows.h>
 #endif
 

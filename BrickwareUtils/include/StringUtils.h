@@ -36,6 +36,7 @@ namespace Brickware
 			static int textFileWrite(char *fn, char *s);
 
 			static char* trimToLastChar(char* string, char lastChar);
+			static char* trimAllWhitespace(char* string);
 
 			static void printShaderInfoLog(GLuint obj);
 			static void printProgramInfoLog(GLuint obj);

@@ -19,14 +19,13 @@ JSONObject JSONParser::DecodeJSONFromFile(char* filename)
 
 JSONObject JSONParser::DecodeJSONFromString(char* rawString)
 {
-	JSONObject root; 
-
-	std::cout << rawString << std::endl;
-
 	//We want to strip all whitespace from the raw string
 	char* jsonString = StringUtils::trimAllWhitespace(rawString);
 
-	std::cout << jsonString << std::endl;
+	JSONObject object = parseObject(jsonString);
+	bool val = object.getValue<bool>("test");
 
-	return JSONObject();
+	std::cout << val << std::endl;
+
+	return object;
 }

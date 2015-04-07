@@ -118,6 +118,36 @@ char* StringUtils::trimToLastChar(char* string, char lastChar)
 	return toReturn;
 }
 
+char* StringUtils::trimAllWhitespace(char* string)
+{
+	unsigned int spaceCount = 0;
+	const unsigned int originalStringSize = strlen(string);
+
+	//Determine how many spaces there are in the string so we can build a proper string
+	for (unsigned int i = 0; i < originalStringSize; i++)
+	{
+		if (string[i] == ' ' || string[i] == '\n' || string[i] == '\t')
+			spaceCount++;
+	}
+
+	const int trimmedStringSize = originalStringSize - spaceCount;
+
+	char* trimmedString = (char*)(malloc(13 * sizeof(char)));
+
+	//Time to fill the trimmed string with everything that isn't whitespace
+	int offset = 0;
+	for (unsigned int i = 0; i < originalStringSize; i++)
+	{
+		if (string[i] != ' ' && string[i] != '\n' && string[i] != '\t')
+			trimmedString[i - offset] = string[i];
+		else
+			offset++;
+	}
+	trimmedString[trimmedStringSize] = '\0';
+
+	return trimmedString;
+}
+
 void StringUtils::printShaderInfoLog(GLuint obj)
 {
 	GLint infologLength = 0;

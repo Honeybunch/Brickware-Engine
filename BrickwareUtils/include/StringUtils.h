@@ -30,7 +30,7 @@ namespace Brickware
 		class BRICKWARE_UTILITY_API StringUtils
 		{
 		public:
-			static std::vector<char*> stringSplit(char* toSplit, char* delimiter);
+			static std::vector<std::string> stringSplit(const char* toSplit, const char* delimiter);
 
 			static char* textFileRead(char *fn);
 			static int textFileWrite(char *fn, char *s);

@@ -136,11 +136,11 @@ namespace Brickware
 			inline static JSONKVP parseMember(char* string)
 			{
 				//We can't parse the member just yet, we need to know its type
-				std::vector<char*> split = StringUtils::stringSplit(string, ":");
+				std::vector<std::string > split = StringUtils::stringSplit(string, ":");
 				if (split.size() == 2)
 				{
-					char* memberKeyString = split[0];
-					char* memberValueString = split[1];
+					const char* memberKeyString = split[0].c_str();
+					const char* memberValueString = split[1].c_str();
 
 					char* key = "";
 					void* value = NULL;
@@ -176,9 +176,6 @@ namespace Brickware
 
 						value = (void*)(valueString);
 					}
-
-					//delete memberKeyString;
-					//delete memberValueString;
 
 					return JSONKVP(key, value);
 				}

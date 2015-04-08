@@ -33,6 +33,7 @@ vector<char*> StringUtils::stringSplit(char* toSplit, char* delimiter)
 	}
 
 	delete token;
+	//delete toSplitMod;
 
 	return split;
 }

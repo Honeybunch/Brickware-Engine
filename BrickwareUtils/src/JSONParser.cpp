@@ -23,9 +23,11 @@ JSONObject JSONParser::DecodeJSONFromString(char* rawString)
 	char* jsonString = StringUtils::trimAllWhitespace(rawString);
 
 	JSONObject object = parseObject(jsonString);
-	bool val = object.getValue<bool>("test");
+	bool boolean = *object.getValue<bool*>("testBool");
+	char* string = object.getValue<char*>("testStr");
 
-	std::cout << val << std::endl;
+	std::cout << boolean << std::endl;
+	std::cout << string << std::endl;
 
 	return object;
 }

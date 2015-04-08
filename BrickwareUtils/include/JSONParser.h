@@ -39,14 +39,16 @@ namespace Brickware
 		public:
 			inline JSONObject(){}
 
-			template <typename T = char*> void* getValue(char* key)
+			template <typename T> T getValue(char* key)
 			{
 				for each(JSONKVP kvp in keyValuePairs)
 				{
-					if (strcmp(kvp.getKey(), key))
-						return (T*)kvp.getValue();
+					char* kvpKey = kvp.getKey();
+					if (strcmp(kvpKey, key) == 0)
+					{
+						return (T)kvp.getValue();
+					}
 				}
-
 				return NULL;
 			}
 
@@ -90,14 +92,23 @@ namespace Brickware
 						int startIndex = index;
 						int memberLength = 0;
 						char m = c;
-						while (m != ',')
+						while (m != ',' && m != '}')
 						{
 							m = string[startIndex + memberLength];
 							memberLength++;
 						}
 
+						if (memberLength > 2)
+							index += (memberLength - 2);
+						else
+							break;
+
 						char* memberString = new char[memberLength];
 						memcpy(memberString, string + startIndex, memberLength);
+
+						bool lastMember = false;
+
+						memberString[memberLength - 1] = '\0';
 
 						JSONKVP member = parseMember(memberString);
 
@@ -110,12 +121,10 @@ namespace Brickware
 							std::cout << "Error parsing member in object" << std::endl;
 						}
 
-						index += (memberLength);
-
 						delete memberString;
 					}
 
-					c = string[++index];
+					c = string[index++];
 				}
 
 				return object;
@@ -133,12 +142,45 @@ namespace Brickware
 					char* memberKeyString = split[0];
 					char* memberValueString = split[1];
 
-					if (strcmp(memberValueString, "true"))
-						return JSONKVP(memberKeyString, (void*)(new bool(1)));
-					else if (strcmp(memberValueString, "false"))
-						return JSONKVP(memberKeyString, (void*)(new bool(0)));
-					else
-						return JSONKVP("", NULL);
+					char* key = "";
+					void* value = NULL;
+
+					int keyStringLen = strlen(memberKeyString);
+
+					if (strcmp(memberValueString, "true") == 0)
+					{
+						key = new char[keyStringLen];
+						memcpy(key, memberKeyString, keyStringLen);
+						key[keyStringLen - 1] = '\0';
+
+						value = (void*)(new bool(1));
+					}
+					else if (strcmp(memberValueString, "false") == 0)
+					{
+						key = new char[keyStringLen];
+						memcpy(key, memberKeyString, keyStringLen);
+						key[keyStringLen - 1] = '\0';
+
+						value = (void*)(new bool(0));
+					}
+					else if (memberValueString[0] == '\"')
+					{
+						key = new char[keyStringLen];
+						memcpy(key, memberKeyString, keyStringLen);
+						key[keyStringLen - 1] = '\0';
+
+						int valStringLen = strlen(memberValueString) - 1;
+						char* valueString = new char[valStringLen];
+						memcpy(valueString, memberValueString + 1, valStringLen);
+						valueString[valStringLen - 1] = '\0';
+
+						value = (void*)(valueString);
+					}
+
+					//delete memberKeyString;
+					//delete memberValueString;
+
+					return JSONKVP(key, value);
 				}
 				else
 				{

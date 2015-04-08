@@ -1,3 +1,4 @@
 {
-    "test": true
+    "testBool": false,
+	"testStr": "hello"
 }

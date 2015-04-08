@@ -10,14 +10,15 @@ using namespace Utility;
 */
 
 //return a vector of c-strings split by a delimeter
-vector<char*> StringUtils::stringSplit(char* toSplit, char* delimiter)
+vector<string> StringUtils::stringSplit(const char* toSplit, const char* delimiter)
 {
 	//Modify the given string to add a delimeter to the end of the string so that the last value will be parsed
-	char* toSplitMod = new char[strlen(toSplit) + 1];
+	char* toSplitMod = new char[strlen(toSplit) + 2];
 	strcpy(toSplitMod, toSplit);
 	strcat(toSplitMod, &delimiter[0]);
+	toSplitMod[strlen(toSplitMod)] = '\0';
 
-	vector<char*> split;
+	vector<string> split;
 
 	//Split string along spaces to get normals
 	char* token = strtok_single(toSplitMod, delimiter);
@@ -25,15 +26,14 @@ vector<char*> StringUtils::stringSplit(char* toSplit, char* delimiter)
 	while(token)
 	{
 		if(strlen(token) > 0)
-			split.push_back(token);
-		else
-			split.push_back("0");
+			split.push_back(std::string(token));
 
 		token = strtok_single(NULL, delimiter);
 	}
 
-	delete token;
-	//delete toSplitMod;
+	//Cleanup
+	delete[] token;
+	delete[] toSplitMod;
 
 	return split;
 }
@@ -219,15 +219,21 @@ char* StringUtils::strtok_single(char* string, char const* delimeters)
 	char* p = 0;
 	char* ret = 0;
 
-	if(string != NULL)
+	if (string != NULL)
+	{
 		src = string;
+	}
 	if(src == NULL)
 		return NULL;
 
 	if((p = strpbrk(src, delimeters)) != NULL)
 	{
 		*p = 0;
-		ret = src;
+		
+		ret = new char[strlen(src) + 1];
+		strcpy(ret, src);
+		ret[strlen(src) + 1] = '\0';
+
 		src = ++p;
 	}
 

@@ -86,12 +86,12 @@ void Mesh::loadOBJ(char* fileName)
 			case ' ':
 			{
 				//Split string along spaces to get vertex info
-				vector<char*> tokens = StringUtils::stringSplit(cLine + 2, " ");
+				vector<string> tokens = StringUtils::stringSplit(cLine + 2, " ");
 
 				float* rawVec = new float[3];
 
 				for (unsigned int i = 0; i < tokens.size(); i++)
-					rawVec[i] = (float)atof(tokens[i]);
+					rawVec[i] = (float)atof(tokens[i].c_str());
 
 				float x = rawVec[0];
 				float y = rawVec[1];
@@ -107,12 +107,12 @@ void Mesh::loadOBJ(char* fileName)
 			case 't':
 			{
 				//Split string along spaces to get tex coord info
-				vector<char*> tokens = StringUtils::stringSplit(cLine + 3, " ");
+				vector<string> tokens = StringUtils::stringSplit(cLine + 3, " ");
 
 				float* rawTexCoord = new float[2];
 
 				for (unsigned int i = 0; i < tokens.size(); i++)
-					rawTexCoord[i] = (float)atof(tokens[i]);
+					rawTexCoord[i] = (float)atof(tokens[i].c_str());
 
 				float x = rawTexCoord[0];
 				float y = rawTexCoord[1];
@@ -127,12 +127,12 @@ void Mesh::loadOBJ(char* fileName)
 			case 'n':
 			{
 				//Split string along spaces to get normals
-				vector<char*> tokens = StringUtils::stringSplit(cLine + 3, " ");
+				vector<string> tokens = StringUtils::stringSplit(cLine + 3, " ");
 
 				float* rawNormal = new float[3];
 
 				for (unsigned int i = 0; i < tokens.size(); i++)
-					rawNormal[i] = (float)atof(tokens[i]);
+					rawNormal[i] = (float)atof(tokens[i].c_str());
 
 				float x = rawNormal[0];
 				float y = rawNormal[1];
@@ -154,19 +154,19 @@ void Mesh::loadOBJ(char* fileName)
 		{
 			//Split string along spaces to get faces
 			//use a string splitting method so we can nest with strtok
-			vector<char*> rawFaces = StringUtils::stringSplit(cLine + 2, " ");
+			vector<string> rawFaces = StringUtils::stringSplit(cLine + 2, " ");
 
 			vector<Vector3> face;
 
 			for (unsigned int i = 0; i < rawFaces.size(); i++)
 			{
 				//Parse even further, now to get face info
-				vector<char*> tokens = StringUtils::stringSplit(rawFaces[i], "/");
+				vector<string> tokens = StringUtils::stringSplit(rawFaces[i].c_str(), "/");
 
 				float* faceInfo = new float[3];
 
 				for (unsigned int i = 0; i < tokens.size(); i++)
-					faceInfo[i] = (float)atof(tokens[i]);
+					faceInfo[i] = (float)atof(tokens[i].c_str());
 
 				float vert = faceInfo[0];
 				float texCoord = faceInfo[1];

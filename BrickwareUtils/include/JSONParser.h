@@ -19,20 +19,46 @@ namespace Brickware
 {
 	namespace Utility
 	{		
-		class JSONKVP
+		class JSONObject;
+
+		union JSONValue
+		{
+			char* string;
+			int integer;
+			float floatingPoint;
+			bool boolean;
+			JSONObject* object;
+			std::vector<JSONValue>* array;
+
+			operator char*() const { return string; }
+			operator int() const { return integer; }
+			operator float() const { return floatingPoint; }
+			operator bool() const { return boolean; }
+			operator JSONObject*() const { return object; }
+			operator std::vector<JSONValue>*() const { return array; }
+
+			JSONValue operator= (char* s)					{ string = s; return *this; }
+			JSONValue operator= (int i)						{ integer = i; return *this; }
+			JSONValue operator= (float f)					{ floatingPoint = f; return *this; }
+			JSONValue operator= (bool b)					{ boolean = b; return *this; }
+			JSONValue operator= (JSONObject* o)				{ object = o; return *this; }
+			JSONValue operator= (std::vector<JSONValue>* a)	{ array = a; return *this; }
+		};
+
+		class JSONPair
 		{
 		public:
-			inline JSONKVP(){}
-			inline JSONKVP(char* key, void* value)
+			inline JSONPair(){}
+			inline JSONPair(char* key, JSONValue value)
 			{
 				this->key = key;
 				this->value = value;
 			}
 			inline char* getKey(){ return key; }
-			inline void* getValue(){ return value; }
+			inline JSONValue getValue(){ return value; }
 		private:
 			char* key;
-			void* value;
+			JSONValue value;
 		};
 
 		class JSONObject
@@ -42,7 +68,7 @@ namespace Brickware
 
 			template <typename T> T getValue(char* key)
 			{
-				for each(JSONKVP kvp in keyValuePairs)
+				for each(JSONPair kvp in keyValuePairs)
 				{
 					char* kvpKey = kvp.getKey();
 					if (strcmp(kvpKey, key) == 0)
@@ -58,13 +84,13 @@ namespace Brickware
 				return keyValuePairs.size();
 			}
 
-			inline void addKVP(JSONKVP kvp)
+			inline void addKVP(JSONPair kvp)
 			{
 				keyValuePairs.push_back(kvp);
 			}
 
 		private :
-			std::vector< JSONKVP > keyValuePairs ;
+			std::vector< JSONPair > keyValuePairs ;
 
 		};
 
@@ -93,18 +119,18 @@ namespace Brickware
 			static void EncodeJSONToFile(const char* filename, JSONObject object);
 			static const char* EncodeJSONToString(JSONObject object);
 		private:
-			inline static void* parseType(const char* string)
+			inline static JSONValue parseValue(const char* string)
 			{
-				void* value;
+				JSONValue value;
 
 				//Parsing Bools
 				if (strcmp(string, "true") == 0)
 				{
-					value = (void*)(new bool(1));
+					value = true;
 				}
 				else if (strcmp(string, "false") == 0)
 				{
-					value = (void*)(new bool(0));
+					value = false;
 				}
 				//Parsing strings
 				else if (string[0] == '\"')
@@ -114,30 +140,30 @@ namespace Brickware
 					memcpy(valueString, string + 1, valStringLen);
 					valueString[valStringLen - 1] = '\0';
 
-					value = (void*)(valueString);
+					value = valueString;
 				}
 				//Parsing Objects
 				else if (string[0] == '{')
 				{
-					value = (void*)parseObject(string);
+					value = parseObject(string);
 				}
 				//Parsing Arrays
 				else if(string[0] == '[')
 				{
-					value = (void*)parseArray(string);
+					value = parseArray(string);
 				}
 				//Parsing numbers
 				else if (strstr(string, "."))
 				{
 					float *floatVal = new float;
 					*floatVal = (float)atof(string);
-					value = (void*)floatVal;
+					value = *floatVal;
 				}
 				else
 				{
 					int* intVal = new int;
 					*intVal = atoi(string);
-					value = (void*)intVal;
+					value = *intVal;
 				}
 
 				return value;
@@ -198,7 +224,7 @@ namespace Brickware
 						else
 							memberString[memberLength] = '\0';
 
-						JSONKVP member = parseMember(memberString);
+						JSONPair member = parseMember(memberString);
 
 						//If the key is never set then there was a problem
 						if (member.getKey() != "")
@@ -216,9 +242,9 @@ namespace Brickware
 
 				return object;
 			}
-			static std::vector<void*>* parseArray(const char* string)
+			static std::vector<JSONValue>* parseArray(const char* string)
 			{
-				std::vector<void*>* elements = new std::vector<void*>();
+				std::vector<JSONValue>* elements = new std::vector<JSONValue>();
 
 				//Trim the brackets from the array string
 				char* trimmedString = new char[strlen(string) - 1];
@@ -230,11 +256,11 @@ namespace Brickware
 
 				//Parse out the types and place them into elements
 				for (unsigned int i = 0; i < elementStrings.size(); i++)
-					elements->push_back(parseType(elementStrings[i].c_str()));
+					elements->push_back(parseValue(elementStrings[i].c_str()));
 				
 				return elements;
 			}
-			inline static JSONKVP parseMember(const char* string)
+			inline static JSONPair parseMember(const char* string)
 			{
 				int stringLength = strlen(string) + 1;
 				char* memberString = new char[stringLength];
@@ -242,7 +268,7 @@ namespace Brickware
 				memberString[stringLength - 1] = '\0';
 
 				char* key = "";
-				void* value = NULL;
+				JSONValue value;
 
 				//We can't parse the member just yet, we need to know its type
 				std::vector<std::string> split = StringUtils::splitOnce(memberString, ":");
@@ -253,7 +279,7 @@ namespace Brickware
 
 					int keyStringLen = strlen(memberKeyString);
 
-					value = parseType(memberValueString);
+					value = parseValue(memberValueString);
 
 					key = new char[keyStringLen];
 					memcpy(key, memberKeyString, keyStringLen);
@@ -261,7 +287,7 @@ namespace Brickware
 				}
 			
 				delete[] memberString;
-				return JSONKVP(key, value);
+				return JSONPair(key, value);
 			}
 		};
 	}

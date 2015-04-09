@@ -9,7 +9,7 @@ using namespace Utility;
 	Public Functions
 */
 
-//return a vector of c-strings split by a delimeter
+//return a vector of std::strings split by a delimeter
 vector<string> StringUtils::stringSplit(const char* toSplit, const char* delimiter)
 {
 	//Modify the given string to add a delimeter to the end of the string so that the last value will be parsed
@@ -22,7 +22,7 @@ vector<string> StringUtils::stringSplit(const char* toSplit, const char* delimit
 
 	//Split string along spaces to get normals
 	char* token = strtok_single(toSplitMod, delimiter);
-	
+
 	while(token)
 	{
 		if(strlen(token) > 0)
@@ -38,7 +38,41 @@ vector<string> StringUtils::stringSplit(const char* toSplit, const char* delimit
 	return split;
 }
 
-char* StringUtils::textFileRead(char *fileName){
+//Returns a vector of two strings that have been split out of a string at a given delimiter
+vector<string> StringUtils::splitOnce(const char* toSplit, const char* delimiter)
+{
+	char* toSplitMod = new char[strlen(toSplit) + 1];
+	strcpy(toSplitMod, toSplit);
+	toSplitMod[strlen(toSplitMod)] = '\0';
+
+	char* firstHalf = strtok_single(toSplitMod, delimiter);
+	char* secondHalf = "";
+
+	vector<string> split;
+
+	if (firstHalf != NULL)
+	{
+		int delimiterIndex = strlen(firstHalf);
+		int secondHalfLen = strlen(toSplit) - delimiterIndex;
+
+		secondHalf = new char[secondHalfLen];
+		memcpy(secondHalf, toSplit + delimiterIndex + 1, secondHalfLen);
+		secondHalf[secondHalfLen] = '\0';
+	}
+	else
+	{
+		firstHalf = "";
+	}
+	
+	delete[] toSplitMod;
+
+	split.push_back(string(firstHalf));
+	split.push_back(string(secondHalf));
+
+	return split;
+}
+
+char* StringUtils::textFileRead(const char *fileName){
 
 	FILE *file;
 	char *content = NULL;
@@ -73,7 +107,7 @@ char* StringUtils::textFileRead(char *fileName){
 	return content;
 }
 
-int StringUtils::textFileWrite(char *fileName, char *stringToWrite)
+int StringUtils::textFileWrite(const char *fileName, char *stringToWrite)
 {
 	FILE *file;
 	int status = 0;
@@ -119,7 +153,7 @@ char* StringUtils::trimToLastChar(char* string, char lastChar)
 	return toReturn;
 }
 
-char* StringUtils::trimAllWhitespace(char* string)
+const char* StringUtils::trimAllWhitespace(const char* string)
 {
 	unsigned int spaceCount = 0;
 	const unsigned int originalStringSize = strlen(string);
@@ -133,7 +167,7 @@ char* StringUtils::trimAllWhitespace(char* string)
 
 	const int trimmedStringSize = originalStringSize - spaceCount;
 
-	char* trimmedString = (char*)(malloc(13 * sizeof(char)));
+	char* trimmedString = new char[trimmedStringSize];
 
 	//Time to fill the trimmed string with everything that isn't whitespace
 	int offset = 0;
@@ -213,7 +247,7 @@ char* StringUtils::wideStringToString(WCHAR* wideString)
 */
 
 //Used to more split a string while handling two consecutive delimeters which strok does not do by default
-char* StringUtils::strtok_single(char* string, char const* delimeters)
+char* StringUtils::strtok_single(char* string, const char* delimeters)
 {
 	static char* src = NULL;
 	char* p = 0;

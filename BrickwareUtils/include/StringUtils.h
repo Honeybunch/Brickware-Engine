@@ -31,12 +31,13 @@ namespace Brickware
 		{
 		public:
 			static std::vector<std::string> stringSplit(const char* toSplit, const char* delimiter);
+			static std::vector<std::string> splitOnce(const char* toSplit, const char* delimiter);
 
-			static char* textFileRead(char *fn);
-			static int textFileWrite(char *fn, char *s);
+			static char* textFileRead(const char *fn);
+			static int textFileWrite(const char *fn, char *s);
 
 			static char* trimToLastChar(char* string, char lastChar);
-			static char* trimAllWhitespace(char* string);
+			static const char* trimAllWhitespace(const char* string);
 
 			static void printShaderInfoLog(GLuint obj);
 			static void printProgramInfoLog(GLuint obj);
@@ -45,7 +46,7 @@ namespace Brickware
 			static char* wideStringToString(WCHAR* wideString);
 
 		private:
-			static char* strtok_single(char* string, char const* delimeters);
+			static char* strtok_single(char* string, const char* delimeters);
 		};
 	}
 }

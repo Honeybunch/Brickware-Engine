@@ -18,7 +18,7 @@ bool TestGame::init()
 		return false;
 
 	//Test JSON loading
-	JSONObject test = JSONParser::DecodeJSONFromFile("Data/test.json");
+	JSONObject* test = JSONParser::DecodeJSONFromFile("Data/test.json");
 
 	//Load shader
 	Shader* shader = new Shader("Shaders/VertexShader", "Shaders/PixelShader");

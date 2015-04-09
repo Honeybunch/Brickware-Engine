@@ -18,7 +18,32 @@ bool TestGame::init()
 		return false;
 
 	//Test JSON loading
-	JSONObject* test = JSONParser::DecodeJSONFromFile("Data/test.json");
+	JSONObject* object = JSONParser::DecodeJSONFromFile("Data/test.json");
+
+	bool boolean = *object->getValue<bool*>("testBool");
+	char* string = object->getValue<char*>("testStr");
+	int integer = *object->getValue<int*>("testInt");
+	float floatingPoint = *object->getValue<float*>("testFloat");
+	JSONObject* nestedObject = object->getValue<JSONObject*>("testObject");
+	int nestedInt = *nestedObject->getValue<int*>("testObjectInt");
+	char* nestedString = nestedObject->getValue<char*>("testObjectStr");
+	std::vector<void*>* array = object->getValue<std::vector<void*>*>("testArray");
+	std::vector<void*>* stringArray = object->getValue<std::vector<void*>*>("testStrArray");
+
+	std::cout << boolean << std::endl;
+	std::cout << string << std::endl;
+	std::cout << integer << std::endl;
+	std::cout << floatingPoint << std::endl;
+	std::cout << '\t' << nestedInt << std::endl;
+	std::cout << '\t' << nestedString << std::endl;
+
+	for (unsigned int i = 0; i < array->size(); i++)
+		std::cout << *(int*)array->at(i) << ',';
+	std::cout << std::endl;
+
+	for (unsigned int i = 0; i < stringArray->size(); i++)
+		std::cout << (char*)stringArray->at(i) << ',';
+	std::cout << std::endl;
 
 	//Load shader
 	Shader* shader = new Shader("Shaders/VertexShader", "Shaders/PixelShader");

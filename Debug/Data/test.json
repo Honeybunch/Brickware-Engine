@@ -7,5 +7,7 @@
 	{
 		"testObjectInt" : 1025,
 		"testObjectStr" : "world"
-	}
+	},
+	"testArray" : [1,2,3,10,20],
+	"testStrArray" : ["hello", "world"]
 }

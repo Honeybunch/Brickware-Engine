@@ -1,6 +1,9 @@
 #ifndef JSON_H
 #define JSON_H
 
+//Pre-Include Defines
+#define _CRT_SECURE_NO_WARNINGS
+
 //DLL Header
 #include "BrickwareUtilsDLL.h"
 
@@ -70,19 +73,20 @@ namespace Brickware
 		class BRICKWARE_UTILITY_API JSONParser
 		{
 		public:
-			static JSONObject DecodeJSONFromFile(char* filename);
-			static JSONObject DecodeJSONFromString(char* rawString);
+			static JSONObject* DecodeJSONFromFile(const char* filename);
+			static JSONObject* DecodeJSONFromString(const char* rawString);
 
-			static void EncodeJSONToFile(char* filename, JSONObject object);
-			static char* EncodeJSONToString(JSONObject object);
+			static void EncodeJSONToFile(const char* filename, JSONObject object);
+			static const char* EncodeJSONToString(JSONObject object);
 		private:
-			inline static JSONObject parseObject(char* string)
+			inline static JSONObject* parseObject(const char* string)
 			{
 				int index = 0;
+				int stringLength = strlen(string);
 				char c = string[index];
 				bool pointerIsNested = false;
 
-				JSONObject object;
+				JSONObject* object = new JSONObject;
 
 				while (c != '}' && !pointerIsNested)
 				{
@@ -92,36 +96,47 @@ namespace Brickware
 						int startIndex = index;
 						int memberLength = 0;
 						char m = c;
-						while (m != ',' && m != '}')
+						char targetChar = ',';
+						while (m != targetChar && m != '}')
 						{
 							m = string[startIndex + memberLength];
+
+							if (m == '{')
+								targetChar = '}';
+							else if (m == '[')
+								targetChar = ']';
+
 							memberLength++;
 						}
 
-						if (memberLength > 2)
-							index += (memberLength - 2);
-						else
+						if (index > stringLength)
 							break;
 
-						char* memberString = new char[memberLength];
+						if (memberLength < 5)
+						{
+							index++;
+							continue;
+						}
+				
+						char* memberString = new char[memberLength + 1];
 						memcpy(memberString, string + startIndex, memberLength);
 
-						bool lastMember = false;
-
-						memberString[memberLength - 1] = '\0';
+						if (memberString[memberLength - 1] == ','
+							|| (!strstr(memberString, "{") && memberString[memberLength - 1] == '}'))
+							memberString[memberLength - 1] = '\0';
+						else
+							memberString[memberLength] = '\0';
 
 						JSONKVP member = parseMember(memberString);
 
 						if (member.getKey() != "")
-						{
-							object.addKVP(member);
-						}
+							object->addKVP(member);
 						else
-						{
 							std::cout << "Error parsing member in object" << std::endl;
-						}
+						
+						delete[] memberString;
 
-						delete memberString;
+						index += (memberLength - 1);
 					}
 
 					c = string[index++];
@@ -133,42 +148,37 @@ namespace Brickware
 			{
 			
 			}
-			inline static JSONKVP parseMember(char* string)
+			inline static JSONKVP parseMember(const char* string)
 			{
+				int stringLength = strlen(string) + 1;
+				char* memberString = new char[stringLength];
+				memcpy(memberString, string, stringLength);
+				memberString[stringLength - 1] = '\0';
+
+				char* key = "";
+				void* value = NULL;
+
 				//We can't parse the member just yet, we need to know its type
-				std::vector<std::string > split = StringUtils::stringSplit(string, ":");
+				std::vector<std::string> split = StringUtils::splitOnce(memberString, ":");
 				if (split.size() == 2)
 				{
 					const char* memberKeyString = split[0].c_str();
 					const char* memberValueString = split[1].c_str();
 
-					char* key = "";
-					void* value = NULL;
-
 					int keyStringLen = strlen(memberKeyString);
 
+					//Parsing Bools
 					if (strcmp(memberValueString, "true") == 0)
 					{
-						key = new char[keyStringLen];
-						memcpy(key, memberKeyString, keyStringLen);
-						key[keyStringLen - 1] = '\0';
-
 						value = (void*)(new bool(1));
 					}
 					else if (strcmp(memberValueString, "false") == 0)
 					{
-						key = new char[keyStringLen];
-						memcpy(key, memberKeyString, keyStringLen);
-						key[keyStringLen - 1] = '\0';
-
 						value = (void*)(new bool(0));
 					}
+					//Parsing strings
 					else if (memberValueString[0] == '\"')
 					{
-						key = new char[keyStringLen];
-						memcpy(key, memberKeyString, keyStringLen);
-						key[keyStringLen - 1] = '\0';
-
 						int valStringLen = strlen(memberValueString) - 1;
 						char* valueString = new char[valStringLen];
 						memcpy(valueString, memberValueString + 1, valStringLen);
@@ -176,13 +186,35 @@ namespace Brickware
 
 						value = (void*)(valueString);
 					}
+					//Parsing Objects
+					else if (memberValueString[0] == '{')
+					{
+						value = (void*)parseObject(memberValueString);
+					}
+					//Parsing numbers
+					else if (strstr(memberValueString, "."))
+					{
+						float *floatVal = new float;
+						*floatVal = (float)atof(memberValueString);
+						value = (void*)floatVal;
+					}
+					else
+					{
+						int* intVal = new int;
+						*intVal = atoi(memberValueString);
+						value = (void*)intVal;
+					}
 
-					return JSONKVP(key, value);
+					if (value != NULL)
+					{
+						key = new char[keyStringLen];
+						memcpy(key, memberKeyString, keyStringLen);
+						key[keyStringLen - 1] = '\0';
+					}
 				}
-				else
-				{
-					return JSONKVP("", NULL);
-				}
+			
+				delete[] memberString;
+				return JSONKVP(key, value);
 			}
 		};
 	}

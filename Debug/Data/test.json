@@ -1,4 +1,11 @@
 {
     "testBool": false,
-	"testStr": "hello"
+	"testStr": "hello",
+	"testInt" : 100,
+	"testFloat"  : 10.5,
+	"testObject" : 
+	{
+		"testObjectInt" : 1025,
+		"testObjectStr" : "world"
+	}
 }

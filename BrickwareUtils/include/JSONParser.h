@@ -18,8 +18,8 @@ using namespace std;
 namespace Brickware
 {
 	namespace Utility
-	{
-		class BRICKWARE_UTILITY_API JSONKVP
+	{		
+		class JSONKVP
 		{
 		public:
 			inline JSONKVP(){}
@@ -35,9 +35,7 @@ namespace Brickware
 			void* value;
 		};
 
-		template class BRICKWARE_UTILITY_API std::vector < JSONKVP >;
-
-		class BRICKWARE_UTILITY_API JSONObject
+		class JSONObject
 		{
 		public:
 			inline JSONObject(){}
@@ -70,25 +68,90 @@ namespace Brickware
 
 		};
 
-		class BRICKWARE_UTILITY_API JSONParser
+		class JSONParser
 		{
 		public:
-			static JSONObject* DecodeJSONFromFile(const char* filename);
-			static JSONObject* DecodeJSONFromString(const char* rawString);
+			inline static JSONObject* DecodeJSONFromFile(const char* filename)
+			{
+				char* filecontents = StringUtils::textFileRead(filename);
+				if (filecontents == NULL)
+				{
+					std::cout << "Could not read JSON file" << std::endl;
+					return new JSONObject();
+				}
+
+				return DecodeJSONFromString(filecontents);
+			}
+			inline static JSONObject* DecodeJSONFromString(const char* rawString)
+			{
+				//We want to strip all whitespace from the raw string
+				const char* jsonString = StringUtils::trimAllWhitespace(rawString);
+
+				return parseObject(jsonString);
+			}
 
 			static void EncodeJSONToFile(const char* filename, JSONObject object);
 			static const char* EncodeJSONToString(JSONObject object);
 		private:
+			inline static void* parseType(const char* string)
+			{
+				void* value;
+
+				//Parsing Bools
+				if (strcmp(string, "true") == 0)
+				{
+					value = (void*)(new bool(1));
+				}
+				else if (strcmp(string, "false") == 0)
+				{
+					value = (void*)(new bool(0));
+				}
+				//Parsing strings
+				else if (string[0] == '\"')
+				{
+					int valStringLen = strlen(string) - 1;
+					char* valueString = new char[valStringLen];
+					memcpy(valueString, string + 1, valStringLen);
+					valueString[valStringLen - 1] = '\0';
+
+					value = (void*)(valueString);
+				}
+				//Parsing Objects
+				else if (string[0] == '{')
+				{
+					value = (void*)parseObject(string);
+				}
+				//Parsing Arrays
+				else if(string[0] == '[')
+				{
+					value = (void*)parseArray(string);
+				}
+				//Parsing numbers
+				else if (strstr(string, "."))
+				{
+					float *floatVal = new float;
+					*floatVal = (float)atof(string);
+					value = (void*)floatVal;
+				}
+				else
+				{
+					int* intVal = new int;
+					*intVal = atoi(string);
+					value = (void*)intVal;
+				}
+
+				return value;
+			}
+
 			inline static JSONObject* parseObject(const char* string)
 			{
 				int index = 0;
 				int stringLength = strlen(string);
 				char c = string[index];
-				bool pointerIsNested = false;
 
 				JSONObject* object = new JSONObject;
 
-				while (c != '}' && !pointerIsNested)
+				while (true)
 				{
 					//We've hit a member; determine how long until the next member and then parse it
 					if (c == '\"')
@@ -101,17 +164,23 @@ namespace Brickware
 						{
 							m = string[startIndex + memberLength];
 
+							//If we hit an object or array opening we now want to parse until we hit its close
 							if (m == '{')
 								targetChar = '}';
+							
 							else if (m == '[')
 								targetChar = ']';
-
+							
 							memberLength++;
 						}
 
+						//If we've read past our string length we can just break
 						if (index > stringLength)
 							break;
 
+						//If we get a member that's less than 5 chars (by accident) just increment the index counter and keep going
+						//5 because the least number of chars for a member is 5
+						//Ex. "a":1
 						if (memberLength < 5)
 						{
 							index++;
@@ -121,14 +190,17 @@ namespace Brickware
 						char* memberString = new char[memberLength + 1];
 						memcpy(memberString, string + startIndex, memberLength);
 
+						//We MAY want to trim off the last character
 						if (memberString[memberLength - 1] == ','
 							|| (!strstr(memberString, "{") && memberString[memberLength - 1] == '}'))
 							memberString[memberLength - 1] = '\0';
+						//Regardless the string needs a null terminator
 						else
 							memberString[memberLength] = '\0';
 
 						JSONKVP member = parseMember(memberString);
 
+						//If the key is never set then there was a problem
 						if (member.getKey() != "")
 							object->addKVP(member);
 						else
@@ -144,9 +216,23 @@ namespace Brickware
 
 				return object;
 			}
-			template<typename T> static std::vector<T> parseArray(char* string)
+			static std::vector<void*>* parseArray(const char* string)
 			{
-			
+				std::vector<void*>* elements = new std::vector<void*>();
+
+				//Trim the brackets from the array string
+				char* trimmedString = new char[strlen(string) - 1];
+				memcpy(trimmedString, string + 1, strlen(string));
+				trimmedString[strlen(trimmedString) - 1] = '\0';
+
+				//Split
+				std::vector<std::string> elementStrings = StringUtils::stringSplit(trimmedString, ",");
+
+				//Parse out the types and place them into elements
+				for (unsigned int i = 0; i < elementStrings.size(); i++)
+					elements->push_back(parseType(elementStrings[i].c_str()));
+				
+				return elements;
 			}
 			inline static JSONKVP parseMember(const char* string)
 			{
@@ -167,50 +253,11 @@ namespace Brickware
 
 					int keyStringLen = strlen(memberKeyString);
 
-					//Parsing Bools
-					if (strcmp(memberValueString, "true") == 0)
-					{
-						value = (void*)(new bool(1));
-					}
-					else if (strcmp(memberValueString, "false") == 0)
-					{
-						value = (void*)(new bool(0));
-					}
-					//Parsing strings
-					else if (memberValueString[0] == '\"')
-					{
-						int valStringLen = strlen(memberValueString) - 1;
-						char* valueString = new char[valStringLen];
-						memcpy(valueString, memberValueString + 1, valStringLen);
-						valueString[valStringLen - 1] = '\0';
+					value = parseType(memberValueString);
 
-						value = (void*)(valueString);
-					}
-					//Parsing Objects
-					else if (memberValueString[0] == '{')
-					{
-						value = (void*)parseObject(memberValueString);
-					}
-					//Parsing numbers
-					else if (strstr(memberValueString, "."))
-					{
-						float *floatVal = new float;
-						*floatVal = (float)atof(memberValueString);
-						value = (void*)floatVal;
-					}
-					else
-					{
-						int* intVal = new int;
-						*intVal = atoi(memberValueString);
-						value = (void*)intVal;
-					}
-
-					if (value != NULL)
-					{
-						key = new char[keyStringLen];
-						memcpy(key, memberKeyString, keyStringLen);
-						key[keyStringLen - 1] = '\0';
-					}
+					key = new char[keyStringLen];
+					memcpy(key, memberKeyString, keyStringLen);
+					key[keyStringLen - 1] = '\0';
 				}
 			
 				delete[] memberString;

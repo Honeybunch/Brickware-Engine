@@ -68,7 +68,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\JSONParser.cpp" />
     <ClCompile Include="src\StringUtils.cpp" />
   </ItemGroup>
   <ItemGroup>

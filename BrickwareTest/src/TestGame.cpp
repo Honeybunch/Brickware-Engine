@@ -20,15 +20,15 @@ bool TestGame::init()
 	//Test JSON loading
 	JSONObject* object = JSONParser::DecodeJSONFromFile("Data/test.json");
 
-	bool boolean = *object->getValue<bool*>("testBool");
+	bool boolean = object->getValue<bool>("testBool");
 	char* string = object->getValue<char*>("testStr");
-	int integer = *object->getValue<int*>("testInt");
-	float floatingPoint = *object->getValue<float*>("testFloat");
+	int integer = object->getValue<int>("testInt");
+	float floatingPoint = object->getValue<float>("testFloat");
 	JSONObject* nestedObject = object->getValue<JSONObject*>("testObject");
-	int nestedInt = *nestedObject->getValue<int*>("testObjectInt");
+	int nestedInt = nestedObject->getValue<int>("testObjectInt");
 	char* nestedString = nestedObject->getValue<char*>("testObjectStr");
-	std::vector<void*>* array = object->getValue<std::vector<void*>*>("testArray");
-	std::vector<void*>* stringArray = object->getValue<std::vector<void*>*>("testStrArray");
+	std::vector<JSONValue>* array = object->getValue<std::vector<JSONValue>*>("testArray");
+	std::vector<JSONValue>* stringArray = object->getValue<std::vector<JSONValue>*>("testStrArray");
 
 	std::cout << boolean << std::endl;
 	std::cout << string << std::endl;
@@ -38,7 +38,7 @@ bool TestGame::init()
 	std::cout << '\t' << nestedString << std::endl;
 
 	for (unsigned int i = 0; i < array->size(); i++)
-		std::cout << *(int*)array->at(i) << ',';
+		std::cout << (int)array->at(i) << ',';
 	std::cout << std::endl;
 
 	for (unsigned int i = 0; i < stringArray->size(); i++)

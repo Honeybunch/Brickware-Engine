@@ -1,3 +1,13 @@
+/*
+*
+*	JSONParser.h
+*
+*	A simple JSON Parser that is header only
+*	This depends on the static StringUtils class
+*
+*/
+
+
 #ifndef JSON_H
 #define JSON_H
 
@@ -19,8 +29,16 @@ namespace Brickware
 {
 	namespace Utility
 	{		
+
+		//Forward declaration 
 		class JSONObject;
 
+		/*
+		*	This union solves the problem of 
+		*	"How do we store data in a template if we don't know its type"
+		*	Without using a void* and the possiblity of the user causing a crash
+		*	when retrieving data.
+		*/
 		union JSONValue
 		{
 			char* string;
@@ -45,6 +63,11 @@ namespace Brickware
 			JSONValue operator= (std::vector<JSONValue>* a)	{ array = a; return *this; }
 		};
 
+		/*
+		*	A simple container class to store data similar to std::pair
+		*	However in the JSON spec data will always be paired 
+		*	with a string as the key so there's no need for templating
+		*/
 		class JSONPair
 		{
 		public:
@@ -61,11 +84,27 @@ namespace Brickware
 			JSONValue value;
 		};
 
+		/*
+		*	Since there is no generic object in C or C++ one had to be made
+		*	It's essentially a collection of JSONPairs
+		*/
 		class JSONObject
 		{
 		public:
+			//Blank Constructor
 			inline JSONObject(){}
 
+
+			/* 
+			* Get value out of collection
+			*
+			* @key the string that maps to the value we want to get
+			*
+			* The given typename will be the type that the resulting data 
+			* will be attempted to be mapped to
+			*
+			* @return The value at the given key if it exists or NULL if it doesn't exist
+			*/
 			template <typename T> T getValue(char* key)
 			{
 				for each(JSONPair kvp in keyValuePairs)
@@ -79,14 +118,23 @@ namespace Brickware
 				return NULL;
 			}
 
+			/* 
+			* Get the number of pairs in the object
+			* @return the count of pairs in the object
+			*/
 			inline unsigned int getSize()
 			{
 				return keyValuePairs.size();
 			}
 
-			inline void addKVP(JSONPair kvp)
+			/* 
+			* Add a JSONPair to the object
+			* 
+			*@pair the JSONPair to be added to the object
+			*/
+			inline void addPair(JSONPair pair)
 			{
-				keyValuePairs.push_back(kvp);
+				keyValuePairs.push_back(pair);
 			}
 
 		private :
@@ -94,20 +142,38 @@ namespace Brickware
 
 		};
 
+		/*
+		* The static class that has the methods to decode and encode JSON
+		*/
 		class JSONParser
 		{
 		public:
+			/*
+			* Decode JSON from a file
+			* 
+			* @filename the name of the file that you want to parse Ex. "Data/myfile.json"
+			*
+			* @returns a pointer to the decoded JSONObject or NULL if the file couldn't be read
+			*/
 			inline static JSONObject* DecodeJSONFromFile(const char* filename)
 			{
 				char* filecontents = StringUtils::textFileRead(filename);
 				if (filecontents == NULL)
 				{
 					std::cout << "Could not read JSON file" << std::endl;
-					return new JSONObject();
+					return NULL;
 				}
 
 				return DecodeJSONFromString(filecontents);
 			}
+
+			/*
+			* Decode JSON from a string
+			*
+			* @rawString a string in a JSON format that you wnat to decode into a JSONObject
+			*
+			* @returns a pointer to the decoded JSONObject
+			*/
 			inline static JSONObject* DecodeJSONFromString(const char* rawString)
 			{
 				//We want to strip all whitespace from the raw string
@@ -228,7 +294,7 @@ namespace Brickware
 
 						//If the key is never set then there was a problem
 						if (member.getKey() != "")
-							object->addKVP(member);
+							object->addPair(member);
 						else
 							std::cout << "Error parsing member in object" << std::endl;
 						

@@ -73,9 +73,9 @@ namespace Brickware
 			//Blank Constructor
 			inline JSONPair(){}
 
-			/*Constructor if you know your data
-			 *@key The string to be this pair's key
-			 *@JSONValue The object to be mapped to the key
+			/* Constructor if you know your data
+			 * @key The string to be this pair's key
+			 * @JSONValue The object to be mapped to the key
 			 */
 			inline JSONPair(char* key, JSONValue value)
 			{
@@ -83,12 +83,12 @@ namespace Brickware
 				this->value = value;
 			}
 
-			/*Returns the key of this pair.
-			 *@returns The key
+			/* Returns the key of this pair.
+			 * @returns The key
 			 */
 			inline char* getKey(){ return key; }
-			/*Returns the value of this pair
-			 *@returns The value
+			/* Returns the value of this pair
+			 * @returns The value
 			 */
 			inline JSONValue getValue(){ return value; }
 		private:
@@ -104,7 +104,7 @@ namespace Brickware
 		class JSONObject
 		{
 		public:
-			//Blank Constructor
+			// Blank Constructor
 			inline JSONObject(){}
 
 
@@ -153,15 +153,15 @@ namespace Brickware
 
 		};
 
-		//The static class that has the methods to decode and encode JSON
+		// The static class that has the methods to decode and encode JSON
 		class JSONParser
 		{
 		public:
 			/* Decode JSON from a file
-			* @filename The name of the file that you want to parse Ex. "Data/myfile.json".
-			*
-			* @returns A pointer to the decoded JSONObject or NULL if the file couldn't be read.
-			*/
+			 * @filename The name of the file that you want to parse Ex. "Data/myfile.json".
+			 *
+			 * @returns A pointer to the decoded JSONObject or NULL if the file couldn't be read.
+			 */
 			inline static JSONObject* DecodeJSONFromFile(const char* filename)
 			{
 				char* filecontents = StringUtils::textFileRead(filename);

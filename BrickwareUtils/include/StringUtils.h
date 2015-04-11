@@ -7,8 +7,10 @@
 //DLL Header
 #include "BrickwareUtilsDLL.h"
 
+#ifdef _WIN32
 //Graphics Headers
 #include <windows.h>
+#endif
 
 #include <GL/glew.h>
 
@@ -41,9 +43,11 @@ namespace Brickware
 
 			static void printShaderInfoLog(GLuint obj);
 			static void printProgramInfoLog(GLuint obj);
-
+		
+#ifdef _WIN32	
 			static WCHAR* stringToWideString(char* string);
 			static char* wideStringToString(WCHAR* wideString);
+#endif
 
 		private:
 			static char* strtok_single(char* string, const char* delimeters);

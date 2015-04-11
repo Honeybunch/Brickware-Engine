@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8'?>
+<class abstract="true" id="Brickware::Utility::JSONParser" name="JSONParser" xmlns="http://jessevdk.github.com/cldoc/1.0">
+  <brief>The static class that has the methods to decode and encode JSON</brief>
+  <method id="Brickware::Utility::JSONParser::DecodeJSONFromFile" name="DecodeJSONFromFile" static="yes">
+    <brief> Decode JSON from a file</brief>
+    <doc>* @filename The name of the file that you want to parse Ex. "Data/myfile.json".
+*
+* @returns A pointer to the decoded JSONObject or NULL if the file couldn't be read.
+</doc>
+    <return>
+      <type name="JSONObject" qualifier="*" ref="Brickware::Utility::JSONObject#Brickware::Utility::JSONObject" />
+    </return>
+    <argument id="Brickware::Utility::JSONParser::DecodeJSONFromFile::filename" name="filename">
+      <type builtin="yes" name="char" qualifier=" const *" />
+    </argument>
+  </method>
+  <method id="Brickware::Utility::JSONParser::DecodeJSONFromString" name="DecodeJSONFromString" static="yes">
+    <brief> Decode JSON from a string</brief>
+    <return>
+      <type name="JSONObject" qualifier="*" ref="Brickware::Utility::JSONObject#Brickware::Utility::JSONObject" />
+    </return>
+    <argument id="Brickware::Utility::JSONParser::DecodeJSONFromString::rawString" name="rawString">
+      <doc>A string in a JSON format that you wnat to decode into a JSONObject</doc>
+      <type builtin="yes" name="char" qualifier=" const *" />
+    </argument>
+  </method>
+  <method abstract="yes" id="Brickware::Utility::JSONParser::EncodeJSONToFile" name="EncodeJSONToFile" static="yes">
+    <return>
+      <type builtin="yes" name="void" />
+    </return>
+    <argument id="Brickware::Utility::JSONParser::EncodeJSONToFile::filename" name="filename">
+      <type builtin="yes" name="char" qualifier=" const *" />
+    </argument>
+    <argument id="Brickware::Utility::JSONParser::EncodeJSONToFile::object" name="object">
+      <type name="JSONObject" ref="Brickware::Utility::JSONObject#Brickware::Utility::JSONObject" />
+    </argument>
+  </method>
+  <method abstract="yes" id="Brickware::Utility::JSONParser::EncodeJSONToString" name="EncodeJSONToString" static="yes">
+    <return>
+      <type builtin="yes" name="char" qualifier=" const *" />
+    </return>
+    <argument id="Brickware::Utility::JSONParser::EncodeJSONToString::object" name="object">
+      <type name="JSONObject" ref="Brickware::Utility::JSONObject#Brickware::Utility::JSONObject" />
+    </argument>
+  </method>
+</class>

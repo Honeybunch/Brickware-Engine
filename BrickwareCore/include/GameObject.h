@@ -28,22 +28,40 @@ namespace Brickware
 		template class BRICKWARE_CORE_API std::vector < GameObject* > ;
 		template class BRICKWARE_CORE_API std::vector < Component* >;
 
+		/* The Basic Entity in the game scene.
+		 *
+		 * GameObject should not be overridden; it works just like GameObjects
+		 * in Unity where you attach <Component>s to them to extend their functionality.
+		 */
 		class BRICKWARE_CORE_API GameObject
 		{
 		public:
-
+			//Basic Constructor; attaches a blank transform for you
 			GameObject();
+			//Constructor if you have a transform that you have already created
 			GameObject(Transform* transform);
+			//Copy Constructor
 			GameObject(GameObject& other);
 
+			/* Gets all the game objects in the scene.
+			 * @returns The static vector of all the game objects in the scene.
+			 */
 			static std::vector<GameObject*> getGameObjects();
 
-			//Accessors
+			/* Gets the attached <Transform> component.
+			 * @returns The <Transform> component that every <GameObject> must have.
+			 */
 			Transform* getTransform();
 
+			/* Gets all the attached <Component>s (including the <Transform>).
+			 * @returns a vector of all the attached <Component>s.
+			 */
 			vector<Component*>& getComponents();
-			//Return the first component of the given type
-			//If none are found; return null
+
+			/* Gets a <Component> of a given type.
+			 * @returns The first <Component> of the given type or,
+			 *          NULL if no component of that type is found.
+			 */
 			template<class T> T* getComponent()
 			{
 				for (unsigned int i = 0; i < components.size(); i++)
@@ -56,22 +74,33 @@ namespace Brickware
 				return NULL;
 			}
 
-			//Mutators 
+			/* Adds a <Component> on to this GameObject.
+			 * @newComponent A pointer to the <Component> that you wnat to add
+			 */
 			void addComponent(Component* newComponent);
 
+			//Calls the Start method of all attached <Component>s
 			virtual void Start();
+			//Calls the Update method of all attached <Component>s
 			virtual void Update();
+			//Calls the FixedUpdate method of all attached <Component>s
 			virtual void FixedUpdate();
+			/* Calls the OnCollisionEnter method of all attached <Component>s
+			 * @collision The pointer to the <Collision> data that it is going to send
+			 *            to the attached <Component>s
+			 */
 			virtual void OnCollisionEnter(Collision* collision);
+			//Calls the Render method of all attached <Component>s
 			virtual void OnRender();
 
+			//Destructor
 			~GameObject();
 
 		protected:
-			//Necessary Components
+			//The <Transform> of this game object
 			Transform* transform;
 
-			//Other Components
+			//All attached <Component>s
 			std::vector<Component*> components;
 		};
 	}

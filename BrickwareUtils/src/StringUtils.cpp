@@ -148,7 +148,7 @@ char* StringUtils::trimToLastChar(char* string, char lastChar)
 	for (unsigned int i = 0; i < returnedStringLength; i++)
 		toReturn[i] = string[i + lastIndex + 1];
 
-	toReturn[returnedStringLength] = 0;
+	toReturn[returnedStringLength] = '\0';
 	
 	return toReturn;
 }

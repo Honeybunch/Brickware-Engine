@@ -64,6 +64,12 @@ namespace Brickware
 	namespace Core
 	{
 		template class BRICKWARE_CORE_API std::vector < GameObject* > ;
+
+		/* The Game class that needs to be extended to have a functional game
+		 *
+		 * The Game has plenty of subsystems that it handles for you such as 
+		 * rendering, input, windowing, and more. 
+		 */
 		class BRICKWARE_CORE_API Game
 		{
 			//Remove more of these by having a class to store the device contexts
@@ -74,23 +80,38 @@ namespace Brickware
 			friend class MeshRenderer;
 
 		public:
+			/* Constructor
+			 * @windowWidth The width of the window you want your game to be in.
+			 * @windowHeight The height of the window you want your game to be in.
+			 */
 			Game(int windowWidth, int windowHeight);
 
+			/* Call this when you want your game to start running
+			 * @returns An error code to tell you why the game stopped.
+			 */
 			int run();
 
+			/* Initialize all the game's subsystems
+			 * @returns True if the the game initialzed everything okay,
+			 *          false if the game had problems initializing.
+			 */
 			virtual bool init();
 
+			// Override to write your update logic
 			virtual void updateScene() = 0;
+			// Override to write your render logic
 			virtual void renderScene() = 0;
 
 #ifdef D3D_SUPPORT
 			LRESULT MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 #endif
-
+			// Destructor
 			virtual ~Game();
 
 		protected:
+			//GameObjects will add themselves to this vector when they're created and remove themeselves when they're deleted
 			static std::vector<GameObject*> gameObjects;
+			//True while the game is running
 			bool running;
 
 		private:

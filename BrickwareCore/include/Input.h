@@ -30,6 +30,7 @@ namespace Brickware
 {
 	namespace Core
 	{
+		//Enum that lists all the possible Key Codes that could be recorded.
 		enum BRICKWARE_CORE_API KeyCode
 		{
 			a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z,
@@ -44,23 +45,54 @@ namespace Brickware
 			one, two, three, four, five, six, seven, eight, nine, zero
 		};
 
+		//Enum that lists all the possible Mouse Buttons that could be recorded.
 		enum BRICKWARE_CORE_API MouseButton
 		{
 			leftButton, rightButton, middleButton
 		};
 
+		/* Static class that keeps track of user input.
+		 * 
+		 * This is the class that you'd ask for things like which keys are pressed down
+		 * or where the mouse is on the screen.
+		 */
 		class BRICKWARE_CORE_API Input
 		{
 			friend class Game;
 
 		public:
+			/* Checks the state of the given <KeyCode>.
+			 * @returns True if the key is down,
+			 *          false is the key is up.
+			 */
 			static bool getKeyDown(KeyCode key);
-			static bool getKeyUp(KeyCode key);
 
+			/* Checks the state of the given <KeyCode>.
+			 * @returns True if the key is up,
+			 *          false is the key is down.
+			 */
+			static bool getKeyUp(KeyCode key);
+			
+			/* Checks the state of the given <MouseButton>.
+			 * @returns True if the button is down,
+			 *          false is the button is up.
+			 */
 			static bool getMouseButtonDown(MouseButton button);
+			
+			/* Checks the state of the given <MouseButton>.
+			 * @returns True if the button is up,
+			 *          false is the button is down.
+			 */
 			static bool getMouseButtonUp(MouseButton button);
 
+			/* Gets the position of the mouse on the screen in pixels.
+			 * @returns A <Vector2> containing the mouse's position in pixels .
+			 */
 			static Math::Vector2 getMousePosition();
+
+			/* Sets the position of the mouse on the screen.
+			 * @pos The position on the screen in pixels that you want the mouse to be at.
+			 */
 			static void setMousePosition(Math::Vector2 pos);
 
 		private:

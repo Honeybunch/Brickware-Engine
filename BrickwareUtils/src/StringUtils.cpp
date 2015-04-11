@@ -220,6 +220,8 @@ void StringUtils::printProgramInfoLog(GLuint obj)
 	}
 }
 
+#ifdef _WIN32
+
 WCHAR* StringUtils::stringToWideString(char* string)
 {
 	int stringSize = strlen(string) + 1;
@@ -241,6 +243,8 @@ char* StringUtils::wideStringToString(WCHAR* wideString)
 
 	return string;
 }
+
+#endif 
 
 /*
 	Private Functions

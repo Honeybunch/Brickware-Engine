@@ -34,8 +34,8 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 	strcat(hlslPixelFileName, ".cso");
 
 	//Convert to wide strings because DirectX asked nicely
-	WCHAR* hlslVertexWideString = Utils::stringToWideString(hlslVertexFileName);
-	WCHAR* hlslPixelWideString = Utils::stringToWideString(hlslPixelFileName);
+	WCHAR* hlslVertexWideString = StringUtils::stringToWideString(hlslVertexFileName);
+	WCHAR* hlslPixelWideString = StringUtils::stringToWideString(hlslPixelFileName);
 
 	D3D11_INPUT_ELEMENT_DESC vertexDesc[] =
 	{

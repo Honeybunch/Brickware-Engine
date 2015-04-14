@@ -1,3 +1,0 @@
-/home/arsen/Code/Brickware-Engine/BrickwareCore/CMakeFiles/BrickwareCore.dir
-/home/arsen/Code/Brickware-Engine/BrickwareMath/CMakeFiles/BrickwareMath.dir
-/home/arsen/Code/Brickware-Engine/BrickwareTest/CMakeFiles/BrickwareTest.dir

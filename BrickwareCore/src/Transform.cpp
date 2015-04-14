@@ -2,8 +2,13 @@
 
 #include "Transform.h"
 #include "GameObject.h"
+#include "Camera.h"
 
 #include <iostream>
+
+using namespace Brickware;
+using namespace Core;
+using namespace Math;
 
 Transform::Transform()
 {
@@ -38,19 +43,19 @@ Component* Transform::Clone(){ return new Transform(*this); }
 
 void Transform::Update()
 {
-	Matrix4 rotationMat = rotation.getRotationMatrix();
+	Matrix4 rotationMatrix = rotation.getRotationMatrix();
 
-	Matrix4 translationMat(1.0f, 0.0f, 0.0f, 0.0f,
+	Matrix4 translationMatrix(1.0f, 0.0f, 0.0f, 0.0f,
 						   0.0f, 1.0f, 0.0f, 0.0f,
 						   0.0f, 0.0f, 1.0f, 0.0f,
 						   position.getX(), position.getY(), position.getZ(), 1.0f);
 
-	Matrix4 scaleMat(scale.getX(), 0.0f, 0.0f, 0.0f,
+	Matrix4 scaleMatrix(scale.getX(), 0.0f, 0.0f, 0.0f,
 					 0.0f, scale.getY(), 0.0f, 0.0f,
 					 0.0f, 0.0f, scale.getZ(), 0.0f,
 					 0.0f, 0.0f, 0.0f, 1.0f);
 
-	modelMatrix = scaleMat * rotationMat * translationMat;
+	modelMatrix = scaleMatrix * rotationMatrix * translationMatrix;
 
 	//Recalculate forward, right and up
 
@@ -61,32 +66,22 @@ void Transform::Update()
 
 void Transform::Render()
 {
-	GameObject* go = this->getGameObject();
-	Material* material = go->getComponent<Material>();
-
-	Camera* currentCamera = Camera::GetActiveCamera();
-	Matrix4 viewMatrix = currentCamera->getViewMatrix();
-	Matrix4 projectionMatrix = currentCamera->getProjectionMatrix();
-
-	//Matrix4 worldMatrix = (modelMatrix * viewMatrix) * projectionMatrix;
-
-	material->setMatrix4("modelMatrix", modelMatrix);
-	material->setMatrix4("viewMatrix", viewMatrix);
-	material->setMatrix4("projectionMatrix", projectionMatrix);
-
-	//material->setMatrix3("modelRotation", rotation.getRotationMatrix());
-}
-
-//Send info to GLSL Shader
-void Transform::renderGL(Material* material)
-{
+	MeshRenderer* meshRenderer = this->getGameObject()->getComponent<MeshRenderer>();
 	
-}
+	if (meshRenderer)
+	{
+		Graphics::Material* material = meshRenderer->getMaterial();
 
-//Send info to HLSL Shader
-void Transform::renderD3D(Material* material)
-{
-	//TODO
+		Camera* currentCamera = Camera::GetActiveCamera();
+		Matrix4 viewMatrix = currentCamera->getViewMatrix();
+		Matrix4 projectionMatrix = currentCamera->getProjectionMatrix();
+
+		Matrix4 worldMatrix = (modelMatrix * viewMatrix) * projectionMatrix;
+
+		material->setMatrix4("worldMatrix", worldMatrix);
+		material->setMatrix4("modelMatrix", modelMatrix);
+		material->setMatrix4("rotationMatrix", rotation.getRotationMatrix());
+	}
 }
 
 Transform::~Transform()

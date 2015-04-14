@@ -1,5 +1,11 @@
 #include "TestGame.h"
 
+using namespace Brickware;
+using namespace Core;
+using namespace Graphics;
+using namespace Math;
+using namespace Utility;
+
 TestGame::TestGame() : Game(800, 600)
 {
 }
@@ -10,6 +16,34 @@ bool TestGame::init()
 
 	if (!good)
 		return false;
+
+	//Test JSON loading
+	JSONObject* object = JSONParser::DecodeJSONFromFile("Data/test.json");
+
+	bool boolean = object->getValue<bool>("testBool");
+	char* string = object->getValue<char*>("testStr");
+	int integer = object->getValue<int>("testInt");
+	float floatingPoint = object->getValue<float>("testFloat");
+	JSONObject* nestedObject = object->getValue<JSONObject*>("testObject");
+	int nestedInt = nestedObject->getValue<int>("testObjectInt");
+	char* nestedString = nestedObject->getValue<char*>("testObjectStr");
+	std::vector<JSONValue>* array = object->getValue<std::vector<JSONValue>*>("testArray");
+	std::vector<JSONValue>* stringArray = object->getValue<std::vector<JSONValue>*>("testStrArray");
+
+	std::cout << boolean << std::endl;
+	std::cout << string << std::endl;
+	std::cout << integer << std::endl;
+	std::cout << floatingPoint << std::endl;
+	std::cout << '\t' << nestedInt << std::endl;
+	std::cout << '\t' << nestedString << std::endl;
+
+	for (unsigned int i = 0; i < array->size(); i++)
+		std::cout << (int)array->at(i) << ',';
+	std::cout << std::endl;
+
+	for (unsigned int i = 0; i < stringArray->size(); i++)
+		std::cout << (char*)stringArray->at(i) << ',';
+	std::cout << std::endl;
 
 	//Load shader
 	Shader* shader = new Shader("Shaders/VertexShader", "Shaders/PixelShader");
@@ -47,29 +81,51 @@ bool TestGame::init()
 	Mesh* circleMesh = new Mesh("Models/circle.obj");
 	Mesh* triangleMesh = new Mesh("Models/triangle.obj");
 
-	//Create Light
-	GameObject* light = new GameObject();
-	light->getTransform()->setPosition(Vector3(0.0f, 0.1f, 0.0f));
-	light->addComponent(new Material(shader));
-	light->addComponent(new Light());
+	//Create Lights
+	GameObject* light1 = new GameObject();
+	PointLight* light1Comp = new PointLight();
+	light1Comp->setDiffuseColor(Vector3(0, 1, 0));
+	light1Comp->setSpecularColor(Vector3(0, 1, 0));
+
+	light1->getTransform()->setPosition(Vector3(1.0f, 0.1f, 0.0f));
+	light1->addComponent(light1Comp);
+
+	GameObject* light2 = new GameObject();
+	PointLight* light2Comp = new PointLight();
+	light2Comp->setDiffuseColor(Vector3(1, 0, 0));
+	light2Comp->setSpecularColor(Vector3(1, 0, 0));
+
+	light2->getTransform()->setPosition(Vector3(-1.0f, 0.1f, 0.0f));
+	light2->addComponent(light2Comp);
+
+	GameObject* light3 = new GameObject();
+	PointLight* light3Comp = new PointLight();
+	light3Comp->setDiffuseColor(Vector3(0, 0, .5f));
+	light3Comp->setSpecularColor(Vector3(0, 0, .5f));
+
+	light3->getTransform()->setPosition(Vector3(0.0f, 1.0f, 0.0f));
+	light3->addComponent(light3Comp);
 
 	//Create Objects
 	GameObject* castle = new GameObject();
 	castle->getTransform()->setPosition(Vector3(0.0f, -1.0f, 0.0f));
-	castle->addComponent(castleMaterial);
-	castle->addComponent(new MeshRenderer(castleMesh));
+	castle->addComponent(new MeshRenderer(castleMesh, castleMaterial));
 
 	GameObject* sphere = new GameObject();
 	sphere->getTransform()->setPosition(Vector3(-6.0f, 1.0f, -5.0f));
-	sphere->addComponent(sphereMaterial);
-	sphere->addComponent(new MeshRenderer(sphereMesh));
+	sphere->addComponent(new MeshRenderer(sphereMesh, sphereMaterial));
 	Spin* sphereSpin = new Spin();
 	sphereSpin->rotationDelta = Vector3(0.05f, 0.05f, 0.0f);
 	sphere->addComponent(sphereSpin);
 	GameObject* cube = new GameObject();
 	cube->getTransform()->setPosition(Vector3(-3.0f, 1.0f, -5.0f));
-	cube->addComponent(cubeMaterial);
-	cube->addComponent(new MeshRenderer(cubeMesh));
+	cube->getTransform()->setScale(Vector3(1.0f, 1.0f, 1.0f));
+	cube->addComponent(new MeshRenderer(cubeMesh, cubeMaterial));
+	Rigidbody* cubeRigidbody = new Rigidbody();
+	cubeRigidbody->setUseGravity(false);
+	cubeRigidbody->setMass(1.0f);
+	cubeRigidbody->setIsKinematic(false);
+	cube->addComponent(cubeRigidbody);
 	Spin* cubeSpin = new Spin();
 	cubeSpin->rotationDelta = Vector3(0.05f, 0.0f, 0.0f);
 	cube->addComponent(cubeSpin);
@@ -77,32 +133,38 @@ bool TestGame::init()
 
 	GameObject* square = new GameObject();
 	square->getTransform()->setPosition(Vector3(0.0f, 1.0f, -5.0f));
-	square->addComponent(squareMaterial);
-	square->addComponent(new MeshRenderer(squareMesh));
+	square->addComponent(new MeshRenderer(squareMesh, squareMaterial));
 	Spin* squareSpin = new Spin();
 	squareSpin->rotationDelta = Vector3(0.0f, 0.05f, 0.0f);
 	square->addComponent(squareSpin);
 	GameObject* circle = new GameObject();
 	circle->getTransform()->setPosition(Vector3(3.0f, 1.0f, -5.0f));
-	circle->addComponent(circleMaterial);
-	circle->addComponent(new MeshRenderer(circleMesh));
+	circle->addComponent(new MeshRenderer(circleMesh, circleMaterial));
 	Spin* circleSpin = new Spin();
 	circleSpin->rotationDelta = Vector3(0.01f, 0.0f, 0.05f);
 	circle->addComponent(circleSpin);
 	GameObject* triangle = new GameObject();
 	triangle->getTransform()->setPosition(Vector3(6.0f, 1.0f, -5.0f));
-	triangle->addComponent(triangleMaterial);
-	triangle->addComponent(new MeshRenderer(triangleMesh));
+	triangle->addComponent(new MeshRenderer(triangleMesh, triangleMaterial));
 	Spin* triangleSpin = new Spin();
 	triangleSpin->rotationDelta = Vector3(0.05f, 0.0f, 0.05f);
 	triangle->addComponent(triangleSpin);
+
+	GameObject* nonSpinBox = new GameObject();
+	Rigidbody* rigidbody = new Rigidbody();
+	rigidbody->setUseGravity(false);
+	rigidbody->setMass(1.0f);
+	nonSpinBox->addComponent(rigidbody);
+	nonSpinBox->addComponent(new MeshRenderer(cubeMesh, cubeMaterial));	
+	nonSpinBox->addComponent(new BoxCollider());
+	nonSpinBox->getTransform()->setPosition(Vector3(0, .5f, 2.0f));
+	nonSpinBox->getTransform()->setScale(Vector3(1.0f, 1.0f, 1.0f));
 
 	//Create Camera
 	Camera* cameraComp = new Camera(50, 0.1f, 0.1f, 0.1f, 100.0f);
 	cameraComp->setActive();
 
 	GameObject* camera = new GameObject();
-	camera->addComponent(new Material(shader));
 	camera->addComponent(cameraComp);
 	camera->addComponent(new Spawner(cube));
 
@@ -137,21 +199,6 @@ void TestGame::renderScene()
 {
 	for (unsigned int i = 0; i < gameObjects.size(); i++)
 		gameObjects[i]->OnRender();
-
-	//Test primitive drawing
-	/*
-	if (Debug::Debugging)
-	{
-		Primitive::SetPointSize(10.0f);
-		Primitive::SetColor(Vector4(1.0f, 0.0f, 0.0f, 1.0f));
-		Primitive::DrawPoint(Vector3(0, 0, 0));
-		Primitive::DrawPoint(Vector3(-0.5f, -0.5f, -0.5f));
-
-		Primitive::SetColor(Vector4(0, 1, 0, 1));
-		Primitive::SetLineWidth(5.0f);
-		Primitive::DrawLine(Vector3(0, 0, 0), Vector3(-0.5f, -0.5f, -0.5f));
-	}
-	*/	
 }
 
 TestGame::~TestGame()

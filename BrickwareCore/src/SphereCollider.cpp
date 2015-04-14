@@ -6,14 +6,19 @@
 #include "GameObject.h"
 #include "Bounds.h"
 
-SphereCollider::SphereCollider(Vector3* center, float radius)
+using namespace Brickware;
+using namespace Core;
+using namespace Graphics;
+using namespace Math;
+
+SphereCollider::SphereCollider(Vector3 center, float radius)
 	: Collider()
 {
 	this->center = center;
 	this->radius = radius;
 }
 
-Vector3* SphereCollider::getCenter(){ return center;  }
+Vector3 SphereCollider::getCenter(){ return center;  }
 float SphereCollider::getRadius(){ return radius; }
 
 bool SphereCollider::isCollidingWithSphere(SphereCollider* other)
@@ -41,13 +46,13 @@ bool SphereCollider::isCollidingWithSphere(SphereCollider* other)
 
 bool SphereCollider::isCollidingWithBox(BoxCollider* other)
 {
-	return other->isColliding(this);
+	return other->isColliding(this, NULL);
 }
 
 //TODO: refactor to mesh collision
 bool SphereCollider::isCollidingWithFrustum(FrustumCollider* other)
 {
-	return other->isColliding(this);
+	return other->isColliding(this, NULL);
 }
 
 bool SphereCollider::isCollidingWithBounds(Bounds* other)

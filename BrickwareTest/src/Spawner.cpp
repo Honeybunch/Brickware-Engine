@@ -1,6 +1,12 @@
 #include "Spawner.h"
 #include <iostream>
 
+using namespace Brickware;
+using namespace Core;
+using namespace Graphics;
+using namespace Math;
+using namespace Utility;
+
 Spawner::Spawner(GameObject* gameObject)
 {
 	this->spawnable = gameObject;
@@ -21,20 +27,32 @@ void Spawner::spawnObject()
 
 	Camera* camera = getGameObject()->getComponent<Camera>();
 	Vector3 spherePos = Vector3(camera->getLookAt());
+	Rigidbody* rigidbody = new Rigidbody();
 
 	newObject->getTransform()->setPosition(spherePos);
 	newObject->getTransform()->setScale(Vector3(0.1f, 0.1f, 0.1f));
 
-	float randXRot = (float)((rand() % 314) / 100) + 1;
-	float randYRot = (float)((rand() % 314) / 100) + 1;
-	float randZRot = (float)((rand() % 314) / 100) + 1;
+	float xRot = (float)((rand() % 314) / 100.0f);
+	float yRot = (float)((rand() % 314) / 100.0f);
+	float zRot = (float)((rand() % 314) / 100.0f);
 
-	newObject->getTransform()->setRotation(Vector3(randXRot, randYRot, randZRot));
+	//Calculate some random torque to apply
+	float xTorque = (float)(rand() % 100) / 1000000.0f;
+	float yTorque = (float)(rand() % 100) / 1000000.0f;
+	float zTorque = (float)(rand() % 100) / 1000000.0f;
+
+	newObject->getTransform()->setRotation(Vector3(xRot, yRot, zRot));
+	newObject->addComponent(rigidbody);
+	newObject->addComponent(new Despawn());
 
 	newObject->Start();
 
+	rigidbody->setMass(0.1f);
+	rigidbody->addForce(Vector3::Normalize(camera->getLookAt() - camera->getGameObject()->getTransform()->getPosition()) * .02f);
+	rigidbody->addTorque(Vector3(xTorque, yTorque, zTorque));
+
 	//Check if the spheres are colliding
-	Collider* collider = newObject->getComponent<Collider>();
+ 	Collider* collider = newObject->getComponent<Collider>();
 
 	bool collided = false;
 
@@ -49,7 +67,7 @@ void Spawner::spawnObject()
 			//If the game object we're looking at has a collider
 			if (otherCollider)
 			{
-				if (otherObject != newObject && otherCollider->isColliding(collider))
+				if (otherObject != newObject && otherCollider->isColliding(collider, NULL))
 				{
 					collided = true;
 					break;

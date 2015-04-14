@@ -3,6 +3,10 @@
 #include "FrustumCollider.h"
 #include "Camera.h"
 
+using namespace Brickware;
+using namespace Core;
+using namespace Math;
+
 Camera* Camera::GetActiveCamera(){ return ActiveCamera; }
 
 Camera::Camera(float FoV = 50, float width = 0.1f, float height = 0.1f, float zNear = 0.1f, float zFar = 100.0f)
@@ -14,7 +18,7 @@ Camera::Camera(float FoV = 50, float width = 0.1f, float height = 0.1f, float zN
 	this->zFar = zFar;
 
 	//Setup speed and velocity
-	speed = 0.1f;
+	speed = 1.0f;
 
 	lookAt = Vector3();
 
@@ -23,7 +27,7 @@ Camera::Camera(float FoV = 50, float width = 0.1f, float height = 0.1f, float zN
 
 void Camera::Start()
 {
-	getGameObject()->addComponent(new FrustumCollider(zNear, zFar, FoV, width / height));
+	//getGameObject()->addComponent(new FrustumCollider(zNear, zFar, FoV, width / height));
 }
 
 Vector3 Camera::getLookAt(){ return lookAt; }
@@ -49,9 +53,14 @@ void Camera::moveForward()
 	Vector3 pos = getGameObject()->getTransform()->getPosition();
 	Vector3 rot = getGameObject()->getTransform()->getEulerRotation();
 
-	pos.setX(pos.getX() - speed * sin(rot.getY()));
-	pos.setY(pos.getY() + speed * sin(rot.getX()));
-	pos.setZ(pos.getZ() - speed * cos(rot.getY()));
+	float deltaSpeed = speed * GameTime::GetDeltaTime();
+
+	if (Input::getKeyDown(KeyCode::shift))
+		deltaSpeed *= 5;
+
+	pos.setX(pos.getX() - deltaSpeed * sin(rot.getY()));
+	pos.setY(pos.getY() + deltaSpeed * sin(rot.getX()));
+	pos.setZ(pos.getZ() - deltaSpeed * cos(rot.getY()));
 
 	getGameObject()->getTransform()->setPosition(pos);
 }
@@ -61,8 +70,13 @@ void Camera::moveBackward()
 	Vector3 pos = getGameObject()->getTransform()->getPosition();
 	Vector3 rot = getGameObject()->getTransform()->getEulerRotation();
 
-	pos.setX(pos.getX() + speed * sin(rot.getY()));
-	pos.setZ(pos.getZ() + speed * cos(rot.getY()));
+	float deltaSpeed = speed * GameTime::GetDeltaTime();
+
+	if (Input::getKeyDown(KeyCode::shift))
+		deltaSpeed *= 5;
+
+	pos.setX(pos.getX() + deltaSpeed * sin(rot.getY()));
+	pos.setZ(pos.getZ() + deltaSpeed * cos(rot.getY()));
 
 	getGameObject()->getTransform()->setPosition(pos);
 }
@@ -72,8 +86,13 @@ void Camera::moveLeft()
 	Vector3 pos = getGameObject()->getTransform()->getPosition();
 	Vector3 rot = getGameObject()->getTransform()->getEulerRotation();
 
-	pos.setX(pos.getX() - speed * cos(rot.getY()));
-	pos.setZ(pos.getZ() + speed * sin(rot.getY()));
+	float deltaSpeed = speed * GameTime::GetDeltaTime();
+
+	if (Input::getKeyDown(KeyCode::shift))
+		deltaSpeed *= 5;
+
+	pos.setX(pos.getX() - deltaSpeed * cos(rot.getY()));
+	pos.setZ(pos.getZ() + deltaSpeed * sin(rot.getY()));
 
 	getGameObject()->getTransform()->setPosition(pos);
 }
@@ -83,8 +102,13 @@ void Camera::moveRight()
 	Vector3 pos = getGameObject()->getTransform()->getPosition();
 	Vector3 rot = getGameObject()->getTransform()->getEulerRotation();
 
-	pos.setX(pos.getX() + speed * cos(rot.getY()));
-	pos.setZ(pos.getZ() - speed * sin(rot.getY()));
+	float deltaSpeed = speed * GameTime::GetDeltaTime();
+
+	if (Input::getKeyDown(KeyCode::shift))
+		deltaSpeed *= 5;
+
+	pos.setX(pos.getX() + deltaSpeed * cos(rot.getY()));
+	pos.setZ(pos.getZ() - deltaSpeed * sin(rot.getY()));
 
 	getGameObject()->getTransform()->setPosition(pos);
 }
@@ -133,11 +157,20 @@ void Camera::Update()
 	Input::setMousePosition(Vector2(screenCenterX, screenCenterY));
 }
 
-void Camera::Render(Material* material)
+void Camera::Render()
 {	
-	material->setVector3("lookAt", lookAt);
-	material->setVector3("eyePoint", getGameObject()->getTransform()->getPosition());
-	material->setVector3("up", getGameObject()->getTransform()->getUp());
+	for (unsigned int i = 0; i < Graphics::Material::Materials.size(); i++)
+	{
+		Graphics::Material* material = Graphics::Material::Materials[i];
+
+		material->bindShader();
+
+		material->setVector3("lookAt", lookAt);
+		material->setVector3("eyePoint", getGameObject()->getTransform()->getPosition());
+		material->setVector3("up", getGameObject()->getTransform()->getUp());
+
+		material->freeShader();
+	}
 }
 
 /* 

@@ -3,6 +3,13 @@
 #include "Matrix4.h"
 #include "Matrix3.h"
 
+using namespace Brickware;
+using namespace Math;
+
+/*
+	Constructors
+*/
+
 Matrix4::Matrix4()
 {
 	matrix[0][0] = 1.0f; matrix[0][1] = 0.0f; matrix[0][2] = 0.0f; matrix[0][3] = 0.0f;
@@ -57,15 +64,18 @@ Matrix4::Matrix4(Vector4 one,
 	matrix[3][0] = four.getX();  matrix[3][1] = four.getY();  matrix[3][2] = four.getZ();  matrix[3][3] = four.getW();
 }
 
+/*
+	Accessors and Mutators
+*/
+
 Matrix4 Matrix4::getIdentityMatrix()
 {
 	return Matrix4(1.0f, 0.0f, 0.0f, 0.0f,
-				   0.0f, 1.0f, 0.0f, 0.0f, 
-				   0.0f, 0.0f, 1.0f, 0.0f, 
-				   0.0f, 0.0f, 0.0f, 1.0f);
+		0.0f, 1.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 1.0f, 0.0f,
+		0.0f, 0.0f, 0.0f, 1.0f);
 }
 
-//Accessors
 float* Matrix4::getAsArray() 
 {
 	int index = 0;
@@ -80,7 +90,10 @@ float* Matrix4::getAsArray()
 	return rawMatrix;
 }
 
-//Operators
+/*
+	Operators
+*/
+
 float* Matrix4::operator[] (int i)
 {
 	return matrix[i];
@@ -141,6 +154,10 @@ Matrix4::operator Matrix3()
 
 	return mat;
 }
+
+/*
+	Destructor
+*/
 
 Matrix4::~Matrix4(void)
 {

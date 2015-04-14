@@ -6,6 +6,11 @@
 #include "Game.h"
 #include "GameObject.h"
 
+using namespace Brickware;
+using namespace Core;
+using namespace Math;
+using namespace Graphics;
+
 GameObject::GameObject()
 {
 	transform = new Transform();
@@ -29,7 +34,9 @@ GameObject::GameObject(GameObject& other)
 	components = vector<Component*>();
 
 	//Copy components that are able to be copied over
-	for (unsigned int i = 0; i < other.componentCount; i++)
+	unsigned int componentCount = other.components.size();
+
+	for (unsigned int i = 0; i < componentCount; i++)
 	{
 		Component* copiedComponent = other.components[i]->Clone();
 		if (copiedComponent)
@@ -38,8 +45,6 @@ GameObject::GameObject(GameObject& other)
 			copiedComponent->setGameObject(this);
 		}
 	}
-
-	componentCount = components.size();
 
 	//Determine which of the copied components is the Transform
 	for (unsigned int i = 0; i < componentCount; i++)
@@ -67,45 +72,34 @@ void GameObject::addComponent(Component* newComponent)
 {
 	newComponent->setGameObject(this);
 	components.push_back(newComponent);
-
-	componentCount = components.size();
 }
 
 void GameObject::Start()
 {
-	Material* material = getComponent<Material>();
-
-	if (material)
-		material->bindShader();
-
 	for (unsigned int i = 0; i < components.size(); i++)
 		components[i]->Start();
-
-	if (material)
-		material->freeShader();
 }
 
 void GameObject::Update()
 {
-	Material* material = getComponent<Material>();
-
-	if (material)
-		material->bindShader();
-
 	for (unsigned int i = 0; i < components.size(); i++)
 		components[i]->Update();
+}
 
-	if (material)
-		material->freeShader();
+void GameObject::FixedUpdate()
+{
+	for (unsigned int i = 0; i < components.size(); i++)
+		components[i]->FixedUpdate();
+}
+
+void GameObject::OnCollisionEnter(Collision* collision)
+{
+	for (unsigned int i = 0; i < components.size(); i++)
+		components[i]->OnCollision(collision);
 }
 
 void GameObject::OnRender()
 {
-	Material* material = getComponent<Material>();
-
-	if (material)
-		material->bindShader();
-
 	for (unsigned int i = 0; i < components.size(); i++)
 	{
 		components[i]->Render();
@@ -114,20 +108,21 @@ void GameObject::OnRender()
 			components[i]->DebugDraw();
 #endif
 	}
-
-	if (material)
-		material->freeShader();
 }
 
 GameObject::~GameObject()
 {
 	for (unsigned int i = 0; i < components.size(); i++)
+	{
 		delete components[i];
+	}
+
+	components.clear();
 
 	//Before the GameObject is deleted make sure to remove it from the collection
 	for (unsigned int i = 0; i < Game::gameObjects.size(); i++)
 	{
 		if (Game::gameObjects[i] == this)
-			Game::gameObjects.erase(Game::gameObjects.begin() + i, Game::gameObjects.begin() + 1 + i);
+ 			Game::gameObjects.erase(Game::gameObjects.begin() + i, Game::gameObjects.begin() + 1 + i);
 	}
 }

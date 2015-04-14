@@ -2,6 +2,10 @@
 
 #include "Game.h"
 
+using namespace Brickware;
+using namespace Core;
+using namespace Math;
+
 //Window is static so that it can be easily accessed by static friends like Input and Screen
 #ifdef GL_SUPPORT
 GLFWwindow* Game::glWindow;
@@ -66,21 +70,17 @@ int Game::run()
 	MSG msg = { 0 };
 #endif
 
-	float ticksPerSecond = 25.0f;
-	int skipTicks = (int)(1000.0f / ticksPerSecond);
-	float maxFrameskip = 5;
+	const int ticksPerSecond = 60;
+	const int skipTicks = (int)(1000.0f / ticksPerSecond);
+	const int maxFrameskip = 5;
 
-	int nextGameTick = 0;
-
-	int loops = 0;
+	long long nextGameTick = GameTime::GetMillisSinceStart();
 
 	running = true;
-	ticks = 0;
+	int loops;
 
 	while (running)
 	{
-		ticks++;
-
 		//Handle windows messages
 #ifdef D3D_SUPPORT
 		if (msg.message == WM_QUIT)
@@ -100,11 +100,11 @@ int Game::run()
 
 		updateScene();
 
-		//Update physics 25 times per second
+		//Update physics "ticksPerSecond" times per second
 		loops = 0;
-		while (ticks > nextGameTick && loops < maxFrameskip)
+		while (GameTime::GetMillisSinceStart() > nextGameTick && loops < maxFrameskip)
 		{
-			//physics go here
+			PhysicsManager::Update();
 
 			nextGameTick += skipTicks;
 			loops++;
@@ -130,7 +130,14 @@ bool Game::init()
 #endif
 
 	//Init managers
-	PrimitiveManager::Initialize();
+	Graphics::PrimitiveManager::Initialize();
+#ifdef GL_SUPPORT
+	Graphics::RenderingManager::Initialize(NULL, NULL);
+#endif
+#ifdef D3D_SUPPORT
+	Graphics::RenderingManager::Initialize(device, deviceContext);
+#endif
+	PhysicsManager::Initialize();
 
 	return initSuccess;
 }
@@ -151,15 +158,17 @@ void Game::render()
 
 	renderScene(); //Will be overridden 
 
-	PrimitiveManager::DrawPrimitives();
-	
+
+	Graphics::RenderingManager::Render();
+
 #ifdef D3D_SUPPORT
 	swapBuffersD3D();
 #else
+	Camera* camera = Camera::GetActiveCamera();
+	Graphics::PrimitiveManager::DrawPrimitives(camera->getViewMatrix(), camera->getProjectionMatrix());
 	swapBuffersGL();
+	Graphics::PrimitiveManager::ClearPrimitives();
 #endif
-
-	PrimitiveManager::ClearPrimitives();
 
 	GameTime::frameEnd();
 }
@@ -176,14 +185,12 @@ void Game::handleInput()
 #ifdef GL_SUPPORT
 bool Game::initGL()
 {
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
 	//Attempt initialization
 	if (!glfwInit())
 		return false;
-
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR,3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR,2);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	//Create window
 	glWindow = glfwCreateWindow(Screen::width, Screen::height, "Brickware-Test", NULL, NULL);
@@ -206,7 +213,9 @@ bool Game::initGL()
 
 	glfwSetInputMode(glWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
+#ifdef _WIN32
 	glewInit();
+#endif
 
 	return true;
 }
@@ -353,10 +362,21 @@ void Game::handleInputGLFW()
 	else
 		Input::keys[KeyCode::space] = false;
 
+	if (glfwGetKey(glWindow, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_LEFT_SHIFT) == GLFW_REPEAT)
+		Input::keys[KeyCode::shift] = true;
+	else
+		Input::keys[KeyCode::shift] = false;
+
+	//F Keys
+
 	if (glfwGetKey(glWindow, GLFW_KEY_F1) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_F1) == GLFW_REPEAT)
 		Input::keys[KeyCode::F1] = true;
 	else
 		Input::keys[KeyCode::F1] = false;
+	if (glfwGetKey(glWindow, GLFW_KEY_F2) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_F2) == GLFW_REPEAT)
+		Input::keys[KeyCode::F2] = true;
+	else
+		Input::keys[KeyCode::F2] = false;
 }
 
 void Game::startRenderGL()
@@ -464,6 +484,27 @@ LRESULT Game::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 			Input::keys[KeyCode::escape] = true;
 		else if (msg == WM_KEYUP)
 			Input::keys[KeyCode::escape] = false;
+		return 0;
+
+	case VK_SHIFT:
+		if (msg == WM_KEYDOWN)
+			Input::keys[KeyCode::shift] = true;
+		else if (msg == WM_KEYUP)
+			Input::keys[KeyCode::shift] = false;
+		return 0;
+
+	case VK_F1:
+		if (msg == WM_KEYDOWN)
+			Input::keys[KeyCode::F1] = true;
+		else if (msg == WM_KEYUP)
+			Input::keys[KeyCode::F1] = false;
+		return 0;
+
+	case VK_F2:
+		if (msg == WM_KEYDOWN)
+			Input::keys[KeyCode::F2] = true;
+		else if (msg == WM_KEYUP)
+			Input::keys[KeyCode::F2] = false;
 		return 0;
 	}
 
@@ -658,6 +699,7 @@ void Game::endD3D()
 
 Game::~Game()
 {
-	PrimitiveManager::Destroy();
+	Graphics::PrimitiveManager::Destroy();
+	Graphics::RenderingManager::Destroy();
+	PhysicsManager::Destroy();
 }
-

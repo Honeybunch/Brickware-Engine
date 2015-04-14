@@ -6,14 +6,21 @@
 #include "Bounds.h"
 #include "Transform.h"
 #include "GameObject.h"
+#include "PhysicsManager.h"
+
+using namespace Brickware;
+using namespace Core;
+using namespace Graphics;
+using namespace Math;
 
 Collider::Collider()
 {
 	enabled = true;
 	isTrigger = false;
+	PhysicsManager::AddCollider(this);
 }
 
-bool Collider::isColliding(Collider* other)
+bool Collider::isColliding(Collider* other, Collision* collision)
 {
 	SphereCollider* otherSphere = dynamic_cast<SphereCollider*>(other);
 	BoxCollider* otherAxisAlignedBox = dynamic_cast<BoxCollider*>(other);
@@ -25,7 +32,7 @@ bool Collider::isColliding(Collider* other)
 	if (otherSphere)
 		return isCollidingWithSphere(otherSphere);
 	else if (otherAxisAlignedBox)
-		return isCollidingWithBox(otherAxisAlignedBox);
+		return isCollidingWithBox(otherAxisAlignedBox, collision);
 	else if(otherFrustumCollider)
 		return isCollidingWithFrustum(otherFrustumCollider);
 
@@ -39,23 +46,27 @@ bool Collider::isColliding(Bounds bounds)
 
 void Collider::calculateWorldData()
 {
-	Transform* transform = getGameObject()->getTransform();
-
-	center = transform->getPosition();
-
 	worldNormals.clear();
 
+	Transform* transform = getGameObject()->getTransform();
+	center = transform->getPosition();
 	Matrix3 rotationMatrix = transform->getRotation().getRotationMatrix();
+
+	Primitive::SetColor(Vector4(1, 0, 0, 1));
 
 	for (unsigned int i = 0; i < normals.size(); i++)
 	{
 		Vector3 worldNormal = rotationMatrix * normals[i];
 
-		//Renormalize after being rotated and scaled and whatnot
+		//Renormalize after being rotated
 		worldNormals.push_back(Vector3::Normalize(worldNormal));
-	}	
+
+		if (Debug::Debugging)
+			Primitive::DrawLine(center, center + worldNormals[i] * 2);
+	}
 }
 
 Collider::~Collider()
 {
+	PhysicsManager::RemoveCollider(this);
 }

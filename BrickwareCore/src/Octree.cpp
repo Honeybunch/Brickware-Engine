@@ -2,6 +2,10 @@
 
 #include "Octree.h"
 
+using namespace Brickware;
+using namespace Core;
+using namespace Math;
+
 /*
 	OctreeNode Implementation
 */

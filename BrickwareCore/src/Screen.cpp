@@ -2,6 +2,9 @@
 
 #include "Screen.h"
 
+using namespace Brickware;
+using namespace Core;
+
 int Screen::width;
 int Screen::height;
 

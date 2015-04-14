@@ -2,6 +2,9 @@
 
 #include "Vector2.h"
 
+using namespace Brickware;
+using namespace Math;
+
 /*
 	Constructors
 */
@@ -59,26 +62,6 @@ float Vector2::Dot(Vector2 v, Vector2 u)
 	return output;
 }
 
-//Sum two vectors together
-Vector2 Vector2::Sum(Vector2 u, Vector2 v)
-{
-	Vector2 output;
-
-	output = v + u;
-
-	return output;
-}
-
-//Multiply a vector by a scalar
-Vector2 Vector2::ScalarProduct(Vector2 v, float s)
-{
-	Vector2 output;
-
-	output = v * s;
-
-	return output;
-}
-
 //Normalize a vector
 Vector2 Vector2::Normalize(Vector2 v)
 {
@@ -126,6 +109,11 @@ std::ostream& operator<<(std::ostream& output, Vector2& v)
 //Insertion
 std::istream& operator>>(std::istream& input, Vector2& v)
 {
-	input >> v.vector[0] >> v.vector[1];
+	float x, y;
+	input >> x >> y;
+
+	v.setX(x);
+	v.setY(y);
+
 	return input;
 }

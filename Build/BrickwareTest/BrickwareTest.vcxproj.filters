@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\src\Despawn.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\src\Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\src\Spawner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\src\Spin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\src\TestGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\include\Despawn.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\include\Spawner.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\include\Spin.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\include\TestGame.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{F127B7D8-43F5-4E84-9036-8EA1E8C9C930}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{D5BCD30B-2F42-475E-AADC-20FFA5916138}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

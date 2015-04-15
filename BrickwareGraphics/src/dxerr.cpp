@@ -19,7 +19,7 @@
 
 #define BRICKWARE_GRAPHICS_EXPORTS
 
-#include "dxerr.h"
+#include "BrickwareGraphics\dxerr.hpp"
 
 #include <stdio.h>
 #include <algorithm>

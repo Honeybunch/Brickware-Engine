@@ -1,6 +1,6 @@
 #define BRICKWARE_UTILITY_EXPORTS
 
-#include "StringUtils.h"
+#include "BrickwareUtils\StringUtils.hpp"
 
 using namespace Brickware;
 using namespace Utility;
@@ -183,6 +183,8 @@ const char* StringUtils::trimAllWhitespace(const char* string)
 	return trimmedString;
 }
 
+#ifdef GL_SUPPORT
+
 void StringUtils::printShaderInfoLog(GLuint obj)
 {
 	GLint infologLength = 0;
@@ -219,6 +221,8 @@ void StringUtils::printProgramInfoLog(GLuint obj)
 		delete infoLog;
 	}
 }
+
+#endif
 
 #ifdef _WIN32
 

@@ -1,10 +1,10 @@
 #define BRICKWARE_CORE_EXPORTS
 
-#include "Collision.h"
+#include "BrickwareCore\Collision.hpp"
 
-#include "Rigidbody.h"
-#include "Collider.h"
-#include "GameObject.h"
+#include "BrickwareCore\Rigidbody.hpp"
+#include "BrickwareCore\Collider.hpp"
+#include "BrickwareCore\GameObject.hpp"
 
 using namespace Brickware;
 using namespace Core;

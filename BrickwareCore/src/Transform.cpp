@@ -1,8 +1,8 @@
 #define BRICKWARE_CORE_EXPORTS
 
-#include "Transform.h"
-#include "GameObject.h"
-#include "Camera.h"
+#include "BrickwareCore\Transform.hpp"
+#include "BrickwareCore\GameObject.hpp"
+#include "BrickwareCore\Camera.hpp"
 
 #include <iostream>
 

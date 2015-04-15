@@ -1,6 +1,6 @@
 #define BRICKWARE_GRAPHICS_EXPORTS
 
-#include "Texture.h"
+#include "BrickwareGraphics\Texture.hpp"
 
 using namespace Brickware;
 using namespace Graphics;

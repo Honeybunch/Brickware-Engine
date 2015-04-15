@@ -1,7 +1,7 @@
 #define BRICKWARE_GRAPHICS_EXPORTS
 
-#include "Mesh.h"
-#include "RenderingManager.h"
+#include "BrickwareGraphics\Mesh.hpp"
+#include "BrickwareGraphics\RenderingManager.hpp"
 
 using namespace Brickware;
 using namespace Graphics;

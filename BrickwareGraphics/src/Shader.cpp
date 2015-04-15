@@ -2,8 +2,8 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 
-#include "Shader.h"
-#include "StringUtils.h"
+#include "BrickwareGraphics\Shader.hpp"
+#include "BrickwareUtils\StringUtils.hpp"
 
 using namespace Brickware;
 using namespace Graphics;

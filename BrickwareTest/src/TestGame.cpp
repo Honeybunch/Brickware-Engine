@@ -1,4 +1,4 @@
-#include "TestGame.h"
+#include "TestGame.hpp"
 
 using namespace Brickware;
 using namespace Core;
@@ -20,30 +20,33 @@ bool TestGame::init()
 	//Test JSON loading
 	JSONObject* object = JSONParser::DecodeJSONFromFile("Data/test.json");
 
-	bool boolean = object->getValue<bool>("testBool");
-	char* string = object->getValue<char*>("testStr");
-	int integer = object->getValue<int>("testInt");
-	float floatingPoint = object->getValue<float>("testFloat");
-	JSONObject* nestedObject = object->getValue<JSONObject*>("testObject");
-	int nestedInt = nestedObject->getValue<int>("testObjectInt");
-	char* nestedString = nestedObject->getValue<char*>("testObjectStr");
-	std::vector<JSONValue>* array = object->getValue<std::vector<JSONValue>*>("testArray");
-	std::vector<JSONValue>* stringArray = object->getValue<std::vector<JSONValue>*>("testStrArray");
+	if (object)
+	{
+		bool boolean = object->getValue<bool>("testBool");
+		char* string = object->getValue<char*>("testStr");
+		int integer = object->getValue<int>("testInt");
+		float floatingPoint = object->getValue<float>("testFloat");
+		JSONObject* nestedObject = object->getValue<JSONObject*>("testObject");
+		int nestedInt = nestedObject->getValue<int>("testObjectInt");
+		char* nestedString = nestedObject->getValue<char*>("testObjectStr");
+		std::vector<JSONValue>* array = object->getValue<std::vector<JSONValue>*>("testArray");
+		std::vector<JSONValue>* stringArray = object->getValue<std::vector<JSONValue>*>("testStrArray");
 
-	std::cout << boolean << std::endl;
-	std::cout << string << std::endl;
-	std::cout << integer << std::endl;
-	std::cout << floatingPoint << std::endl;
-	std::cout << '\t' << nestedInt << std::endl;
-	std::cout << '\t' << nestedString << std::endl;
+		std::cout << boolean << std::endl;
+		std::cout << string << std::endl;
+		std::cout << integer << std::endl;
+		std::cout << floatingPoint << std::endl;
+		std::cout << '\t' << nestedInt << std::endl;
+		std::cout << '\t' << nestedString << std::endl;
 
-	for (unsigned int i = 0; i < array->size(); i++)
-		std::cout << (int)array->at(i) << ',';
-	std::cout << std::endl;
+		for (unsigned int i = 0; i < array->size(); i++)
+			std::cout << (int)array->at(i) << ',';
+		std::cout << std::endl;
 
-	for (unsigned int i = 0; i < stringArray->size(); i++)
-		std::cout << (char*)stringArray->at(i) << ',';
-	std::cout << std::endl;
+		for (unsigned int i = 0; i < stringArray->size(); i++)
+			std::cout << (char*)stringArray->at(i) << ',';
+		std::cout << std::endl;
+	}
 
 	//Load shader
 	Shader* shader = new Shader("Shaders/VertexShader", "Shaders/PixelShader");

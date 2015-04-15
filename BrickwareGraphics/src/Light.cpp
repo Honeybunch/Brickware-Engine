@@ -1,6 +1,6 @@
 #define BRICKWARE_GRAPHICS_EXPORTS
 
-#include "Light.h"
+#include "BrickwareGraphics\Light.hpp"
 
 using namespace Brickware;
 using namespace Graphics;

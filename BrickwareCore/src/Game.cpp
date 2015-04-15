@@ -1,6 +1,6 @@
 #define BRICKWARE_CORE_EXPORTS
 
-#include "Game.h"
+#include "BrickwareCore\Game.hpp"
 
 using namespace Brickware;
 using namespace Core;

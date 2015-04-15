@@ -1,6 +1,6 @@
 #define BRICKWARE_CORE_EXPORTS
 
-#include "Screen.h"
+#include "BrickwareCore\Screen.hpp"
 
 using namespace Brickware;
 using namespace Core;

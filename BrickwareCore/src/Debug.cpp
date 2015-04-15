@@ -2,7 +2,7 @@
 
 #define BRICKWARE_CORE_EXPORTS
 
-#include "Debug.h"
+#include "BrickwareCore\Debug.hpp"
 
 using namespace Brickware;
 using namespace Core;

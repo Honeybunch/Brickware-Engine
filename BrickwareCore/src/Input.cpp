@@ -1,7 +1,7 @@
 #define BRICKWARE_CORE_EXPORTS
 
-#include "Game.h"
-#include "Input.h"
+#include "BrickwareCore\Game.hpp"
+#include "BrickwareCore\Input.hpp"
 
 using namespace Brickware;
 using namespace Core;

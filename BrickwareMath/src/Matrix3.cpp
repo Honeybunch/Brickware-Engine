@@ -1,7 +1,7 @@
 #define BRICKWARE_MATH_EXPORTS
 
-#include "Matrix3.h"
-#include "Matrix4.h"
+#include "BrickwareMath\Matrix3.hpp"
+#include "BrickwareMath\Matrix4.hpp"
 
 using namespace Brickware;
 using namespace Math;

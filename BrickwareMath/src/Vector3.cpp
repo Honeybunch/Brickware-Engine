@@ -1,7 +1,7 @@
 #define BRICKWARE_MATH_EXPORTS
 
-#include "Vector3.h"
-#include "Vector4.h"
+#include "BrickwareMath\Vector3.hpp"
+#include "BrickwareMath\Vector4.hpp"
 
 using namespace Brickware;
 using namespace Math;

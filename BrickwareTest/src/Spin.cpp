@@ -1,4 +1,4 @@
-#include "Spin.h"
+#include "Spin.hpp"
 
 using namespace Brickware;
 using namespace Core;

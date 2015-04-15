@@ -1,6 +1,6 @@
 #define BRICKWARE_MATH_EXPORTS
 
-#include "Vector2.h"
+#include "BrickwareMath\Vector2.hpp"
 
 using namespace Brickware;
 using namespace Math;

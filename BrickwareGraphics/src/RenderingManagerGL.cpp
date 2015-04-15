@@ -1,9 +1,9 @@
 #ifdef GL_SUPPORT
 #define BRICKWARE_GRAPHICS_EXPORTS
 
-#include "BrickwareGraphicsDLL.h"
+#include "BrickwareGraphics\BrickwareGraphicsDLL.hpp"
 
-#include "RenderingManager.h"
+#include "BrickwareGraphics\RenderingManager.hpp"
 
 using namespace Brickware;
 using namespace Graphics;

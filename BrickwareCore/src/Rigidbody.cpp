@@ -1,7 +1,7 @@
 #define BRICKWARE_CORE_EXPORTS
 
-#include "Rigidbody.h"
-#include "PhysicsManager.h"
+#include "BrickwareCore\Rigidbody.hpp"
+#include "BrickwareCore\PhysicsManager.hpp"
 
 using namespace Brickware;
 using namespace Core;

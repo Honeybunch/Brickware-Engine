@@ -1,6 +1,6 @@
 #define BRICKWARE_GRAPHICS_EXPORTS
 
-#include "RenderingManager.h"
+#include "BrickwareGraphics\RenderingManager.hpp"
 
 using namespace Brickware;
 using namespace Graphics;

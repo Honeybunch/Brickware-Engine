@@ -1,7 +1,7 @@
 #define BRICKWARE_GRAPHICS_EXPORTS
 
-#include "PrimitiveManager.h"
-#include "Primitive.h"
+#include "BrickwareGraphics\PrimitiveManager.hpp"
+#include "BrickwareGraphics\Primitive.hpp"
 
 using namespace Brickware;
 using namespace Graphics;

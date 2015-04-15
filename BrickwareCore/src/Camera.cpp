@@ -1,7 +1,7 @@
 #define BRICKWARE_CORE_EXPORTS
 
-#include "FrustumCollider.h"
-#include "Camera.h"
+#include "BrickwareCore\FrustumCollider.hpp"
+#include "BrickwareCore\Camera.hpp"
 
 using namespace Brickware;
 using namespace Core;

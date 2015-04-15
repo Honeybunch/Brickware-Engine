@@ -2,19 +2,19 @@
 #define OCTREE_H
 
 //DLL Header
-#include "BrickwareCoreDLL.h"
+#include "BrickwareCore\BrickwareCoreDLL.hpp"
 
 //Other Brickware Project Headers
-#include "Bounds.h"
+#include "BrickwareMath\Bounds.hpp"
 
 //System Level Headers
 #include <vector>
 
 //Project Headers
-#include "BoxCollider.h"
-#include "FrustumCollider.h"
-#include "GameObject.h"
-#include "MeshRenderer.h"
+#include "BrickwareCore\BoxCollider.hpp"
+#include "BrickwareCore\FrustumCollider.hpp"
+#include "BrickwareCore\GameObject.hpp"
+#include "BrickwareCore\MeshRenderer.hpp"
 
 namespace Brickware
 {

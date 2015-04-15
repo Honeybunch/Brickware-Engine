@@ -14,13 +14,13 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 //DLL Header
-#include "BrickwareUtilsDLL.h"
+#include "BrickwareUtils\BrickwareUtilsDLL.hpp"
 
 //System level headers
 #include <vector>
 
 //Project Headers
-#include "StringUtils.h"
+#include "BrickwareUtils\StringUtils.hpp"
 
 using namespace std;
 

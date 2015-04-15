@@ -2,21 +2,22 @@
 #define COLLIDER_H
 
 //DLL Headers
-#include "BrickwareCoreDLL.h"
+#include "BrickwareCore\BrickwareCoreDLL.hpp"
 
 //Other Brickware Project Headers
-#include "Matrix3.h"
-#include "Quaternion.h"
-#include "Vector3.h"
-#include "Bounds.h"
-#include "Primitive.h"
+#include "BrickwareMath\Matrix3.hpp"
+#include "BrickwareMath\Quaternion.hpp"
+#include "BrickwareMath\Vector3.hpp"
+#include "BrickwareMath\Bounds.hpp"
+
+#include "BrickwareGraphics\Primitive.hpp"
 
 //System Level Headers
 #include <vector>
 #include <limits>
 
 //Project Headers
-#include "Component.h"
+#include "BrickwareCore\Component.hpp"
 
 namespace Brickware
 {

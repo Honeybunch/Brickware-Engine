@@ -1,6 +1,6 @@
 #define BRICKWARE_CORE_EXPORTS
 
-#include "Octree.h"
+#include "BrickwareCore\Octree.hpp"
 
 using namespace Brickware;
 using namespace Core;

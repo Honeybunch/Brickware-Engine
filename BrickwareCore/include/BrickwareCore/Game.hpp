@@ -5,7 +5,7 @@
 #define _USE_MATH_DEFINES
 
 //DLL Header
-#include "BrickwareCoreDLL.h"
+#include "BrickwareCore\BrickwareCoreDLL.hpp"
 
 //Graphics Headers
 #ifdef GL_SUPPORT
@@ -24,19 +24,19 @@
 #include <WindowsX.h>
 #include <d3d11.h>
 #include <assert.h>
-#include "dxerr.h"
+#include "BrickwareGraphics\dxerr.hpp"
 #endif
 
 //Other Brickware Project Headers
-#include "Mesh.h"
-#include "Shader.h"
-#include "Light.h"
-#include "Material.h"
-#include "Texture.h"
-#include "PrimitiveManager.h"
-#include "Primitive.h"
+#include "BrickwareGraphics\Mesh.hpp"
+#include "BrickwareGraphics\Shader.hpp"
+#include "BrickwareGraphics\Light.hpp"
+#include "BrickwareGraphics\Material.hpp"
+#include "BrickwareGraphics\Texture.hpp"
+#include "BrickwareGraphics\PrimitiveManager.hpp"
+#include "BrickwareGraphics\Primitive.hpp"
 
-#include "Vector3.h"
+#include "BrickwareMath\Vector3.hpp"
 
 //System Level Headers
 #include <stdlib.h>
@@ -45,19 +45,19 @@
 #include <math.h>
 
 //Project Headers
-#include "GameObject.h"
-#include "Transform.h"
-#include "Camera.h"
-#include "Settings.h"
-#include "Input.h"
-#include "Screen.h"
-#include "SphereCollider.h"
-#include "BoxCollider.h"
-#include "MeshRenderer.h"
-#include "GameTime.h"
-#include "PhysicsManager.h"
-#include "Debug.h"
-#include "PointLight.h"
+#include "BrickwareCore\GameObject.hpp"
+#include "BrickwareCore\Transform.hpp"
+#include "BrickwareCore\Camera.hpp"
+#include "BrickwareCore\Settings.hpp"
+#include "BrickwareCore\Input.hpp"
+#include "BrickwareCore\Screen.hpp"
+#include "BrickwareCore\SphereCollider.hpp"
+#include "BrickwareCore\BoxCollider.hpp"
+#include "BrickwareCore\MeshRenderer.hpp"
+#include "BrickwareCore\GameTime.hpp"
+#include "BrickwareCore\PhysicsManager.hpp"
+#include "BrickwareCore\Debug.hpp"
+#include "BrickwareCore\PointLight.hpp"
 
 namespace Brickware
 {

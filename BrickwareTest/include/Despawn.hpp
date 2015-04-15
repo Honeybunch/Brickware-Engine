@@ -1,10 +1,10 @@
 #ifndef DESPAWN_H
 #define DESPAWN_H
 
-#include "Component.h"
-#include "GameObject.h"
-#include "Transform.h"
-#include "Vector3.h"
+#include "BrickwareCore\Component.hpp"
+#include "BrickwareCore\GameObject.hpp"
+#include "BrickwareCore\Transform.hpp"
+#include "BrickwareMath\Vector3.hpp"
 
 class Despawn : public Brickware::Core::Component
 {

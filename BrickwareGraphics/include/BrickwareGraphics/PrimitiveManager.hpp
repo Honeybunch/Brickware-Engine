@@ -2,17 +2,17 @@
 #define PRIMITIVE_MANAGER_H
 
 //DLL Header
-#include "BrickwareGraphicsDLL.h"
+#include "BrickwareGraphics\BrickwareGraphicsDLL.hpp"
 
 //Other Brickware Project Headers
-#include "Matrix4.h"
+#include "BrickwareMath\Matrix4.hpp"
 
 //System Level Headers
 #include <vector>
 
 //Project Headers
-#include "GraphicsSettings.h"
-#include "Shader.h"
+#include "BrickwareGraphics\GraphicsSettings.hpp"
+#include "BrickwareGraphics\Shader.hpp"
 
 namespace Brickware
 {

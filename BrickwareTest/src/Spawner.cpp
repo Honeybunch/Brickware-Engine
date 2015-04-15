@@ -1,4 +1,4 @@
-#include "Spawner.h"
+#include "Spawner.hpp"
 #include <iostream>
 
 using namespace Brickware;

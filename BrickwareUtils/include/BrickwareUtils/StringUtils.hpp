@@ -5,7 +5,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 //DLL Header
-#include "BrickwareUtilsDLL.h"
+#include "BrickwareUtils\BrickwareUtilsDLL.hpp"
 
 #ifdef _WIN32
 //Graphics Headers

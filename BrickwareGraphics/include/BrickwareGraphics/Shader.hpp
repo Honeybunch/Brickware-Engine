@@ -5,7 +5,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 //DLL Header
-#include "BrickwareGraphicsDLL.h"
+#include "BrickwareGraphics\BrickwareGraphicsDLL.hpp"
 
 //Graphics Headers
 #ifdef D3D_SUPPORT
@@ -32,8 +32,8 @@ struct ConstVariableInfo{
 #include <string>
 
 //Project Headers
-#include "GraphicsSettings.h"
-#include "Texture.h"
+#include "BrickwareGraphics\GraphicsSettings.hpp"
+#include "BrickwareGraphics\Texture.hpp"
 
 namespace Brickware
 {

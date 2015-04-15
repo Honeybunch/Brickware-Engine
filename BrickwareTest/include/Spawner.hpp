@@ -1,15 +1,18 @@
 #ifndef SPAWNER_H
 #define SPAWNER_H
 
-#include "Component.h"
-#include "Material.h"
-#include "Shader.h"
-#include "SphereCollider.h"
-#include "Vector3.h"
-#include "MeshRenderer.h"
-#include "Camera.h"
-#include "Rigidbody.h"
-#include "Despawn.h"
+#include "BrickwareCore\Component.hpp"
+#include "BrickwareCore\SphereCollider.hpp"
+#include "BrickwareCore\MeshRenderer.hpp"
+#include "BrickwareCore\Camera.hpp"
+#include "BrickwareCore\Rigidbody.hpp"
+
+#include "BrickwareGraphics\Material.hpp"
+#include "BrickwareGraphics\Shader.hpp"
+
+#include "BrickwareMath\Vector3.hpp"
+
+#include "Despawn.hpp"
 
 class Spawner :
 	public Brickware::Core::Component

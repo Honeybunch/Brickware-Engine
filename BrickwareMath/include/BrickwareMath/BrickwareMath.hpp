@@ -1,12 +1,15 @@
 #ifndef BRICKWARE_MATH_H
 #define BRICKWARE_MATH_H
 
-#include "Matrix4.h"
+#include "BrickwareMath\Bounds.hpp"
 
-#include "Quaternion.h"
+#include "BrickwareMath\Matrix3.hpp"
+#include "BrickwareMath\Matrix4.hpp"
 
-#include "Vector2.h"
-#include "Vector3.h"
-#include "Vector4.h"
+#include "BrickwareMath\Quaternion.hpp"
+
+#include "BrickwareMath\Vector2.hpp"
+#include "BrickwareMath\Vector3.hpp"
+#include "BrickwareMath\Vector4.hpp"
 
 #endif

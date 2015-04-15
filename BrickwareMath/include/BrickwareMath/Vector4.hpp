@@ -2,7 +2,7 @@
 #define VECTOR4_H
 
 //DLL Header
-#include "BrickwareMathDLL.h"
+#include "BrickwareMath\BrickwareMathDLL.hpp"
 
 //System Level Headers
 #include <iostream>

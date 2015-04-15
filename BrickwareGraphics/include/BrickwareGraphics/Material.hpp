@@ -2,7 +2,7 @@
 #define MATERIAL_H
 
 //DLL Header
-#include "BrickwareGraphicsDLL.h"
+#include "BrickwareGraphics\BrickwareGraphicsDLL.hpp"
 
 //Graphics Headers
 #ifdef GL_SUPPORT
@@ -10,20 +10,20 @@
 #endif
 
 //Other Brickware Project Headers
-#include "StringUtils.h"
+#include "BrickwareUtils\StringUtils.hpp"
 
-#include "Matrix3.h"
-#include "Matrix4.h"
-#include "Vector2.h"
-#include "Vector3.h"
-#include "Vector4.h"
+#include "BrickwareMath\Matrix3.hpp"
+#include "BrickwareMath\Matrix4.hpp"
+#include "BrickwareMath\Vector2.hpp"
+#include "BrickwareMath\Vector3.hpp"
+#include "BrickwareMath\Vector4.hpp"
 
 //System Level Headers
 #include <map>
 
 //Project Headers
-#include "Shader.h"
-#include "Texture.h"
+#include "BrickwareGraphics\Shader.hpp"
+#include "BrickwareGraphics\Texture.hpp"
 
 namespace Brickware
 {

@@ -2,14 +2,14 @@
 #define RENDERING_MANAGER_H
 
 //DLL Header
-#include "BrickwareGraphicsDLL.h"
+#include "BrickwareGraphics\BrickwareGraphicsDLL.hpp"
 
 //Project Headers
-#include "Shader.h"
-#include "Material.h"
-#include "Mesh.h"
-#include "Light.h"
-#include "GraphicsSettings.h"
+#include "BrickwareGraphics\Shader.hpp"
+#include "BrickwareGraphics\Material.hpp"
+#include "BrickwareGraphics\Mesh.hpp"
+#include "BrickwareGraphics\Light.hpp"
+#include "BrickwareGraphics\GraphicsSettings.hpp"
 
 namespace Brickware
 {

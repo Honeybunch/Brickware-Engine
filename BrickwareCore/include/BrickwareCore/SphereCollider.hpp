@@ -2,10 +2,10 @@
 #define SPHERECOLLIDER_H
 
 //DLL Header
-#include "BrickwareCoreDLL.h"
+#include "BrickwareCore\BrickwareCoreDLL.hpp"
 
 //Project Headers
-#include "Collider.h"
+#include "BrickwareCore\Collider.hpp"
 
 namespace Brickware
 {

@@ -2,22 +2,22 @@
 #define GAMEOBJECT_H
 
 //DLL Header
-#include "BrickwareCoreDLL.h"
+#include "BrickwareCore\BrickwareCoreDLL.hpp"
 
 //Other Brickware Project Headers
-#include "Mesh.h"
+#include "BrickwareGraphics\Mesh.hpp"
 
 //System Level Headers
 #include <vector>
 #include <typeinfo>
 
 //Project Headers
-#include "Settings.h"
-#include "Component.h"
-#include "Transform.h"
-#include "Collision.h"
-#include "Rigidbody.h"
-#include "MeshRenderer.h"
+#include "BrickwareCore\Settings.hpp"
+#include "BrickwareCore\Component.hpp"
+#include "BrickwareCore\Transform.hpp"
+#include "BrickwareCore\Collision.hpp"
+#include "BrickwareCore\Rigidbody.hpp"
+#include "BrickwareCore\MeshRenderer.hpp"
 
 namespace Brickware
 {

@@ -1,13 +1,16 @@
-file(GLOB BRICKWARE_MATH_HEADERS "include/*.h")
+file(GLOB BRICKWARE_MATH_HEADERS "include/*/*.hpp")
 file(GLOB BRICKWARE_MATH_SOURCE "src/*.cpp")
 
 #C++ 11
-set(CMAKE_CXX_FLAGS "-std=c++11 -g ${CMAKE_CXX_FLAGS}")
+if(UNIX)
+	set(CMAKE_CXX_FLAGS "-std=c++11 -g ${CMAKE_CXX_FLAGS}")
+endif(UNIX)
 
-include_directories(include/)
+include_directories("include/")
 include_directories(SYSTEM)
 
-add_library(BrickwareMath SHARED ${BRICKWARE_MATH_HEADERS} ${BRICKWARE_MATH_SOURCE})
+source_group("Headers" FILES ${BRICKWARE_MATH_HEADERS})
+add_library(BrickwareMath SHARED ${BRICKWARE_MATH_SOURCE} ${BRICKWARE_MATH_HEADERS})
 
 #Need to link some basic libraries
 if(UNIX)
@@ -16,4 +19,6 @@ endif(UNIX)
 
 set_property(TARGET BrickwareMath PROPERTY FOLDER "lib")
 
-install(TARGETS BrickwareMath LIBRARY DESTINATION ${PROJECT_BINARY_DIR}/bin)
+install(TARGETS BrickwareMath 
+		LIBRARY DESTINATION ${PROJECT_BINARY_DIR}
+		ARCHIVE DESTINATION ${PROJECT_BINARY_DIR})

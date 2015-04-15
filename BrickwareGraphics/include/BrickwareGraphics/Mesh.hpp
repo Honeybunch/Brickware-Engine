@@ -5,7 +5,7 @@
 #define _CRT_SECURE_NO_WARNINGS 
 
 //DLL Header
-#include "BrickwareGraphicsDLL.h"
+#include "BrickwareGraphics\BrickwareGraphicsDLL.hpp"
 
 #define NOMINMAX //Without this windows.h will break std::limits
 
@@ -19,9 +19,9 @@
 #endif
 
 //Other Brickware Project Headers
-#include "Vector2.h"
-#include "Vector3.h"
-#include "Bounds.h"
+#include "BrickwareMath\Vector2.hpp"
+#include "BrickwareMath\Vector3.hpp"
+#include "BrickwareMath\Bounds.hpp"
 
 //Sytem Level Headers
 #include <vector>
@@ -30,7 +30,7 @@
 #include <limits>
 
 //Project Headers
-#include "Shader.h"
+#include "BrickwareGraphics\Shader.hpp"
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 

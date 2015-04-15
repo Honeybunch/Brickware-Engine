@@ -4,7 +4,7 @@
 #define DEBUG_H
 
 //DLL Header
-#include "BrickwareCoreDLL.h"
+#include "BrickwareCore\BrickwareCoreDLL.hpp"
 
 namespace Brickware
 {

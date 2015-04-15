@@ -1,10 +1,11 @@
 #ifndef SPIN_H
 #define SPIN_H
 
-#include "Component.h"
-#include "Transform.h"
-#include "Vector3.h"
-#include "GameObject.h"
+#include "BrickwareCore\Component.hpp"
+#include "BrickwareCore\Transform.hpp"
+#include "BrickwareCore\GameObject.hpp"
+
+#include "BrickwareMath\Vector3.hpp"
 
 class Spin : public Brickware::Core::Component
 {

@@ -1,13 +1,14 @@
 #ifndef TESTGAME_H
 #define TESTGAME_H
 
-#include "Game.h"
-#include "Spin.h"
-#include "Spawner.h"
+#include "BrickwareCore\Game.hpp"
 
-#include "JSONParser.h"
+#include "BrickwareUtils\JSONParser.hpp"
 
 #include <iostream>
+
+#include "Spin.hpp"
+#include "Spawner.hpp"
 
 class TestGame : public Brickware::Core::Game
 {

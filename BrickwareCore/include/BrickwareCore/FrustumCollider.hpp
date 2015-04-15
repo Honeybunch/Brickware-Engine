@@ -5,13 +5,13 @@
 #define USE_MATH_DEFINES
 
 //DLL Header
-#include "BrickwareCoreDLL.h"
+#include "BrickwareCore\BrickwareCoreDLL.hpp"
 
 //System Level Header
 #include <math.h>
 
 //Project Headers
-#include "Collider.h"
+#include "BrickwareCore\Collider.hpp"
 
 namespace Brickware
 {

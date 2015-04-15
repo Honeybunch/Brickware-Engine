@@ -2,8 +2,8 @@
 
 #define BRICKWARE_GRAPHICS_EXPORTS
 
-#include "Shader.h"
-#include "RenderingManager.h"
+#include "BrickwareGraphics\Shader.hpp"
+#include "BrickwareGraphics\RenderingManager.hpp"
 
 using namespace Brickware;
 using namespace Graphics;

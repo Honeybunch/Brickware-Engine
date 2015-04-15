@@ -5,7 +5,7 @@
 #define _USE_MATH_DEFINES
 
 //DLL Header
-#include "BrickwareCoreDLL.h"
+#include "BrickwareCore\BrickwareCoreDLL.hpp"
 
 //Graphics Headers
 #ifdef D3D_SUPPORT
@@ -17,8 +17,8 @@
 #endif
 
 //Other Brickware Project Headers
-#include "Matrix4.h"
-#include "Material.h"
+#include "BrickwareMath\Matrix4.hpp"
+#include "BrickwareGraphics\Material.hpp"
 
 //System Level Headers
 #include <iostream>
@@ -26,9 +26,9 @@
 #include <math.h>
 
 //Project Headers
-#include "Settings.h"
-#include "Transform.h"
-#include "GameObject.h"
+#include "BrickwareCore\Settings.hpp"
+#include "BrickwareCore\Transform.hpp"
+#include "BrickwareCore\GameObject.hpp"
 
 namespace Brickware
 {

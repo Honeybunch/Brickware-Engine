@@ -1,7 +1,7 @@
 #ifdef GL_SUPPORT
 #define BRICKWARE_GRAPHICS_EXPORTS
 
-#include "Shader.h"
+#include "BrickwareGraphics\Shader.hpp"
 
 using namespace Brickware;
 using namespace Graphics;

@@ -2,7 +2,7 @@
 #define INPUT_H
 
 //DLL Header
-#include "BrickwareCoreDLL.h"
+#include "BrickwareCore\BrickwareCoreDLL.hpp"
 
 //Graphics Headers
 #ifdef D3D_SUPPORT
@@ -21,10 +21,10 @@
 #endif
 
 //Other Brickware Project Headers
-#include "Vector2.h"
+#include "BrickwareMath\Vector2.hpp"
 
 //Project Headers
-#include "Settings.h"
+#include "BrickwareCore\Settings.hpp"
 
 namespace Brickware
 {

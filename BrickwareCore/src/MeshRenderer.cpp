@@ -1,6 +1,6 @@
 #define BRICKWARE_CORE_EXPORTS
 
-#include "MeshRenderer.h"
+#include "BrickwareCore\MeshRenderer.hpp"
 
 using namespace Brickware;
 using namespace Core;

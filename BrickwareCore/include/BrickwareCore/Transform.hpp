@@ -2,7 +2,7 @@
 #define TRANSFORM_H
 
 //DLL Header
-#include "BrickwareCoreDLL.h"
+#include "BrickwareCore\BrickwareCoreDLL.hpp"
 
 //Graphics Headers
 #ifdef D3D_SUPPORT
@@ -21,17 +21,17 @@
 #endif
 
 //Other Brickware Project Headers
-#include "Vector3.h"
-#include "Vector4.h"
-#include "Matrix4.h"
-#include "Matrix3.h"
-#include "Quaternion.h"
+#include "BrickwareMath\Vector3.hpp"
+#include "BrickwareMath\Vector4.hpp"
+#include "BrickwareMath\Matrix4.hpp"
+#include "BrickwareMath\Matrix3.hpp"
+#include "BrickwareMath\Quaternion.hpp"
 
-#include "Shader.h"
+#include "BrickwareGraphics\Shader.hpp"
 
 //Project Headers
-#include "Settings.h"
-#include "Component.h"
+#include "BrickwareCore\Settings.hpp"
+#include "BrickwareCore\Component.hpp"
 
 namespace Brickware
 {

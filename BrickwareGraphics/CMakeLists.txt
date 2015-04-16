@@ -6,9 +6,9 @@ if(UNIX)
 	set(CMAKE_CXX_FLAGS "-std=c++11 -g ${CMAKE_CXX_FLAGS}")
 endif(UNIX)
 
-include_directories("include/")
-include_directories("../BrickwareMath/include")
-include_directories("../BrickwareUtils/include")
+include_directories("${CMAKE_SOURCE_DIR}/BrickwareGraphics/include/")
+include_directories("${CMAKE_SOURCE_DIR}/BrickwareMath/include")
+include_directories("${CMAKE_SOURCE_DIR}/BrickwareUtils/include")
 include_directories(SYSTEM)
 
 #Need to manually include GLFW and GLEW on Windows

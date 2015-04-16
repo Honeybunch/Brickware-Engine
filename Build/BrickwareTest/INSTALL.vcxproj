@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{AFF3FE7C-78C9-4C8B-B3A5-89DE74BA3C39}</ProjectGUID>
+    <ProjectGUID>{99B5E64C-97EB-48B8-8F69-39D3092B4A3F}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>Win32</Platform>
     <ProjectName>INSTALL</ProjectName>
@@ -65,7 +65,7 @@
     </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Midl>
-      <AdditionalIncludeDirectories>D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\..\BrickwareMath\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\..\BrickwareUtils\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\..\BrickwareGraphics\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\..\BrickwareCore\include;D:\Users\amt3824\Git\Brickware-Engine\GL\include;D:\Users\amt3824\Git\Brickware-Engine\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareUtils\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareCore\include;D:\Users\amt3824\Git\Brickware-Engine\GL\include;D:\Users\amt3824\Git\Brickware-Engine\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -87,7 +87,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Midl>
-      <AdditionalIncludeDirectories>D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\..\BrickwareMath\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\..\BrickwareUtils\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\..\BrickwareGraphics\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\..\BrickwareCore\include;D:\Users\amt3824\Git\Brickware-Engine\GL\include;D:\Users\amt3824\Git\Brickware-Engine\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareUtils\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareCore\include;D:\Users\amt3824\Git\Brickware-Engine\GL\include;D:\Users\amt3824\Git\Brickware-Engine\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -109,7 +109,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
     <Midl>
-      <AdditionalIncludeDirectories>D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\..\BrickwareMath\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\..\BrickwareUtils\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\..\BrickwareGraphics\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\..\BrickwareCore\include;D:\Users\amt3824\Git\Brickware-Engine\GL\include;D:\Users\amt3824\Git\Brickware-Engine\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareUtils\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareCore\include;D:\Users\amt3824\Git\Brickware-Engine\GL\include;D:\Users\amt3824\Git\Brickware-Engine\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -131,7 +131,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
     <Midl>
-      <AdditionalIncludeDirectories>D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\..\BrickwareMath\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\..\BrickwareUtils\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\..\BrickwareGraphics\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\..\BrickwareCore\include;D:\Users\amt3824\Git\Brickware-Engine\GL\include;D:\Users\amt3824\Git\Brickware-Engine\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareUtils\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareCore\include;D:\Users\amt3824\Git\Brickware-Engine\GL\include;D:\Users\amt3824\Git\Brickware-Engine\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -209,7 +209,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="D:/Users/amt3824/Git/Brickware-Engine/Build/ALL_BUILD.vcxproj">
-      <Project>E0B3C11E-FB71-43B7-8DAC-BC45A3009DE4</Project>
+      <Project>1F9242FE-5462-4E5F-8A8D-A6692143ABD5</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

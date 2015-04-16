@@ -10,7 +10,7 @@ Microsoft (R) Build Engine version 12.0.31101.0
 [Microsoft .NET Framework, version 4.0.30319.34014]
 Copyright (C) Microsoft Corporation. All rights reserved.
 
-Build started 4/15/2015 4:16:20 PM.
+Build started 4/16/2015 3:31:40 PM.
 Project "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\3.2.2\CompilerIdC\CompilerIdC.vcxproj" on node 1 (default targets).
 PrepareForBuild:
   Creating directory "Debug\".
@@ -36,7 +36,7 @@ Build succeeded.
     0 Warning(s)
     0 Error(s)
 
-Time Elapsed 00:00:01.41
+Time Elapsed 00:00:01.62
 
 
 Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
@@ -56,7 +56,7 @@ Microsoft (R) Build Engine version 12.0.31101.0
 [Microsoft .NET Framework, version 4.0.30319.34014]
 Copyright (C) Microsoft Corporation. All rights reserved.
 
-Build started 4/15/2015 4:16:21 PM.
+Build started 4/16/2015 3:31:42 PM.
 Project "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\3.2.2\CompilerIdCXX\CompilerIdCXX.vcxproj" on node 1 (default targets).
 PrepareForBuild:
   Creating directory "Debug\".
@@ -82,7 +82,7 @@ Build succeeded.
     0 Warning(s)
     0 Error(s)
 
-Time Elapsed 00:00:01.05
+Time Elapsed 00:00:01.15
 
 
 Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "CompilerIdCXX.exe"
@@ -94,157 +94,157 @@ The CXX compiler identification is MSVC, found in "D:/Users/amt3824/Git/Brickwar
 Determining if the C compiler works passed with the following output:
 Change Dir: D:/Users/amt3824/Git/Brickware-Engine/Build/CMakeFiles/CMakeTmp
 
-Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTryCompileExec1012617778.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
+Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTryCompileExec1789653465.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
 Microsoft (R) Build Engine version 12.0.31101.0
 [Microsoft .NET Framework, version 4.0.30319.34014]
 Copyright (C) Microsoft Corporation. All rights reserved.
 
-Build started 4/15/2015 4:16:23 PM.
-Project "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\cmTryCompileExec1012617778.vcxproj" on node 1 (default targets).
+Build started 4/16/2015 3:31:43 PM.
+Project "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\cmTryCompileExec1789653465.vcxproj" on node 1 (default targets).
 PrepareForBuild:
-  Creating directory "cmTryCompileExec1012617778.dir\Debug\".
+  Creating directory "cmTryCompileExec1789653465.dir\Debug\".
   Creating directory "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\Debug\".
-  Creating directory "cmTryCompileExec1012617778.dir\Debug\cmTryCom.C1C95100.tlog\".
+  Creating directory "cmTryCompileExec1789653465.dir\Debug\cmTryCom.3824A8E5.tlog\".
 InitializeBuildStatus:
-  Creating "cmTryCompileExec1012617778.dir\Debug\cmTryCom.C1C95100.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+  Creating "cmTryCompileExec1789653465.dir\Debug\cmTryCom.3824A8E5.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
 ClCompile:
-  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec1012617778.dir\Debug\\" /Fd"cmTryCompileExec1012617778.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\testCCompiler.c"
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec1789653465.dir\Debug\\" /Fd"cmTryCompileExec1789653465.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\testCCompiler.c"
   Microsoft (R) C/C++ Optimizing Compiler Version 18.00.31101 for x86
   Copyright (C) Microsoft Corporation.  All rights reserved.
   
-  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec1012617778.dir\Debug\\" /Fd"cmTryCompileExec1012617778.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\testCCompiler.c"
+  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec1789653465.dir\Debug\\" /Fd"cmTryCompileExec1789653465.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\testCCompiler.c"
   
   testCCompiler.c
 Link:
-  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec1012617778.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/Users/amt3824/Git/Brickware-Engine/Build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec1012617778.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/Users/amt3824/Git/Brickware-Engine/Build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec1012617778.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /debug cmTryCompileExec1012617778.dir\Debug\testCCompiler.obj
-  cmTryCompileExec1012617778.vcxproj -> D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec1012617778.exe
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec1789653465.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/Users/amt3824/Git/Brickware-Engine/Build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec1789653465.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/Users/amt3824/Git/Brickware-Engine/Build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec1789653465.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /debug cmTryCompileExec1789653465.dir\Debug\testCCompiler.obj
+  cmTryCompileExec1789653465.vcxproj -> D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec1789653465.exe
 FinalizeBuildStatus:
-  Deleting file "cmTryCompileExec1012617778.dir\Debug\cmTryCom.C1C95100.tlog\unsuccessfulbuild".
-  Touching "cmTryCompileExec1012617778.dir\Debug\cmTryCom.C1C95100.tlog\cmTryCompileExec1012617778.lastbuildstate".
-Done Building Project "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\cmTryCompileExec1012617778.vcxproj" (default targets).
+  Deleting file "cmTryCompileExec1789653465.dir\Debug\cmTryCom.3824A8E5.tlog\unsuccessfulbuild".
+  Touching "cmTryCompileExec1789653465.dir\Debug\cmTryCom.3824A8E5.tlog\cmTryCompileExec1789653465.lastbuildstate".
+Done Building Project "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\cmTryCompileExec1789653465.vcxproj" (default targets).
 
 Build succeeded.
     0 Warning(s)
     0 Error(s)
 
-Time Elapsed 00:00:01.27
+Time Elapsed 00:00:01.40
 
 
 Detecting C compiler ABI info compiled with the following output:
 Change Dir: D:/Users/amt3824/Git/Brickware-Engine/Build/CMakeFiles/CMakeTmp
 
-Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTryCompileExec3015279262.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
+Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTryCompileExec3548078376.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
 Microsoft (R) Build Engine version 12.0.31101.0
 [Microsoft .NET Framework, version 4.0.30319.34014]
 Copyright (C) Microsoft Corporation. All rights reserved.
 
-Build started 4/15/2015 4:16:24 PM.
-Project "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\cmTryCompileExec3015279262.vcxproj" on node 1 (default targets).
+Build started 4/16/2015 3:31:45 PM.
+Project "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\cmTryCompileExec3548078376.vcxproj" on node 1 (default targets).
 PrepareForBuild:
-  Creating directory "cmTryCompileExec3015279262.dir\Debug\".
+  Creating directory "cmTryCompileExec3548078376.dir\Debug\".
   Creating directory "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\Debug\".
-  Creating directory "cmTryCompileExec3015279262.dir\Debug\cmTryCom.80CF77F9.tlog\".
+  Creating directory "cmTryCompileExec3548078376.dir\Debug\cmTryCom.2B9449A2.tlog\".
 InitializeBuildStatus:
-  Creating "cmTryCompileExec3015279262.dir\Debug\cmTryCom.80CF77F9.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+  Creating "cmTryCompileExec3548078376.dir\Debug\cmTryCom.2B9449A2.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
 ClCompile:
-  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec3015279262.dir\Debug\\" /Fd"cmTryCompileExec3015279262.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue "C:\Program Files (x86)\CMake\share\cmake-3.2\Modules\CMakeCCompilerABI.c"
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec3548078376.dir\Debug\\" /Fd"cmTryCompileExec3548078376.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue "C:\Program Files (x86)\CMake\share\cmake-3.2\Modules\CMakeCCompilerABI.c"
   Microsoft (R) C/C++ Optimizing Compiler Version 18.00.31101 for x86
   Copyright (C) Microsoft Corporation.  All rights reserved.
   
-  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec3015279262.dir\Debug\\" /Fd"cmTryCompileExec3015279262.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue "C:\Program Files (x86)\CMake\share\cmake-3.2\Modules\CMakeCCompilerABI.c"
+  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"cmTryCompileExec3548078376.dir\Debug\\" /Fd"cmTryCompileExec3548078376.dir\Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:queue "C:\Program Files (x86)\CMake\share\cmake-3.2\Modules\CMakeCCompilerABI.c"
   
   CMakeCCompilerABI.c
 Link:
-  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec3015279262.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/Users/amt3824/Git/Brickware-Engine/Build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec3015279262.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/Users/amt3824/Git/Brickware-Engine/Build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec3015279262.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /debug cmTryCompileExec3015279262.dir\Debug\CMakeCCompilerABI.obj
-  cmTryCompileExec3015279262.vcxproj -> D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec3015279262.exe
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec3548078376.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/Users/amt3824/Git/Brickware-Engine/Build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec3548078376.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/Users/amt3824/Git/Brickware-Engine/Build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec3548078376.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /debug cmTryCompileExec3548078376.dir\Debug\CMakeCCompilerABI.obj
+  cmTryCompileExec3548078376.vcxproj -> D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec3548078376.exe
 FinalizeBuildStatus:
-  Deleting file "cmTryCompileExec3015279262.dir\Debug\cmTryCom.80CF77F9.tlog\unsuccessfulbuild".
-  Touching "cmTryCompileExec3015279262.dir\Debug\cmTryCom.80CF77F9.tlog\cmTryCompileExec3015279262.lastbuildstate".
-Done Building Project "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\cmTryCompileExec3015279262.vcxproj" (default targets).
+  Deleting file "cmTryCompileExec3548078376.dir\Debug\cmTryCom.2B9449A2.tlog\unsuccessfulbuild".
+  Touching "cmTryCompileExec3548078376.dir\Debug\cmTryCom.2B9449A2.tlog\cmTryCompileExec3548078376.lastbuildstate".
+Done Building Project "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\cmTryCompileExec3548078376.vcxproj" (default targets).
 
 Build succeeded.
     0 Warning(s)
     0 Error(s)
 
-Time Elapsed 00:00:00.96
+Time Elapsed 00:00:01.25
 
 
 Determining if the CXX compiler works passed with the following output:
 Change Dir: D:/Users/amt3824/Git/Brickware-Engine/Build/CMakeFiles/CMakeTmp
 
-Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTryCompileExec1491701804.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
+Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTryCompileExec13525735.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
 Microsoft (R) Build Engine version 12.0.31101.0
 [Microsoft .NET Framework, version 4.0.30319.34014]
 Copyright (C) Microsoft Corporation. All rights reserved.
 
-Build started 4/15/2015 4:16:26 PM.
-Project "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\cmTryCompileExec1491701804.vcxproj" on node 1 (default targets).
+Build started 4/16/2015 3:31:46 PM.
+Project "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\cmTryCompileExec13525735.vcxproj" on node 1 (default targets).
 PrepareForBuild:
-  Creating directory "cmTryCompileExec1491701804.dir\Debug\".
+  Creating directory "cmTryCompileExec13525735.dir\Debug\".
   Creating directory "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\Debug\".
-  Creating directory "cmTryCompileExec1491701804.dir\Debug\cmTryCom.6991ABA7.tlog\".
+  Creating directory "cmTryCompileExec13525735.dir\Debug\cmTryCom.C824B473.tlog\".
 InitializeBuildStatus:
-  Creating "cmTryCompileExec1491701804.dir\Debug\cmTryCom.6991ABA7.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+  Creating "cmTryCompileExec13525735.dir\Debug\cmTryCom.C824B473.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
 ClCompile:
-  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec1491701804.dir\Debug\\" /Fd"cmTryCompileExec1491701804.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\testCXXCompiler.cxx"
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec13525735.dir\Debug\\" /Fd"cmTryCompileExec13525735.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\testCXXCompiler.cxx"
   Microsoft (R) C/C++ Optimizing Compiler Version 18.00.31101 for x86
   Copyright (C) Microsoft Corporation.  All rights reserved.
   
-  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec1491701804.dir\Debug\\" /Fd"cmTryCompileExec1491701804.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\testCXXCompiler.cxx"
+  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec13525735.dir\Debug\\" /Fd"cmTryCompileExec13525735.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\testCXXCompiler.cxx"
   
   testCXXCompiler.cxx
 Link:
-  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec1491701804.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/Users/amt3824/Git/Brickware-Engine/Build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec1491701804.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/Users/amt3824/Git/Brickware-Engine/Build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec1491701804.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /debug cmTryCompileExec1491701804.dir\Debug\testCXXCompiler.obj
-  cmTryCompileExec1491701804.vcxproj -> D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec1491701804.exe
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec13525735.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/Users/amt3824/Git/Brickware-Engine/Build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec13525735.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/Users/amt3824/Git/Brickware-Engine/Build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec13525735.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /debug cmTryCompileExec13525735.dir\Debug\testCXXCompiler.obj
+  cmTryCompileExec13525735.vcxproj -> D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec13525735.exe
 FinalizeBuildStatus:
-  Deleting file "cmTryCompileExec1491701804.dir\Debug\cmTryCom.6991ABA7.tlog\unsuccessfulbuild".
-  Touching "cmTryCompileExec1491701804.dir\Debug\cmTryCom.6991ABA7.tlog\cmTryCompileExec1491701804.lastbuildstate".
-Done Building Project "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\cmTryCompileExec1491701804.vcxproj" (default targets).
+  Deleting file "cmTryCompileExec13525735.dir\Debug\cmTryCom.C824B473.tlog\unsuccessfulbuild".
+  Touching "cmTryCompileExec13525735.dir\Debug\cmTryCom.C824B473.tlog\cmTryCompileExec13525735.lastbuildstate".
+Done Building Project "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\cmTryCompileExec13525735.vcxproj" (default targets).
 
 Build succeeded.
     0 Warning(s)
     0 Error(s)
 
-Time Elapsed 00:00:01.17
+Time Elapsed 00:00:01.12
 
 
 Detecting CXX compiler ABI info compiled with the following output:
 Change Dir: D:/Users/amt3824/Git/Brickware-Engine/Build/CMakeFiles/CMakeTmp
 
-Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTryCompileExec747274456.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
+Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTryCompileExec1791338500.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
 Microsoft (R) Build Engine version 12.0.31101.0
 [Microsoft .NET Framework, version 4.0.30319.34014]
 Copyright (C) Microsoft Corporation. All rights reserved.
 
-Build started 4/15/2015 4:16:27 PM.
-Project "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\cmTryCompileExec747274456.vcxproj" on node 1 (default targets).
+Build started 4/16/2015 3:31:48 PM.
+Project "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\cmTryCompileExec1791338500.vcxproj" on node 1 (default targets).
 PrepareForBuild:
-  Creating directory "cmTryCompileExec747274456.dir\Debug\".
+  Creating directory "cmTryCompileExec1791338500.dir\Debug\".
   Creating directory "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\Debug\".
-  Creating directory "cmTryCompileExec747274456.dir\Debug\cmTryCom.21186DE0.tlog\".
+  Creating directory "cmTryCompileExec1791338500.dir\Debug\cmTryCom.51BF243D.tlog\".
 InitializeBuildStatus:
-  Creating "cmTryCompileExec747274456.dir\Debug\cmTryCom.21186DE0.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+  Creating "cmTryCompileExec1791338500.dir\Debug\cmTryCom.51BF243D.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
 ClCompile:
-  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec747274456.dir\Debug\\" /Fd"cmTryCompileExec747274456.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue "C:\Program Files (x86)\CMake\share\cmake-3.2\Modules\CMakeCXXCompilerABI.cpp"
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec1791338500.dir\Debug\\" /Fd"cmTryCompileExec1791338500.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue "C:\Program Files (x86)\CMake\share\cmake-3.2\Modules\CMakeCXXCompilerABI.cpp"
   Microsoft (R) C/C++ Optimizing Compiler Version 18.00.31101 for x86
   Copyright (C) Microsoft Corporation.  All rights reserved.
   
-  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec747274456.dir\Debug\\" /Fd"cmTryCompileExec747274456.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue "C:\Program Files (x86)\CMake\share\cmake-3.2\Modules\CMakeCXXCompilerABI.cpp"
+  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec1791338500.dir\Debug\\" /Fd"cmTryCompileExec1791338500.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue "C:\Program Files (x86)\CMake\share\cmake-3.2\Modules\CMakeCXXCompilerABI.cpp"
   
   CMakeCXXCompilerABI.cpp
 Link:
-  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec747274456.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/Users/amt3824/Git/Brickware-Engine/Build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec747274456.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/Users/amt3824/Git/Brickware-Engine/Build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec747274456.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /debug cmTryCompileExec747274456.dir\Debug\CMakeCXXCompilerABI.obj
-  cmTryCompileExec747274456.vcxproj -> D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec747274456.exe
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec1791338500.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/Users/amt3824/Git/Brickware-Engine/Build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec1791338500.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/Users/amt3824/Git/Brickware-Engine/Build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec1791338500.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /debug cmTryCompileExec1791338500.dir\Debug\CMakeCXXCompilerABI.obj
+  cmTryCompileExec1791338500.vcxproj -> D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec1791338500.exe
 FinalizeBuildStatus:
-  Deleting file "cmTryCompileExec747274456.dir\Debug\cmTryCom.21186DE0.tlog\unsuccessfulbuild".
-  Touching "cmTryCompileExec747274456.dir\Debug\cmTryCom.21186DE0.tlog\cmTryCompileExec747274456.lastbuildstate".
-Done Building Project "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\cmTryCompileExec747274456.vcxproj" (default targets).
+  Deleting file "cmTryCompileExec1791338500.dir\Debug\cmTryCom.51BF243D.tlog\unsuccessfulbuild".
+  Touching "cmTryCompileExec1791338500.dir\Debug\cmTryCom.51BF243D.tlog\cmTryCompileExec1791338500.lastbuildstate".
+Done Building Project "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\cmTryCompileExec1791338500.vcxproj" (default targets).
 
 Build succeeded.
     0 Warning(s)
     0 Error(s)
 
-Time Elapsed 00:00:00.97
+Time Elapsed 00:00:01.09
 
 
 
@@ -252,40 +252,40 @@ Time Elapsed 00:00:00.97
 Detecting CXX [] compiler features compiled with the following output:
 Change Dir: D:/Users/amt3824/Git/Brickware-Engine/Build/CMakeFiles/CMakeTmp
 
-Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTryCompileExec2287137987.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
+Run Build Command:"C:/Program Files (x86)/MSBuild/12.0/bin/MSBuild.exe" "cmTryCompileExec3811942568.vcxproj" "/p:Configuration=Debug" "/p:VisualStudioVersion=12.0"
 Microsoft (R) Build Engine version 12.0.31101.0
 [Microsoft .NET Framework, version 4.0.30319.34014]
 Copyright (C) Microsoft Corporation. All rights reserved.
 
-Build started 4/15/2015 4:16:28 PM.
-Project "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\cmTryCompileExec2287137987.vcxproj" on node 1 (default targets).
+Build started 4/16/2015 3:31:49 PM.
+Project "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\cmTryCompileExec3811942568.vcxproj" on node 1 (default targets).
 PrepareForBuild:
-  Creating directory "cmTryCompileExec2287137987.dir\Debug\".
+  Creating directory "cmTryCompileExec3811942568.dir\Debug\".
   Creating directory "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\Debug\".
-  Creating directory "cmTryCompileExec2287137987.dir\Debug\cmTryCom.667345C6.tlog\".
+  Creating directory "cmTryCompileExec3811942568.dir\Debug\cmTryCom.8F1A9367.tlog\".
 InitializeBuildStatus:
-  Creating "cmTryCompileExec2287137987.dir\Debug\cmTryCom.667345C6.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
+  Creating "cmTryCompileExec3811942568.dir\Debug\cmTryCom.8F1A9367.tlog\unsuccessfulbuild" because "AlwaysCreate" was specified.
 ClCompile:
-  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec2287137987.dir\Debug\\" /Fd"cmTryCompileExec2287137987.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\feature_tests.cxx"
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec3811942568.dir\Debug\\" /Fd"cmTryCompileExec3811942568.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\feature_tests.cxx"
   Microsoft (R) C/C++ Optimizing Compiler Version 18.00.31101 for x86
   Copyright (C) Microsoft Corporation.  All rights reserved.
   
-  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec2287137987.dir\Debug\\" /Fd"cmTryCompileExec2287137987.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\feature_tests.cxx"
+  cl /c /Zi /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"cmTryCompileExec3811942568.dir\Debug\\" /Fd"cmTryCompileExec3811942568.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:queue "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\feature_tests.cxx"
   
   feature_tests.cxx
 Link:
-  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec2287137987.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/Users/amt3824/Git/Brickware-Engine/Build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec2287137987.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/Users/amt3824/Git/Brickware-Engine/Build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec2287137987.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /debug cmTryCompileExec2287137987.dir\Debug\feature_tests.obj
-  cmTryCompileExec2287137987.vcxproj -> D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec2287137987.exe
+  C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:QUEUE /OUT:"D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec3811942568.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/Users/amt3824/Git/Brickware-Engine/Build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec3811942568.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/Users/amt3824/Git/Brickware-Engine/Build/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec3811942568.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /debug cmTryCompileExec3811942568.dir\Debug\feature_tests.obj
+  cmTryCompileExec3811942568.vcxproj -> D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec3811942568.exe
 FinalizeBuildStatus:
-  Deleting file "cmTryCompileExec2287137987.dir\Debug\cmTryCom.667345C6.tlog\unsuccessfulbuild".
-  Touching "cmTryCompileExec2287137987.dir\Debug\cmTryCom.667345C6.tlog\cmTryCompileExec2287137987.lastbuildstate".
-Done Building Project "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\cmTryCompileExec2287137987.vcxproj" (default targets).
+  Deleting file "cmTryCompileExec3811942568.dir\Debug\cmTryCom.8F1A9367.tlog\unsuccessfulbuild".
+  Touching "cmTryCompileExec3811942568.dir\Debug\cmTryCom.8F1A9367.tlog\cmTryCompileExec3811942568.lastbuildstate".
+Done Building Project "D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\CMakeTmp\cmTryCompileExec3811942568.vcxproj" (default targets).
 
 Build succeeded.
     0 Warning(s)
     0 Error(s)
 
-Time Elapsed 00:00:00.97
+Time Elapsed 00:00:01.10
 
 
     Feature record: CXX_FEATURE:1cxx_alias_templates

@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGUID>{E0B3C11E-FB71-43B7-8DAC-BC45A3009DE4}</ProjectGUID>
+    <ProjectGUID>{1F9242FE-5462-4E5F-8A8D-A6692143ABD5}</ProjectGUID>
     <Keyword>Win32Proj</Keyword>
     <Platform>Win32</Platform>
     <ProjectName>ALL_BUILD</ProjectName>
@@ -163,22 +163,22 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="D:/Users/amt3824/Git/Brickware-Engine/Build/BrickwareCore/BrickwareCore.vcxproj">
-      <Project>DDB23D35-6654-485B-8527-322CE3880524</Project>
+      <Project>D5618F47-EB98-45B7-AEAF-B1FCE0CEBF83</Project>
     </ProjectReference>
     <ProjectReference Include="D:/Users/amt3824/Git/Brickware-Engine/Build/BrickwareGraphics/BrickwareGraphics.vcxproj">
-      <Project>F25BB2CF-FFFC-4383-A4CF-0FAB90ECD294</Project>
+      <Project>48510A1C-CD77-49E5-B114-68FBB28EC379</Project>
     </ProjectReference>
     <ProjectReference Include="D:/Users/amt3824/Git/Brickware-Engine/Build/BrickwareMath/BrickwareMath.vcxproj">
-      <Project>035905F6-632C-4913-95DE-A085E7EC04E3</Project>
+      <Project>14D4310F-6B88-4968-806D-6D3042F80848</Project>
     </ProjectReference>
     <ProjectReference Include="D:/Users/amt3824/Git/Brickware-Engine/Build/BrickwareTest/BrickwareTest.vcxproj">
-      <Project>ABE88266-D184-4C05-AC26-8E5B60BFA260</Project>
+      <Project>AFDE5B40-3D20-4E12-8DFE-3E85BCD4CC10</Project>
     </ProjectReference>
     <ProjectReference Include="D:/Users/amt3824/Git/Brickware-Engine/Build/BrickwareUtils/BrickwareUtils.vcxproj">
-      <Project>48A41057-1FC7-4286-B38A-7597BEEF3D9C</Project>
+      <Project>05FCE196-AEE0-4569-A8BD-204BA90542A8</Project>
     </ProjectReference>
     <ProjectReference Include="D:/Users/amt3824/Git/Brickware-Engine/Build/ZERO_CHECK.vcxproj">
-      <Project>96C2FD06-E7A2-4945-A426-BD2B3E3140E8</Project>
+      <Project>39AFCE8F-0CDE-496A-AAD8-2C88FFDC1497</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

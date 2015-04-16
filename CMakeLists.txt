@@ -38,32 +38,38 @@ add_subdirectory(BrickwareUtils)
 add_subdirectory(BrickwareGraphics)
 add_subdirectory(BrickwareCore)
 if(BUILD_TEST)
-add_subdirectory(BrickwareTest)
+	add_subdirectory(BrickwareTest)
 endif(BUILD_TEST)
 
+if(BUILD_TEST)
+	set(BUILD_TARGETS  BrickwareMath BrickwareUtils BrickwareGraphics BrickwareCore BrickwareTest)
+else(BUILD_TEST)
+	set(BUILD_TARGETS  BrickwareMath BrickwareUtils BrickwareGraphics BrickwareCore)
+endif(BUILD_TEST)
+
+
 if(MSVC)
-	set_target_properties( BrickwareMath BrickwareUtils BrickwareGraphics BrickwareCore BrickwareTest
+	set_target_properties( ${BUILD_TARGETS}
 		PROPERTIES 
 		ARCHIVE_OUTPUT_DIRECTORY ${BUILD_DIR}
 		LIBRARY_OUTPUT_DIRECTORY ${BUILD_DIR}
 		RUNTIME_OUTPUT_DIRECTORY ${BUILD_DIR})
 		
-    set_target_properties( BrickwareMath BrickwareUtils BrickwareGraphics BrickwareCore BrickwareTest
+	set_target_properties( ${BUILD_TARGETS}
 		PROPERTIES 
 		ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${BUILD_DIR}
 		LIBRARY_OUTPUT_DIRECTORY_DEBUG ${BUILD_DIR}
 		RUNTIME_OUTPUT_DIRECTORY_DEBUG ${BUILD_DIR})
 		
-    set_target_properties( BrickwareMath BrickwareUtils BrickwareGraphics BrickwareCore BrickwareTest
+    	set_target_properties( ${BUILD_TARGETS}
 		PROPERTIES 
 		ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${BUILD_DIR}
 		LIBRARY_OUTPUT_DIRECTORY_RELEASE ${BUILD_DIR}
 		RUNTIME_OUTPUT_DIRECTORY_RELEASE ${BUILD_DIR})
 else(MSVC)
-	set_target_properties( BrickwareMath BrickwareUtils BrickwareGraphics BrickwareCore BrickwareTest
+	set_target_properties( ${BUILD_TARGETS}
 		PROPERTIES
 		ARCHIVE_OUTPUT_DIRECTORY ${BUILD_DIR}
 		LIBRARY_OUTPUT_DIRECTORY ${BUILD_DIR}
-		RUNTIME_OUTPUT_DIRECTORY ${BUILD_DIR}
-)
+		RUNTIME_OUTPUT_DIRECTORY ${BUILD_DIR})
 endif(MSVC)

@@ -44,6 +44,12 @@ if(GL_SUPPORT)
 
 endif(GL_SUPPORT)
 
+if(D3D_SUPPORT)
+	target_link_libraries(BrickwareTest d3d11.lib)
+	target_link_libraries(BrickwareTest dxguid.lib)
+	target_link_libraries(BrickwareTest d3dcompiler.lib)
+endif(D3D_SUPPORT)
+
 #Link other Brickware libraries
 target_link_libraries(BrickwareTest BrickwareMath)
 target_link_libraries(BrickwareTest BrickwareUtils)
@@ -62,5 +68,10 @@ if(WIN32 AND GL_SUPPORT)
 	add_custom_command(TARGET BrickwareTest POST_BUILD 
 						COMMAND ${CMAKE_COMMAND} -E copy ${GLFW_LIB}\\glfw3.dll ${BUILD_DIR})
 endif(WIN32 AND GL_SUPPORT)
+
+#Copy compiled HLSL shaders
+if(D3D_SUPPORT)
+	
+endif(D3D_SUPPORT)
 
 install(TARGETS BrickwareTest DESTINATION ${PROJECT_BINARY_DIR})

@@ -103,7 +103,7 @@ namespace Brickware
 
 			//Currently does nothing, should setup a rendering octree
 			virtual void Start() override;
-			//Handles Camera movement
+			//Handles Camera look at calculation and matrix updating
 			virtual void Update() override;
 
 			//Sends data to materials for rendering

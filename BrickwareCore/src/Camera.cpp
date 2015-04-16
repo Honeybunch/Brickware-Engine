@@ -17,9 +17,6 @@ Camera::Camera(float FoV = 50, float width = 0.1f, float height = 0.1f, float zN
 	this->zNear = zNear;
 	this->zFar = zFar;
 
-	//Setup speed and velocity
-	speed = 1.0f;
-
 	lookAt = Vector3();
 
 	SceneCameras.push_back(this);
@@ -48,71 +45,6 @@ void Camera::setActive()
 	active = true;
 }
 
-void Camera::moveForward()
-{
-	Vector3 pos = getGameObject()->getTransform()->getPosition();
-	Vector3 rot = getGameObject()->getTransform()->getEulerRotation();
-
-	float deltaSpeed = speed * GameTime::GetDeltaTime();
-
-	if (Input::getKeyDown(KeyCode::shift))
-		deltaSpeed *= 5;
-
-	pos.setX(pos.getX() - deltaSpeed * sin(rot.getY()));
-	pos.setY(pos.getY() + deltaSpeed * sin(rot.getX()));
-	pos.setZ(pos.getZ() - deltaSpeed * cos(rot.getY()));
-
-	getGameObject()->getTransform()->setPosition(pos);
-}
-
-void Camera::moveBackward()
-{
-	Vector3 pos = getGameObject()->getTransform()->getPosition();
-	Vector3 rot = getGameObject()->getTransform()->getEulerRotation();
-
-	float deltaSpeed = speed * GameTime::GetDeltaTime();
-
-	if (Input::getKeyDown(KeyCode::shift))
-		deltaSpeed *= 5;
-
-	pos.setX(pos.getX() + deltaSpeed * sin(rot.getY()));
-	pos.setZ(pos.getZ() + deltaSpeed * cos(rot.getY()));
-
-	getGameObject()->getTransform()->setPosition(pos);
-}
-
-void Camera::moveLeft()
-{
-	Vector3 pos = getGameObject()->getTransform()->getPosition();
-	Vector3 rot = getGameObject()->getTransform()->getEulerRotation();
-
-	float deltaSpeed = speed * GameTime::GetDeltaTime();
-
-	if (Input::getKeyDown(KeyCode::shift))
-		deltaSpeed *= 5;
-
-	pos.setX(pos.getX() - deltaSpeed * cos(rot.getY()));
-	pos.setZ(pos.getZ() + deltaSpeed * sin(rot.getY()));
-
-	getGameObject()->getTransform()->setPosition(pos);
-}
-
-void Camera::moveRight()
-{
-	Vector3 pos = getGameObject()->getTransform()->getPosition();
-	Vector3 rot = getGameObject()->getTransform()->getEulerRotation();
-
-	float deltaSpeed = speed * GameTime::GetDeltaTime();
-
-	if (Input::getKeyDown(KeyCode::shift))
-		deltaSpeed *= 5;
-
-	pos.setX(pos.getX() + deltaSpeed * cos(rot.getY()));
-	pos.setZ(pos.getZ() - deltaSpeed * sin(rot.getY()));
-
-	getGameObject()->getTransform()->setPosition(pos);
-}
-
 void Camera::Update()
 {
 	//Recalculate lookAt
@@ -125,36 +57,6 @@ void Camera::Update()
 
 	viewMatrix = calcViewMatrix();
 	projectionMatrix = calcProjectionMatrix();
-
-	//Handle Input
-	if (Input::getKeyDown(KeyCode::w))
-		moveForward();
-
-	if (Input::getKeyDown(KeyCode::a))
-		moveLeft();
-
-	if (Input::getKeyDown(KeyCode::s))
-		moveBackward();
-
-	if (Input::getKeyDown(KeyCode::d))
-		moveRight();
-
-	float screenCenterX = Screen::getWidth() / 2.0f;
-	float screenCenterY = Screen::getHeight() / 2.0f;
-
-	//Adjust yaw and pitch based on how much we've deviated from the center
-	float yawDiff = (screenCenterX - Input::getMousePosition().getX()) / Screen::getWidth();
-	float pitchDiff = (screenCenterY - Input::getMousePosition().getY()) / Screen::getHeight();
-
-	Transform* cameraTransform = getGameObject()->getTransform();
-	Vector3 cameraRot = cameraTransform->getEulerRotation();
-
-	cameraRot.setX(cameraRot.getX() + pitchDiff);
-	cameraRot.setY(cameraRot.getY() + yawDiff);
-
-	cameraTransform->setEulerRotation(cameraRot);
-
-	Input::setMousePosition(Vector2(screenCenterX, screenCenterY));
 }
 
 void Camera::Render()

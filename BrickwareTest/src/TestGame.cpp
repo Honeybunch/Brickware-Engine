@@ -170,6 +170,7 @@ bool TestGame::init()
 	GameObject* camera = new GameObject();
 	camera->addComponent(cameraComp);
 	camera->addComponent(new Spawner(cube));
+	camera->addComponent(new FirstPersonController());
 
 	for (unsigned int i = 0; i < gameObjects.size(); i++)
 		gameObjects[i]->Start();

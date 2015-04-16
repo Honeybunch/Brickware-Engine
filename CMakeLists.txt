@@ -2,26 +2,25 @@ cmake_minimum_required (VERSION 2.6)
 
 project(Brickware-Engine)
 
-set(GL_SUPPORT TRUE)
-set(D3D_SUPPORT FALSE)
 set(BUILD_TEST TRUE)
 
 set(BUILD_TEST "" CACHE BOOL "Whether or not to build the test")
 
-if(WIN32)
-	set(GLFW_INCLUDE "" CACHE PATH "GLFW Include Path")
-	set(GLFW_LIB "" CACHE PATH "GLFW Lib Path")
-
-	set(GLEW_INCLUDE "" CACHE PATH "GLFW Include Path")
-	set(GLEW_LIB "" CACHE PATH "GLFW Lib Path")
-	
-	set(GL_SUPPORT "GL_SUPPORT" CACHE BOOL "")
-	set(D3D_SUPPORT "D3D_SUPPORT" CACHE BOOL "")
-	
-	
+if(WIN32)	
 	if(GL_SUPPORT AND D3D_SUPPORT)
 		set(GL_SUPPORT FALSE)
 	endif(GL_SUPPORT AND D3D_SUPPORT)
+	
+	if(GL_SUPPORT)
+		set(GLFW_INCLUDE "" CACHE PATH "GLFW Include Path")
+		set(GLFW_LIB "" CACHE PATH "GLFW Lib Path")
+
+		set(GLEW_INCLUDE "" CACHE PATH "GLFW Include Path")
+		set(GLEW_LIB "" CACHE PATH "GLFW Lib Path")
+		
+		set(GL_SUPPORT TRUE CACHE BOOL "")
+		set(D3D_SUPPORT FALSE CACHE BOOL "")
+	endif(GL_SUPPORT)
 endif(WIN32)
 
 if(D3D_SUPPORT)

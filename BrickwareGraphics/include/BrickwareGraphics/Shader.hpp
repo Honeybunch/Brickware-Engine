@@ -13,7 +13,7 @@
 #include <d3d11.h>
 #include <d3dcompiler.h>
 #include <d3d11shader.h>
-#include "dxerr.h"
+#include "BrickwareGraphics\dxerr.hpp"
 
 //Quick struct to hold D3D11_SHADER_VARIABLE_DESCs and the index of the buffer it belongs to
 struct ConstVariableInfo{

@@ -42,6 +42,12 @@ if(GL_SUPPORT)
 
 endif(GL_SUPPORT)
 
+if(D3D_SUPPORT)
+	target_link_libraries(BrickwareGraphics d3d11.lib)
+	target_link_libraries(BrickwareGraphics dxguid.lib)
+	target_link_libraries(BrickwareGraphics d3dcompiler.lib)
+endif(D3D_SUPPORT)
+
 #Link other Brickware libraries
 target_link_libraries(BrickwareGraphics BrickwareMath)
 target_link_libraries(BrickwareGraphics BrickwareUtils)

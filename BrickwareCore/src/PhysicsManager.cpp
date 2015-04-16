@@ -84,7 +84,7 @@ void PhysicsManager::Update()
 					GameObject* otherObj = other->getGameObject();
 
 					//If there isn't any identical collision, we will send a collision enter call
-					//if (IsCollisionActive(collision) == false && IsCollisionActive(oppositeCollision) == false)
+					if (IsCollisionActive(collision) == false && IsCollisionActive(oppositeCollision) == false)
 					{
 						testObj->OnCollisionEnter(collision);
 						otherObj->OnCollisionEnter(oppositeCollision);
@@ -93,7 +93,7 @@ void PhysicsManager::Update()
 						activeCollisions.push_back(oppositeCollision);
 					}
 					//Otherwise we will send a collision continue call
-					//else
+					else
 					{
 						//TODO
 					}

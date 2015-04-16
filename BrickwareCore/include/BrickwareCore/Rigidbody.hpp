@@ -40,12 +40,18 @@ namespace Brickware
 			void setUseGravity(bool useGravity);
 			void setIsKinematic(bool isKinematic);
 
-			//Functions to manipulate rigidbody
+			//Add force to system
 			void addForce(Math::Vector3 force);
-			void addForceAtPosition(Math::Vector3 force, Math::Vector3 position);
-			void addExplosionForce(Math::Vector3 force, Math::Vector3 position, float radius);
+			
+			//Add force instantaneously
+			void addInstantaneousForce(Math::Vector3 force);
 
+			//void addForceAtPosition(Math::Vector3 force, Math::Vector3 position);
+			//void addExplosionForce(Math::Vector3 force, Math::Vector3 position, float radius);
+
+			//Adds torque to the system
 			void addTorque(Math::Vector3 torque);
+			void addInstantaneousTorque(Math::Vector3 torque);
 
 			void Start();
 			void FixedUpdate();
@@ -54,6 +60,8 @@ namespace Brickware
 			~Rigidbody();
 
 		private:
+			Transform* transform;
+
 			Math::Vector3 acceleration;
 			Math::Vector3 velocity;
 			Math::Vector3 sleepVelocity;
@@ -69,6 +77,8 @@ namespace Brickware
 
 			Math::Matrix3 momentOfInertia();
 
+			int collisionIterations;
+
 			bool detectCollisions;
 			bool isKinematic;
 			bool useGravity;
@@ -76,6 +86,10 @@ namespace Brickware
 			float mass;
 			float drag;
 			float angularDrag;
+
+			Math::Vector3 impulseVector;
+			Math::Vector3 frameForce;
+			Math::Vector3 frameTorque;
 		};
 	}
 }

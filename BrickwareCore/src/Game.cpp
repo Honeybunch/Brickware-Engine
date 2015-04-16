@@ -110,8 +110,8 @@ int Game::run()
 			loops++;
 		}
 
-		//Calculate interpolation
-		interpolation = (float)(((float)ticks + skipTicks - nextGameTick) / (float)skipTicks);
+		//Calculate interpolation (UNUSED)
+		//interpolation = (float)(((float)ticks + skipTicks - nextGameTick) / (float)skipTicks);
 
 		render();
 	}

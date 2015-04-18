@@ -5,13 +5,13 @@
 #include "BrickwareGraphics\BrickwareGraphicsDLL.hpp"
 
 //Graphics Headers
+#ifdef GL_SUPPORT
+#include <GL/glew.h>
+#endif
+
 #ifdef D3D_SUPPORT
 #include <windows.h>
 #include <d3d11.h>
-#endif
-
-#ifdef GL_SUPPORT
-#include <GL/glew.h>
 #endif
 
 //Other Project Headers

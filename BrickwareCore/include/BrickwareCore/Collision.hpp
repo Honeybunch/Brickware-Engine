@@ -18,7 +18,7 @@ namespace Brickware
 		class Collider;
 		class GameObject;
 
-		template class BRICKWARE_CORE_API std::vector < Math::Vector3 > ;
+		template class __declspec(dllexport) std::vector < Math::Vector3 >;
 
 		class BRICKWARE_CORE_API Collision
 		{

@@ -224,9 +224,6 @@ void Mesh::loadOBJ(char* fileName)
 	Vector3 min(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
 	Vector3 max(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
 
-	modelBounds.setMinBound(min);
-	modelBounds.setMaxBound(max);
-
 	string line;
 
 	while (getline(objFile, line))
@@ -266,10 +263,24 @@ void Mesh::loadOBJ(char* fileName)
 				Vector3 vert(x, y, z);
 				modelVerticies.push_back(vert);
 
-				if (vert < modelBounds.getMinBound())
-					modelBounds.setMaxBound(vert);
-				if (vert > modelBounds.getMaxBound())
-					modelBounds.setMaxBound(vert);
+				float testX = vert[0];
+				float testY = vert[1];
+				float testZ = vert[2];
+
+				if (testX < min.getX())
+					min.setX(testX);
+				if (testX > max.getX())
+					max.setX(testX);
+
+				if (testY < min.getY())
+					min.setY(testY);
+				if (testY > max.getY())
+					max.setY(testY);
+
+				if (testZ < min.getZ())
+					min.setZ(testZ);
+				if (testZ > max.getZ())
+					max.setZ(testZ);
 
 				delete[] rawVec;
 
@@ -335,11 +346,11 @@ void Mesh::loadOBJ(char* fileName)
 				int* faceInfo = new int[3];
 
 				for (unsigned int i = 0; i < tokens.size(); i++)
-					faceInfo[i] = (float)atoi(tokens[i].c_str());
+					faceInfo[i] = atoi(tokens[i].c_str());
 
-				int vert = faceInfo[0];
-				int normal = faceInfo[2];
-				int texCoord = faceInfo[1];
+				float vert = (float)faceInfo[0];
+				float normal = (float)faceInfo[2];
+				float texCoord = (float)faceInfo[1];
 
 				Vector3 faceVert(vert, normal, texCoord);
 				modelIndices.push_back(faceVert);
@@ -358,6 +369,9 @@ void Mesh::loadOBJ(char* fileName)
 	setTexCoords(modelTextureCoords);
 	setIndices(modelIndices);
 
+	//Finish creating bounds
+	Vector3 size = max - min;
+	modelBounds = Bounds(Vector3(), size[0], size[1], size[2]);
 	setBounds(modelBounds);
 
 	objFile.close();

@@ -7,12 +7,12 @@
 //DLL Header
 #include "BrickwareUtils\BrickwareUtilsDLL.hpp"
 
+#include <GL/glew.h>
+
 #ifdef _WIN32
 //Graphics Headers
 #include <windows.h>
 #endif
-
-#include <GL/glew.h>
 
 //System Level Headers
 #include <stdio.h>

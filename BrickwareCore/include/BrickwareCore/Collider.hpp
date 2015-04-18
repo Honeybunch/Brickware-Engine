@@ -28,7 +28,7 @@ namespace Brickware
 		class FrustumCollider;
 
 		//Used to avoid warnings about exporting std::vectors
-		template class BRICKWARE_CORE_API std::vector < Math::Vector3 > ;
+		template class __declspec(dllexport) std::vector < Math::Vector3 >;
 
 		class BRICKWARE_CORE_API Collider : public Component
 		{

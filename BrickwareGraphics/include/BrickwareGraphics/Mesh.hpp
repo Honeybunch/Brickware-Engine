@@ -10,12 +10,12 @@
 #define NOMINMAX //Without this windows.h will break std::limits
 
 //Graphics Headers
-#ifdef D3D_SUPPORT
-#include <windows.h>
-#endif
-
 #ifdef GL_SUPPORT
 #include <GL/glew.h>
+#endif
+
+#ifdef D3D_SUPPORT
+#include <windows.h>
 #endif
 
 //Other Brickware Project Headers
@@ -46,8 +46,8 @@ namespace Brickware
 
 		//Warning aversion
 
-		//template class BRICKWARE_GRAPHICS_API std::vector < Math::Vector3 >;
-		//template class BRICKWARE_GRAPHICS_API std::vector < Math::Vector2 >;
+		template class __declspec(dllexport) std::vector < Math::Vector3 >;
+		template class __declspec(dllexport) std::vector < Math::Vector2 >;
 
 		class BRICKWARE_GRAPHICS_API Mesh
 		{

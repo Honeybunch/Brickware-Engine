@@ -5,10 +5,6 @@
 #include "BrickwareCore\BrickwareCoreDLL.hpp"
 
 //Graphics Headers
-#ifdef D3D_SUPPORT
-#include <windows.h>
-#endif
-
 #ifdef GL_SUPPORT
 #include <GL/glew.h>
 
@@ -18,6 +14,10 @@
 
 #define GLFW_INCLUDE_GLU
 #include <glfw3.h>
+#endif
+
+#ifdef D3D_SUPPORT
+#include <windows.h>
 #endif
 
 //Other Brickware Project Headers

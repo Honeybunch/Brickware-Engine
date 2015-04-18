@@ -8,23 +8,24 @@
 #include "BrickwareCore\BrickwareCoreDLL.hpp"
 
 //Graphics Headers
-#ifdef GL_SUPPORT
-#include <GL/glew.h>
-
-#ifdef _WIN32
-#define GLFW_DLL
-#endif
-
-#define GLFW_INCLUDE_GLU
-#include <glfw3.h>
-#endif
-
 #ifdef D3D_SUPPORT
 #include <windows.h>
 #include <WindowsX.h>
 #include <d3d11.h>
 #include <assert.h>
 #include "BrickwareGraphics\dxerr.hpp"
+#endif
+
+#ifdef GL_SUPPORT
+#include <GL/glew.h>
+
+#ifdef _WIN32
+#include <windows.h>
+#define GLFW_DLL
+#endif
+
+#define GLFW_INCLUDE_GLU
+#include <glfw3.h>
 #endif
 
 //Other Brickware Project Headers

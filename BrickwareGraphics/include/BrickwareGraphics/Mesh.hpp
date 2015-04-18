@@ -38,12 +38,27 @@ namespace Brickware
 {
 	namespace Graphics
 	{
+		enum BRICKWARE_GRAPHICS_API BufferHint
+		{
+			STATIC_DRAW,
+			DYNAMIC_DRAW
+		};
+
+		//Warning aversion
+
+		//template class BRICKWARE_GRAPHICS_API std::vector < Math::Vector3 >;
+		//template class BRICKWARE_GRAPHICS_API std::vector < Math::Vector2 >;
+
 		class BRICKWARE_GRAPHICS_API Mesh
 		{
 		public:
 			Mesh(char* modelFilePath);
 
-			float* getPoints();
+			std::vector<Math::Vector3> getVerticies();
+			std::vector<Math::Vector3> getNormals();
+			std::vector<Math::Vector2> getTexCoords();
+			std::vector<Math::Vector3> getIndices();
+
 			Math::Bounds getBounds();
 
 			int getPointSize();
@@ -51,8 +66,21 @@ namespace Brickware
 			int getIndexSize();
 			int getNumberOfVerts();
 			int getTexCoordSize();
+			
+			void setBufferHint(BufferHint hint);
+
+			void setVertices(std::vector<Math::Vector3> newVerts);
+			void setNormals(std::vector<Math::Vector3> newNormals);
+			void setTexCoords(std::vector<Math::Vector2> newTexCoords);
+			void setIndices(std::vector<Math::Vector3> newIndices);
+
+			void setBounds(Math::Bounds newBounds);
+
+			//To be called after you've set all the verts, normals, etc
+			void bufferChanges();
 
 #ifdef GL_SUPPORT
+			int glBufferHint;
 			GLuint getVBO();
 			GLuint getIBO();
 #endif
@@ -64,27 +92,33 @@ namespace Brickware
 
 			ID3D11Buffer* getIndexBuffer();
 #endif
-
 			~Mesh();
 
 		private:
 			void loadOBJ(char* fileName);
 
+			std::vector<Math::Vector3> modelVerts;
+			std::vector<Math::Vector3> modelNormals;
+			std::vector<Math::Vector2> modelTexCoords;
+			std::vector<Math::Vector3> modelIndices;
+
 			float* points;
 			float* normals;
-			unsigned short* indices;
 			float* texCoords;
+
+			unsigned short* indices;
 
 			Math::Bounds bounds;
 
-			int pointSize;
-			int normalSize;
-			int indexSize;
-			int numberOfVerts;
-			int texCoordSize;
+			unsigned int numberOfVerts;
+
+			unsigned int pointSize;
+			unsigned int normalSize;			
+			unsigned int texCoordSize;
+
+			unsigned int indexSize;
 
 #ifdef GL_SUPPORT
-
 			//Buffer IDs
 			GLuint vbo;
 			GLuint ibo;

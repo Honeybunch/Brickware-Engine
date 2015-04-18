@@ -10,24 +10,179 @@ using namespace Math;
 
 Mesh::Mesh(char* modelFileName)
 {
+	points = NULL;
+	normals = NULL;
+	texCoords = NULL;
+	indices = NULL;
+
 	loadOBJ(modelFileName);
 
-#ifdef D3D_SUPPORT
-	bufferD3D();
-#else
-	bufferGL();
-#endif
+	setBufferHint(BufferHint::STATIC_DRAW);
+
+	bufferChanges();
 }
 
-//Accessors
-float* Mesh::getPoints(){ return points; }
-Bounds Mesh::getBounds(){ return bounds; }
+vector<Vector3> Mesh::getVerticies()
+{
+	return modelVerts;
+}
+vector<Math::Vector3> Mesh::getNormals()
+{
+	return modelNormals;
+}
+vector<Math::Vector2> Mesh::getTexCoords()
+{
+	return modelTexCoords;
+}
+vector<Vector3> Mesh::getIndices()
+{
+	return modelIndices;
+}
 
 int Mesh::getPointSize(){ return pointSize; }
 int Mesh::getNormalSize(){ return normalSize; }
+int Mesh::getTexCoordSize(){ return texCoordSize; }
+
 int Mesh::getIndexSize(){ return indexSize; }
 int Mesh::getNumberOfVerts(){ return numberOfVerts; }
-int Mesh::getTexCoordSize(){ return texCoordSize; }
+
+Bounds Mesh::getBounds(){ return bounds; }
+void Mesh::setBounds(Bounds newBounds){ bounds = newBounds; }
+
+void Mesh::setBufferHint(BufferHint hint)
+{
+#ifdef GL_SUPPORT
+	if (hint == BufferHint::STATIC_DRAW)
+		glBufferHint = GL_STATIC_DRAW;
+	else if (hint == BufferHint::DYNAMIC_DRAW)
+		glBufferHint = GL_DYNAMIC_DRAW;
+#endif
+
+}
+
+void Mesh::setVertices(vector<Vector3> newVerts)
+{
+	modelVerts = newVerts;
+
+	/*
+	const unsigned int vertSize = verts.size();
+	const unsigned int pointCount = vertSize * 3;
+	pointSize = pointCount * sizeof(float);
+
+	//Have to delete and (re-)buffer the data
+	if (points != NULL)
+		delete[] points;
+	points = new float[pointCount];
+
+	unsigned int pointIndex = 0;
+	for (unsigned int i = 0; i < vertSize; i++)
+	{
+		Vector3 vert = verts[i];
+
+		points[i] = vert[0];
+		points[i + 1] = vert[1];
+		points[i + 2] = vert[2];
+
+		pointIndex += 3;
+	}
+
+	numberOfVerts = vertSize;*/
+}
+
+void Mesh::setNormals(vector<Vector3> newNormals)
+{
+	modelNormals = newNormals;
+}
+
+void Mesh::setTexCoords(vector<Vector2> newTexCoords)
+{
+	modelTexCoords = newTexCoords;
+}
+
+void Mesh::setIndices(vector<Vector3> newIndices)
+{
+	modelIndices = newIndices;
+}
+
+void Mesh::bufferChanges()
+{
+	//We need to take the data loaded from the model and order it the way that
+	//OpenGL and DirectX want
+
+	const unsigned int indexCount = modelIndices.size();
+	indexSize = indexCount * sizeof(unsigned short);
+
+	//Need to clear out data if it exits
+	if (points)
+		delete[] points;
+	if (normals)
+		delete[] normals;
+	if (texCoords)
+		delete[] texCoords;
+	if (indices)
+		delete[] indices;
+
+	//Then we need to setup the arrays to hold the data we want to buffer
+	points = new float[indexCount * 3];
+	normals = new float[indexCount * 3];
+	texCoords = new float[indexCount * 2];
+
+	indices = new unsigned short[indexCount];
+
+	//Setup sizes for data
+	pointSize = indexCount * 3 * sizeof(float);
+	normalSize = pointSize;
+	texCoordSize = indexCount * 2 * sizeof(float);
+
+	int pointCounter = 0;
+	int normalCounter = 0;
+	int texCoordCounter = 0;
+
+	for (unsigned int i = 0; i < indexCount; i++)
+	{
+		Vector3 indexVector = modelIndices[i];
+
+		Vector3 vert = modelVerts[(int)indexVector[0] - 1];
+		Vector3 normal = modelNormals[(int)indexVector[1] - 1];
+		Vector2 texCoord = modelTexCoords[(int)indexVector[2] - 1];
+
+		//Set vertex elements
+		points[pointCounter] = vert[0];
+		points[pointCounter + 1] = vert[1];
+		points[pointCounter + 2] = vert[2];
+		pointCounter += 3;
+
+		//Set normal elements
+		normals[normalCounter] = normal[0];
+		normals[normalCounter + 1] = normal[1];
+		normals[normalCounter + 2] = normal[2];
+		normalCounter += 3;
+
+		//Set texture coordinate elements
+		texCoords[texCoordCounter] = texCoord[0];
+		texCoords[texCoordCounter + 1] = texCoord[1];
+		texCoordCounter += 2;
+
+		indices[i] = i;
+	}
+
+	//Actually have the drawing API buffer data
+#ifdef GL_SUPPORT
+	bufferGL();
+#endif
+
+#ifdef D3D_SUPPORT
+	bufferD3D();
+#endif
+
+	//We can clear this memory for now after it's buffered
+	if (points)
+		delete[] points;
+	if (normals)
+		delete[] normals;
+	if (texCoords)
+		delete[] texCoords;
+}
 
 #ifdef GL_SUPPORT
 GLuint Mesh::getVBO(){ return vbo; }
@@ -59,7 +214,14 @@ void Mesh::loadOBJ(char* fileName)
 	vector<Vector3> modelVerticies;
 	vector<Vector2> modelTextureCoords;
 	vector<Vector3> modelNormals;
-	vector<vector<Vector3>> faces;
+	vector<Vector3> modelIndices;
+
+	Bounds modelBounds;
+	Vector3 min(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
+	Vector3 max(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
+
+	modelBounds.setMinBound(min);
+	modelBounds.setMaxBound(max);
 
 	string line;
 
@@ -99,6 +261,11 @@ void Mesh::loadOBJ(char* fileName)
 
 				Vector3 vert(x, y, z);
 				modelVerticies.push_back(vert);
+
+				if (vert < modelBounds.getMinBound())
+					modelBounds.setMaxBound(vert);
+				if (vert > modelBounds.getMaxBound())
+					modelBounds.setMaxBound(vert);
 
 				delete[] rawVec;
 
@@ -156,29 +323,25 @@ void Mesh::loadOBJ(char* fileName)
 			//use a string splitting method so we can nest with strtok
 			vector<string> rawFaces = StringUtils::stringSplit(cLine + 2, " ");
 
-			vector<Vector3> face;
-
 			for (unsigned int i = 0; i < rawFaces.size(); i++)
 			{
 				//Parse even further, now to get face info
 				vector<string> tokens = StringUtils::stringSplit(rawFaces[i].c_str(), "/");
 
-				float* faceInfo = new float[3];
+				int* faceInfo = new int[3];
 
 				for (unsigned int i = 0; i < tokens.size(); i++)
-					faceInfo[i] = (float)atof(tokens[i].c_str());
+					faceInfo[i] = (float)atoi(tokens[i].c_str());
 
-				float vert = faceInfo[0];
-				float texCoord = faceInfo[1];
-				float normal = faceInfo[2];
+				int vert = faceInfo[0];
+				int normal = faceInfo[2];
+				int texCoord = faceInfo[1];
 
-				Vector3 faceVert(vert, texCoord, normal);
-				face.push_back(faceVert);
+				Vector3 faceVert(vert, normal, texCoord);
+				modelIndices.push_back(faceVert);
 
 				delete[] faceInfo;
 			}
-
-			faces.push_back(face);
 
 			break;
 		}
@@ -186,102 +349,12 @@ void Mesh::loadOBJ(char* fileName)
 		}
 	}
 
-	//For every face we have 3 vertices and 3 components for each vertex
-	unsigned int numOfFaces = faces.size();
+	setVertices(modelVerticies);
+	setNormals(modelNormals);
+	setTexCoords(modelTextureCoords);
+	setIndices(modelIndices);
 
-	numberOfVerts = numOfFaces * 3;
-
-	pointSize = numOfFaces * 9 * sizeof(float);
-	normalSize = numOfFaces * 9 * sizeof(float);
-	texCoordSize = numOfFaces * 6 * sizeof(float);
-
-	indexSize = numberOfVerts * sizeof(unsigned short);
-
-	points = new float[numOfFaces * 9];
-	normals = new float[numOfFaces * 9];
-	texCoords = new float[numOfFaces * 6];
-
-	indices = new unsigned short[numOfFaces * 9];
-
-	//We're going to use these to populate the bounds of the mesh
-	float min = std::numeric_limits<float>::min();
-	float max = std::numeric_limits<float>::max();
-
-	Vector3 minPoint(max, max, max);
-	Vector3 maxPoint(min, min, min);
-
-	for (unsigned int i = 0; i < faces.size(); i++)
-	{
-		//We need to determine which order the vertices, normals and texCoords will be added into the arrays
-		vector<int> faceVertexIndices;
-		vector<int> faceNormalIndices;
-		vector<int> faceTextureCoordIndices;
-
-		vector<Vector3> face = faces[i];
-
-		for (unsigned int j = 0; j < face.size(); j++)
-		{
-			Vector3 faceInfo = face[j];
-
-			//Get info about the face
-			faceVertexIndices.push_back((int)faceInfo.getX() - 1);
-			if (faceInfo.getY() > 0)
-				faceTextureCoordIndices.push_back((int)faceInfo.getY() - 1);
-			else
-				faceTextureCoordIndices.push_back(0);
-			faceNormalIndices.push_back((int)faceInfo.getZ() - 1);
-		}
-
-		//Add data to the arrays
-		for (int j = 0; j < 3; j++)
-		{
-			Vector3 vertex;
-			Vector3 normal;
-			Vector2 texCoord;
-
-			vertex = modelVerticies[faceVertexIndices[j]];
-
-			//We may not have normals or texCoords
-			if (faceNormalIndices.size() > 0)
-				normal = modelNormals[faceNormalIndices[j]];
-			if (faceTextureCoordIndices.size() > 0)
-				texCoord = modelTextureCoords[faceTextureCoordIndices[j]];
-
-			//put data into the arrays
-			memcpy(points + (i * 9) + (j * 3), vertex.getAsArray(), 3 * sizeof(float));
-			memcpy(normals + (i * 9) + (j * 3), normal.getAsArray(), 3 * sizeof(float));
-			memcpy(texCoords + (i * 6) + (j * 2), texCoord.getAsArray(), 2 * sizeof(float));
-
-			indices[(i * 9) + (j * 3)] = (i * 9) + (j * 3);
-			indices[(i * 9) + (j * 3) + 1] = (i * 9) + (j * 3) + 1;
-			indices[(i * 9) + (j * 3) + 2] = (i * 9) + (j * 3) + 2;
-
-			//While we're at it also compare the components of these vertices to the current bounds of the mes
-			float testX = vertex[0];
-			float testY = vertex[1];
-			float testZ = vertex[2];
-
-			if (testX < minPoint.getX())
-				minPoint.setX(testX);
-			if (testX > maxPoint.getX())
-				maxPoint.setX(testX);
-
-			if (testY < minPoint.getY())
-				minPoint.setY(testY);
-			if (testY > maxPoint.getY())
-				maxPoint.setY(testY);
-
-			if (testZ < minPoint.getZ())
-				minPoint.setZ(testZ);
-			if (testZ > maxPoint.getZ())
-				maxPoint.setZ(testZ);
-		}
-	}
-
-	//Finish calculating bounds
-	Vector3 size = maxPoint - minPoint;
-
-	bounds = Bounds(Vector3(), size.getX(), size.getY(), size.getZ());
+	setBounds(modelBounds);
 
 	objFile.close();
 }
@@ -293,7 +366,7 @@ void Mesh::bufferGL()
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
-	glBufferData(GL_ARRAY_BUFFER, pointSize + normalSize + texCoordSize, NULL, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, pointSize + normalSize + texCoordSize, NULL, glBufferHint);
 	glBufferSubData(GL_ARRAY_BUFFER, 0, pointSize, points);
 	glBufferSubData(GL_ARRAY_BUFFER, pointSize, normalSize, normals);
 	glBufferSubData(GL_ARRAY_BUFFER, pointSize + normalSize, texCoordSize, texCoords);
@@ -301,7 +374,7 @@ void Mesh::bufferGL()
 	//Setup the IBO
 	glGenBuffers(1, &ibo);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexSize, indices, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexSize, indices, glBufferHint);
 }
 #endif
 

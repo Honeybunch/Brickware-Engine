@@ -1,6 +1,7 @@
 #define BRICKWARE_CORE_EXPORTS
 
 #include "BrickwareCore\MeshRenderer.hpp"
+#include "BrickwareCore\Rigidbody.hpp"
 
 using namespace Brickware;
 using namespace Core;
@@ -22,6 +23,14 @@ Component* MeshRenderer::Clone()
 	MeshRenderer* copy = new MeshRenderer(*this);
 	copy->material = new Material(*material);
 	return copy; 
+}
+
+//Determine if there is any chance that we'll need to rebuffer the mesh
+void MeshRenderer::Start()
+{
+	GameObject* gameObject = getGameObject();
+	//if (gameObject->getComponent<Rigidbody>() != NULL)
+		//mesh->setBufferHint(BufferHint::DYNAMIC_DRAW);
 }
 
 //Draw everything in the VBOs

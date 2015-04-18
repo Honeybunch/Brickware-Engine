@@ -83,7 +83,7 @@ bool TestGame::init()
 	Mesh* squareMesh = new Mesh("Models/square.obj");
 	Mesh* circleMesh = new Mesh("Models/circle.obj");
 	Mesh* triangleMesh = new Mesh("Models/triangle.obj");
-
+	
 	//Create Lights
 	GameObject* light1 = new GameObject();
 	PointLight* light1Comp = new PointLight();

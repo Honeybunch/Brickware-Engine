@@ -53,6 +53,9 @@ namespace Brickware
 			//Overridden Clone method so that this <Component> can be copied
 			virtual Component* Clone() override;
 
+			//Overridden for startup
+			virtual void Start();
+
 			//Overridden for rendering
 			virtual void Render();
 

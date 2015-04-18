@@ -138,6 +138,8 @@ void Mesh::bufferChanges()
 	int normalCounter = 0;
 	int texCoordCounter = 0;
 
+	numberOfVerts = indexCount;
+
 	for (unsigned int i = 0; i < indexCount; i++)
 	{
 		Vector3 indexVector = modelIndices[i];
@@ -182,6 +184,8 @@ void Mesh::bufferChanges()
 		delete[] normals;
 	if (texCoords)
 		delete[] texCoords;
+	if (indices)
+		delete[] indices;
 }
 
 #ifdef GL_SUPPORT
@@ -374,7 +378,7 @@ void Mesh::bufferGL()
 	//Setup the IBO
 	glGenBuffers(1, &ibo);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexSize, indices, glBufferHint);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexSize, indices, GL_STATIC_DRAW);
 }
 #endif
 

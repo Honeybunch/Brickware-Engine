@@ -22,8 +22,8 @@ Spring::Spring(Node* node1, Node* node2, float stiffness)
 
 	float invMassSum = invMass1 + invMass2;
 
-	node1StiffnessScalar =  stiffness;
-	node2StiffnessScalar =  stiffness;
+	node1StiffnessScalar = stiffness;
+	node2StiffnessScalar = stiffness;
 }
 
 void Spring::updateForces()
@@ -96,11 +96,13 @@ void Node::updateForces()
 	if (pinned)
 		return;
 
-	acceleration[1] += (PhysicsManager::GetGravity() / mass);
-	acceleration += (frameForce / mass);
-	velocity += acceleration;
+	//frameForce *= GameTime::GetDeltaTime();
 
-	position += velocity; 
+	acceleration[1] += (-.0981f*.5f / mass);
+	acceleration += (frameForce / mass);
+	velocity += acceleration * GameTime::GetDeltaTime();
+
+	position += velocity;
 
 	//Apply basic friction to acceleration
 	acceleration *= .90f;
@@ -118,7 +120,7 @@ void Node::updateForces()
 Softbody::Softbody()
 {
 	this->mass = 1.0f;
-	this->stiffness = .1f;
+	this->stiffness = .92f;
 }
 
 Softbody::Softbody(float nodeMass, float stiffness)
@@ -192,6 +194,7 @@ void Softbody::Start()
 	//DEBUG
 	//Pin some nodes
 	nodes[4]->pinned = true;
+	nodes[6]->pinned = true;
 
 	//Sort nodes into the same order as the verts
 	vector<Node*> orderedNodes;
@@ -262,22 +265,22 @@ void Softbody::FixedUpdate()
 	//DEBUG
 	if (Input::getKeyDown(KeyCode::e))
 	{
-		nodes[0]->addForce(Vector3(-0.03f, .03f, 0));
+		nodes[0]->addForce(Vector3(-0.3f, 0.3f, 0));
 	}
 	if (Input::getKeyDown(KeyCode::q))
 	{
-		nodes[3]->addForce(Vector3(0.03f, .03f, 0));
+		nodes[3]->addForce(Vector3(0.3f, 0.3f, 0));
 	}
 
 	vector<Vector3> newVerts;
 
-	//Apply force to nodes
-	for (unsigned int i = 0; i < nodes.size(); i++)
-		nodes[i]->updateForces();
-
 	//Apply forces to springs and their connected nodes
 	for (unsigned int i = 0; i < springs.size(); i++)
 		springs[i]->updateForces();
+
+	//Apply force to nodes
+	for (unsigned int i = 0; i < nodes.size(); i++)
+		nodes[i]->updateForces();
 
 	//Update mesh data appropriately
 	for (unsigned int i = 0; i < nodes.size(); i++)

@@ -1,4 +1,4 @@
-﻿Build started 4/18/2015 9:26:26 PM.
+﻿Build started 4/19/2015 5:49:09 PM.
      1>Project "D:\Users\amt3824\Git\Brickware-Engine\Build\BrickwareTest\BrickwareTest.vcxproj" on node 3 (Build target(s)).
      1>Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Users\amt3824\Git\Brickware-Engine\Build\TestBuild\BrickwareTest.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib opengl32.lib ..\..\GL\lib\Win32\\glew32.lib ..\..\GLFW\lib\Win32\\glfw3dll.lib ..\TestBuild\BrickwareCore.lib ..\TestBuild\BrickwareGraphics.lib ..\..\GLFW\lib\Win32\\glfw3dll.lib ..\TestBuild\BrickwareMath.lib ..\TestBuild\BrickwareUtils.lib opengl32.lib ..\..\GL\lib\Win32\\glew32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/Users/amt3824/Git/Brickware-Engine/Build/TestBuild/BrickwareTest.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/Users/amt3824/Git/Brickware-Engine/Build/TestBuild/BrickwareTest.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /debug BrickwareTest.dir\Debug\Despawn.obj
@@ -41,4 +41,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.56
+Time Elapsed 00:00:01.42

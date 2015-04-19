@@ -1,7 +1,7 @@
 #define BRICKWARE_CORE_EXPORTS
 
 #include "BrickwareCore\MeshRenderer.hpp"
-#include "BrickwareCore\Rigidbody.hpp"
+#include "BrickwareCore\Softbody.hpp"
 
 using namespace Brickware;
 using namespace Core;
@@ -29,8 +29,8 @@ Component* MeshRenderer::Clone()
 void MeshRenderer::Start()
 {
 	GameObject* gameObject = getGameObject();
-	//if (gameObject->getComponent<Rigidbody>() != NULL)
-		//mesh->setBufferHint(BufferHint::DYNAMIC_DRAW);
+	if (gameObject->getComponent<Softbody>() != NULL)
+		mesh->setBufferHint(BufferHint::DYNAMIC_DRAW);
 }
 
 //Draw everything in the VBOs

@@ -10,6 +10,7 @@ using namespace Math;
 std::vector<Collision*> PhysicsManager::activeCollisions;
 std::vector<Collision*> PhysicsManager::lastFrameActiveCollisions;
 std::unordered_map<Rigidbody*, int> PhysicsManager::rigidbodies;
+std::unordered_map<Softbody*, int> PhysicsManager::softbodies;
 std::unordered_map<Collider*, int> PhysicsManager::colliders;
 float PhysicsManager::gravity;
 
@@ -52,6 +53,13 @@ void PhysicsManager::Update()
 		Rigidbody* rigidbody = pair.first;
 		rigidbody->FixedUpdate();
 	}	
+
+	//Update softbodies
+	for (std::pair<Softbody*, int> pair : softbodies)
+	{
+		Softbody* softbody = pair.first;
+		softbody->FixedUpdate();
+	}
 
 	//Detect collisions
 	for (auto it1 = colliders.begin(); it1 != colliders.end(); it1++)
@@ -145,6 +153,10 @@ void PhysicsManager::AddRigidbody(Rigidbody* rigidbody)
 {
 	rigidbodies[rigidbody] = 0;
 }
+void PhysicsManager::AddSoftbody(Softbody* softbody)
+{
+	softbodies[softbody] = 0;
+}
 void PhysicsManager::AddCollider(Collider* collider)
 {
 	colliders[collider] = 0;
@@ -153,6 +165,10 @@ void PhysicsManager::AddCollider(Collider* collider)
 void PhysicsManager::RemoveRigidbody(Rigidbody* rigidbody)
 {
 	rigidbodies.erase(rigidbody);
+}
+void PhysicsManager::RemoveSoftbody(Softbody* softbody)
+{
+	softbodies.erase(softbody);
 }
 void PhysicsManager::RemoveCollider(Collider* collider)
 {

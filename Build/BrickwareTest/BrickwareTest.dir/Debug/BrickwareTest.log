@@ -1,5 +1,44 @@
-﻿Build started 4/18/2015 1:09:32 PM.
+﻿Build started 4/18/2015 9:26:26 PM.
+     1>Project "D:\Users\amt3824\Git\Brickware-Engine\Build\BrickwareTest\BrickwareTest.vcxproj" on node 3 (Build target(s)).
+     1>Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Users\amt3824\Git\Brickware-Engine\Build\TestBuild\BrickwareTest.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib opengl32.lib ..\..\GL\lib\Win32\\glew32.lib ..\..\GLFW\lib\Win32\\glfw3dll.lib ..\TestBuild\BrickwareCore.lib ..\TestBuild\BrickwareGraphics.lib ..\..\GLFW\lib\Win32\\glfw3dll.lib ..\TestBuild\BrickwareMath.lib ..\TestBuild\BrickwareUtils.lib opengl32.lib ..\..\GL\lib\Win32\\glew32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/Users/amt3824/Git/Brickware-Engine/Build/TestBuild/BrickwareTest.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/Users/amt3824/Git/Brickware-Engine/Build/TestBuild/BrickwareTest.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /debug BrickwareTest.dir\Debug\Despawn.obj
+         BrickwareTest.dir\Debug\Main.obj
+         BrickwareTest.dir\Debug\Spawner.obj
+         BrickwareTest.dir\Debug\Spin.obj
+         BrickwareTest.dir\Debug\TestGame.obj
+            Creating library D:/Users/amt3824/Git/Brickware-Engine/Build/TestBuild/BrickwareTest.lib and object D:/Users/amt3824/Git/Brickware-Engine/Build/TestBuild/BrickwareTest.exp
+         BrickwareTest.vcxproj -> D:\Users\amt3824\Git\Brickware-Engine\Build\TestBuild\BrickwareTest.exe
+       PostBuildEvent:
+         setlocal
+         "C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_directory D:/Users/amt3824/Git/Brickware-Engine\Assets D:/Users/amt3824/Git/Brickware-Engine/Build\TestBuild
+         if %errorlevel% neq 0 goto :cmEnd
+         :cmEnd
+         endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+         :cmErrorLevel
+         exit /b %1
+         :cmDone
+         if %errorlevel% neq 0 goto :VCEnd
+         setlocal
+         "C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy D:/Users/amt3824/Git/Brickware-Engine/GL/lib/Win32/\glew32.dll D:/Users/amt3824/Git/Brickware-Engine/Build\TestBuild
+         if %errorlevel% neq 0 goto :cmEnd
+         :cmEnd
+         endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+         :cmErrorLevel
+         exit /b %1
+         :cmDone
+         if %errorlevel% neq 0 goto :VCEnd
+         setlocal
+         "C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy D:/Users/amt3824/Git/Brickware-Engine/GLFW/lib/Win32/\glfw3.dll D:/Users/amt3824/Git/Brickware-Engine/Build\TestBuild
+         if %errorlevel% neq 0 goto :cmEnd
+         :cmEnd
+         endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+         :cmErrorLevel
+         exit /b %1
+         :cmDone
+         if %errorlevel% neq 0 goto :VCEnd
+         :VCEnd
+     1>Done Building Project "D:\Users\amt3824\Git\Brickware-Engine\Build\BrickwareTest\BrickwareTest.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.02
+Time Elapsed 00:00:01.56

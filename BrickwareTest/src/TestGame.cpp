@@ -80,7 +80,7 @@ bool TestGame::init()
 	Mesh* sphereMesh = new Mesh("Models/sphere.obj");
 	Mesh* cubeMesh = new Mesh("Models/cube.obj");
 
-	Mesh* squareMesh = new Mesh("Models/square.obj");
+	Mesh* squareMesh = new Mesh("Models/cloth.obj");
 	Mesh* circleMesh = new Mesh("Models/circle.obj");
 	Mesh* triangleMesh = new Mesh("Models/triangle.obj");
 	
@@ -137,9 +137,7 @@ bool TestGame::init()
 	GameObject* square = new GameObject();
 	square->getTransform()->setPosition(Vector3(0.0f, 1.0f, -5.0f));
 	square->addComponent(new MeshRenderer(squareMesh, squareMaterial));
-	Spin* squareSpin = new Spin();
-	squareSpin->rotationDelta = Vector3(0.0f, 0.05f, 0.0f);
-	square->addComponent(squareSpin);
+	square->addComponent(new Softbody());
 	GameObject* circle = new GameObject();
 	circle->getTransform()->setPosition(Vector3(3.0f, 1.0f, -5.0f));
 	circle->addComponent(new MeshRenderer(circleMesh, circleMaterial));

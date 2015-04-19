@@ -22,22 +22,10 @@ Mesh::Mesh(char* modelFileName)
 	bufferChanges();
 }
 
-vector<Vector3> Mesh::getVerticies()
-{
-	return modelVerts;
-}
-vector<Math::Vector3> Mesh::getNormals()
-{
-	return modelNormals;
-}
-vector<Math::Vector2> Mesh::getTexCoords()
-{
-	return modelTexCoords;
-}
-vector<Vector3> Mesh::getIndices()
-{
-	return modelIndices;
-}
+vector<Vector3> Mesh::getVerticies(){ return modelVerts; }
+vector<Vector3> Mesh::getNormals(){ return modelNormals; }
+vector<Vector2> Mesh::getTexCoords(){	return modelTexCoords; }
+vector<Vector3> Mesh::getIndices(){ return modelIndices; }
 
 int Mesh::getPointSize(){ return pointSize; }
 int Mesh::getNormalSize(){ return normalSize; }
@@ -57,52 +45,12 @@ void Mesh::setBufferHint(BufferHint hint)
 	else if (hint == BufferHint::DYNAMIC_DRAW)
 		glBufferHint = GL_DYNAMIC_DRAW;
 #endif
-
 }
 
-void Mesh::setVertices(vector<Vector3> newVerts)
-{
-	modelVerts = newVerts;
-
-	/*
-	const unsigned int vertSize = verts.size();
-	const unsigned int pointCount = vertSize * 3;
-	pointSize = pointCount * sizeof(float);
-
-	//Have to delete and (re-)buffer the data
-	if (points != NULL)
-		delete[] points;
-	points = new float[pointCount];
-
-	unsigned int pointIndex = 0;
-	for (unsigned int i = 0; i < vertSize; i++)
-	{
-		Vector3 vert = verts[i];
-
-		points[i] = vert[0];
-		points[i + 1] = vert[1];
-		points[i + 2] = vert[2];
-
-		pointIndex += 3;
-	}
-
-	numberOfVerts = vertSize;*/
-}
-
-void Mesh::setNormals(vector<Vector3> newNormals)
-{
-	modelNormals = newNormals;
-}
-
-void Mesh::setTexCoords(vector<Vector2> newTexCoords)
-{
-	modelTexCoords = newTexCoords;
-}
-
-void Mesh::setIndices(vector<Vector3> newIndices)
-{
-	modelIndices = newIndices;
-}
+void Mesh::setVertices(vector<Vector3> newVerts){ modelVerts = newVerts; }
+void Mesh::setNormals(vector<Vector3> newNormals){ modelNormals = newNormals; }
+void Mesh::setTexCoords(vector<Vector2> newTexCoords){ modelTexCoords = newTexCoords; }
+void Mesh::setIndices(vector<Vector3> newIndices){ modelIndices = newIndices; }
 
 void Mesh::bufferChanges()
 {
@@ -179,15 +127,26 @@ void Mesh::bufferChanges()
 
 	//We can clear this memory for now after it's buffered
 	if (points)
+	{
 		delete[] points;
+		points = NULL;
+	}
 	if (normals)
+	{
 		delete[] normals;
+		normals = NULL;
+	}
 	if (texCoords)
+	{
 		delete[] texCoords;
+		texCoords = NULL;
+	}
 	if (indices)
+	{
 		delete[] indices;
+		indices = NULL;
+	}
 }
-
 #ifdef GL_SUPPORT
 GLuint Mesh::getVBO(){ return vbo; }
 GLuint Mesh::getIBO(){ return ibo; }

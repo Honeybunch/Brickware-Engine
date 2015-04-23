@@ -1,6 +1,6 @@
 /*
  *
- * JSONParser.h
+ * JSONParser.hpp
  *
  * A simple JSON Parser that is header only
  * This depends on the static StringUtils class

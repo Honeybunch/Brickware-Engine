@@ -74,7 +74,7 @@ void BoxCollider::DebugDraw()
 	Vector3 position = transform->getPosition();
 
 	//Gotta get that world matrix (don't need scale)
-	Matrix4 rotationMatrix = transform->getRotation().getRotationMatrix();
+	Matrix4 rotationMatrix = transform->getLocalRotation().getRotationMatrix();
 
 	Matrix4 translationMatrix(1, 0, 0, 0,
 							  0, 1, 0, 0,

@@ -19,8 +19,10 @@ Transform::Transform()
 
 //Accessors
 Vector3 Transform::getPosition(){ return position; }
-Vector3 Transform::getEulerRotation(){ return eulerRotation; }
-Quaternion Transform::getRotation(){ return rotation; }
+Vector3 Transform::getLocalEulerRotation(){ return eulerRotation; }
+Quaternion Transform::getLocalRotation(){ return rotation; }
+Vector3 Transform::getWorldEulerRotation(){ return worldEulerRotation; }
+Quaternion Transform::getWorldRotation(){ return worldRotation; }
 Vector3 Transform::getScale(){ return scale; }
 
 Vector3 Transform::getForward(){ return forward; }
@@ -31,11 +33,22 @@ Matrix4 Transform::getModelMatrix(){ return modelMatrix; }
 
 //Mutators
 void Transform::setPosition(Vector3 newPosition){ position = newPosition; }
-void Transform::setEulerRotation(Vector3 newEulerRotation){ 
+void Transform::setLocalEulerRotation(Vector3 newEulerRotation){ 
 	rotation = Quaternion(newEulerRotation);
 	eulerRotation = newEulerRotation;
 }
-void Transform::setRotation(Quaternion newRotation){ rotation = newRotation; }
+void Transform::setWorldEulerRotation(Vector3 newEulerRotation){
+
+	Quaternion worldRotX = Quaternion(Vector3(newEulerRotation[0], 0, 0));
+	Quaternion worldRotY = Quaternion(Vector3(0, newEulerRotation[1], 0));
+	Quaternion worldRotZ = Quaternion(Vector3(0, 0, newEulerRotation[2]));
+
+	worldRotation = worldRotX * worldRotY * worldRotZ;
+
+	worldEulerRotation = newEulerRotation;
+}
+void Transform::setLocalRotation(Quaternion newRotation){ rotation = newRotation; }
+void Transform::setWorldRotation(Quaternion newRotation){ worldRotation = newRotation; }
 void Transform::setScale(Vector3 newScale){ scale = newScale; }
 
 //Public Functions
@@ -44,6 +57,7 @@ Component* Transform::Clone(){ return new Transform(*this); }
 void Transform::Update()
 {
 	Matrix4 rotationMatrix = rotation.getRotationMatrix();
+	Matrix4 worldRotationMatrix = worldRotation.getRotationMatrix();
 
 	Matrix4 translationMatrix(1.0f, 0.0f, 0.0f, 0.0f,
 						   0.0f, 1.0f, 0.0f, 0.0f,
@@ -55,7 +69,7 @@ void Transform::Update()
 					 0.0f, 0.0f, scale.getZ(), 0.0f,
 					 0.0f, 0.0f, 0.0f, 1.0f);
 
-	modelMatrix = scaleMatrix * rotationMatrix * translationMatrix;
+	modelMatrix = worldRotationMatrix *(scaleMatrix * rotationMatrix * translationMatrix);
 
 	//Recalculate forward, right and up
 

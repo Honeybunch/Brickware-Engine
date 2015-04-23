@@ -57,15 +57,25 @@ namespace Brickware
 			 */
 			Math::Vector3 getPosition();
 
-			/* Gets rotation in Euler coordinates.
-			 * @return A <Vector3> describing euler rotation.
+			/* Gets local rotation in Euler coordinates.
+			 * @return A <Vector3> describing local euler rotation.
 			 */
-			Math::Vector3 getEulerRotation();
+			Math::Vector3 getLocalEulerRotation();
 
-			/* Gets quaternion rotation.
-			 * @return A <Quaternion> describing rotation.
+			/* Gets local quaternion rotation.
+			 * @return A <Quaternion> describing local rotation.
 			 */
-			Math::Quaternion getRotation();
+			Math::Quaternion getLocalRotation();
+
+			/* Gets world rotation in Euler coordinates.
+			* @return A <Vector3> describing world space euler rotation.
+			*/
+			Math::Vector3 getWorldEulerRotation();
+
+			/* Gets world space quaternion rotation.
+			* @return A <Quaternion> describing world space rotation.
+			*/
+			Math::Quaternion getWorldRotation();
 			
 			/* Gets scale.
 			 * @return A <Vector3> describing scale.
@@ -97,19 +107,33 @@ namespace Brickware
 			 */
 			void setPosition(Math::Vector3 newPosition);
 
-			/* Sets the rotation in Euler coordinates.
-			 * @newRotation A <Vector3> describing the new Euler rotation.
+			/* Sets the local rotation in Euler coordinates.
+			 * @newRotation A <Vector3> describing the new local Euler rotation.
 			 * 
-			 * This WILL update the rotation <Quaterion> to match.
+			 * This WILL update the local rotation <Quaterion> to match.
 			 */
-			void setEulerRotation(Math::Vector3 newRotation);
+			void setLocalEulerRotation(Math::Vector3 newRotation);
 
-			/* Sets the rotation.
-			 * @newRotation A <Quaternion> describing the new rotation.
+			/* Sets the local rotation.
+			 * @newRotation A <Quaternion> describing the new local rotation.
 			 *
-			 * This will NOT update the euler rotation vector to match.
+			 * This will NOT update the local euler rotation vector to match.
 			 */
-			void setRotation(Math::Quaternion newRotation);
+			void setLocalRotation(Math::Quaternion newRotation);
+
+			/* Sets the world rotation in Euler coordinates.
+			* @newRotation A <Vector3> describing the new world Euler rotation.
+			*
+			* This WILL update the world rotation <Quaterion> to match.
+			*/
+			void setWorldEulerRotation(Math::Vector3 newRotation);
+
+			/* Sets the world rotation.
+			* @newRotation A <Quaternion> describing the new world rotation.
+			*
+			* This will NOT update the world euler rotation vector to match.
+			*/
+			void setWorldRotation(Math::Quaternion newRotation);
 
 			/* Sets the scale.
 			 * @newScale A <Vector3> describing the new scale.
@@ -131,7 +155,11 @@ namespace Brickware
 		private:
 			Math::Vector3 position;
 			Math::Quaternion rotation;
+			Math::Quaternion worldRotation;
+
 			Math::Vector3 eulerRotation;
+			Math::Vector3 worldEulerRotation;
+			
 			Math::Vector3 scale;
 
 			Math::Vector3 forward;

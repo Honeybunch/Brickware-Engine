@@ -88,14 +88,14 @@ void Rigidbody::addInstantaneousTorque(Vector3 torque)
 {
 	angularVelocity += (momentOfInertia() * torque);
 
-	Vector3 eulerRotation = transform->getEulerRotation();
+	Vector3 eulerRotation = transform->getLocalEulerRotation();
 	eulerRotation += angularVelocity;
-	transform->setEulerRotation(eulerRotation);
+	transform->setLocalEulerRotation(eulerRotation);
 }
 
 Matrix3 Rigidbody::momentOfInertia()
 {
-	Matrix3 rotationMatrix = getGameObject()->getTransform()->getRotation().getRotationMatrix();
+	Matrix3 rotationMatrix = getGameObject()->getTransform()->getLocalRotation().getRotationMatrix();
 
 	Matrix3 worldInertia = Matrix3(inertiaTensor[0], 0, 0,
 		0, inertiaTensor[1], 0,
@@ -135,9 +135,9 @@ void Rigidbody::FixedUpdate()
 	position += velocity;
 	transform->setPosition(position);
 
-	Vector3 eulerRotation = transform->getEulerRotation();
+	Vector3 eulerRotation = transform->getLocalEulerRotation();
 	eulerRotation += angularVelocity;
-	transform->setEulerRotation(eulerRotation);
+	transform->setLocalEulerRotation(eulerRotation);
 
 	//Zero out acceleration, impulse and force
 	acceleration = Vector3();
@@ -171,7 +171,7 @@ void Rigidbody::OnCollision(Collision* collision)
 	Vector3 otherAngularVelocity = otherRigidbody->angularVelocity;
 	Vector3 otherCenterOfMass = otherRigidbody->centerOfMass;
 	Vector3 otherInertiaTensor = otherRigidbody->inertiaTensor;
-	Matrix3 otherRotationMatrix = otherRigidbody->getGameObject()->getTransform()->getRotation().getRotationMatrix();
+	Matrix3 otherRotationMatrix = otherRigidbody->getGameObject()->getTransform()->getLocalRotation().getRotationMatrix();
 
 	Matrix3 otherMomentOfInertia = otherRigidbody->momentOfInertia();
 	

@@ -1,9 +1,9 @@
-﻿Build started 4/23/2015 10:26:08 AM.
-     1>Project "D:\Users\amt3824\Git\Brickware-Engine\Build\BrickwareUtils\BrickwareUtils.vcxproj" on node 2 (Build target(s)).
+﻿Build started 4/24/2015 4:27:13 PM.
+     1>Project "D:\Users\amt3824\Git\Brickware-Engine\Build\BrickwareUtils\BrickwareUtils.vcxproj" on node 3 (Build target(s)).
      1>Link:
          BrickwareUtils.vcxproj -> D:\Users\amt3824\Git\Brickware-Engine\Build\TestBuild\BrickwareUtils.dll
      1>Done Building Project "D:\Users\amt3824\Git\Brickware-Engine\Build\BrickwareUtils\BrickwareUtils.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.30
+Time Elapsed 00:00:00.27

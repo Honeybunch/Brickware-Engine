@@ -68,12 +68,131 @@ Matrix4::Matrix4(Vector4 one,
 	Accessors and Mutators
 */
 
-Matrix4 Matrix4::getIdentityMatrix()
+Matrix4 Matrix4::getTranspose()
 {
-	return Matrix4(1.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, 0.0f, 0.0f,
-		0.0f, 0.0f, 1.0f, 0.0f,
-		0.0f, 0.0f, 0.0f, 1.0f);
+	Matrix4 transpose;
+
+	transpose[0][0] = matrix[0][0];
+	transpose[1][1] = matrix[1][1];
+	transpose[2][2] = matrix[2][2];
+	transpose[3][3] = matrix[3][3];
+
+	transpose[0][1] = matrix[1][0];
+	transpose[0][2] = matrix[2][0];
+	transpose[0][3] = matrix[3][0];
+	transpose[1][2] = matrix[2][1];
+	transpose[1][3] = matrix[3][1];
+	transpose[2][3] = matrix[3][2];
+
+	transpose[1][0] = matrix[0][1];
+	transpose[2][0] = matrix[0][2];
+	transpose[3][0] = matrix[0][3];
+	transpose[2][1] = matrix[1][2];
+	transpose[3][1] = matrix[1][3];
+	transpose[3][2] = matrix[2][3];
+
+	return transpose;
+}
+
+Matrix4 Matrix4::getInverse()
+{
+	Matrix4 inverse;
+
+	//Adapted from Liam Middlebrook's implementation: https://github.com/liam-middlebrook/nautical/blob/master/include/math/matrix4.h
+
+	float determinant =
+		(matrix[0][0] * matrix[1][1] * matrix[2][2] * matrix[3][3]) + (matrix[0][0] * matrix[2][1] * matrix[3][2] * matrix[1][3]) +
+		(matrix[0][0] * matrix[3][1] * matrix[1][2] * matrix[2][3]) + (matrix[1][0] * matrix[0][1] * matrix[3][2] * matrix[2][3]) +
+		(matrix[1][0] * matrix[2][1] * matrix[0][2] * matrix[3][3]) + (matrix[1][0] * matrix[3][1] * matrix[2][2] * matrix[0][3]) +
+		(matrix[2][0] * matrix[0][1] * matrix[1][2] * matrix[3][3]) + (matrix[2][0] * matrix[1][1] * matrix[3][2] * matrix[0][3]) +
+		(matrix[2][0] * matrix[3][1] * matrix[0][2] * matrix[1][3]) + (matrix[3][0] * matrix[0][1] * matrix[2][2] * matrix[1][3]) +
+		(matrix[3][0] * matrix[1][1] * matrix[0][2] * matrix[2][3]) + (matrix[3][0] * matrix[2][1] * matrix[1][2] * matrix[0][3]) -
+		(matrix[0][0] * matrix[1][1] * matrix[3][2] * matrix[2][3]) - (matrix[0][0] * matrix[2][1] * matrix[1][2] * matrix[3][3]) -
+		(matrix[0][0] * matrix[3][1] * matrix[2][2] * matrix[1][3]) - (matrix[1][0] * matrix[0][1] * matrix[2][2] * matrix[3][3]) -
+		(matrix[1][0] * matrix[2][1] * matrix[3][2] * matrix[0][3]) - (matrix[1][0] * matrix[3][1] * matrix[0][2] * matrix[2][3]) -
+		(matrix[2][0] * matrix[0][1] * matrix[3][2] * matrix[1][3]) - (matrix[2][0] * matrix[1][1] * matrix[0][2] * matrix[3][3]) -
+		(matrix[2][0] * matrix[3][1] * matrix[1][2] * matrix[0][3]) - (matrix[3][0] * matrix[0][1] * matrix[1][2] * matrix[2][3]) -
+		(matrix[3][0] * matrix[1][1] * matrix[2][2] * matrix[0][3]) - (matrix[3][0] * matrix[2][1] * matrix[0][2] * matrix[1][3]);
+
+	//Return an identity matrix if there is no inverse
+	if (determinant != 0)
+	{
+		float inverseDeterminant = 1 / determinant;
+
+		//Row 1
+		inverse[0][0] = ((matrix[1][1] * matrix[2][2] * matrix[3][3]) + (matrix[1][2] * matrix[2][3] * matrix[3][1]) + 
+						 (matrix[1][3] * matrix[2][1] * matrix[3][2]) - (matrix[1][1] * matrix[2][3] * matrix[3][2]) -
+						 (matrix[1][2] * matrix[2][1] * matrix[3][3]) - (matrix[1][3] * matrix[2][2] * matrix[3][1])) 
+						 * inverseDeterminant;
+		inverse[0][1] = ((matrix[0][1] * matrix[2][3] * matrix[3][2]) + (matrix[0][2] * matrix[2][1] * matrix[3][3]) +
+						 (matrix[0][3] * matrix[2][2] * matrix[3][1]) - (matrix[0][1] * matrix[2][2] * matrix[3][3]) -
+						 (matrix[0][2] * matrix[2][3] * matrix[3][1]) - (matrix[0][3] * matrix[2][1] * matrix[3][2]))
+						 * inverseDeterminant;
+		inverse[0][2] = ((matrix[0][1] * matrix[1][2] * matrix[3][3]) + (matrix[0][2] * matrix[1][3] * matrix[3][1]) +
+						 (matrix[0][3] * matrix[1][1] * matrix[3][2]) - (matrix[0][1] * matrix[1][3] * matrix[3][2]) -
+						 (matrix[0][2] * matrix[1][1] * matrix[3][3]) - (matrix[0][3] * matrix[1][2] * matrix[3][1]))
+						 * inverseDeterminant;
+		inverse[0][3] = ((matrix[0][1] * matrix[1][3] * matrix[2][2]) + (matrix[0][2] * matrix[1][1] * matrix[2][3]) +
+						 (matrix[0][3] * matrix[1][2] * matrix[2][1]) - (matrix[0][1] * matrix[1][2] * matrix[2][3]) -
+						 (matrix[0][2] * matrix[1][3] * matrix[2][1]) - (matrix[0][3] * matrix[1][1] * matrix[2][2]))
+						 * inverseDeterminant;
+				
+		//Row 2
+		inverse[1][0] = ((matrix[1][0] * matrix[2][3] * matrix[3][2]) + (matrix[1][2] * matrix[2][0] * matrix[3][3]) +
+						 (matrix[1][3] * matrix[2][2] * matrix[3][0]) - (matrix[1][0] * matrix[2][2] * matrix[3][3]) -
+						 (matrix[1][2] * matrix[2][3] * matrix[3][0]) - (matrix[1][3] * matrix[2][0] * matrix[3][2]))
+						 * inverseDeterminant;
+		inverse[1][1] = ((matrix[0][0] * matrix[2][2] * matrix[3][3]) + (matrix[0][2] * matrix[2][3] * matrix[3][0]) +
+						 (matrix[0][3] * matrix[2][0] * matrix[3][2]) - (matrix[0][0] * matrix[2][3] * matrix[3][2]) -
+						 (matrix[0][2] * matrix[2][0] * matrix[3][3]) - (matrix[0][3] * matrix[2][2] * matrix[3][0]))
+						 * inverseDeterminant;
+		inverse[1][2] = ((matrix[0][0] * matrix[1][3] * matrix[3][2]) + (matrix[0][2] * matrix[1][0] * matrix[3][3]) +
+						 (matrix[0][3] * matrix[1][2] * matrix[3][0]) - (matrix[0][0] * matrix[1][2] * matrix[3][3]) -
+						 (matrix[0][2] * matrix[1][3] * matrix[3][0]) - (matrix[0][3] * matrix[1][0] * matrix[3][2]))
+						 * inverseDeterminant;
+		inverse[1][3] = ((matrix[0][0] * matrix[1][2] * matrix[2][3]) + (matrix[0][2] * matrix[1][3] * matrix[2][0]) +
+						 (matrix[0][3] * matrix[1][0] * matrix[2][2]) - (matrix[0][0] * matrix[1][3] * matrix[2][2]) -
+						 (matrix[0][2] * matrix[1][0] * matrix[2][3]) - (matrix[0][3] * matrix[1][2] * matrix[2][0]))
+						 * inverseDeterminant;
+
+		//Row 3
+		inverse[2][0] = ((matrix[1][0] * matrix[2][1] * matrix[3][3]) + (matrix[1][2] * matrix[2][0] * matrix[3][3]) +
+						 (matrix[1][3] * matrix[2][0] * matrix[3][1]) - (matrix[1][0] * matrix[2][2] * matrix[3][3]) -
+						 (matrix[1][1] * matrix[2][0] * matrix[3][3]) - (matrix[1][3] * matrix[2][0] * matrix[3][2]))
+						 * inverseDeterminant;
+		inverse[2][1] = ((matrix[0][0] * matrix[2][3] * matrix[3][1]) + (matrix[0][2] * matrix[2][3] * matrix[3][0]) +
+						 (matrix[0][3] * matrix[2][1] * matrix[3][0]) - (matrix[0][0] * matrix[2][3] * matrix[3][2]) -
+						 (matrix[0][1] * matrix[2][3] * matrix[3][0]) - (matrix[0][3] * matrix[2][2] * matrix[3][0]))
+						 * inverseDeterminant;
+		inverse[2][2] = ((matrix[0][0] * matrix[1][1] * matrix[3][3]) + (matrix[0][2] * matrix[1][0] * matrix[3][3]) +
+						 (matrix[0][3] * matrix[1][0] * matrix[3][1]) - (matrix[0][0] * matrix[1][2] * matrix[3][3]) -
+						 (matrix[0][1] * matrix[1][0] * matrix[3][3]) - (matrix[0][3] * matrix[1][0] * matrix[3][2]))
+						 * inverseDeterminant;
+		inverse[2][3] = ((matrix[0][0] * matrix[1][3] * matrix[2][1]) + (matrix[0][2] * matrix[1][3] * matrix[2][0]) +
+						 (matrix[0][3] * matrix[1][1] * matrix[2][0]) - (matrix[0][0] * matrix[1][3] * matrix[2][2]) -
+						 (matrix[0][1] * matrix[1][3] * matrix[2][0]) - (matrix[0][3] * matrix[1][2] * matrix[2][0]))
+						 * inverseDeterminant;
+
+		//Row 4
+		inverse[3][0] = ((matrix[1][0] * matrix[2][2] * matrix[3][1]) + (matrix[1][1] * matrix[2][0] * matrix[3][2]) +
+						 (matrix[1][2] * matrix[2][1] * matrix[3][0]) - (matrix[1][0] * matrix[2][1] * matrix[3][2]) -
+						 (matrix[1][1] * matrix[2][2] * matrix[3][0]) - (matrix[1][2] * matrix[2][0] * matrix[3][1]))
+						 * inverseDeterminant;
+		inverse[3][1] = ((matrix[0][0] * matrix[2][1] * matrix[3][1]) + (matrix[0][1] * matrix[2][2] * matrix[3][0]) +
+						 (matrix[0][2] * matrix[2][0] * matrix[3][2]) - (matrix[0][0] * matrix[2][2] * matrix[3][1]) -
+						 (matrix[0][1] * matrix[2][0] * matrix[3][1]) - (matrix[0][2] * matrix[2][1] * matrix[3][0]))
+						 * inverseDeterminant;
+		inverse[3][2] = ((matrix[0][0] * matrix[1][2] * matrix[3][1]) + (matrix[0][1] * matrix[1][0] * matrix[3][2]) +
+						 (matrix[0][2] * matrix[1][1] * matrix[3][0]) - (matrix[0][0] * matrix[1][1] * matrix[3][2]) -
+						 (matrix[0][1] * matrix[1][2] * matrix[3][0]) - (matrix[0][2] * matrix[1][0] * matrix[3][1]))
+						 * inverseDeterminant;
+		inverse[3][3] = ((matrix[0][0] * matrix[1][1] * matrix[2][1]) + (matrix[0][1] * matrix[1][2] * matrix[2][0]) +
+						 (matrix[0][2] * matrix[1][0] * matrix[2][2]) - (matrix[0][0] * matrix[1][2] * matrix[2][1]) -
+						 (matrix[0][1] * matrix[1][0] * matrix[2][1]) - (matrix[0][2] * matrix[1][1] * matrix[2][0]))
+						 * inverseDeterminant;
+	}
+
+	return inverse;
 }
 
 float* Matrix4::getAsArray() 

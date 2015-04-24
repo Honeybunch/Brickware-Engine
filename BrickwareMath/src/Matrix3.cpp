@@ -78,7 +78,7 @@ Matrix3 Matrix3::getInverse()
 					  + (matrix[0][2] * ((matrix[1][0] * matrix[2][1]) - (matrix[1][1] * matrix[2][0])));
 
 	//Return an identity matrix if there is no inverse
-	if (determinant > 0)
+	if (determinant != 0)
 	{
 		float inverseDeterminant = 1 / determinant;
 

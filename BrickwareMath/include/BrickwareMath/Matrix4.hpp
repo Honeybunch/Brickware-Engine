@@ -29,6 +29,8 @@ namespace Brickware
 			static Matrix4 getIdentityMatrix();
 
 			//Accessors
+			Matrix4 getTranspose();
+			Matrix4 getInverse();
 			float* getAsArray();
 
 			//Operators

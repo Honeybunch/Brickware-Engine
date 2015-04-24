@@ -57,7 +57,6 @@ Component* Transform::Clone(){ return new Transform(*this); }
 void Transform::Update()
 {
 	Matrix4 rotationMatrix = rotation.getRotationMatrix();
-	Matrix4 worldRotationMatrix = worldRotation.getRotationMatrix();
 
 	Matrix4 translationMatrix(1.0f, 0.0f, 0.0f, 0.0f,
 						   0.0f, 1.0f, 0.0f, 0.0f,
@@ -69,7 +68,8 @@ void Transform::Update()
 					 0.0f, 0.0f, scale.getZ(), 0.0f,
 					 0.0f, 0.0f, 0.0f, 1.0f);
 
-	modelMatrix = worldRotationMatrix *(scaleMatrix * rotationMatrix * translationMatrix);
+	modelMatrix = (scaleMatrix * rotationMatrix * translationMatrix);
+	//modelMatrix = (worldRotation.getRotationMatrix() * modelMatrix.getInverse());
 
 	//Recalculate forward, right and up
 

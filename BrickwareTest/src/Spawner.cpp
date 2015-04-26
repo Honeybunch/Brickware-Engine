@@ -41,7 +41,7 @@ void Spawner::spawnObject()
 	float yTorque = (float)(rand() % 100) / 1000000.0f;
 	float zTorque = (float)(rand() % 100) / 1000000.0f;
 
-	newObject->getTransform()->setLocalRotation(Vector3(xRot, yRot, zRot));
+	newObject->getTransform()->setRotation(Vector3(xRot, yRot, zRot));
 	newObject->addComponent(rigidbody);
 	newObject->addComponent(new Despawn());
 

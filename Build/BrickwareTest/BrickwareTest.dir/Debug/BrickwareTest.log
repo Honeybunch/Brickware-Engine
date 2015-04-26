@@ -1,6 +1,16 @@
-﻿Build started 4/26/2015 1:53:59 PM.
+﻿Build started 4/26/2015 2:39:51 PM.
      1>Project "D:\Users\amt3824\Git\Brickware-Engine\Build\BrickwareTest\BrickwareTest.vcxproj" on node 2 (Build target(s)).
-     1>Link:
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\include" /I"D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\include" /I"D:\Users\amt3824\Git\Brickware-Engine\BrickwareUtils\include" /I"D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\include" /I"D:\Users\amt3824\Git\Brickware-Engine\BrickwareCore\include" /I"D:\Users\amt3824\Git\Brickware-Engine\GL\include" /I"D:\Users\amt3824\Git\Brickware-Engine\GLFW\include" /Zi /nologo /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D GL_SUPPORT /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"BrickwareTest.dir\Debug\\" /Fd"BrickwareTest.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt "D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\src\Main.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\src\TestGame.cpp"
+         Main.cpp
+         TestGame.cpp
+         Generating Code...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Users\amt3824\Git\Brickware-Engine\Build\TestBuild\BrickwareTest.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib opengl32.lib ..\..\GL\lib\Win32\\glew32.lib ..\..\GLFW\lib\Win32\\glfw3dll.lib ..\TestBuild\BrickwareCore.lib ..\TestBuild\BrickwareGraphics.lib ..\..\GLFW\lib\Win32\\glfw3dll.lib ..\TestBuild\BrickwareMath.lib ..\TestBuild\BrickwareUtils.lib opengl32.lib ..\..\GL\lib\Win32\\glew32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/Users/amt3824/Git/Brickware-Engine/Build/TestBuild/BrickwareTest.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/Users/amt3824/Git/Brickware-Engine/Build/TestBuild/BrickwareTest.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /debug BrickwareTest.dir\Debug\Despawn.obj
+         BrickwareTest.dir\Debug\Main.obj
+         BrickwareTest.dir\Debug\Spawner.obj
+         BrickwareTest.dir\Debug\Spin.obj
+         BrickwareTest.dir\Debug\TestGame.obj
          BrickwareTest.vcxproj -> D:\Users\amt3824\Git\Brickware-Engine\Build\TestBuild\BrickwareTest.exe
        PostBuildEvent:
          setlocal
@@ -35,4 +45,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.06
+Time Elapsed 00:00:03.48

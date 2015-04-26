@@ -130,7 +130,7 @@ bool TestGame::init()
 	cubeRigidbody->setIsKinematic(false);
 	cube->addComponent(cubeRigidbody);
 	Spin* cubeSpin = new Spin();
-	cubeSpin->rotationDelta = Vector3(0.05f, 0.05f, 0.0f);
+	cubeSpin->rotationDelta = Vector3(0.05f, 0.0f, 0.0f);
 	cube->addComponent(cubeSpin);
 	cube->addComponent(new BoxCollider());
 

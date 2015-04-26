@@ -51,7 +51,7 @@ void Collider::calculateWorldData()
 
 	Transform* transform = getGameObject()->getTransform();
 	center = transform->getPosition();
-	Matrix3 rotationMatrix = transform->getLocalRotation().getRotationMatrix();
+	Matrix3 rotationMatrix = transform->getRotation().getRotationMatrix();
 
 	Primitive::SetColor(Vector4(1, 0, 0, 1));
 

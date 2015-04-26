@@ -20,18 +20,11 @@ void Spin::Update()
 {
 	float deltaTime = GameTime::GetDeltaTime();
 
-	Quaternion currentRotation = transform->getWorldRotation();
+	Vector3 currentRotation = transform->getEulerRotation();
 
-	Vector3 deltaEulerRot = rotationDelta * deltaTime;
-	Quaternion deltaRotX = Quaternion(Vector4(1, 0, 0, deltaEulerRot[0]));
-	Quaternion deltaRotY = Quaternion(Vector4(0, 1, 0, deltaEulerRot[1]));
-	Quaternion deltaRotZ = Quaternion(Vector4(0, 0, 1, deltaEulerRot[2]));
+	Vector3 deltaRot = rotationDelta * deltaTime;
 
-	Quaternion deltaRot = deltaRotX * deltaRotY * deltaRotZ;
-
-	Quaternion newRotation = deltaRot * currentRotation;
-
-	transform->setWorldRotation(newRotation);
+	transform->setEulerRotation(currentRotation + deltaRot);
 }
 
 

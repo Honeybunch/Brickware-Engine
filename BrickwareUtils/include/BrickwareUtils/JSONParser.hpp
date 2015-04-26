@@ -271,10 +271,6 @@ namespace Brickware
 							memberLength++;
 						}
 
-						//If we've read past our string length we can just break
-						if (index > stringLength)
-							break;
-
 						//If we get a member that's less than 5 chars (by accident) just increment the index counter and keep going
 						//5 because the least number of chars for a member is 5
 						//Ex. "a":1
@@ -309,6 +305,10 @@ namespace Brickware
 					}
 
 					c = string[index++];
+
+					//If we've read past our string length we can just break
+					if (index > stringLength)
+						break;
 				}
 
 				return object;

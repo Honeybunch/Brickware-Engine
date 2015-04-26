@@ -14,7 +14,7 @@ FirstPersonController::FirstPersonController()
 void FirstPersonController::moveForward()
 {
 	Vector3 pos = getGameObject()->getTransform()->getPosition();
-	Vector3 rot = getGameObject()->getTransform()->getLocalEulerRotation();
+	Vector3 rot = getGameObject()->getTransform()->getEulerRotation();
 
 	float deltaSpeed = speed * GameTime::GetDeltaTime();
 
@@ -31,7 +31,7 @@ void FirstPersonController::moveForward()
 void FirstPersonController::moveBackward()
 {
 	Vector3 pos = getGameObject()->getTransform()->getPosition();
-	Vector3 rot = getGameObject()->getTransform()->getLocalEulerRotation();
+	Vector3 rot = getGameObject()->getTransform()->getEulerRotation();
 
 	float deltaSpeed = speed * GameTime::GetDeltaTime();
 
@@ -47,7 +47,7 @@ void FirstPersonController::moveBackward()
 void FirstPersonController::moveLeft()
 {
 	Vector3 pos = getGameObject()->getTransform()->getPosition();
-	Vector3 rot = getGameObject()->getTransform()->getLocalEulerRotation();
+	Vector3 rot = getGameObject()->getTransform()->getEulerRotation();
 
 	float deltaSpeed = speed * GameTime::GetDeltaTime();
 
@@ -63,7 +63,7 @@ void FirstPersonController::moveLeft()
 void FirstPersonController::moveRight()
 {
 	Vector3 pos = getGameObject()->getTransform()->getPosition();
-	Vector3 rot = getGameObject()->getTransform()->getLocalEulerRotation();
+	Vector3 rot = getGameObject()->getTransform()->getEulerRotation();
 
 	float deltaSpeed = speed * GameTime::GetDeltaTime();
 
@@ -99,12 +99,12 @@ void FirstPersonController::Update()
 	float pitchDiff = (screenCenterY - Input::getMousePosition().getY()) / Screen::getHeight();
 
 	Transform* transform = getGameObject()->getTransform();
-	Vector3 rotation = transform->getLocalEulerRotation();
+	Vector3 rotation = transform->getEulerRotation();
 
 	rotation.setX(rotation.getX() + pitchDiff);
 	rotation.setY(rotation.getY() + yawDiff);
 
-	transform->setLocalEulerRotation(rotation);
+	transform->setEulerRotation(rotation);
 
 	Input::setMousePosition(Vector2(screenCenterX, screenCenterY));
 }

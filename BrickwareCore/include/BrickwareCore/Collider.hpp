@@ -9,6 +9,7 @@
 #include "BrickwareMath\Quaternion.hpp"
 #include "BrickwareMath\Vector3.hpp"
 #include "BrickwareMath\Bounds.hpp"
+#include "BrickwareMath\Ray.hpp"
 
 #include "BrickwareGraphics\Primitive.hpp"
 
@@ -37,6 +38,7 @@ namespace Brickware
 
 			bool isColliding(Collider* collider, Collision* collsion);
 			bool isColliding(Math::Bounds bounds);
+			bool isColliding(Math::Ray ray);
 
 			~Collider();
 
@@ -55,6 +57,7 @@ namespace Brickware
 			virtual bool isCollidingWithBox(BoxCollider* other, Collision* collision) = 0;
 			virtual bool isCollidingWithFrustum(FrustumCollider* other) = 0;
 			virtual bool isCollidingWithBounds(Math::Bounds other) = 0;
+			virtual bool isCollidingWithRay(Math::Ray other) = 0;
 		};
 	}
 }

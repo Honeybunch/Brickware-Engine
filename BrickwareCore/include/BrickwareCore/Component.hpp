@@ -87,6 +87,24 @@ namespace Brickware
 			*/
 			virtual void OnTrigger(Collision* collision);
 
+			/* Override this to describe what your Component will do when the mouse is over the attached <GameObject>. 
+			 * 
+			 * The parent <GameObject> must have an attached <Collider>
+			 */
+			virtual void OnMouseOver();
+			
+			/* Override this to describe what your Component will do when the mouse stays hovered over the attached <GameObject>.
+			 *
+			 * The parent <GameObject> must have an attached <Collider>
+			 */
+			virtual void OnMouseStay();
+
+			/* Override this to describe what your Component will do when the mouse stops hover over the attached <GameObject>.
+			 *
+			 * The parent <GameObject> must have an attached <Collider>
+			 */
+			virtual void OnMouseExit();
+
 			/* Override this to describe what your Component will do every frame of Game Logic but after <Update> and <LateUpdate>
 			*
 			* Render will be called as often as possible. This is usually reserved for components that need to send data

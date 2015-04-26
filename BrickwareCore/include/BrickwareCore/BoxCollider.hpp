@@ -41,6 +41,7 @@ namespace Brickware
 			bool isCollidingWithBox(BoxCollider* other, Collision* collision);
 			bool isCollidingWithFrustum(FrustumCollider* other);
 			bool isCollidingWithBounds(Math::Bounds other);
+			bool isCollidingWithRay(Math::Ray other);
 		};
 	}
 }

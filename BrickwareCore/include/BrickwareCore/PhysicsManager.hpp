@@ -31,6 +31,7 @@ namespace Brickware
 			friend class Rigidbody;
 			friend class Softbody;
 			friend class Collider;
+			friend class GameInputManager;
 
 		public:
 			static float GetGravity();

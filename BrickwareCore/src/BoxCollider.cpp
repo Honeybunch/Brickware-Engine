@@ -494,6 +494,12 @@ bool BoxCollider::isCollidingWithBounds(Bounds other)
 	return false;
 }
 
+//Don't care yet
+bool BoxCollider::isCollidingWithRay(Ray other)
+{
+	return false;
+}
+
 BoxCollider::~BoxCollider()
 {
 }

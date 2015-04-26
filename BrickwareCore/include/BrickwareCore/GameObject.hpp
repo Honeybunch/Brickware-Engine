@@ -85,11 +85,20 @@ namespace Brickware
 			virtual void Update();
 			//Calls the FixedUpdate method of all attached <Component>s
 			virtual void FixedUpdate();
+
 			/* Calls the OnCollisionEnter method of all attached <Component>s
 			 * @collision The pointer to the <Collision> data that it is going to send
 			 *            to the attached <Component>s
 			 */
 			virtual void OnCollisionEnter(Collision* collision);
+
+			//Calls the OnMouseOver component of all attached <Component>s
+			virtual void OnMouseOver();
+			//Calls the OnMouseStay component of all attached <Component>s
+			virtual void OnMouseStay();
+			//Calls the OnMouseExit component of all attached <Component>s
+			virtual void OnMouseExit();
+
 			//Calls the Render method of all attached <Component>s
 			virtual void OnRender();
 

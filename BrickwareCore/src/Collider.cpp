@@ -45,6 +45,11 @@ bool Collider::isColliding(Bounds bounds)
 	return isCollidingWithBounds(bounds);
 }
 
+bool Collider::isColliding(Ray ray)
+{
+	return isCollidingWithRay(ray);
+}
+
 void Collider::calculateWorldData()
 {
 	worldNormals.clear();

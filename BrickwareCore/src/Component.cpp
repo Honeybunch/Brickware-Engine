@@ -33,6 +33,10 @@ void Component::FixedUpdate(){}
 void Component::OnCollision(Collision* other){}
 void Component::OnTrigger(Collision* other){}
 
+void Component::OnMouseOver(){}
+void Component::OnMouseStay(){}
+void Component::OnMouseExit(){}
+
 void Component::Render(){}
 
 #ifdef _DEBUG

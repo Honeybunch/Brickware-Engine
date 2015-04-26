@@ -98,6 +98,24 @@ void GameObject::OnCollisionEnter(Collision* collision)
 		components[i]->OnCollision(collision);
 }
 
+void GameObject::OnMouseOver()
+{
+	for (unsigned int i = 0; i < components.size(); i++)
+		components[i]->OnMouseOver();
+}
+
+void GameObject::OnMouseStay()
+{
+	//for (unsigned int i = 0; i < components.size(); i++)
+	//	components[i]->OnMouseOver();
+}
+
+void GameObject::OnMouseExit()
+{
+	//for (unsigned int i = 0; i < components.size(); i++)
+	//	components[i]->OnMouseOver();
+}
+
 void GameObject::OnRender()
 {
 	for (unsigned int i = 0; i < components.size(); i++)

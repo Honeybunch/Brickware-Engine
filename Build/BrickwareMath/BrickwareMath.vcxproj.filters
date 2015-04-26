@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\src\Bounds.cpp">
@@ -20,6 +20,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\src\Vector4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\BrickwareMath\src\Ray.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -49,6 +52,9 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\include\BrickwareMath\Vector4.hpp">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\BrickwareMath\include\BrickwareMath\Ray.hpp">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>

@@ -98,6 +98,8 @@ int Game::run()
 
 		handleInput();
 
+		GameInputManager::Update();
+
 		updateScene();
 
 		//Update physics "ticksPerSecond" times per second
@@ -138,6 +140,7 @@ bool Game::init()
 	Graphics::RenderingManager::Initialize(device, deviceContext);
 #endif
 	PhysicsManager::Initialize();
+	GameInputManager::Initialize();
 
 	return initSuccess;
 }
@@ -702,4 +705,5 @@ Game::~Game()
 	Graphics::PrimitiveManager::Destroy();
 	Graphics::RenderingManager::Destroy();
 	PhysicsManager::Destroy();
+	GameInputManager::Destroy();
 }

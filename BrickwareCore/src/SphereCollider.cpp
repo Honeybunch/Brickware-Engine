@@ -45,7 +45,7 @@ bool SphereCollider::isCollidingWithSphere(SphereCollider* other)
 }
 
 
-bool SphereCollider::isCollidingWithBox(BoxCollider* other)
+bool SphereCollider::isCollidingWithBox(BoxCollider* other, Collision* collision)
 {
 	return other->isColliding(this, NULL);
 }
@@ -56,7 +56,7 @@ bool SphereCollider::isCollidingWithFrustum(FrustumCollider* other)
 	return other->isColliding(this, NULL);
 }
 
-bool SphereCollider::isCollidingWithBounds(Bounds* other)
+bool SphereCollider::isCollidingWithBounds(Bounds other)
 {
 	float radiusSquared = pow(radius, 2);
 	float distanceSquared = 0;
@@ -64,8 +64,8 @@ bool SphereCollider::isCollidingWithBounds(Bounds* other)
 	Vector3 sphereCenter = getGameObject()->getTransform()->getPosition();
 
 	//Implementation of Jim Arvo's collision algorithm
-	Vector3 minBound = other->getMinBound();
-	Vector3 maxBound = other->getMaxBound();
+	Vector3 minBound = other.getMinBound();
+	Vector3 maxBound = other.getMaxBound();
 
 	if (sphereCenter.getX() < minBound.getX())
 		distanceSquared += pow(sphereCenter.getX() - minBound.getX(), 2);
@@ -86,6 +86,28 @@ bool SphereCollider::isCollidingWithBounds(Bounds* other)
 		return true;
 	else
 		return false;
+}
+
+bool SphereCollider::isCollidingWithRay(Ray other)
+{
+	Vector3 difference = center - other.getOrigin();
+	float radiusSquared = radius * radius;
+
+	Vector3 rayDirection = other.getDirection();
+
+	if (Vector3::Dot(difference, difference) <= radiusSquared)
+	{
+		return true;
+	}
+	else if (Vector3::Dot(difference, rayDirection) <= 0)
+	{
+		Vector3 distanceToRay = difference - (rayDirection * Vector3::Dot(difference, rayDirection));
+		float distanceToRaySquared = Vector3::Dot(distanceToRay, distanceToRay);
+		if (distanceToRaySquared <= radiusSquared)
+			return true;
+	}
+
+	return false;
 }
 
 SphereCollider::~SphereCollider()

@@ -319,6 +319,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\BrickwareCore\include\BrickwareCore\GameInputManager.hpp" />
     <ClInclude Include="..\..\BrickwareCore\include\BrickwareCore\Softbody.hpp" />
     <ClInclude Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareCore\include\BrickwareCore\BoxCollider.hpp" />
     <ClInclude Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareCore\include\BrickwareCore\BrickwareCore.hpp" />
@@ -343,6 +344,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareCore\include\BrickwareCore\Settings.hpp" />
     <ClInclude Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareCore\include\BrickwareCore\SphereCollider.hpp" />
     <ClInclude Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareCore\include\BrickwareCore\Transform.hpp" />
+    <ClCompile Include="..\..\BrickwareCore\src\GameInputManager.cpp" />
     <ClCompile Include="..\..\BrickwareCore\src\Softbody.cpp" />
     <ClCompile Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareCore\src\BoxCollider.cpp" />
     <ClCompile Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareCore\src\Camera.cpp" />

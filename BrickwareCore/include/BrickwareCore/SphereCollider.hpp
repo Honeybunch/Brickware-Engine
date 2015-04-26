@@ -22,13 +22,13 @@ namespace Brickware
 			~SphereCollider();
 
 		private:
-			Math::Vector3 center; //Measured in local space
 			float radius;
 
 			bool isCollidingWithSphere(SphereCollider* other);
-			bool isCollidingWithBox(BoxCollider* other);
+			bool isCollidingWithBox(BoxCollider* other, Collision* collision);
 			bool isCollidingWithFrustum(FrustumCollider* other);
-			bool isCollidingWithBounds(Math::Bounds* other);
+			bool isCollidingWithBounds(Math::Bounds other);
+			bool isCollidingWithRay(Math::Ray other);
 		};
 	}
 }

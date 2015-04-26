@@ -60,6 +60,7 @@
 #include "BrickwareCore\Debug.hpp"
 #include "BrickwareCore\PointLight.hpp"
 #include "BrickwareCore\FirstPersonController.hpp"
+#include "BrickwareCore\GameInputManager.hpp"
 
 namespace Brickware
 {

@@ -69,7 +69,7 @@ void Transform::Update()
 					 0.0f, 0.0f, 0.0f, 1.0f);
 
 	modelMatrix = (scaleMatrix * rotationMatrix * translationMatrix);
-	//modelMatrix = (worldRotation.getRotationMatrix() * modelMatrix.getInverse());
+	modelMatrix = (worldRotation.getRotationMatrix() * modelMatrix.getInverse());
 
 	//Recalculate forward, right and up
 

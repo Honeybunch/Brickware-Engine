@@ -29,30 +29,24 @@ void GameInputManager::MouseOverObjects()
 	float x = ((2.0f * mousePos[0]) / Screen::getWidth()) - 1.0f;
 	float y = 1.0f - (2.0f * mousePos[1]) / Screen::getHeight();
 
-	Vector4 rayClip(x, y, -1.0f, 1.0f);
+	Vector4 rayClipNear(x, y, -1.0f, 1.0f);
+	Vector4 rayClipFar(x, y, 1.0f, 1.0f);
 
 	//Get the ray from clip space to eye space
 	Camera* camera = Camera::GetActiveCamera();
 
-	Vector4 rayEye;
-	Matrix4 projection = camera->getProjectionMatrix();
+	Matrix4 inverseViewProj = camera->getProjectionMatrix() * camera->getViewMatrix();
+	inverseViewProj = inverseViewProj.getInverse().getTranspose();
 
-	rayEye = projection.getInverse() * rayClip;
-	rayEye = Vector4(rayEye[0], rayEye[1], -1.0f, 0.0f);
+	Vector4 rayEyeNear = inverseViewProj * rayClipNear;
+	Vector4 rayEyeFar = inverseViewProj * rayClipFar;
+	
+	Vector3 rayWorldNear = Vector3(rayEyeNear);
+	Vector3 rayWorldFar = Vector3(rayEyeFar);
 
-	//Then from eye space to world space
-	Vector3 rayWorld;
-	Matrix4 view = camera->getViewMatrix();
+	Vector3 rayDirection = Vector3::Normalize(rayWorldFar - rayWorldNear);
 
-	Vector4 homogenousWorld = view.getInverse() * rayEye;
-	rayWorld = Vector3::Normalize(Vector3(homogenousWorld[0], homogenousWorld[1], homogenousWorld[2]));
-
-	//Actually create the day object based off of the camera's position
-	Vector3 cameraPos = camera->getGameObject()->getTransform()->getPosition();
-
-	Ray ray(cameraPos, camera->getGameObject()->getTransform()->getForward());
-
-	Graphics::Primitive::DrawLine(cameraPos, cameraPos + rayWorld);
+	Ray ray(camera->getGameObject()->getTransform()->getPosition(), rayDirection);
 
 	//Test ray against every collider we have in the scene
 	std::unordered_map<Collider*, int> colliders = PhysicsManager::colliders;
@@ -62,6 +56,7 @@ void GameInputManager::MouseOverObjects()
 		
 		if (collider->isColliding(ray))
 		{
+			std::cout << "Colliding" << std::endl;
 			collider->getGameObject()->OnMouseOver();
 		}
 	}

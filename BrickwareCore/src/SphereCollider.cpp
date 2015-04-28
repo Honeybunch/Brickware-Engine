@@ -90,20 +90,31 @@ bool SphereCollider::isCollidingWithBounds(Bounds other)
 
 bool SphereCollider::isCollidingWithRay(Ray other)
 {
-	Vector3 difference = center - other.getOrigin();
-	float radiusSquared = radius * radius;
+	Vector3 localizedCenter = center - other.getOrigin();
+	float distanceToCenter = localizedCenter.getMagnitude();
 
 	Vector3 rayDirection = other.getDirection();
 
-	if (Vector3::Dot(difference, difference) <= radiusSquared)
+	//If the sphere center is behind the origin we can't just handle the projection as is
+	if (Vector3::Dot(localizedCenter, rayDirection) < 0)
 	{
-		return true;
+		if (distanceToCenter > radius)
+			return false;
+		else if (distanceToCenter == radius) //We hit the center and could return that as the collision point
+			return true;
+		else //We would have to calculate the collision point
+			return true;
 	}
-	else if (Vector3::Dot(difference, rayDirection) <= 0)
+	//In this case the center of the sphere projects in front of the ray
+	else
 	{
-		Vector3 distanceToRay = difference - (rayDirection * Vector3::Dot(difference, rayDirection));
-		float distanceToRaySquared = Vector3::Dot(distanceToRay, distanceToRay);
-		if (distanceToRaySquared <= radiusSquared)
+		//Project center onto ray
+		float projectionMag = Vector3::Dot(rayDirection, center);
+		Vector3 projectedCenter = rayDirection * projectionMag;
+
+		if ((center - projectedCenter).getMagnitude() > radius)
+			return false;
+		else //Could calculate point of intersection here
 			return true;
 	}
 

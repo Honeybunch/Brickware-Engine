@@ -32,9 +32,11 @@ Vector3::Vector3(const Vector3& other)
 
 Vector3::Vector3(Vector4& v4)
 {
-	this->vector[0] = v4.getX() / v4.getW();
-	this->vector[1] = v4.getY() / v4.getW();
-	this->vector[2] = v4.getZ() / v4.getW();
+	float invV4W = 1/v4[3];
+
+	this->vector[0] = v4[0] * invV4W;
+	this->vector[1] = v4[1] * invV4W;
+	this->vector[2] = v4[2] * invV4W;
 }
 
 

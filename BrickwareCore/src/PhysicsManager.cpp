@@ -66,13 +66,13 @@ void PhysicsManager::Update()
 	{
 		Collider* test = it1->first;
 		if (test->getGameObject()->getComponent<Rigidbody>() == NULL)
-			return;
+			continue;
 
 		for (auto it2 = colliders.begin(); it2 != colliders.end(); it2++)
 		{
 			Collider* other = it2->first;
 			if (other->getGameObject()->getComponent<Rigidbody>() == NULL)
-				return;
+				continue;
 
 			bool colliding = false;
 			Collision* collision = new Collision();

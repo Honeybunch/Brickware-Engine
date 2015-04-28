@@ -7,7 +7,9 @@
 //DLL Header
 #include "BrickwareUtils\BrickwareUtilsDLL.hpp"
 
+#ifdef GL_SUPPORT
 #include <GL/glew.h>
+#endif
 
 #ifdef _WIN32
 //Graphics Headers
@@ -89,6 +91,7 @@ namespace Brickware
 			 */
 			static const char* trimAllWhitespace(const char* string);
 
+#ifdef GL_SUPPORT
 			/* Prints the shader info log *GL_SUPPORT ONLY*
 			 * @obj the int that points to the shader on the GPU
 			 * 
@@ -102,6 +105,7 @@ namespace Brickware
 			* Used mostly for when GLSL Shaders are linked
 			*/
 			static void printProgramInfoLog(GLuint obj);
+#endif
 		
 #ifdef _WIN32	
 			/* Converts a c-string to a windows wide-string *WINDOWS ONLY*

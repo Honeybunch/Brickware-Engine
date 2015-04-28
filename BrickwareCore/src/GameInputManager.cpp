@@ -56,7 +56,6 @@ void GameInputManager::MouseOverObjects()
 		
 		if (collider->isColliding(ray))
 		{
-			std::cout << "Colliding" << std::endl;
 			collider->getGameObject()->OnMouseOver();
 		}
 	}

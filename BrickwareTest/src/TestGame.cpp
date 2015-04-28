@@ -18,12 +18,8 @@ bool TestGame::init()
 		return false;
 
 	//Test JSON loading
-	//JSONObject* object = JSONParser::DecodeJSONFromFile("Data/test.json");
-	JSONObject* dimpleObject = JSONParser::DecodeJSONFromFile("Data/Dimples.js");
+	JSONObject* object = JSONParser::DecodeJSONFromFile("Data/test.json");
 
-	std::vector<JSONValue>* dimples = dimpleObject->getValue<std::vector<JSONValue>*>("Dimples");
-
-	/*
 	if (object)
 	{
 		bool boolean = object->getValue<bool>("testBool");
@@ -60,7 +56,7 @@ bool TestGame::init()
 
 		std::cout << "}" << std::endl;
 		std::cout << std::endl;
-	}*/
+	}
 
 	//Load shader
 	Shader* shader = new Shader("Shaders/VertexShader", "Shaders/PixelShader");

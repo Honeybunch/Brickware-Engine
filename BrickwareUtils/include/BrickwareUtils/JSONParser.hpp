@@ -231,11 +231,6 @@ namespace Brickware
 					*floatVal = (float)atof(string);
 					value = *floatVal;
 				}
-				//Parsing null
-				if (strcmp(string, "null") == 0)
-				{
-					value.isNull = true;
-				}
 				else
 				{
 					int* intVal = new int;
@@ -363,8 +358,6 @@ namespace Brickware
 					int nestedObjects = 0;
 					int nestedArrays = 0;
 
-					m = trimmedString[index];
-
 					while (m != targetChar || nestedObjects > 0 || nestedArrays > 0)
 					{
 						//If we've read past our string length we can just break
@@ -374,7 +367,7 @@ namespace Brickware
 							break;
 						}
 
-						m = trimmedString[valueLength];
+						m = trimmedString[index + valueLength];
 
 						if (m == '}' && nestedObjects == 0)
 							break;
@@ -418,7 +411,9 @@ namespace Brickware
 
 					delete[] valueString;
 
-					index += (valueLength);
+					index += valueLength;
+
+					m = trimmedString[index];
 				}
 
 				return elements;

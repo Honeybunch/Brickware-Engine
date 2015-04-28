@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -56,33 +56,33 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-    <PropertyGroup>
-      <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-      <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\Users\amt3824\Git\Brickware-Engine\Build\TestBuild\</OutDir>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">BrickwareTest.dir\Debug\</IntDir>
-      <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">BrickwareTest</TargetName>
-      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
-      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
-      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
-      <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Users\amt3824\Git\Brickware-Engine\Build\TestBuild\</OutDir>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">BrickwareTest.dir\Release\</IntDir>
-      <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">BrickwareTest</TargetName>
-      <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
-      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
-      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
-      <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:\Users\amt3824\Git\Brickware-Engine\Build\TestBuild\MinSizeRel\</OutDir>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">BrickwareTest.dir\MinSizeRel\</IntDir>
-      <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">BrickwareTest</TargetName>
-      <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.exe</TargetExt>
-      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkIncremental>
-      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">true</GenerateManifest>
-      <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:\Users\amt3824\Git\Brickware-Engine\Build\TestBuild\RelWithDebInfo\</OutDir>
-      <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">BrickwareTest.dir\RelWithDebInfo\</IntDir>
-      <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">BrickwareTest</TargetName>
-      <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.exe</TargetExt>
-      <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</LinkIncremental>
-      <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</GenerateManifest>
-    </PropertyGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\Users\amt3824\Git\Brickware-Engine\Build\TestBuild\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">BrickwareTest.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">BrickwareTest</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\Users\amt3824\Git\Brickware-Engine\Build\TestBuild\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">BrickwareTest.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">BrickwareTest</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">D:\Users\amt3824\Git\Brickware-Engine\Build\TestBuild\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">BrickwareTest.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">BrickwareTest</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">D:\Users\amt3824\Git\Brickware-Engine\Build\TestBuild\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">BrickwareTest.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">BrickwareTest</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</GenerateManifest>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <AdditionalIncludeDirectories>D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareUtils\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareCore\include;D:\Users\amt3824\Git\Brickware-Engine\GL\include;D:\Users\amt3824\Git\Brickware-Engine\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -113,7 +113,8 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>		</Message>
+      <Message>
+      </Message>
       <Command>setlocal
 "C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_directory D:/Users/amt3824/Git/Brickware-Engine\Assets D:/Users/amt3824/Git/Brickware-Engine/Build\TestBuild
 if %errorlevel% neq 0 goto :cmEnd
@@ -151,7 +152,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ImportLibrary>D:/Users/amt3824/Git/Brickware-Engine/Build/TestBuild/BrickwareTest.lib</ImportLibrary>
       <ProgramDataBaseFile>D:/Users/amt3824/Git/Brickware-Engine/Build/TestBuild/BrickwareTest.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
-      <Version></Version>
+      <Version>
+      </Version>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -171,7 +173,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;GL_SUPPORT;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
-      <DebugInformationFormat></DebugInformationFormat>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;GL_SUPPORT;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -186,7 +189,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>		</Message>
+      <Message>
+      </Message>
       <Command>setlocal
 "C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_directory D:/Users/amt3824/Git/Brickware-Engine\Assets D:/Users/amt3824/Git/Brickware-Engine/Build\TestBuild
 if %errorlevel% neq 0 goto :cmEnd
@@ -224,7 +228,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ImportLibrary>D:/Users/amt3824/Git/Brickware-Engine/Build/TestBuild/BrickwareTest.lib</ImportLibrary>
       <ProgramDataBaseFile>D:/Users/amt3824/Git/Brickware-Engine/Build/TestBuild/BrickwareTest.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
-      <Version></Version>
+      <Version>
+      </Version>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -244,7 +249,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;GL_SUPPORT;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
-      <DebugInformationFormat></DebugInformationFormat>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;GL_SUPPORT;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -259,7 +265,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>		</Message>
+      <Message>
+      </Message>
       <Command>setlocal
 "C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_directory D:/Users/amt3824/Git/Brickware-Engine\Assets D:/Users/amt3824/Git/Brickware-Engine/Build\TestBuild
 if %errorlevel% neq 0 goto :cmEnd
@@ -297,7 +304,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ImportLibrary>D:/Users/amt3824/Git/Brickware-Engine/Build/TestBuild/MinSizeRel/BrickwareTest.lib</ImportLibrary>
       <ProgramDataBaseFile>D:/Users/amt3824/Git/Brickware-Engine/Build/TestBuild/MinSizeRel/BrickwareTest.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
-      <Version></Version>
+      <Version>
+      </Version>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -332,7 +340,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>		</Message>
+      <Message>
+      </Message>
       <Command>setlocal
 "C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_directory D:/Users/amt3824/Git/Brickware-Engine\Assets D:/Users/amt3824/Git/Brickware-Engine/Build\TestBuild
 if %errorlevel% neq 0 goto :cmEnd
@@ -370,7 +379,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ImportLibrary>D:/Users/amt3824/Git/Brickware-Engine/Build/TestBuild/RelWithDebInfo/BrickwareTest.lib</ImportLibrary>
       <ProgramDataBaseFile>D:/Users/amt3824/Git/Brickware-Engine/Build/TestBuild/RelWithDebInfo/BrickwareTest.pdb</ProgramDataBaseFile>
       <SubSystem>Console</SubSystem>
-      <Version></Version>
+      <Version>
+      </Version>
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -437,11 +447,11 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClInclude Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\include\Spawner.hpp" />
     <ClInclude Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\include\Spin.hpp" />
     <ClInclude Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\include\TestGame.hpp" />
-    <ClCompile Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\src\Despawn.cpp"  />
-    <ClCompile Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\src\Main.cpp"  />
-    <ClCompile Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\src\Spawner.cpp"  />
-    <ClCompile Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\src\Spin.cpp"  />
-    <ClCompile Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\src\TestGame.cpp"  />
+    <ClCompile Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\src\Despawn.cpp" />
+    <ClCompile Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\src\Main.cpp" />
+    <ClCompile Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\src\Spawner.cpp" />
+    <ClCompile Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\src\Spin.cpp" />
+    <ClCompile Include="D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\src\TestGame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="D:/Users/amt3824/Git/Brickware-Engine/Build/BrickwareCore/BrickwareCore.vcxproj">

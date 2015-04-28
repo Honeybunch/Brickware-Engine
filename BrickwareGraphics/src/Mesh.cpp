@@ -400,7 +400,7 @@ void Mesh::bufferD3D()
 	//Need to have ints rather than shorts
 	unsigned int* d3dIndices = new unsigned int[numberOfVerts];
 
-	for (int i = 0; i < numberOfVerts; i++)
+	for (unsigned int i = 0; i < numberOfVerts; i++)
 		d3dIndices[i] = (unsigned int)indices[i];
 
 	//Create index buffer description

@@ -35,8 +35,8 @@ void GameInputManager::MouseOverObjects()
 	//Get the ray from clip space to eye space
 	Camera* camera = Camera::GetActiveCamera();
 
-	Matrix4 inverseViewProj = camera->getProjectionMatrix() * camera->getViewMatrix();
-	inverseViewProj = inverseViewProj.getInverse().getTranspose();
+	Matrix4 inverseViewProj = camera->getViewMatrix() * camera->getProjectionMatrix();
+	inverseViewProj = inverseViewProj.getInverse();
 
 	Vector4 rayEyeNear = inverseViewProj * rayClipNear;
 	Vector4 rayEyeFar = inverseViewProj * rayClipFar;

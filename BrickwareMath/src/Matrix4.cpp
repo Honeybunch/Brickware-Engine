@@ -98,98 +98,94 @@ Matrix4 Matrix4::getInverse()
 {
 	Matrix4 inverse;
 
-	//Adapted from Liam Middlebrook's implementation: https://github.com/liam-middlebrook/nautical/blob/master/include/math/matrix4.h
+	//Inversion using Cramer's Rule adapted from https://graphics.stanford.edu/~mdfisher/Code/Engine/Matrix4.cpp.html
 
-	float determinant =
-		(matrix[0][0] * matrix[1][1] * matrix[2][2] * matrix[3][3]) + (matrix[0][0] * matrix[2][1] * matrix[3][2] * matrix[1][3]) +
-		(matrix[0][0] * matrix[3][1] * matrix[1][2] * matrix[2][3]) + (matrix[1][0] * matrix[0][1] * matrix[3][2] * matrix[2][3]) +
-		(matrix[1][0] * matrix[2][1] * matrix[0][2] * matrix[3][3]) + (matrix[1][0] * matrix[3][1] * matrix[2][2] * matrix[0][3]) +
-		(matrix[2][0] * matrix[0][1] * matrix[1][2] * matrix[3][3]) + (matrix[2][0] * matrix[1][1] * matrix[3][2] * matrix[0][3]) +
-		(matrix[2][0] * matrix[3][1] * matrix[0][2] * matrix[1][3]) + (matrix[3][0] * matrix[0][1] * matrix[2][2] * matrix[1][3]) +
-		(matrix[3][0] * matrix[1][1] * matrix[0][2] * matrix[2][3]) + (matrix[3][0] * matrix[2][1] * matrix[1][2] * matrix[0][3]) -
-		(matrix[0][0] * matrix[1][1] * matrix[3][2] * matrix[2][3]) - (matrix[0][0] * matrix[2][1] * matrix[1][2] * matrix[3][3]) -
-		(matrix[0][0] * matrix[3][1] * matrix[2][2] * matrix[1][3]) - (matrix[1][0] * matrix[0][1] * matrix[2][2] * matrix[3][3]) -
-		(matrix[1][0] * matrix[2][1] * matrix[3][2] * matrix[0][3]) - (matrix[1][0] * matrix[3][1] * matrix[0][2] * matrix[2][3]) -
-		(matrix[2][0] * matrix[0][1] * matrix[3][2] * matrix[1][3]) - (matrix[2][0] * matrix[1][1] * matrix[0][2] * matrix[3][3]) -
-		(matrix[2][0] * matrix[3][1] * matrix[1][2] * matrix[0][3]) - (matrix[3][0] * matrix[0][1] * matrix[1][2] * matrix[2][3]) -
-		(matrix[3][0] * matrix[1][1] * matrix[2][2] * matrix[0][3]) - (matrix[3][0] * matrix[2][1] * matrix[0][2] * matrix[1][3]);
+	float tmp[12]; //Temp array for pairs
+	float src[16]; //Transpose of source matrix
+	float determinant; 
 
-	//Return an identity matrix if there is no inverse
-	if (determinant != 0)
+	//Transpose into float
+	for (unsigned int i = 0; i < 4; i++)
 	{
-		float inverseDeterminant = 1 / determinant;
+		src[i + 0] = matrix[i][0];
+		src[i + 4] = matrix[i][1];
+		src[i + 8] = matrix[i][2];
+		src[i + 12] = matrix[i][3];
+	}
 
-		//Row 1
-		inverse[0][0] = ((matrix[1][1] * matrix[2][2] * matrix[3][3]) + (matrix[1][2] * matrix[2][3] * matrix[3][1]) + 
-						 (matrix[1][3] * matrix[2][1] * matrix[3][2]) - (matrix[1][1] * matrix[2][3] * matrix[3][2]) -
-						 (matrix[1][2] * matrix[2][1] * matrix[3][3]) - (matrix[1][3] * matrix[2][2] * matrix[3][1])) 
-						 * inverseDeterminant;
-		inverse[0][1] = ((matrix[0][1] * matrix[2][3] * matrix[3][2]) + (matrix[0][2] * matrix[2][1] * matrix[3][3]) +
-						 (matrix[0][3] * matrix[2][2] * matrix[3][1]) - (matrix[0][1] * matrix[2][2] * matrix[3][3]) -
-						 (matrix[0][2] * matrix[2][3] * matrix[3][1]) - (matrix[0][3] * matrix[2][1] * matrix[3][2]))
-						 * inverseDeterminant;
-		inverse[0][2] = ((matrix[0][1] * matrix[1][2] * matrix[3][3]) + (matrix[0][2] * matrix[1][3] * matrix[3][1]) +
-						 (matrix[0][3] * matrix[1][1] * matrix[3][2]) - (matrix[0][1] * matrix[1][3] * matrix[3][2]) -
-						 (matrix[0][2] * matrix[1][1] * matrix[3][3]) - (matrix[0][3] * matrix[1][2] * matrix[3][1]))
-						 * inverseDeterminant;
-		inverse[0][3] = ((matrix[0][1] * matrix[1][3] * matrix[2][2]) + (matrix[0][2] * matrix[1][1] * matrix[2][3]) +
-						 (matrix[0][3] * matrix[1][2] * matrix[2][1]) - (matrix[0][1] * matrix[1][2] * matrix[2][3]) -
-						 (matrix[0][2] * matrix[1][3] * matrix[2][1]) - (matrix[0][3] * matrix[1][1] * matrix[2][2]))
-						 * inverseDeterminant;
-				
-		//Row 2
-		inverse[1][0] = ((matrix[1][0] * matrix[2][3] * matrix[3][2]) + (matrix[1][2] * matrix[2][0] * matrix[3][3]) +
-						 (matrix[1][3] * matrix[2][2] * matrix[3][0]) - (matrix[1][0] * matrix[2][2] * matrix[3][3]) -
-						 (matrix[1][2] * matrix[2][3] * matrix[3][0]) - (matrix[1][3] * matrix[2][0] * matrix[3][2]))
-						 * inverseDeterminant;
-		inverse[1][1] = ((matrix[0][0] * matrix[2][2] * matrix[3][3]) + (matrix[0][2] * matrix[2][3] * matrix[3][0]) +
-						 (matrix[0][3] * matrix[2][0] * matrix[3][2]) - (matrix[0][0] * matrix[2][3] * matrix[3][2]) -
-						 (matrix[0][2] * matrix[2][0] * matrix[3][3]) - (matrix[0][3] * matrix[2][2] * matrix[3][0]))
-						 * inverseDeterminant;
-		inverse[1][2] = ((matrix[0][0] * matrix[1][3] * matrix[3][2]) + (matrix[0][2] * matrix[1][0] * matrix[3][3]) +
-						 (matrix[0][3] * matrix[1][2] * matrix[3][0]) - (matrix[0][0] * matrix[1][2] * matrix[3][3]) -
-						 (matrix[0][2] * matrix[1][3] * matrix[3][0]) - (matrix[0][3] * matrix[1][0] * matrix[3][2]))
-						 * inverseDeterminant;
-		inverse[1][3] = ((matrix[0][0] * matrix[1][2] * matrix[2][3]) + (matrix[0][2] * matrix[1][3] * matrix[2][0]) +
-						 (matrix[0][3] * matrix[1][0] * matrix[2][2]) - (matrix[0][0] * matrix[1][3] * matrix[2][2]) -
-						 (matrix[0][2] * matrix[1][0] * matrix[2][3]) - (matrix[0][3] * matrix[1][2] * matrix[2][0]))
-						 * inverseDeterminant;
+	//Calculate pairs for first 8 elements (cofactors)
+	tmp[0] = src[10] * src[15];
+	tmp[1] = src[11] * src[14];
+	tmp[2] = src[9] * src[15];
+	tmp[3] = src[11] * src[13];
+	tmp[4] = src[9] * src[14];
+	tmp[5] = src[10] * src[13];
+	tmp[6] = src[8] * src[15];
+	tmp[7] = src[11] * src[12];
+	tmp[8] = src[8] * src[14];
+	tmp[9] = src[10] * src[12];
+	tmp[10] = src[8] * src[13];
+	tmp[11] = src[9] * src[12];
+	//Calculate first 8 elements (cofactors)
+	inverse[0][0] = tmp[0] * src[5] + tmp[3] * src[6] + tmp[4] * src[7];
+	inverse[0][0] -= tmp[1] * src[5] + tmp[2] * src[6] + tmp[5] * src[7];
+	inverse[0][1] = tmp[1] * src[4] + tmp[6] * src[6] + tmp[9] * src[7];
+	inverse[0][1] -= tmp[0] * src[4] + tmp[7] * src[6] + tmp[8] * src[7];
+	inverse[0][2] = tmp[2] * src[4] + tmp[7] * src[5] + tmp[10] * src[7];
+	inverse[0][2] -= tmp[3] * src[4] + tmp[6] * src[5] + tmp[11] * src[7];
+	inverse[0][3] = tmp[5] * src[4] + tmp[8] * src[5] + tmp[11] * src[6];
+	inverse[0][3] -= tmp[4] * src[4] + tmp[9] * src[5] + tmp[10] * src[6];
+	inverse[1][0] = tmp[1] * src[1] + tmp[2] * src[2] + tmp[5] * src[3];
+	inverse[1][0] -= tmp[0] * src[1] + tmp[3] * src[2] + tmp[4] * src[3];
+	inverse[1][1] = tmp[0] * src[0] + tmp[7] * src[2] + tmp[8] * src[3];
+	inverse[1][1] -= tmp[1] * src[0] + tmp[6] * src[2] + tmp[9] * src[3];
+	inverse[1][2] = tmp[3] * src[0] + tmp[6] * src[1] + tmp[11] * src[3];
+	inverse[1][2] -= tmp[2] * src[0] + tmp[7] * src[1] + tmp[10] * src[3];
+	inverse[1][3] = tmp[4] * src[0] + tmp[9] * src[1] + tmp[10] * src[2];
+	inverse[1][3] -= tmp[5] * src[0] + tmp[8] * src[1] + tmp[11] * src[2];
+	//Calculate pairs for second 8 elements (cofactors)
+	tmp[0] = src[2] * src[7];
+	tmp[1] = src[3] * src[6];
+	tmp[2] = src[1] * src[7];
+	tmp[3] = src[3] * src[5];
+	tmp[4] = src[1] * src[6];
+	tmp[5] = src[2] * src[5];
 
-		//Row 3
-		inverse[2][0] = ((matrix[1][0] * matrix[2][1] * matrix[3][3]) + (matrix[1][2] * matrix[2][0] * matrix[3][3]) +
-						 (matrix[1][3] * matrix[2][0] * matrix[3][1]) - (matrix[1][0] * matrix[2][2] * matrix[3][3]) -
-						 (matrix[1][1] * matrix[2][0] * matrix[3][3]) - (matrix[1][3] * matrix[2][0] * matrix[3][2]))
-						 * inverseDeterminant;
-		inverse[2][1] = ((matrix[0][0] * matrix[2][3] * matrix[3][1]) + (matrix[0][2] * matrix[2][3] * matrix[3][0]) +
-						 (matrix[0][3] * matrix[2][1] * matrix[3][0]) - (matrix[0][0] * matrix[2][3] * matrix[3][2]) -
-						 (matrix[0][1] * matrix[2][3] * matrix[3][0]) - (matrix[0][3] * matrix[2][2] * matrix[3][0]))
-						 * inverseDeterminant;
-		inverse[2][2] = ((matrix[0][0] * matrix[1][1] * matrix[3][3]) + (matrix[0][2] * matrix[1][0] * matrix[3][3]) +
-						 (matrix[0][3] * matrix[1][0] * matrix[3][1]) - (matrix[0][0] * matrix[1][2] * matrix[3][3]) -
-						 (matrix[0][1] * matrix[1][0] * matrix[3][3]) - (matrix[0][3] * matrix[1][0] * matrix[3][2]))
-						 * inverseDeterminant;
-		inverse[2][3] = ((matrix[0][0] * matrix[1][3] * matrix[2][1]) + (matrix[0][2] * matrix[1][3] * matrix[2][0]) +
-						 (matrix[0][3] * matrix[1][1] * matrix[2][0]) - (matrix[0][0] * matrix[1][3] * matrix[2][2]) -
-						 (matrix[0][1] * matrix[1][3] * matrix[2][0]) - (matrix[0][3] * matrix[1][2] * matrix[2][0]))
-						 * inverseDeterminant;
+	tmp[6] = src[0] * src[7];
+	tmp[7] = src[3] * src[4];
+	tmp[8] = src[0] * src[6];
+	tmp[9] = src[2] * src[4];
+	tmp[10] = src[0] * src[5];
+	tmp[11] = src[1] * src[4];
+	//Calculate second 8 elements (cofactors)
+	inverse[2][0] = tmp[0] * src[13] + tmp[3] * src[14] + tmp[4] * src[15];
+	inverse[2][0] -= tmp[1] * src[13] + tmp[2] * src[14] + tmp[5] * src[15];
+	inverse[2][1] = tmp[1] * src[12] + tmp[6] * src[14] + tmp[9] * src[15];
+	inverse[2][1] -= tmp[0] * src[12] + tmp[7] * src[14] + tmp[8] * src[15];
+	inverse[2][2] = tmp[2] * src[12] + tmp[7] * src[13] + tmp[10] * src[15];
+	inverse[2][2] -= tmp[3] * src[12] + tmp[6] * src[13] + tmp[11] * src[15];
+	inverse[2][3] = tmp[5] * src[12] + tmp[8] * src[13] + tmp[11] * src[14];
+	inverse[2][3] -= tmp[4] * src[12] + tmp[9] * src[13] + tmp[10] * src[14];
+	inverse[3][0] = tmp[2] * src[10] + tmp[5] * src[11] + tmp[1] * src[9];
+	inverse[3][0] -= tmp[4] * src[11] + tmp[0] * src[9] + tmp[3] * src[10];
+	inverse[3][1] = tmp[8] * src[11] + tmp[0] * src[8] + tmp[7] * src[10];
+	inverse[3][1] -= tmp[6] * src[10] + tmp[9] * src[11] + tmp[1] * src[8];
+	inverse[3][2] = tmp[6] * src[9] + tmp[11] * src[11] + tmp[3] * src[8];
+	inverse[3][2] -= tmp[10] * src[11] + tmp[2] * src[8] + tmp[7] * src[9];
+	inverse[3][3] = tmp[10] * src[10] + tmp[4] * src[8] + tmp[9] * src[9];
+	inverse[3][3] -= tmp[8] * src[9] + tmp[11] * src[10] + tmp[5] * src[8];
+	
+	//Calculate inverse determinant
+	determinant = src[0] * inverse[0][0] + src[1] * inverse[0][1] + src[2] * inverse[0][2] + src[3] * inverse[0][3];
+	determinant = 1.0f / determinant;
 
-		//Row 4
-		inverse[3][0] = ((matrix[1][0] * matrix[2][2] * matrix[3][1]) + (matrix[1][1] * matrix[2][0] * matrix[3][2]) +
-						 (matrix[1][2] * matrix[2][1] * matrix[3][0]) - (matrix[1][0] * matrix[2][1] * matrix[3][2]) -
-						 (matrix[1][1] * matrix[2][2] * matrix[3][0]) - (matrix[1][2] * matrix[2][0] * matrix[3][1]))
-						 * inverseDeterminant;
-		inverse[3][1] = ((matrix[0][0] * matrix[2][1] * matrix[3][2]) + (matrix[0][1] * matrix[2][2] * matrix[3][0]) +
-						 (matrix[0][2] * matrix[2][0] * matrix[3][1]) - (matrix[0][0] * matrix[2][2] * matrix[3][1]) -
-						 (matrix[0][1] * matrix[2][0] * matrix[3][2]) - (matrix[0][2] * matrix[2][1] * matrix[3][0]))
-						 * inverseDeterminant;
-		inverse[3][2] = ((matrix[0][0] * matrix[1][2] * matrix[3][1]) + (matrix[0][1] * matrix[1][0] * matrix[3][2]) +
-						 (matrix[0][2] * matrix[1][1] * matrix[3][0]) - (matrix[0][0] * matrix[1][1] * matrix[3][2]) -
-						 (matrix[0][1] * matrix[1][2] * matrix[3][0]) - (matrix[0][2] * matrix[1][0] * matrix[3][1]))
-						 * inverseDeterminant;
-		inverse[3][3] = ((matrix[0][0] * matrix[1][1] * matrix[2][2]) + (matrix[0][1] * matrix[1][2] * matrix[2][0]) +
-						 (matrix[0][2] * matrix[1][0] * matrix[2][1]) - (matrix[0][0] * matrix[1][2] * matrix[2][1]) -
-						 (matrix[0][1] * matrix[1][0] * matrix[2][2]) - (matrix[0][2] * matrix[1][1] * matrix[2][0]))
-						 * inverseDeterminant;
+	//Multiply inverse determinant to all memebers
+	for (unsigned int i = 0; i < 4; i++)
+	{
+		for (unsigned int j = 0; j < 4; j++)
+		{
+			inverse[i][j] *= determinant;
+		}
 	}
 
 	return inverse;

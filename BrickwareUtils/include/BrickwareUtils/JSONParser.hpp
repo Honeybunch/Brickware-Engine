@@ -45,6 +45,7 @@ namespace Brickware
 			bool boolean;
 			JSONObject* object;
 			std::vector<JSONValue>* array;
+			bool isNull = false;
 
 			operator char*() const { return string; }
 			operator int() const { return integer; }
@@ -230,6 +231,11 @@ namespace Brickware
 					*floatVal = (float)atof(string);
 					value = *floatVal;
 				}
+				//Parsing null
+				if (strcmp(string, "null") == 0)
+				{
+					value.isNull = true;
+				}
 				else
 				{
 					int* intVal = new int;
@@ -248,7 +254,9 @@ namespace Brickware
 
 				JSONObject* object = new JSONObject;
 
-				while (true)
+				bool parsing = true;
+
+				while (parsing)
 				{
 					//We've hit a member; determine how long until the next member and then parse it
 					if (c == '\"')
@@ -257,17 +265,34 @@ namespace Brickware
 						int memberLength = 0;
 						char m = c;
 						char targetChar = ',';
-						while (m != targetChar && m != '}')
-						{
-							m = string[startIndex + memberLength];
 
-							//If we hit an object or array opening we now want to parse until we hit its close
+						int nestedObjects = 0;
+						int nestedArrays = 0;
+
+						while (m != targetChar || nestedObjects > 0 || nestedArrays > 0)
+						{
+							//If we've read past our string length we can just break
+							if (index + memberLength >= stringLength)
+							{
+								parsing = false;
+								break;
+							}
+
+							m = string[startIndex + memberLength];							
+							
+							if (m == '}' && nestedObjects == 0)
+								break;
+
 							if (m == '{')
-								targetChar = '}';
-							
-							else if (m == '[')
-								targetChar = ']';
-							
+								nestedObjects++;
+							else if (m == '}' && nestedObjects > 0)
+								nestedObjects--;
+
+							if (m == '[')
+								nestedArrays++;
+							else if (m == ']' && nestedArrays > 0)
+								nestedArrays--;
+
 							memberLength++;
 						}
 
@@ -307,8 +332,8 @@ namespace Brickware
 					c = string[index++];
 
 					//If we've read past our string length we can just break
-					if (index > stringLength)
-						break;
+					if (index >= stringLength)
+						parsing = false;
 				}
 
 				return object;
@@ -323,12 +348,79 @@ namespace Brickware
 				trimmedString[strlen(trimmedString) - 1] = '\0';
 
 				//Split
-				std::vector<std::string> elementStrings = StringUtils::stringSplit(trimmedString, ",");
+				int stringLength = strlen(trimmedString);
+				int index = 0;
 
-				//Parse out the types and place them into elements
-				for (unsigned int i = 0; i < elementStrings.size(); i++)
-					elements->push_back(parseValue(elementStrings[i].c_str()));
-				
+				char m = trimmedString[0];
+				char targetChar = ',';
+
+				bool parsing = true;
+
+				while (parsing)
+				{
+					int startIndex = index;
+					int valueLength = 0;
+					int nestedObjects = 0;
+					int nestedArrays = 0;
+
+					m = trimmedString[index];
+
+					while (m != targetChar || nestedObjects > 0 || nestedArrays > 0)
+					{
+						//If we've read past our string length we can just break
+						if (index + valueLength >= stringLength)
+						{
+							parsing = false;
+							break;
+						}
+
+						m = trimmedString[valueLength];
+
+						if (m == '}' && nestedObjects == 0)
+							break;
+
+						if (m == '{')
+							nestedObjects++;
+						else if (m == '}' && nestedObjects > 0)
+							nestedObjects--;
+
+						if (m == '[')
+							nestedArrays++;
+						else if (m == ']' && nestedArrays > 0)
+							nestedArrays--;
+
+						valueLength++;
+					}
+
+					if (valueLength == 0)
+					{
+						index++;
+						continue;
+					}
+
+					char* valueString = new char[valueLength + 1];
+					memcpy(valueString, trimmedString + index, valueLength);
+
+					//We MAY want to trim off the last character
+					if (valueString[valueLength - 1] == ','
+						|| (!strstr(valueString, "{") && valueString[valueLength - 1] == '}'))
+						valueString[valueLength - 1] = '\0';
+					//Regardless the string needs a null terminator
+					else
+						valueString[valueLength] = '\0';
+
+					/*Actually put the parsed value object into the array*/
+					elements->push_back(parseValue(valueString));
+
+					//If we've read past our string length we can just break
+					if (valueLength >= stringLength)
+						parsing = false;
+
+					delete[] valueString;
+
+					index += (valueLength);
+				}
+
 				return elements;
 			}
 			inline static JSONPair parseMember(const char* string)

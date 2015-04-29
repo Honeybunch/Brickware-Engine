@@ -45,9 +45,9 @@ bool Collider::isColliding(Bounds bounds)
 	return isCollidingWithBounds(bounds);
 }
 
-bool Collider::isColliding(Ray ray)
+bool Collider::isColliding(Ray ray, Vector3* pointOfCollision)
 {
-	return isCollidingWithRay(ray);
+	return isCollidingWithRay(ray, pointOfCollision);
 }
 
 void Collider::calculateWorldData()

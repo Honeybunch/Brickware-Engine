@@ -3,6 +3,7 @@
 	"testStr": "hello",
 	"testInt" : 100,
 	"testFloat"  : 10.5,
+	"testNull" : null,
 	"testObject" : 
 	{
 		"testObjectInt" : 1025,

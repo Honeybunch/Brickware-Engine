@@ -495,7 +495,7 @@ bool BoxCollider::isCollidingWithBounds(Bounds other)
 }
 
 //Don't care yet
-bool BoxCollider::isCollidingWithRay(Ray other)
+bool BoxCollider::isCollidingWithRay(Ray other, Vector3* pointOfCollision)
 {
 	return false;
 }

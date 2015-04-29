@@ -24,16 +24,16 @@ Brickware-Engine_BINARY_DIR:STATIC=D:/Users/amt3824/Git/Brickware-Engine/Build
 Brickware-Engine_SOURCE_DIR:STATIC=D:/Users/amt3824/Git/Brickware-Engine
 
 //Dependencies for the target
-BrickwareCore_LIB_DEPENDS:STATIC=general;opengl32.lib;general;D:/Users/amt3824/Git/Brickware-Engine/GL/lib/Win32//glew32.lib;general;D:/Users/amt3824/Git/Brickware-Engine/GLFW/lib/Win32//glfw3dll.lib;general;BrickwareMath;general;BrickwareUtils;general;BrickwareGraphics;
+BrickwareCore_LIB_DEPENDS:STATIC=general;opengl32.lib;general;D:/Users/amt3824/Git/Brickware-Engine/GL/lib/Win32/glew32.lib;general;D:/Users/amt3824/Git/Brickware-Engine/GLFW/lib/Win32/glfw3dll.lib;general;BrickwareMath;general;BrickwareUtils;general;BrickwareGraphics;
 
 //Dependencies for the target
-BrickwareGraphics_LIB_DEPENDS:STATIC=general;opengl32.lib;general;D:/Users/amt3824/Git/Brickware-Engine/GL/lib/Win32//glew32.lib;general;D:/Users/amt3824/Git/Brickware-Engine/GLFW/lib/Win32//glfw3dll.lib;general;BrickwareMath;general;BrickwareUtils;
+BrickwareGraphics_LIB_DEPENDS:STATIC=general;opengl32.lib;general;D:/Users/amt3824/Git/Brickware-Engine/GL/lib/Win32/glew32.lib;general;D:/Users/amt3824/Git/Brickware-Engine/GLFW/lib/Win32/glfw3dll.lib;general;BrickwareMath;general;BrickwareUtils;
 
 //Dependencies for target
 BrickwareMath_LIB_DEPENDS:STATIC=
 
 //Dependencies for the target
-BrickwareUtils_LIB_DEPENDS:STATIC=general;opengl32.lib;general;D:/Users/amt3824/Git/Brickware-Engine/GL/lib/Win32//glew32.lib;
+BrickwareUtils_LIB_DEPENDS:STATIC=general;opengl32.lib;general;D:/Users/amt3824/Git/Brickware-Engine/GL/lib/Win32/glew32.lib;
 
 //Semicolon separated list of supported configuration types, only
 // supports Debug, Release, MinSizeRel, and RelWithDebInfo, anything
@@ -172,16 +172,16 @@ CMAKE_VERBOSE_MAKEFILE:BOOL=OFF
 D3D_SUPPORT:BOOL=OFF
 
 //GLFW Include Path
-GLEW_INCLUDE:PATH=D:/Users/amt3824/Git/Brickware-Engine/GL/include/
+GLEW_INCLUDE:PATH=D:/Users/amt3824/Git/Brickware-Engine/GL/include
 
 //GLFW Lib Path
-GLEW_LIB:PATH=D:/Users/amt3824/Git/Brickware-Engine/GL/lib/Win32/
+GLEW_LIB:PATH=D:/Users/amt3824/Git/Brickware-Engine/GL/lib/Win32
 
 //GLFW Include Path
-GLFW_INCLUDE:PATH=D:/Users/amt3824/Git/Brickware-Engine/GLFW/include/
+GLFW_INCLUDE:PATH=D:/Users/amt3824/Git/Brickware-Engine/GLFW/include
 
 //GLFW Lib Path
-GLFW_LIB:PATH=D:/Users/amt3824/Git/Brickware-Engine/GLFW/lib/Win32/
+GLFW_LIB:PATH=D:/Users/amt3824/Git/Brickware-Engine/GLFW/lib/Win32
 
 GL_SUPPORT:BOOL=ON
 
@@ -191,17 +191,17 @@ GL_SUPPORT:BOOL=ON
 ########################
 
 //Stored GUID
-ALL_BUILD_GUID_CMAKE:INTERNAL=1F9242FE-5462-4E5F-8A8D-A6692143ABD5
+ALL_BUILD_GUID_CMAKE:INTERNAL=DA647154-B154-4FD0-9D24-F5030CAA650D
 //Stored GUID
-BrickwareCore_GUID_CMAKE:INTERNAL=D5618F47-EB98-45B7-AEAF-B1FCE0CEBF83
+BrickwareCore_GUID_CMAKE:INTERNAL=1599091B-0E84-4102-A226-20584C32B0C9
 //Stored GUID
-BrickwareGraphics_GUID_CMAKE:INTERNAL=48510A1C-CD77-49E5-B114-68FBB28EC379
+BrickwareGraphics_GUID_CMAKE:INTERNAL=0B0C3420-5185-49E5-82D1-837A607E6E4B
 //Stored GUID
-BrickwareMath_GUID_CMAKE:INTERNAL=14D4310F-6B88-4968-806D-6D3042F80848
+BrickwareMath_GUID_CMAKE:INTERNAL=540E07DB-DFC6-43A0-9A44-E7A613E1F53E
 //Stored GUID
-BrickwareTest_GUID_CMAKE:INTERNAL=AFDE5B40-3D20-4E12-8DFE-3E85BCD4CC10
+BrickwareTest_GUID_CMAKE:INTERNAL=430EC440-5D3A-4F06-801D-E455F10538F8
 //Stored GUID
-BrickwareUtils_GUID_CMAKE:INTERNAL=05FCE196-AEE0-4569-A8BD-204BA90542A8
+BrickwareUtils_GUID_CMAKE:INTERNAL=3CB13128-E703-411D-9D84-4A072E9E4DFD
 //This is the directory where this CMakeCache.txt was created
 CMAKE_CACHEFILE_DIR:INTERNAL=d:/Users/amt3824/Git/Brickware-Engine/Build
 //Major version of cmake used to create the current loaded cache
@@ -255,9 +255,9 @@ CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //Name of external makefile project generator.
 CMAKE_EXTRA_GENERATOR:INTERNAL=
 //Stored GUID
-CMAKE_FOLDER_GUID_CMakePredefinedTargets_GUID_CMAKE:INTERNAL=9EF0D305-5392-45B0-91BC-DF158E5653DF
+CMAKE_FOLDER_GUID_CMakePredefinedTargets_GUID_CMAKE:INTERNAL=B3106954-D825-4DFF-B167-CBA76EC5D173
 //Stored GUID
-CMAKE_FOLDER_GUID_lib_GUID_CMAKE:INTERNAL=317662EA-2624-4411-82FA-8AA3B849FF03
+CMAKE_FOLDER_GUID_lib_GUID_CMAKE:INTERNAL=9BEC6474-6560-4848-874D-3399F245ED8E
 //Name of generator.
 CMAKE_GENERATOR:INTERNAL=Visual Studio 12 2013
 //Name of generator platform.
@@ -320,19 +320,19 @@ CMAKE_USE_RELATIVE_PATHS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
 //Stored GUID
-INSTALL_GUID_CMAKE:INTERNAL=99B5E64C-97EB-48B8-8F69-39D3092B4A3F
+INSTALL_GUID_CMAKE:INTERNAL=721135C7-E9CA-4470-B986-3CB24FAC1972
 //Stored GUID
-SG_Filter_CMake Rules_GUID_CMAKE:INTERNAL=BF20275A-E4B1-4E32-9011-1AE28EB0F290
+SG_Filter_CMake Rules_GUID_CMAKE:INTERNAL=68AF33DD-417C-492B-9504-CEE826B2135C
 //Stored GUID
-SG_Filter_Header Files_GUID_CMAKE:INTERNAL=34749959-AF05-474F-B5CB-EB2F53C6A58D
+SG_Filter_Header Files_GUID_CMAKE:INTERNAL=167D07B2-E3D9-4E70-A1DF-0EE937C0034B
 //Stored GUID
-SG_Filter_Headers_GUID_CMAKE:INTERNAL=58E51068-E479-4255-B751-7DF64B79A0BD
+SG_Filter_Headers_GUID_CMAKE:INTERNAL=A718D2BE-E14B-42A5-88A7-D945228D3A51
 //Stored GUID
-SG_Filter_Object Files_GUID_CMAKE:INTERNAL=2EC02763-CCC0-4F4E-A3FA-CE5A38703392
+SG_Filter_Object Files_GUID_CMAKE:INTERNAL=D7E737AD-7001-4089-84C3-7DF7F4F8EC8C
 //Stored GUID
-SG_Filter_Resources_GUID_CMAKE:INTERNAL=D5FFE1DB-5D67-49C4-A14A-75304AC05BAF
+SG_Filter_Resources_GUID_CMAKE:INTERNAL=03BC35FC-A3E1-4C1D-9EA5-FD86701381AC
 //Stored GUID
-SG_Filter_Source Files_GUID_CMAKE:INTERNAL=E96C7E7C-0FDE-4876-B248-0AE4FEEABDDF
+SG_Filter_Source Files_GUID_CMAKE:INTERNAL=E2DE7687-4312-4A5E-9CC5-D482935448CA
 //Stored GUID
-ZERO_CHECK_GUID_CMAKE:INTERNAL=39AFCE8F-0CDE-496A-AAD8-2C88FFDC1497
+ZERO_CHECK_GUID_CMAKE:INTERNAL=9AB73AE3-34C8-4BA4-A969-38C94ED34C5D
 

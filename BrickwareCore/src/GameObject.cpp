@@ -106,14 +106,14 @@ void GameObject::OnMouseOver()
 
 void GameObject::OnMouseStay()
 {
-	//for (unsigned int i = 0; i < components.size(); i++)
-	//	components[i]->OnMouseOver();
+	for (unsigned int i = 0; i < components.size(); i++)
+		components[i]->OnMouseStay();
 }
 
 void GameObject::OnMouseExit()
 {
-	//for (unsigned int i = 0; i < components.size(); i++)
-	//	components[i]->OnMouseOver();
+	for (unsigned int i = 0; i < components.size(); i++)
+		components[i]->OnMouseExit();
 }
 
 void GameObject::OnRender()

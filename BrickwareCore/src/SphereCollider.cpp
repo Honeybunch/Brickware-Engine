@@ -88,9 +88,10 @@ bool SphereCollider::isCollidingWithBounds(Bounds other)
 		return false;
 }
 
-bool SphereCollider::isCollidingWithRay(Ray other)
+bool SphereCollider::isCollidingWithRay(Ray other, Vector3* pointOfCollision)
 {
-	Vector3 localizedCenter = center - other.getOrigin();
+	Vector3 rayOrigin = other.getOrigin();
+	Vector3 localizedCenter = center - rayOrigin;
 	float distanceToCenter = localizedCenter.getMagnitude();
 
 	Vector3 rayDirection = other.getDirection();
@@ -99,11 +100,31 @@ bool SphereCollider::isCollidingWithRay(Ray other)
 	if (Vector3::Dot(localizedCenter, rayDirection) < 0)
 	{
 		if (distanceToCenter > radius)
+		{
 			return false;
-		else if (distanceToCenter == radius) //We hit the center and could return that as the collision point
+		}
+		else if (distanceToCenter == radius) //We hit the center and can return that as the collision point
+		{
+			if (pointOfCollision != NULL)
+				*pointOfCollision = center;
 			return true;
-		else //We would have to calculate the collision point
+		}
+		else //We have to calculate the collision point
+		{
+			if (pointOfCollision != NULL)
+			{
+				//Project center onto ray
+				float projectionMag = Vector3::Dot(rayDirection, center);
+				Vector3 projectedCenter = rayDirection * projectionMag;
+
+				float distance = sqrtf(powf(radius, 2) - powf((projectedCenter - center).getMagnitude(), 2));
+				float distanceToIntersection = distance - (projectedCenter - rayOrigin).getMagnitude();
+
+				*pointOfCollision = rayOrigin + rayDirection * distanceToIntersection;
+			}
+
 			return true;
+		}
 	}
 	//In this case the center of the sphere projects in front of the ray
 	else
@@ -113,9 +134,26 @@ bool SphereCollider::isCollidingWithRay(Ray other)
 		Vector3 projectedCenter = rayDirection * projectionMag;
 
 		if ((center - projectedCenter).getMagnitude() > radius)
+		{
 			return false;
-		else //Could calculate point of intersection here
+		}
+		else //Calculate point of intersection here
+		{
+			if (pointOfCollision != NULL)
+			{
+				float distance = sqrtf(powf(radius, 2) - powf((projectedCenter - center).getMagnitude(), 2));
+				float distanceToIntersection = (projectedCenter - rayOrigin).getMagnitude();
+
+				if (localizedCenter.getMagnitude() > radius)//Origin outside sphere
+					distanceToIntersection -= distance;
+				else //Origin inside sphere
+					distanceToIntersection += distance;
+
+				*pointOfCollision = rayOrigin + rayDirection * distanceToIntersection;
+			}
+
 			return true;
+		}
 	}
 
 	return false;

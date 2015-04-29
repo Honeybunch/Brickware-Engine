@@ -1,6 +1,8 @@
 #ifndef GAMEINPUTMANAGER_H
 #define GAMEINPUTMANAGER_H
 
+#define NOMINMAX
+
 #include "BrickwareMath\Vector4.hpp"
 #include "BrickwareMath\Vector3.hpp"
 #include "BrickwareMath\Vector2.hpp"
@@ -17,6 +19,12 @@ namespace Brickware
 {
 	namespace Core
 	{
+		struct RaycastHit
+		{
+			Math::Vector3 point;
+			Collider* collider = NULL;
+		};
+
 		class GameInputManager
 		{
 			friend class Game;
@@ -28,6 +36,7 @@ namespace Brickware
 
 			static void MouseOverObjects();
 
+			static RaycastHit lastHit;
 		};
 	}
 }

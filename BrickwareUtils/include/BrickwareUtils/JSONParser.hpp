@@ -13,9 +13,6 @@
 //Pre-Include Defines
 #define _CRT_SECURE_NO_WARNINGS
 
-//DLL Header
-#include "BrickwareUtils\BrickwareUtilsDLL.hpp"
-
 //System level headers
 #include <vector>
 
@@ -45,7 +42,6 @@ namespace Brickware
 			bool boolean;
 			JSONObject* object;
 			std::vector<JSONValue>* array;
-			bool isNull = false;
 
 			operator char*() const { return string; }
 			operator int() const { return integer; }
@@ -223,6 +219,11 @@ namespace Brickware
 				else if(string[0] == '[')
 				{
 					value = parseArray(string);
+				}
+				//Parsing null
+				else if (strcmp(string, "null") == 0)
+				{
+					value = 0;
 				}
 				//Parsing numbers
 				else if (strstr(string, "."))

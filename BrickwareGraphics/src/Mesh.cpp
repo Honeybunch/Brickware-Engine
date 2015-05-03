@@ -340,6 +340,7 @@ void Mesh::loadOBJ(char* fileName)
 void Mesh::bufferGL()
 {
 	//Setup the VBO
+	glDeleteBuffers(1, &vbo);
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
@@ -349,6 +350,7 @@ void Mesh::bufferGL()
 	glBufferSubData(GL_ARRAY_BUFFER, pointSize + normalSize, texCoordSize, texCoords);
 
 	//Setup the IBO
+	glDeleteBuffers(1, &ibo);
 	glGenBuffers(1, &ibo);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexSize, indices, GL_STATIC_DRAW);

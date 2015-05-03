@@ -106,11 +106,13 @@ void PhysicsManager::Update()
 						//TODO
 					}
 				}
-				else
-				{
-					delete collision;
-					delete oppositeCollision;
-				}
+
+			}
+			
+			if (colliding == false)
+			{
+				delete collision;
+				delete oppositeCollision;
 			}
 		}
 	}

@@ -100,8 +100,6 @@ int Game::run()
 
 		GameInputManager::Update();
 
-		updateScene();
-
 		//Update physics "ticksPerSecond" times per second
 		loops = 0;
 		while (GameTime::GetMillisSinceStart() > nextGameTick && loops < maxFrameskip)
@@ -111,6 +109,8 @@ int Game::run()
 			nextGameTick += skipTicks;
 			loops++;
 		}
+
+		updateScene();
 
 		//Calculate interpolation (UNUSED)
 		//interpolation = (float)(((float)ticks + skipTicks - nextGameTick) / (float)skipTicks);

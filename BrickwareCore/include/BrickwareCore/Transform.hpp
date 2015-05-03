@@ -102,6 +102,21 @@ namespace Brickware
 			 */
 			Math::Matrix4 getModelMatrix();
 
+			/* Gets matrix describing this object's current translation
+			 * @return A <Matrix4> describing translation
+			 */
+			Math::Matrix4 getTranslationMatrix();
+
+			/* Gets matrix describing this object's current rotation
+			 * @return A <Matrix4> describing rotation
+			 */
+			Math::Matrix4 getRotationMatrix();
+
+			/* Gets matrix describing this object's current scale
+			 * @return A <Matrix4> describing scale
+			 */
+			Math::Matrix4 getScaleMatrix();
+
 			/* Sets the position.
 			 * @newPosition A <Vector3> describing the new position.
 			 */
@@ -167,6 +182,10 @@ namespace Brickware
 			Math::Vector3 up;
 
 			Math::Matrix4 modelMatrix;
+
+			Math::Matrix4 translationMatrix;
+			Math::Matrix4 rotationMatrix;
+			Math::Matrix4 scaleMatrix;
 		};
 	}
 }

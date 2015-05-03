@@ -1,5 +1,5 @@
-﻿Build started 4/29/2015 2:47:13 PM.
-     1>Project "D:\Users\amt3824\Git\Brickware-Engine\Build\ALL_BUILD.vcxproj" on node 2 (Build target(s)).
+﻿Build started 5/2/2015 2:07:18 PM.
+     1>Project "D:\Users\amt3824\Git\Brickware-Engine\Build\ALL_BUILD.vcxproj" on node 3 (Build target(s)).
      1>CustomBuild:
          Building Custom Rule D:/Users/amt3824/Git/Brickware-Engine/CMakeLists.txt
          CMake does not need to re-run because D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\generate.stamp is up-to-date.
@@ -7,4 +7,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.27
+Time Elapsed 00:00:00.28

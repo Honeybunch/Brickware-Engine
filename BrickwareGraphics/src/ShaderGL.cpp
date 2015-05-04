@@ -60,8 +60,8 @@ bool Shader::loadGLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 	const GLchar* vertexShaderSourceGL = vertexShaderSource;
 	const GLchar* fragmentShaderSourceGL = pixelShaderSource;
 
-	glShaderSource(vertexShader, 1, &vertexShaderSourceGL, NULL);
-	glShaderSource(pixelShader, 1, &fragmentShaderSourceGL, NULL);
+	glShaderSource(vertexShader, 1, &vertexShaderSourceGL, nullptr);
+	glShaderSource(pixelShader, 1, &fragmentShaderSourceGL, nullptr);
 
 	// Compile the shader
 	glCompileShader(vertexShader);
@@ -98,7 +98,7 @@ bool Shader::loadGLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 		name[nameLength] = 0;
 
 		if (type == GL_SAMPLER_2D)
-			textureMap[std::string(name)] = NULL;
+			textureMap[std::string(name)] = nullptr;
 		else
 			uniformMap[std::string(name)] = i;
 	}

@@ -29,7 +29,7 @@ Component* MeshRenderer::Clone()
 void MeshRenderer::Start()
 {
 	GameObject* gameObject = getGameObject();
-	if (gameObject->getComponent<Softbody>() != NULL)
+	if (gameObject->getComponent<Softbody>() != nullptr)
 		mesh->setBufferHint(BufferHint::DYNAMIC_DRAW);
 }
 

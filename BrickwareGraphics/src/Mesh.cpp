@@ -10,10 +10,10 @@ using namespace Math;
 
 Mesh::Mesh(char* modelFileName)
 {
-	points = NULL;
-	normals = NULL;
-	texCoords = NULL;
-	indices = NULL;
+	points = nullptr;
+	normals = nullptr;
+	texCoords = nullptr;
+	indices = nullptr;
 
 	loadOBJ(modelFileName);
 
@@ -129,22 +129,22 @@ void Mesh::bufferChanges()
 	if (points)
 	{
 		delete[] points;
-		points = NULL;
+		points = nullptr;
 	}
 	if (normals)
 	{
 		delete[] normals;
-		normals = NULL;
+		normals = nullptr;
 	}
 	if (texCoords)
 	{
 		delete[] texCoords;
-		texCoords = NULL;
+		texCoords = nullptr;
 	}
 	if (indices)
 	{
 		delete[] indices;
-		indices = NULL;
+		indices = nullptr;
 	}
 }
 #ifdef GL_SUPPORT
@@ -344,7 +344,7 @@ void Mesh::bufferGL()
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
-	glBufferData(GL_ARRAY_BUFFER, pointSize + normalSize + texCoordSize, NULL, glBufferHint);
+	glBufferData(GL_ARRAY_BUFFER, pointSize + normalSize + texCoordSize, nullptr, glBufferHint);
 	glBufferSubData(GL_ARRAY_BUFFER, 0, pointSize, points);
 	glBufferSubData(GL_ARRAY_BUFFER, pointSize, normalSize, normals);
 	glBufferSubData(GL_ARRAY_BUFFER, pointSize + normalSize, texCoordSize, texCoords);

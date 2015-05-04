@@ -42,7 +42,7 @@ void Texture::bufferD3D()
 	resourceDesc.Texture2D.MipLevels = 1;
 
 	//Create the SRV
-	HR(RenderingManager::device->CreateShaderResourceView(d3dTexture, NULL, &d3dTextureSRV));
+	HR(RenderingManager::device->CreateShaderResourceView(d3dTexture, nullptr, &d3dTextureSRV));
 
 	//Clear out descriptions
 	ZeroMemory(&textureDesc, sizeof(textureDesc));

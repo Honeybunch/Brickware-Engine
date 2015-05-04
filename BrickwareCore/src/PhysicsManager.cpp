@@ -65,13 +65,13 @@ void PhysicsManager::Update()
 	for (auto it1 = colliders.begin(); it1 != colliders.end(); it1++)
 	{
 		Collider* test = it1->first;
-		if (test->getGameObject()->getComponent<Rigidbody>() == NULL)
+		if (test->getGameObject()->getComponent<Rigidbody>() == nullptr)
 			continue;
 
 		for (auto it2 = colliders.begin(); it2 != colliders.end(); it2++)
 		{
 			Collider* other = it2->first;
-			if (other->getGameObject()->getComponent<Rigidbody>() == NULL)
+			if (other->getGameObject()->getComponent<Rigidbody>() == nullptr)
 				continue;
 
 			bool colliding = false;

@@ -488,7 +488,7 @@ bool BoxCollider::isCollidingWithBox(BoxCollider* other, Collision* collision)
 //TODO: Refactor to mesh collision
 bool BoxCollider::isCollidingWithFrustum(FrustumCollider* other)
 {
-	return other->isColliding(this, NULL);
+	return other->isColliding(this, nullptr);
 }
 
 //Don't really care yet

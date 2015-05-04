@@ -22,7 +22,7 @@ void Component::setGameObject(GameObject* gameObject)
 
 //Virtual Functions
 
-Component* Component::Clone(){ return NULL; }
+Component* Component::Clone(){ return nullptr; }
 
 void Component::Start(){}
 

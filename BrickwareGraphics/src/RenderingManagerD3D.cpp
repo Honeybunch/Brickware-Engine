@@ -25,7 +25,7 @@ void RenderingManager::RenderD3D(Renderable renderable)
 		deviceContext->UpdateSubresource(
 			constantBuffers[i],
 			0,
-			NULL,
+			nullptr,
 			constantBufferData[i],
 			0,
 			0);

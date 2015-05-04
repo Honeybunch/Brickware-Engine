@@ -10,7 +10,7 @@ using namespace Math;
 	OctreeNode Implementation
 */
 
-OctreeNode::OctreeNode(Octree* octree, OctreeNode* parent = NULL, float depth = 0, Vector3 center = Vector3(), float width = 100.0f)
+OctreeNode::OctreeNode(Octree* octree, OctreeNode* parent = nullptr, float depth = 0, Vector3 center = Vector3(), float width = 100.0f)
 {
 	this->octree = octree;
 	this->parent = parent;
@@ -35,7 +35,7 @@ void OctreeNode::addObject(GameObject* object)
 	//If there is no mesh renderer just add it to the root and leave it at that
 	//TODO: Add to Octree based on just the transform position
 	
-	/*if (meshRenderer == NULL)
+	/*if (meshRenderer == nullptr)
 	{
 		objects.push_back(object);
 		return;

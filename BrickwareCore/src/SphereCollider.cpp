@@ -47,13 +47,13 @@ bool SphereCollider::isCollidingWithSphere(SphereCollider* other)
 
 bool SphereCollider::isCollidingWithBox(BoxCollider* other, Collision* collision)
 {
-	return other->isColliding(this, NULL);
+	return other->isColliding(this, nullptr);
 }
 
 //TODO: refactor to mesh collision
 bool SphereCollider::isCollidingWithFrustum(FrustumCollider* other)
 {
-	return other->isColliding(this, NULL);
+	return other->isColliding(this, nullptr);
 }
 
 bool SphereCollider::isCollidingWithBounds(Bounds other)
@@ -105,13 +105,13 @@ bool SphereCollider::isCollidingWithRay(Ray other, Vector3* pointOfCollision)
 		}
 		else if (distanceToCenter == radius) //We hit the center and can return that as the collision point
 		{
-			if (pointOfCollision != NULL)
+			if (pointOfCollision != nullptr)
 				*pointOfCollision = center;
 			return true;
 		}
 		else //We have to calculate the collision point
 		{
-			if (pointOfCollision != NULL)
+			if (pointOfCollision != nullptr)
 			{
 				//Project center onto ray
 				float projectionMag = Vector3::Dot(rayDirection, center);
@@ -139,7 +139,7 @@ bool SphereCollider::isCollidingWithRay(Ray other, Vector3* pointOfCollision)
 		}
 		else //Calculate point of intersection here
 		{
-			if (pointOfCollision != NULL)
+			if (pointOfCollision != nullptr)
 			{
 				float distance = sqrtf(powf(radius, 2) - powf((projectedCenter - center).getMagnitude(), 2));
 				float distanceToIntersection = (projectedCenter - rayOrigin).getMagnitude();

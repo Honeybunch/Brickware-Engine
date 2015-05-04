@@ -47,7 +47,7 @@ void Texture::loadBMP(char* textureFileName)
 {
 	char* bmpBytes = StringUtils::textFileRead(textureFileName);
 
-	if (bmpBytes == NULL)
+	if (bmpBytes == nullptr)
 	{
 		std::cout << "Error loading: " << textureFileName << std::endl;
 		return;

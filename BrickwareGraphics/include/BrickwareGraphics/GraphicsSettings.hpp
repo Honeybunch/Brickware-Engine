@@ -22,7 +22,7 @@
 
 		//Special GL Macros
 #ifdef GL_SUPPORT
-#define BUFFER_OFFSET(i) ((char *)NULL + (i))
+#define BUFFER_OFFSET(i) ((char *)nullptr + (i))
 #endif
 
 		//Special DirectX macros

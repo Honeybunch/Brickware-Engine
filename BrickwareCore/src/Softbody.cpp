@@ -157,19 +157,19 @@ void Softbody::Start()
 		Node* node2 = getNode(vert2);
 		Node* node3 = getNode(vert3);
 
-		if (node1 == NULL)
+		if (node1 == nullptr)
 		{
 			node1 = new Node(vert1);
 			nodes.push_back(node1);
 		}
 
-		if (node2 == NULL)
+		if (node2 == nullptr)
 		{
 			node2 = new Node(vert2);
 			nodes.push_back(node2);
 		}
 
-		if (node3 == NULL)
+		if (node3 == nullptr)
 		{
 			node3 = new Node(vert3);
 			nodes.push_back(node3);
@@ -245,7 +245,7 @@ Node* Softbody::getNode(Vector3 pos)
 		}
 	}
 
-	return NULL;
+	return nullptr;
 }
 
 void Softbody::addSpring(Spring* spring)

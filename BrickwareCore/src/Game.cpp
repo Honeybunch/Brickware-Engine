@@ -134,7 +134,7 @@ bool Game::init()
 	//Init managers
 	Graphics::PrimitiveManager::Initialize();
 #ifdef GL_SUPPORT
-	Graphics::RenderingManager::Initialize(NULL, NULL);
+	Graphics::RenderingManager::Initialize(nullptr, nullptr);
 #endif
 #ifdef D3D_SUPPORT
 	Graphics::RenderingManager::Initialize(device, deviceContext);
@@ -196,7 +196,7 @@ bool Game::initGL()
 		return false;
 
 	//Create window
-	glWindow = glfwCreateWindow(Screen::width, Screen::height, "Brickware-Test", NULL, NULL);
+	glWindow = glfwCreateWindow(Screen::width, Screen::height, "Brickware-Test", nullptr, nullptr);
 
 	if (!glWindow)
 	{

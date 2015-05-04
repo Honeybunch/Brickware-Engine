@@ -78,7 +78,7 @@ bool Collider::TestSAT(Collider* other, Collision* collision)
 		return false;
 
 	bool collided = true; 
-	float smallestOverlap = 0.0f;
+	float smallestOverlap = std::numeric_limits<float>::max();
 	Vector3 possibleMTV;
 
 	//Need MeshRenderer Components 
@@ -131,7 +131,10 @@ bool Collider::TestSAT(Collider* other, Collision* collision)
 
 			//If this is the first pass or if we've found a smaller overlap we'll set some new collision data
 			if (i == 0 || smallerOverlap < smallestOverlap)
+			{
+				smallestOverlap = smallerOverlap;
 				possibleMTV = (axis * smallestOverlap);
+			}
 		}
 		else
 		{
@@ -166,7 +169,10 @@ bool Collider::TestSAT(Collider* other, Collision* collision)
 
 				//If this is the first pass or if we've found a smaller overlap we'll set some new collision data
 				if (smallerOverlap < smallestOverlap)
+				{
+					smallestOverlap = smallerOverlap;
 					possibleMTV = (axis * smallestOverlap);
+				}
 			}
 			else
 			{

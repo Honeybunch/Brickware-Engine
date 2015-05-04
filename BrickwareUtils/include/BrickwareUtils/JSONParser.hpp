@@ -112,7 +112,7 @@ namespace Brickware
 			 * will be attempted to be mapped to.
 			 *
 			 * @return The value at the given key if it exists,
-			 *         nullptr if it doesn't exist.
+			 *         0 if it doesn't exist.
 			 */
 			template <typename T> T getValue(char* key)
 			{
@@ -125,7 +125,7 @@ namespace Brickware
 						return (T)kvp.getValue();
 					}
 				}
-				return NULL;
+				return 0;
 			}
 
 			/* Get the number of pairs in the object.

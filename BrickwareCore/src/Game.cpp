@@ -145,6 +145,22 @@ bool Game::init()
 	return initSuccess;
 }
 
+void Game::setCursorVisible(bool visible)
+{
+#ifdef GL_SUPPORT
+	if (visible)
+		glfwSetInputMode(glWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	else
+		glfwSetInputMode(glWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+		
+#endif
+
+#ifdef D3D_SUPPORT
+	ShowCursor(visible);
+#endif
+}
+
+
 //Private methods
 
 //This render will be called by the game loop and wraps the super class's

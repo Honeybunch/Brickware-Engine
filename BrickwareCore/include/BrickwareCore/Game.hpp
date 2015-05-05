@@ -105,6 +105,9 @@ namespace Brickware
 			// Override to write your render logic
 			virtual void renderScene() = 0;
 
+			//THIS IS TEMPORARY, WILL BE MOVED
+			void setCursorVisible(bool visible);
+
 #ifdef D3D_SUPPORT
 			LRESULT MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 #endif

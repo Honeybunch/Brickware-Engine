@@ -1,8 +1,11 @@
-﻿Build started 5/4/2015 6:09:23 PM.
+﻿Build started 5/5/2015 9:41:21 AM.
      1>Project "D:\Users\amt3824\Git\Brickware-Engine\Build\BrickwareCore\BrickwareCore.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"D:\Users\amt3824\Git\Brickware-Engine\BrickwareCore\include" /I"D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\include" /I"D:\Users\amt3824\Git\Brickware-Engine\BrickwareUtils\include" /I"D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\include" /I"D:\Users\amt3824\Git\Brickware-Engine\GL\include" /I"D:\Users\amt3824\Git\Brickware-Engine\GLFW\include" /Zi /nologo /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D GL_SUPPORT /D "CMAKE_INTDIR=\"Debug\"" /D BrickwareCore_EXPORTS /D _WINDLL /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"BrickwareCore.dir\Debug\\" /Fd"BrickwareCore.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt "D:\Users\amt3824\Git\Brickware-Engine\BrickwareCore\src\Collider.cpp"
-         Collider.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"D:\Users\amt3824\Git\Brickware-Engine\BrickwareCore\include" /I"D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\include" /I"D:\Users\amt3824\Git\Brickware-Engine\BrickwareUtils\include" /I"D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\include" /I"D:\Users\amt3824\Git\Brickware-Engine\GL\include" /I"D:\Users\amt3824\Git\Brickware-Engine\GLFW\include" /Zi /nologo /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D GL_SUPPORT /D "CMAKE_INTDIR=\"Debug\"" /D BrickwareCore_EXPORTS /D _WINDLL /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"BrickwareCore.dir\Debug\\" /Fd"BrickwareCore.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt "D:\Users\amt3824\Git\Brickware-Engine\BrickwareCore\src\Game.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareCore\src\GameObject.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareCore\src\Input.cpp"
+         Game.cpp
+         GameObject.cpp
+         Input.cpp
+         Generating Code...
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Users\amt3824\Git\Brickware-Engine\Build\TestBuild\BrickwareCore.dll" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib opengl32.lib ..\..\GL\lib\Win32\glew32.lib ..\..\GLFW\lib\Win32\glfw3dll.lib ..\TestBuild\BrickwareGraphics.lib ..\..\GLFW\lib\Win32\glfw3dll.lib ..\TestBuild\BrickwareMath.lib ..\TestBuild\BrickwareUtils.lib opengl32.lib ..\..\GL\lib\Win32\glew32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/Users/amt3824/Git/Brickware-Engine/Build/TestBuild/BrickwareCore.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/Users/amt3824/Git/Brickware-Engine/Build/TestBuild/BrickwareCore.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /debug /DLL BrickwareCore.dir\Debug\BoxCollider.obj
          BrickwareCore.dir\Debug\Camera.obj
@@ -26,9 +29,11 @@
          BrickwareCore.dir\Debug\Softbody.obj
          BrickwareCore.dir\Debug\SphereCollider.obj
          BrickwareCore.dir\Debug\Transform.obj
+         LINK : D:\Users\amt3824\Git\Brickware-Engine\Build\TestBuild\BrickwareCore.dll not found or not built by the last incremental link; performing full link
+            Creating library D:/Users/amt3824/Git/Brickware-Engine/Build/TestBuild/BrickwareCore.lib and object D:/Users/amt3824/Git/Brickware-Engine/Build/TestBuild/BrickwareCore.exp
          BrickwareCore.vcxproj -> D:\Users\amt3824\Git\Brickware-Engine\Build\TestBuild\BrickwareCore.dll
      1>Done Building Project "D:\Users\amt3824\Git\Brickware-Engine\Build\BrickwareCore\BrickwareCore.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:02.82
+Time Elapsed 00:00:04.39

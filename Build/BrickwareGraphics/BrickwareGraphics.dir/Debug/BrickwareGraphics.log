@@ -1,26 +1,7 @@
-﻿Build started 5/4/2015 5:38:44 PM.
+﻿Build started 5/5/2015 9:41:19 AM.
      1>Project "D:\Users\amt3824\Git\Brickware-Engine\Build\BrickwareGraphics\BrickwareGraphics.vcxproj" on node 3 (Build target(s)).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(388,5): warning MSB8028: The intermediate directory (BrickwareGraphics.dir\Debug\) contains files shared from another project (BrickwareGraphics.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\include" /I"D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\include" /I"D:\Users\amt3824\Git\Brickware-Engine\BrickwareUtils\include" /I"D:\Users\amt3824\Git\Brickware-Engine\GL\include" /I"D:\Users\amt3824\Git\Brickware-Engine\GLFW\include" /Zi /nologo /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D GL_SUPPORT /D "CMAKE_INTDIR=\"Debug\"" /D BrickwareGraphics_EXPORTS /D _WINDLL /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"BrickwareGraphics.dir\Debug\\" /Fd"BrickwareGraphics.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt "D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\src\Light.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\src\Material.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\src\MaterialD3D.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\src\MaterialGL.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\src\Mesh.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\src\Primitive.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\src\PrimitiveManager.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\src\RenderingManager.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\src\RenderingManagerD3D.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\src\RenderingManagerGL.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\src\Shader.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\src\ShaderD3D.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\src\ShaderGL.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\src\Texture.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\src\TextureD3D.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\src\TextureGL.cpp"
-         Light.cpp
-         Material.cpp
-         MaterialD3D.cpp
-         MaterialGL.cpp
-         Mesh.cpp
-         Primitive.cpp
-         PrimitiveManager.cpp
-         RenderingManager.cpp
-         RenderingManagerD3D.cpp
-         RenderingManagerGL.cpp
-         Shader.cpp
-         ShaderD3D.cpp
-         ShaderGL.cpp
-         Texture.cpp
-         TextureD3D.cpp
-         TextureGL.cpp
-         Generating Code...
-       Link:
+     1>Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Users\amt3824\Git\Brickware-Engine\Build\TestBuild\BrickwareGraphics.dll" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib opengl32.lib ..\..\GL\lib\Win32\glew32.lib ..\..\GLFW\lib\Win32\glfw3dll.lib ..\TestBuild\BrickwareMath.lib ..\TestBuild\BrickwareUtils.lib opengl32.lib ..\..\GL\lib\Win32\glew32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/Users/amt3824/Git/Brickware-Engine/Build/TestBuild/BrickwareGraphics.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/Users/amt3824/Git/Brickware-Engine/Build/TestBuild/BrickwareGraphics.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /debug /DLL BrickwareGraphics.dir\Debug\dxerr.obj
          BrickwareGraphics.dir\Debug\Light.obj
          BrickwareGraphics.dir\Debug\Material.obj
@@ -45,4 +26,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:17.87
+Time Elapsed 00:00:01.43

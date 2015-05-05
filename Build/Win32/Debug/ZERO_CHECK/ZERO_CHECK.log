@@ -1,5 +1,15 @@
-﻿Build started 5/4/2015 5:38:41 PM.
+﻿Build started 5/5/2015 9:41:54 AM.
+     1>Project "D:\Users\amt3824\Git\Brickware-Engine\Build\ZERO_CHECK.vcxproj" on node 2 (Build target(s)).
+     1>CustomBuild:
+         Checking Build System
+         CMake does not need to re-run because D:/Users/amt3824/Git/Brickware-Engine/Build/CMakeFiles/generate.stamp is up-to-date.
+         CMake does not need to re-run because D:/Users/amt3824/Git/Brickware-Engine/Build/BrickwareMath/CMakeFiles/generate.stamp is up-to-date.
+         CMake does not need to re-run because D:/Users/amt3824/Git/Brickware-Engine/Build/BrickwareUtils/CMakeFiles/generate.stamp is up-to-date.
+         CMake does not need to re-run because D:/Users/amt3824/Git/Brickware-Engine/Build/BrickwareGraphics/CMakeFiles/generate.stamp is up-to-date.
+         CMake does not need to re-run because D:/Users/amt3824/Git/Brickware-Engine/Build/BrickwareCore/CMakeFiles/generate.stamp is up-to-date.
+         CMake does not need to re-run because D:/Users/amt3824/Git/Brickware-Engine/Build/BrickwareTest/CMakeFiles/generate.stamp is up-to-date.
+     1>Done Building Project "D:\Users\amt3824\Git\Brickware-Engine\Build\ZERO_CHECK.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.29
+Time Elapsed 00:00:00.31

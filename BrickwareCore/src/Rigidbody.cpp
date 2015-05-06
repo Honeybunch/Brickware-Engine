@@ -37,11 +37,24 @@ void Rigidbody::Start()
 
 	//We should probably get an inertia tensor from a collider or mesh but we'll just assume it's a box
 	Vector3 scale = getGameObject()->getTransform()->getScale();
+	
 	float inertiaTensorX = (mass * (powf(scale[1] * 2, 2) + powf(scale[2] * 2, 2))) / 12;
 	float inertiaTensorY = (mass * (powf(scale[0] * 2, 2) + powf(scale[2] * 2, 2))) / 12;
 	float inertiaTensorZ = (mass * (powf(scale[0] * 2, 2) + powf(scale[1] * 2, 2))) / 12;
 
+	float inverseInertiaTensorX = (1/ inertiaTensorX);
+	float inverseInertiaTensorY = (1/ inertiaTensorY);
+	float inverseInertiaTensorZ = (1/ inertiaTensorZ);
+
 	inertiaTensor = Vector3(inertiaTensorX, inertiaTensorY, inertiaTensorZ);
+
+	inertia[0][0] = inertiaTensorX * mass;
+	inertia[1][1] = inertiaTensorY * mass;
+	inertia[2][2] = inertiaTensorZ * mass;
+
+	inverseInertia[0][0] = inverseInertiaTensorX * inverseMass;
+	inverseInertia[1][1] = inverseInertiaTensorY * inverseMass;
+	inverseInertia[2][2] = inverseInertiaTensorZ * inverseMass;
 
 	//Register into the physics system
 	PhysicsManager::AddRigidbody(this);
@@ -92,20 +105,6 @@ void Rigidbody::addInstantaneousTorque(Vector3 instantTorque)
 	frameInstantTorque += instantTorque;
 }
 
-Matrix3 Rigidbody::momentOfInertia()
-{
-	Matrix3 rotationMatrix = getGameObject()->getTransform()->getRotation().getRotationMatrix();
-
-	Matrix3 worldInertia = Matrix3(inertiaTensor[0], 0, 0,
-		0, inertiaTensor[1], 0,
-		0, 0, inertiaTensor[2]);
-	Matrix3 inverseWorldInertia = worldInertia.getInverse();
-	Matrix3 transposedRotationMatrix = rotationMatrix.getTranspose();
-	worldInertia = rotationMatrix * inverseWorldInertia * transposedRotationMatrix;
-
-	return worldInertia;
-}
-
 //Called on a fixed timestep for physics calculations
 void Rigidbody::FixedUpdate()
 {
@@ -113,11 +112,11 @@ void Rigidbody::FixedUpdate()
 
 	//Calculate acceleration from applied forces
 	Vector3 frameAcceleration = (frameForce * inverseMass) * deltaTime;			//A = 1/mass * Force
-	angularAcceleration = momentOfInertia() * frameTorque;						//AA = 1/Inertia * Torque
+	angularAcceleration = inverseInertia * frameTorque;						//AA = 1/Inertia * Torque
 	
 	//Calcuate net impluse for later
 	Vector3 netImpulse = impulse * inverseMass;									//J = J * 1/mass
-	frameInstantTorque = momentOfInertia() * frameInstantTorque;
+	frameInstantTorque = inverseInertia * frameInstantTorque;
 
 	//Calculate velocities
 	Vector3 startVelocity = velocity * deltaTime;								//VT = V0 * deltaTime
@@ -179,8 +178,6 @@ void Rigidbody::OnCollision(Collision* collision)
 	Vector3 otherCenterOfMass = otherRigidbody->centerOfMass;
 	Vector3 otherInertiaTensor = otherRigidbody->inertiaTensor;
 	Matrix3 otherRotationMatrix = otherRigidbody->getGameObject()->getTransform()->getRotation().getRotationMatrix();
-
-	Matrix3 otherMomentOfInertia = otherRigidbody->momentOfInertia();
 	
 	//Calculate which point we're going to use as the "Point of collision"
 	std::vector<Vector3> pointsOfCollision = collision->getPointsOfCollision();
@@ -211,8 +208,6 @@ void Rigidbody::OnCollision(Collision* collision)
 	Vector3 radius = pointOfCollision - (centerOfMass);
 	Vector3 otherRadius = pointOfCollision - (otherCollider->getGameObject()->getTransform()->getPosition() + otherCenterOfMass);
 
-	Matrix3 momentOfInertia = this->momentOfInertia();
-
 	//Determine the impulse based on Chris Hecker's formula
 	float e = 0.5f;
 	Vector3 relativeVelocity;
@@ -239,13 +234,13 @@ void Rigidbody::OnCollision(Collision* collision)
 	Vector3 torque1 = Vector3::Cross(radius, MTV);
 	Vector3 torque2 = Vector3::Cross(otherRadius, MTV);
 
-	Vector3 velFromTorque1 = momentOfInertia * torque1;
+	Vector3 velFromTorque1 = inverseInertia * torque1;
 	velFromTorque1 = Vector3::Cross(velFromTorque1, radius);
 
 	Vector3 velFromTorque2;
 	if (otherIsKinematic)
 	{
-		velFromTorque2 = otherMomentOfInertia * torque2;
+		velFromTorque2 = otherRigidbody->inverseInertia * torque2;
 		velFromTorque2 = Vector3::Cross(velFromTorque2, otherRadius);
 	}
 

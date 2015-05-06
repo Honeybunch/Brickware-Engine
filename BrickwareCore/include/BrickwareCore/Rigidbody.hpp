@@ -74,8 +74,8 @@ namespace Brickware
 			Math::Vector3 worldCenterOfMass;
 
 			Math::Vector3 inertiaTensor;
-
-			Math::Matrix3 momentOfInertia();
+			Math::Matrix3 inertia;
+			Math::Matrix3 inverseInertia;
 
 			int collisionIterations;
 

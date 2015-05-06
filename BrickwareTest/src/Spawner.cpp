@@ -37,9 +37,9 @@ void Spawner::spawnObject()
 	float zRot = (float)((rand() % 314) / 100.0f);
 
 	//Calculate some random torque to apply
-	float xTorque = (float)(rand() % 100) / 1000000.0f;
-	float yTorque = (float)(rand() % 100) / 1000000.0f;
-	float zTorque = (float)(rand() % 100) / 1000000.0f;
+	float xTorque = (float)(rand() % 10) / 100.0f;
+	float yTorque = (float)(rand() % 10) / 100.0f;
+	float zTorque = (float)(rand() % 10) / 100.0f;
 
 	newObject->getTransform()->setRotation(Vector3(xRot, yRot, zRot));
 	newObject->addComponent(rigidbody);
@@ -47,8 +47,8 @@ void Spawner::spawnObject()
 
 	newObject->Start();
 
-	rigidbody->setMass(0.1f);
-	rigidbody->addForce(Vector3::Normalize(camera->getLookAt() - camera->getGameObject()->getTransform()->getPosition()) * .02f);
+	rigidbody->setMass(.1f);
+	rigidbody->addForce(Vector3::Normalize(camera->getLookAt() - camera->getGameObject()->getTransform()->getPosition()) * 25.0f);
 	rigidbody->addTorque(Vector3(xTorque, yTorque, zTorque));
 
 	//Check if the spheres are colliding

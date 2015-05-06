@@ -79,6 +79,7 @@ bool Collider::TestSAT(Collider* other, Collision* collision)
 
 	bool collided = true; 
 	float smallestOverlap = std::numeric_limits<float>::max();
+	std::vector<Vector3> pointsOfCollision;
 	Vector3 possibleMTV;
 
 	//Need MeshRenderer Components 
@@ -134,6 +135,7 @@ bool Collider::TestSAT(Collider* other, Collision* collision)
 			{
 				smallestOverlap = smallerOverlap;
 				possibleMTV = (axis * smallestOverlap);
+				pointsOfCollision.push_back(possibleMTV);
 			}
 		}
 		else
@@ -172,6 +174,7 @@ bool Collider::TestSAT(Collider* other, Collision* collision)
 				{
 					smallestOverlap = smallerOverlap;
 					possibleMTV = (axis * smallestOverlap);
+					pointsOfCollision.push_back(possibleMTV);
 				}
 			}
 			else
@@ -199,7 +202,7 @@ bool Collider::TestSAT(Collider* other, Collision* collision)
 		collision->setOtherRigidbody(other->getGameObject()->getComponent<Rigidbody>());
 
 		collision->setMTV(possibleMTV);
-		//collision->setPointsOfCollision(pointsOfCollision);
+		collision->setPointsOfCollision(pointsOfCollision);
 	}
 
 	if (collided)

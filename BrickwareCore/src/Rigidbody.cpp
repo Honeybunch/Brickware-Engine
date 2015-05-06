@@ -122,7 +122,6 @@ void Rigidbody::FixedUpdate()
 	//Calculate velocities
 	Vector3 startVelocity = velocity * deltaTime;								//VT = V0 * deltaTime
 	angularVelocity += angularAcceleration * deltaTime;
-	angularVelocity += frameInstantTorque;
 
 	Vector3 VAT = startVelocity + (acceleration * 0.5f * powf(deltaTime, 2));	//VAT = VT + (A1 * 1/2 * deltaTime^2)
 	Vector3 AngularVT = angularVelocity * deltaTime;							//AngularVT = AV0 + AA * deltaTime^2
@@ -147,6 +146,7 @@ void Rigidbody::FixedUpdate()
 
 	//Apply impulse
 	velocity += netImpulse;
+	angularVelocity += frameInstantTorque;
 
 	impulse = Vector3();
 	frameInstantTorque = Vector3();
@@ -208,13 +208,13 @@ void Rigidbody::OnCollision(Collision* collision)
 	pointOfCollision = pointsOfCollision[bestPointIndex];
 
 	//Get radii
-	Vector3 radius = pointOfCollision - (getGameObject()->getTransform()->getPosition() + centerOfMass);
+	Vector3 radius = pointOfCollision - (centerOfMass);
 	Vector3 otherRadius = pointOfCollision - (otherCollider->getGameObject()->getTransform()->getPosition() + otherCenterOfMass);
 
 	Matrix3 momentOfInertia = this->momentOfInertia();
 
 	//Determine the impulse based on Chris Hecker's formula
-	float e = 0.9f;
+	float e = 0.5f;
 	Vector3 relativeVelocity;
 
 	//Calculate the numerator of the impulse calculation
@@ -231,7 +231,7 @@ void Rigidbody::OnCollision(Collision* collision)
 
 	relativeVelocity = totalVelocity1 - totalVelocity2;
 
-	float relativeNormalVelocity = Vector3::Dot(relativeVelocity, MTV);
+	float relativeNormalVelocity = Vector3::Dot(relativeVelocity, normal);
 	float numerator = (-1 - e) * relativeNormalVelocity;
 	
 	//Calculate the denominator
@@ -260,7 +260,7 @@ void Rigidbody::OnCollision(Collision* collision)
 
 	//Finally calculate impulse
 	float impulse = numerator / denominator;
-	Vector3 impulseVec = MTV * impulse;
+	Vector3 impulseVec = normal * impulse;
  	addImpulse(impulseVec, pointOfCollision);
 }
 

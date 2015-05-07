@@ -19,7 +19,7 @@ void PhysicsManager::SetGravity(float gravity){ PhysicsManager::gravity = gravit
 
 void PhysicsManager::Initialize()
 {
-	gravity = -.004905f;
+	gravity = -9.81f;
 }
 
 bool PhysicsManager::IsCollisionActive(Collision* collision)

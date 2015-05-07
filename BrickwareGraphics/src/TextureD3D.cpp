@@ -1,7 +1,7 @@
 #define BRICKWARE_GRAPHICS_EXPORTS
 
-#include "BrickwareGraphics\Texture.hpp"
-#include "BrickwareGraphics\RenderingManager.hpp"
+#include "BrickwareGraphics/Texture.hpp"
+#include "BrickwareGraphics/RenderingManager.hpp"
 
 using namespace Brickware;
 using namespace Graphics;

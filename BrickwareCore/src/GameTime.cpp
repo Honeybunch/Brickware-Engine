@@ -1,6 +1,6 @@
 #define BRICKWARE_CORE_EXPORTS
 
-#include "BrickwareCore\GameTime.hpp"
+#include "BrickwareCore/GameTime.hpp"
 
 using namespace Brickware;
 using namespace Core;

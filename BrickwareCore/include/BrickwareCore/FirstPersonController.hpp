@@ -2,14 +2,14 @@
 #define FIRST_PERSON_CONTROLLER_H
 
 //DLL Header
-#include "BrickwareCore\BrickwareCoreDLL.hpp"
+#include "BrickwareCore/BrickwareCoreDLL.hpp"
 
 //Other Brickware Project Headers
-#include "BrickwareMath\Vector3.hpp"
+#include "BrickwareMath/Vector3.hpp"
 
 //Project Headers
-#include "BrickwareCore\Component.hpp"
-#include "BrickwareCore\GameObject.hpp"
+#include "BrickwareCore/Component.hpp"
+#include "BrickwareCore/GameObject.hpp"
 
 namespace Brickware
 {

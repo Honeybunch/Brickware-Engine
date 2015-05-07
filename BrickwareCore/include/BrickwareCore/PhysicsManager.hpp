@@ -2,23 +2,23 @@
 #define PHYSICSMANAGER_H
 
 //DLL Header
-#include "BrickwareCore\BrickwareCoreDLL.hpp"
+#include "BrickwareCore/BrickwareCoreDLL.hpp"
 
 //System Level Headers
 #include <unordered_map>
 
 //Other Brickware Project Headers
-#include "BrickwareGraphics\Primitive.hpp"
+#include "BrickwareGraphics/Primitive.hpp"
 
 //Project Headers
-#include "BrickwareCore\Settings.hpp"
-#include "BrickwareCore\Rigidbody.hpp"
-#include "BrickwareCore\GameObject.hpp"
-#include "BrickwareCore\Collider.hpp"
-#include "BrickwareCore\Softbody.hpp"
+#include "BrickwareCore/Settings.hpp"
+#include "BrickwareCore/Rigidbody.hpp"
+#include "BrickwareCore/GameObject.hpp"
+#include "BrickwareCore/Collider.hpp"
+#include "BrickwareCore/Softbody.hpp"
 
 #ifdef _DEBUG
-#include "BrickwareCore\Debug.hpp"
+#include "BrickwareCore/Debug.hpp"
 #endif
 
 namespace Brickware

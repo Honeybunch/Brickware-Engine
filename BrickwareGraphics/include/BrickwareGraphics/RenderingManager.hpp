@@ -2,14 +2,14 @@
 #define RENDERING_MANAGER_H
 
 //DLL Header
-#include "BrickwareGraphics\BrickwareGraphicsDLL.hpp"
+#include "BrickwareGraphics/BrickwareGraphicsDLL.hpp"
 
 //Project Headers
-#include "BrickwareGraphics\Shader.hpp"
-#include "BrickwareGraphics\Material.hpp"
-#include "BrickwareGraphics\Mesh.hpp"
-#include "BrickwareGraphics\Light.hpp"
-#include "BrickwareGraphics\GraphicsSettings.hpp"
+#include "BrickwareGraphics/Shader.hpp"
+#include "BrickwareGraphics/Material.hpp"
+#include "BrickwareGraphics/Mesh.hpp"
+#include "BrickwareGraphics/Light.hpp"
+#include "BrickwareGraphics/GraphicsSettings.hpp"
 
 namespace Brickware
 {
@@ -27,8 +27,10 @@ namespace Brickware
 			Material* material;
 		};
 
+#ifdef _WIN32
 		template class BRICKWARE_GRAPHICS_API std::vector < Renderable >;
 		template class BRICKWARE_GRAPHICS_API std::vector < Light* >;
+#endif
 
 		class BRICKWARE_GRAPHICS_API RenderingManager
 		{

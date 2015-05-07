@@ -2,10 +2,11 @@
 #define VECTOR2_H
 
 //DLL Header
-#include "BrickwareMath\BrickwareMathDLL.hpp"
+#include "BrickwareMath/BrickwareMathDLL.hpp"
 
 //System Level Headers
 #include <iostream>
+#include <cmath>
 
 namespace Brickware
 {

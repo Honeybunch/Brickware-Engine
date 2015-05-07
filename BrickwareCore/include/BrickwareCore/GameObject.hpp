@@ -2,22 +2,22 @@
 #define GAMEOBJECT_H
 
 //DLL Header
-#include "BrickwareCore\BrickwareCoreDLL.hpp"
+#include "BrickwareCore/BrickwareCoreDLL.hpp"
 
 //Other Brickware Project Headers
-#include "BrickwareGraphics\Mesh.hpp"
+#include "BrickwareGraphics/Mesh.hpp"
 
 //System Level Headers
 #include <vector>
 #include <typeinfo>
 
 //Project Headers
-#include "BrickwareCore\Settings.hpp"
-#include "BrickwareCore\Component.hpp"
-#include "BrickwareCore\Transform.hpp"
-#include "BrickwareCore\Collision.hpp"
-#include "BrickwareCore\Rigidbody.hpp"
-#include "BrickwareCore\MeshRenderer.hpp"
+#include "BrickwareCore/Settings.hpp"
+#include "BrickwareCore/Component.hpp"
+#include "BrickwareCore/Transform.hpp"
+#include "BrickwareCore/Collision.hpp"
+#include "BrickwareCore/Rigidbody.hpp"
+#include "BrickwareCore/MeshRenderer.hpp"
 
 namespace Brickware
 {
@@ -25,8 +25,10 @@ namespace Brickware
 	{
 		class Camera;
 
+#ifdef _WIN32
 		template class BRICKWARE_CORE_API std::vector < GameObject* > ;
 		template class BRICKWARE_CORE_API std::vector < Component* >;
+#endif
 
 		/* The Basic Entity in the game scene.
 		 *

@@ -2,15 +2,15 @@
 #define BOXCOLLIDER_H
 
 //DLL Headers
-#include "BrickwareCore\BrickwareCoreDLL.hpp"
+#include "BrickwareCore/BrickwareCoreDLL.hpp"
 
 //System Level Headers
 #include <iostream>
 #include <limits>
 
 //Project Headers
-#include "BrickwareCore\Collider.hpp"
-#include "BrickwareCore\Camera.hpp"
+#include "BrickwareCore/Collider.hpp"
+#include "BrickwareCore/Camera.hpp"
 
 namespace Brickware
 {

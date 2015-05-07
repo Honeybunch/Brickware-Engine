@@ -5,19 +5,19 @@
 #define _USE_MATH_DEFINES
 
 //DLL Header
-#include "BrickwareGraphics\BrickwareGraphicsDLL.hpp"
+#include "BrickwareGraphics/BrickwareGraphicsDLL.hpp"
 
 //Other Brickware Project Headers
-#include "BrickwareMath\Vector3.hpp"
-#include "BrickwareMath\Vector4.hpp"
-#include "BrickwareMath\Quaternion.hpp"
+#include "BrickwareMath/Vector3.hpp"
+#include "BrickwareMath/Vector4.hpp"
+#include "BrickwareMath/Quaternion.hpp"
 
 //System Level Headers
 #include <vector>
 #include <cmath>
 
 //Project Headers
-#include "BrickwareGraphics\PrimitiveManager.hpp"
+#include "BrickwareGraphics/PrimitiveManager.hpp"
 
 namespace Brickware
 {

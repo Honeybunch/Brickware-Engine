@@ -1,10 +1,10 @@
 #define BRICKWARE_CORE_EXPORTS
 
-#include "BrickwareCore\GameObject.hpp"
-#include "BrickwareCore\SphereCollider.hpp"
-#include "BrickwareCore\FrustumCollider.hpp"
-#include "BrickwareCore\BoxCollider.hpp"
-#include "BrickwareCore\MeshRenderer.hpp"
+#include "BrickwareCore/GameObject.hpp"
+#include "BrickwareCore/SphereCollider.hpp"
+#include "BrickwareCore/FrustumCollider.hpp"
+#include "BrickwareCore/BoxCollider.hpp"
+#include "BrickwareCore/MeshRenderer.hpp"
 
 using namespace Brickware;
 using namespace Core;

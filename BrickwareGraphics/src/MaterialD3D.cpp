@@ -1,6 +1,6 @@
 #define BRICKWARE_GRAPHICS_EXPORTS
 
-#include "BrickwareGraphics\Material.hpp"
+#include "BrickwareGraphics/Material.hpp"
 
 #ifdef D3D_SUPPORT
 

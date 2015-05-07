@@ -5,16 +5,16 @@
 #define _USE_MATH_DEFINES
 
 //DLL Header
-#include "BrickwareMath\BrickwareMathDLL.hpp"
+#include "BrickwareMath/BrickwareMathDLL.hpp"
 
 //System Level Headers
 #include <iostream>
-#include <math.h>
+#include <cmath>
 
 //Project Header
-#include "BrickwareMath\Vector3.hpp"
-#include "BrickwareMath\Vector4.hpp"
-#include "BrickwareMath\Matrix3.hpp"
+#include "BrickwareMath/Vector3.hpp"
+#include "BrickwareMath/Vector4.hpp"
+#include "BrickwareMath/Matrix3.hpp"
 
 namespace Brickware
 {

@@ -1,7 +1,7 @@
 #define BRICKWARE_CORE_EXPORTS
 
-#include "BrickwareCore\Component.hpp"
-#include "BrickwareCore\Collider.hpp"
+#include "BrickwareCore/Component.hpp"
+#include "BrickwareCore/Collider.hpp"
 
 using namespace Brickware;
 using namespace Core;

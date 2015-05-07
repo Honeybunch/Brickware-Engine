@@ -5,7 +5,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 //DLL Header
-#include "BrickwareGraphics\BrickwareGraphicsDLL.hpp"
+#include "BrickwareGraphics/BrickwareGraphicsDLL.hpp"
 
 //Graphics Headers
 #ifdef D3D_SUPPORT
@@ -13,7 +13,7 @@
 #include <d3d11.h>
 #include <d3dcompiler.h>
 #include <d3d11shader.h>
-#include "BrickwareGraphics\dxerr.hpp"
+#include "BrickwareGraphics/dxerr.hpp"
 
 //Quick struct to hold D3D11_SHADER_VARIABLE_DESCs and the index of the buffer it belongs to
 struct ConstVariableInfo{
@@ -32,13 +32,15 @@ struct ConstVariableInfo{
 #include <string>
 
 //Project Headers
-#include "BrickwareGraphics\GraphicsSettings.hpp"
-#include "BrickwareGraphics\Texture.hpp"
+#include "BrickwareGraphics/GraphicsSettings.hpp"
+#include "BrickwareGraphics/Texture.hpp"
 
 namespace Brickware
 {
 	namespace Graphics
 	{
+#ifdef _WIN32
+
 #ifdef GL_SUPPORT
 		template class BRICKWARE_GRAPHICS_API std::map < std::string, GLuint > ;
 #endif
@@ -49,6 +51,7 @@ namespace Brickware
 		template class BRICKWARE_GRAPHICS_API std::vector < std::map<std::string, D3D11_SHADER_VARIABLE_DESC*>* >;
 #endif
 		template class BRICKWARE_GRAPHICS_API std::map < std::string, Texture* > ;
+#endif
 
 		class BRICKWARE_GRAPHICS_API Shader
 		{

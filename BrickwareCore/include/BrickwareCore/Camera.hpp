@@ -5,7 +5,7 @@
 #define _USE_MATH_DEFINES
 
 //DLL Header
-#include "BrickwareCore\BrickwareCoreDLL.hpp"
+#include "BrickwareCore/BrickwareCoreDLL.hpp"
 
 //Graphics Headers
 #ifdef D3D_SUPPORT
@@ -17,8 +17,8 @@
 #endif
 
 //Other Brickware Project Headers
-#include "BrickwareMath\Matrix4.hpp"
-#include "BrickwareGraphics\Material.hpp"
+#include "BrickwareMath/Matrix4.hpp"
+#include "BrickwareGraphics/Material.hpp"
 
 //System Level Headers
 #include <iostream>
@@ -26,9 +26,9 @@
 #include <math.h>
 
 //Project Headers
-#include "BrickwareCore\Settings.hpp"
-#include "BrickwareCore\Transform.hpp"
-#include "BrickwareCore\GameObject.hpp"
+#include "BrickwareCore/Settings.hpp"
+#include "BrickwareCore/Transform.hpp"
+#include "BrickwareCore/GameObject.hpp"
 
 namespace Brickware
 {
@@ -36,8 +36,10 @@ namespace Brickware
 	{
 		/// Used to avoid warnings about exporting std::vectors
 		class Camera;
-		template class BRICKWARE_CORE_API std::vector < Camera* > ;
 
+#ifdef _WIN32
+		template class BRICKWARE_CORE_API std::vector < Camera* > ;
+#endif
 		/* A Special <Component> that should be added to <GameObject>s that you want to act like Cameras
 		 * 
 		 * Only the Camera marked as active will be the one rendering to the back buffer or 

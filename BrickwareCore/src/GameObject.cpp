@@ -1,10 +1,10 @@
 #define BRICKWARE_CORE_EXPORTS
 
-#include "BrickwareCore\Octree.hpp"
-#include "BrickwareCore\Camera.hpp"
-#include "BrickwareCore\Settings.hpp"
-#include "BrickwareCore\Game.hpp"
-#include "BrickwareCore\GameObject.hpp"
+#include "BrickwareCore/Octree.hpp"
+#include "BrickwareCore/Camera.hpp"
+#include "BrickwareCore/Settings.hpp"
+#include "BrickwareCore/Game.hpp"
+#include "BrickwareCore/GameObject.hpp"
 
 using namespace Brickware;
 using namespace Core;

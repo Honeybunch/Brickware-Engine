@@ -1,7 +1,7 @@
 #define BRICKWARE_CORE_EXPORTS
 
-#include "BrickwareCore\PointLight.hpp"
-#include "BrickwareCore\GameObject.hpp"
+#include "BrickwareCore/PointLight.hpp"
+#include "BrickwareCore/GameObject.hpp"
 
 using namespace Brickware;
 using namespace Core;

@@ -2,17 +2,17 @@
 #define PRIMITIVE_MANAGER_H
 
 //DLL Header
-#include "BrickwareGraphics\BrickwareGraphicsDLL.hpp"
+#include "BrickwareGraphics/BrickwareGraphicsDLL.hpp"
 
 //Other Brickware Project Headers
-#include "BrickwareMath\Matrix4.hpp"
+#include "BrickwareMath/Matrix4.hpp"
 
 //System Level Headers
 #include <vector>
 
 //Project Headers
-#include "BrickwareGraphics\GraphicsSettings.hpp"
-#include "BrickwareGraphics\Shader.hpp"
+#include "BrickwareGraphics/GraphicsSettings.hpp"
+#include "BrickwareGraphics/Shader.hpp"
 
 namespace Brickware
 {
@@ -20,7 +20,9 @@ namespace Brickware
 	{
 		//Used to avoid warnings about exporting std::vectors
 		class Primitive;
+#ifdef _WIN32
 		template class BRICKWARE_GRAPHICS_API std::vector < Primitive* > ;
+#endif
 
 		/*
 			This is effectively a singleton class to the Primitive class however we only want these

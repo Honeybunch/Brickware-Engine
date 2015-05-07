@@ -1,13 +1,13 @@
 #define BRICKWARE_CORE_EXPORTS
 
-#include "BrickwareCore\SphereCollider.hpp"
-#include "BrickwareCore\BoxCollider.hpp"
-#include "BrickwareCore\FrustumCollider.hpp"
-#include "BrickwareCore\Transform.hpp"
-#include "BrickwareCore\GameObject.hpp"
-#include "BrickwareCore\PhysicsManager.hpp"
+#include "BrickwareCore/SphereCollider.hpp"
+#include "BrickwareCore/BoxCollider.hpp"
+#include "BrickwareCore/FrustumCollider.hpp"
+#include "BrickwareCore/Transform.hpp"
+#include "BrickwareCore/GameObject.hpp"
+#include "BrickwareCore/PhysicsManager.hpp"
 
-#include "BrickwareMath\Bounds.hpp"
+#include "BrickwareMath/Bounds.hpp"
 
 using namespace Brickware;
 using namespace Core;
@@ -67,8 +67,10 @@ void Collider::calculateWorldData()
 		//Renormalize after being rotated
 		worldNormals.push_back(Vector3::Normalize(worldNormal));
 
+#ifdef _DEBUG
 		if (Debug::Debugging)
 			Primitive::DrawLine(center, center + worldNormals[i] * 2);
+#endif
 	}
 }
 

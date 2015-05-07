@@ -34,15 +34,15 @@ bool TestGame::init()
 		std::vector<JSONValue>* objectArray = object->getValue<std::vector<JSONValue>*>("testStrArray");
 
 		std::cout << "{" << std::endl;
-		std::cout << "\t" << boolean << std::endl;
-		std::cout << "\t" << string << std::endl;
-		std::cout << "\t" << integer << std::endl;
-		std::cout << "\t" << floatingPoint << std::endl;
-		std::cout << "\t" << testNULL << std::endl;
-		std::cout << "\t\t" << nestedInt << std::endl;
-		std::cout << "\t\t" << nestedString << std::endl;
+		std::cout << "/t" << boolean << std::endl;
+		std::cout << "/t" << string << std::endl;
+		std::cout << "/t" << integer << std::endl;
+		std::cout << "/t" << floatingPoint << std::endl;
+		std::cout << "/t" << testNULL << std::endl;
+		std::cout << "/t/t" << nestedInt << std::endl;
+		std::cout << "/t/t" << nestedString << std::endl;
 
-		std::cout << "\t[";
+		std::cout << "/t[";
 		for (unsigned int i = 0; i < array->size(); i++)
 			std::cout << (int)array->at(i) << ',';
 		std::cout << "]" << std::endl;
@@ -51,9 +51,9 @@ bool TestGame::init()
 		{
 			JSONObject* arrayObj = objectArray->at(i);
 
-			std::cout << "\t{" << std::endl;
-			std::cout << "\t\tindex:" << arrayObj->getValue<int>("index") << std::endl;
-			std::cout << "\t}," << std::endl;
+			std::cout << "/t{" << std::endl;
+			std::cout << "/t/tindex:" << arrayObj->getValue<int>("index") << std::endl;
+			std::cout << "/t}," << std::endl;
 		}
 
 		std::cout << "}" << std::endl;

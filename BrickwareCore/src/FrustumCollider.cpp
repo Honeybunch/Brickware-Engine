@@ -1,13 +1,13 @@
 #define BRICKWARE_CORE_EXPORTS
 
-#include "BrickwareCore\BoxCollider.hpp"
-#include "BrickwareCore\SphereCollider.hpp"
-#include "BrickwareCore\GameObject.hpp"
-#include "BrickwareCore\Camera.hpp"
-#include "BrickwareCore\GameObject.hpp"
-#include "BrickwareCore\FrustumCollider.hpp"
+#include "BrickwareCore/BoxCollider.hpp"
+#include "BrickwareCore/SphereCollider.hpp"
+#include "BrickwareCore/GameObject.hpp"
+#include "BrickwareCore/Camera.hpp"
+#include "BrickwareCore/GameObject.hpp"
+#include "BrickwareCore/FrustumCollider.hpp"
 
-#include "BrickwareMath\Bounds.hpp"
+#include "BrickwareMath/Bounds.hpp"
 
 using namespace Brickware;
 using namespace Core;

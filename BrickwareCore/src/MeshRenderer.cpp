@@ -1,7 +1,8 @@
 #define BRICKWARE_CORE_EXPORTS
 
-#include "BrickwareCore\MeshRenderer.hpp"
-#include "BrickwareCore\Softbody.hpp"
+#include "BrickwareCore/MeshRenderer.hpp"
+#include "BrickwareCore/Softbody.hpp"
+#include "BrickwareCore/GameObject.hpp"
 
 using namespace Brickware;
 using namespace Core;

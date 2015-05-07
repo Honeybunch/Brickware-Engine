@@ -2,7 +2,7 @@
 #define MATERIAL_H
 
 //DLL Header
-#include "BrickwareGraphics\BrickwareGraphicsDLL.hpp"
+#include "BrickwareGraphics/BrickwareGraphicsDLL.hpp"
 
 //Graphics Headers
 #ifdef GL_SUPPORT
@@ -10,25 +10,26 @@
 #endif
 
 //Other Brickware Project Headers
-#include "BrickwareUtils\StringUtils.hpp"
+#include "BrickwareUtils/StringUtils.hpp"
 
-#include "BrickwareMath\Matrix3.hpp"
-#include "BrickwareMath\Matrix4.hpp"
-#include "BrickwareMath\Vector2.hpp"
-#include "BrickwareMath\Vector3.hpp"
-#include "BrickwareMath\Vector4.hpp"
+#include "BrickwareMath/Matrix3.hpp"
+#include "BrickwareMath/Matrix4.hpp"
+#include "BrickwareMath/Vector2.hpp"
+#include "BrickwareMath/Vector3.hpp"
+#include "BrickwareMath/Vector4.hpp"
 
 //System Level Headers
 #include <map>
 
 //Project Headers
-#include "BrickwareGraphics\Shader.hpp"
-#include "BrickwareGraphics\Texture.hpp"
+#include "BrickwareGraphics/Shader.hpp"
+#include "BrickwareGraphics/Texture.hpp"
 
 namespace Brickware
 {
 	namespace Graphics
 	{
+#ifdef _WIN_32
 #ifdef D3D_SUPPORT
 		template class BRICKWARE_GRAPHICS_API std::vector < ID3D11Buffer* >;
 		template class BRICKWARE_GRAPHICS_API std::vector < char* >;
@@ -46,7 +47,7 @@ namespace Brickware
 
 		template class BRICKWARE_GRAPHICS_API std::map < std::string, Math::Matrix3 > ;
 		template class BRICKWARE_GRAPHICS_API std::map < std::string, Math::Matrix4 > ;
-
+#endif
 		class BRICKWARE_GRAPHICS_API Material
 		{
 			friend class RenderingManager;

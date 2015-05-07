@@ -1,6 +1,6 @@
 #define BRICKWARE_MATH_EXPORTS
 
-#include "BrickwareMath\Quaternion.hpp"
+#include "BrickwareMath/Quaternion.hpp"
 
 using namespace Brickware;
 using namespace Math;

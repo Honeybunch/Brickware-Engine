@@ -1,6 +1,6 @@
 #define BRICKWARE_MATH_EXPORTS
 
-#include "BrickwareMath\Bounds.hpp"
+#include "BrickwareMath/Bounds.hpp"
 
 using namespace Brickware;
 using namespace Math;

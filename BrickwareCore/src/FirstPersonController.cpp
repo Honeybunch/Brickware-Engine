@@ -1,6 +1,6 @@
 #define BRICKWARE_CORE_EXPORTS
 
-#include "BrickwareCore\FirstPersonController.hpp"
+#include "BrickwareCore/FirstPersonController.hpp"
 
 using namespace Brickware;
 using namespace Core;

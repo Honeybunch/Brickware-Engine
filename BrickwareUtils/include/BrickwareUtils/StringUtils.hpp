@@ -5,7 +5,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 //DLL Header
-#include "BrickwareUtils\BrickwareUtilsDLL.hpp"
+#include "BrickwareUtils/BrickwareUtilsDLL.hpp"
 
 #ifdef GL_SUPPORT
 #include <GL/glew.h>

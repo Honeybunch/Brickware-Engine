@@ -2,7 +2,7 @@
 #define TRANSFORM_H
 
 //DLL Header
-#include "BrickwareCore\BrickwareCoreDLL.hpp"
+#include "BrickwareCore/BrickwareCoreDLL.hpp"
 
 //Graphics Headers
 #ifdef GL_SUPPORT
@@ -13,7 +13,7 @@
 #endif
 
 #define GLFW_INCLUDE_GLU
-#include <glfw3.h>
+#include <GLFW/glfw3.h>
 #endif
 
 #ifdef D3D_SUPPORT
@@ -21,17 +21,17 @@
 #endif
 
 //Other Brickware Project Headers
-#include "BrickwareMath\Vector3.hpp"
-#include "BrickwareMath\Vector4.hpp"
-#include "BrickwareMath\Matrix4.hpp"
-#include "BrickwareMath\Matrix3.hpp"
-#include "BrickwareMath\Quaternion.hpp"
+#include "BrickwareMath/Vector3.hpp"
+#include "BrickwareMath/Vector4.hpp"
+#include "BrickwareMath/Matrix4.hpp"
+#include "BrickwareMath/Matrix3.hpp"
+#include "BrickwareMath/Quaternion.hpp"
 
-#include "BrickwareGraphics\Shader.hpp"
+#include "BrickwareGraphics/Shader.hpp"
 
 //Project Headers
-#include "BrickwareCore\Settings.hpp"
-#include "BrickwareCore\Component.hpp"
+#include "BrickwareCore/Settings.hpp"
+#include "BrickwareCore/Component.hpp"
 
 namespace Brickware
 {

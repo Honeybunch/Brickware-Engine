@@ -2,19 +2,19 @@
 #define MESHRENDERER_H
 
 //DLL Header
-#include "BrickwareCore\BrickwareCoreDLL.hpp"
+#include "BrickwareCore/BrickwareCoreDLL.hpp"
 
 //Other Brickware Project Headers
-#include "BrickwareMath\Bounds.hpp"
+#include "BrickwareMath/Bounds.hpp"
 
-#include "BrickwareGraphics\Mesh.hpp"
-#include "BrickwareGraphics\RenderingManager.hpp"
+#include "BrickwareGraphics/Mesh.hpp"
+#include "BrickwareGraphics/RenderingManager.hpp"
 
 //System Level Headers
 #include <limits>
 
 //Project Headers
-#include "BrickwareCore\Component.hpp"
+#include "BrickwareCore/Component.hpp"
 
 namespace Brickware
 {

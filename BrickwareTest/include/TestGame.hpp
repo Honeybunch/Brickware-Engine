@@ -1,9 +1,9 @@
 #ifndef TESTGAME_H
 #define TESTGAME_H
 
-#include "BrickwareCore\Game.hpp"
+#include "BrickwareCore/Game.hpp"
 
-#include "BrickwareUtils\JSONParser.hpp"
+#include "BrickwareUtils/JSONParser.hpp"
 
 #include <iostream>
 

@@ -5,7 +5,7 @@
 #define _CRT_SECURE_NO_WARNINGS 
 
 //DLL Header
-#include "BrickwareGraphics\BrickwareGraphicsDLL.hpp"
+#include "BrickwareGraphics/BrickwareGraphicsDLL.hpp"
 
 #define NOMINMAX //Without this windows.h will break std::limits
 
@@ -19,9 +19,9 @@
 #endif
 
 //Other Brickware Project Headers
-#include "BrickwareMath\Vector2.hpp"
-#include "BrickwareMath\Vector3.hpp"
-#include "BrickwareMath\Bounds.hpp"
+#include "BrickwareMath/Vector2.hpp"
+#include "BrickwareMath/Vector3.hpp"
+#include "BrickwareMath/Bounds.hpp"
 
 //Sytem Level Headers
 #include <vector>
@@ -30,7 +30,7 @@
 #include <limits>
 
 //Project Headers
-#include "BrickwareGraphics\Shader.hpp"
+#include "BrickwareGraphics/Shader.hpp"
 
 #define BUFFER_OFFSET(i) ((char *)nullptr + (i))
 
@@ -44,10 +44,12 @@ namespace Brickware
 			DYNAMIC_DRAW
 		};
 
+		#ifdef _WIN32
 		//Warning aversion
 
 		template class __declspec(dllexport) std::vector < Math::Vector3 >;
 		template class __declspec(dllexport) std::vector < Math::Vector2 >;
+		#endif
 
 		class BRICKWARE_GRAPHICS_API Mesh
 		{

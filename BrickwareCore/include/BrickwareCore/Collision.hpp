@@ -5,7 +5,7 @@
 #include "BrickwareCoreDLL.hpp"
 
 //Other Brickware Project Headers
-#include "BrickwareMath\Vector3.hpp"
+#include "BrickwareMath/Vector3.hpp"
 
 //System Level Headers
 #include <vector>
@@ -18,8 +18,9 @@ namespace Brickware
 		class Collider;
 		class GameObject;
 
+#ifdef _WIN32
 		template class __declspec(dllexport) std::vector < Math::Vector3 >;
-
+#endif
 		class BRICKWARE_CORE_API Collision
 		{
 			friend class PhysicsManager;

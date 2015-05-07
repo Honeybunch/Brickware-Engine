@@ -2,17 +2,17 @@
 #define RIGIDBODY_H
 
 //DLL Header
-#include "BrickwareCore\BrickwareCoreDLL.hpp"
+#include "BrickwareCore/BrickwareCoreDLL.hpp"
 
 //Other Brickware Project Headers
-#include "BrickwareMath\Vector3.hpp"
-#include "BrickwareMath\Vector4.hpp"
-#include "BrickwareMath\Quaternion.hpp"
+#include "BrickwareMath/Vector3.hpp"
+#include "BrickwareMath/Vector4.hpp"
+#include "BrickwareMath/Quaternion.hpp"
 
 //Project Headers
-#include "BrickwareCore\GameObject.hpp"
-#include "BrickwareCore\Transform.hpp"
-#include "BrickwareCore\Component.hpp"
+#include "BrickwareCore/GameObject.hpp"
+#include "BrickwareCore/Transform.hpp"
+#include "BrickwareCore/Component.hpp"
 
 namespace Brickware
 {

@@ -5,7 +5,7 @@
 #define _USE_MATH_DEFINES
 
 //DLL Header
-#include "BrickwareCore\BrickwareCoreDLL.hpp"
+#include "BrickwareCore/BrickwareCoreDLL.hpp"
 
 //Graphics Headers
 #ifdef D3D_SUPPORT
@@ -13,7 +13,7 @@
 #include <WindowsX.h>
 #include <d3d11.h>
 #include <assert.h>
-#include "BrickwareGraphics\dxerr.hpp"
+#include "BrickwareGraphics/dxerr.hpp"
 #endif
 
 #ifdef GL_SUPPORT
@@ -25,19 +25,19 @@
 #endif
 
 #define GLFW_INCLUDE_GLU
-#include <glfw3.h>
+#include <GLFW/glfw3.h>
 #endif
 
 //Other Brickware Project Headers
-#include "BrickwareGraphics\Mesh.hpp"
-#include "BrickwareGraphics\Shader.hpp"
-#include "BrickwareGraphics\Light.hpp"
-#include "BrickwareGraphics\Material.hpp"
-#include "BrickwareGraphics\Texture.hpp"
-#include "BrickwareGraphics\PrimitiveManager.hpp"
-#include "BrickwareGraphics\Primitive.hpp"
+#include "BrickwareGraphics/Mesh.hpp"
+#include "BrickwareGraphics/Shader.hpp"
+#include "BrickwareGraphics/Light.hpp"
+#include "BrickwareGraphics/Material.hpp"
+#include "BrickwareGraphics/Texture.hpp"
+#include "BrickwareGraphics/PrimitiveManager.hpp"
+#include "BrickwareGraphics/Primitive.hpp"
 
-#include "BrickwareMath\Vector3.hpp"
+#include "BrickwareMath/Vector3.hpp"
 
 //System Level Headers
 #include <stdlib.h>
@@ -46,27 +46,29 @@
 #include <math.h>
 
 //Project Headers
-#include "BrickwareCore\GameObject.hpp"
-#include "BrickwareCore\Transform.hpp"
-#include "BrickwareCore\Camera.hpp"
-#include "BrickwareCore\Settings.hpp"
-#include "BrickwareCore\Input.hpp"
-#include "BrickwareCore\Screen.hpp"
-#include "BrickwareCore\SphereCollider.hpp"
-#include "BrickwareCore\BoxCollider.hpp"
-#include "BrickwareCore\MeshRenderer.hpp"
-#include "BrickwareCore\GameTime.hpp"
-#include "BrickwareCore\PhysicsManager.hpp"
-#include "BrickwareCore\Debug.hpp"
-#include "BrickwareCore\PointLight.hpp"
-#include "BrickwareCore\FirstPersonController.hpp"
-#include "BrickwareCore\GameInputManager.hpp"
+#include "BrickwareCore/GameObject.hpp"
+#include "BrickwareCore/Transform.hpp"
+#include "BrickwareCore/Camera.hpp"
+#include "BrickwareCore/Settings.hpp"
+#include "BrickwareCore/Input.hpp"
+#include "BrickwareCore/Screen.hpp"
+#include "BrickwareCore/SphereCollider.hpp"
+#include "BrickwareCore/BoxCollider.hpp"
+#include "BrickwareCore/MeshRenderer.hpp"
+#include "BrickwareCore/GameTime.hpp"
+#include "BrickwareCore/PhysicsManager.hpp"
+#include "BrickwareCore/Debug.hpp"
+#include "BrickwareCore/PointLight.hpp"
+#include "BrickwareCore/FirstPersonController.hpp"
+#include "BrickwareCore/GameInputManager.hpp"
 
 namespace Brickware
 {
 	namespace Core
 	{
+#ifdef _WIN32
 		template class BRICKWARE_CORE_API std::vector < GameObject* > ;
+#endif
 
 		/* The Game class that needs to be extended to have a functional game
 		 *

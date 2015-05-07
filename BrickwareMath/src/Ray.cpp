@@ -1,6 +1,6 @@
 #define BRICKWARE_MATH_EXPORTS
 
-#include "BrickwareMath\Ray.hpp"
+#include "BrickwareMath/Ray.hpp"
 
 using namespace Brickware;
 using namespace Math;

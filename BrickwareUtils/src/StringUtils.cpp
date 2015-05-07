@@ -1,6 +1,6 @@
 #define BRICKWARE_UTILITY_EXPORTS
 
-#include "BrickwareUtils\StringUtils.hpp"
+#include "BrickwareUtils/StringUtils.hpp"
 
 using namespace Brickware;
 using namespace Utility;

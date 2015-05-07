@@ -2,17 +2,17 @@
 #define COMPONENT_H
 
 //DLL Header
-#include "BrickwareCore\BrickwareCoreDLL.hpp"
+#include "BrickwareCore/BrickwareCoreDLL.hpp"
 
 //Other Brickware Project Headers
-#include "BrickwareGraphics\Primitive.hpp"
+#include "BrickwareGraphics/Primitive.hpp"
 
 //Project Headers
-#include "BrickwareCore\Settings.hpp"
-#include "BrickwareCore\Screen.hpp"
-#include "BrickwareCore\GameTime.hpp"
-#include "BrickwareCore\Collision.hpp"
-#include "BrickwareCore\Input.hpp"
+#include "BrickwareCore/Settings.hpp"
+#include "BrickwareCore/Screen.hpp"
+#include "BrickwareCore/GameTime.hpp"
+#include "BrickwareCore/Collision.hpp"
+#include "BrickwareCore/Input.hpp"
 
 namespace Brickware
 {

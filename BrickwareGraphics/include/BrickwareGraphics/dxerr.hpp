@@ -15,7 +15,7 @@
 
 #ifdef D3D_SUPPORT
 
-#include "BrickwareGraphics\BrickwareGraphicsDLL.hpp"
+#include "BrickwareGraphics/BrickwareGraphicsDLL.hpp"
 
 #ifdef _MSC_VER
 #pragma once

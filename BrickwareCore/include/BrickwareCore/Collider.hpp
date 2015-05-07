@@ -5,23 +5,23 @@
 #define NOMINMAX
 
 //DLL Headers
-#include "BrickwareCore\BrickwareCoreDLL.hpp"
+#include "BrickwareCore/BrickwareCoreDLL.hpp"
 
 //Other Brickware Project Headers
-#include "BrickwareMath\Matrix3.hpp"
-#include "BrickwareMath\Quaternion.hpp"
-#include "BrickwareMath\Vector3.hpp"
-#include "BrickwareMath\Bounds.hpp"
-#include "BrickwareMath\Ray.hpp"
+#include "BrickwareMath/Matrix3.hpp"
+#include "BrickwareMath/Quaternion.hpp"
+#include "BrickwareMath/Vector3.hpp"
+#include "BrickwareMath/Bounds.hpp"
+#include "BrickwareMath/Ray.hpp"
 
-#include "BrickwareGraphics\Primitive.hpp"
+#include "BrickwareGraphics/Primitive.hpp"
 
 //System Level Headers
 #include <vector>
 #include <limits>
 
 //Project Headers
-#include "BrickwareCore\Component.hpp"
+#include "BrickwareCore/Component.hpp"
 
 namespace Brickware
 {
@@ -31,9 +31,10 @@ namespace Brickware
 		class BoxCollider;
 		class FrustumCollider;
 
+#ifdef _WIN32
 		//Used to avoid warnings about exporting std::vectors
-
 		template class __declspec(dllexport) std::vector < Math::Vector3 >;
+#endif
 
 		class BRICKWARE_CORE_API Collider : public Component
 		{

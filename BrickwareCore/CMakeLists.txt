@@ -1,4 +1,4 @@
-file(GLOB BRICKWARE_CORE_HEADERS "include/*/*.hpp")
+file(GLOB BRICKWARE_CORE_HEADERS "include/BrickwareCore/*.hpp")
 file(GLOB BRICKWARE_CORE_SOURCE "src/*.cpp")
 
 #C++ 11
@@ -29,9 +29,11 @@ endif(UNIX)
 #Link GL, GLEW and GLFW
 if(GL_SUPPORT)
 	if(UNIX)
+		find_package(GLEW REQUIRED)
+		
 		target_link_libraries(BrickwareCore GL)
-		target_link_libraries(BrickwareCore GLEW)
-		target_link_libraries(BrickwareCore glfw)
+		target_link_libraries(BrickwareCore ${GLEW_LIBRARY})
+		target_link_libraries(BrickwareCore ${GLFW_LIBRARIES})
 	endif(UNIX)
 
 	if(WIN32)

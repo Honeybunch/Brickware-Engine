@@ -2,7 +2,7 @@
 #define TEXTURE_H
 
 //DLL Header
-#include "BrickwareGraphics\BrickwareGraphicsDLL.hpp"
+#include "BrickwareGraphics/BrickwareGraphicsDLL.hpp"
 
 //Graphics Headers
 #ifdef GL_SUPPORT
@@ -15,7 +15,7 @@
 #endif
 
 //Other Project Headers
-#include "BrickwareUtils\StringUtils.hpp"
+#include "BrickwareUtils/StringUtils.hpp"
 
 //System Level Headers
 

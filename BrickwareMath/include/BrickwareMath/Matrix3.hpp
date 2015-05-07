@@ -2,10 +2,10 @@
 #define MATRIX3_H
 
 //DLL Header
-#include "BrickwareMath\BrickwareMathDLL.hpp"
+#include "BrickwareMath/BrickwareMathDLL.hpp"
 
 //Project Headers
-#include "BrickwareMath\Vector3.hpp"
+#include "BrickwareMath/Vector3.hpp"
 
 namespace Brickware
 {

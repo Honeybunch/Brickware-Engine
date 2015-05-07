@@ -1,4 +1,4 @@
-file(GLOB BRICKWARE_UTILS_HEADERS "include/*/*.hpp")
+file(GLOB BRICKWARE_UTILS_HEADERS "include/BrickwareUtils/*.hpp")
 file(GLOB BRICKWARE_UTILS_SOURCE "src/*.cpp")
 
 #C++ 11

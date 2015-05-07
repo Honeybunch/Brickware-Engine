@@ -2,19 +2,15 @@
 #define SOFTBODY_H
 
 //DLL Header
-#include "BrickwareCore\BrickwareCoreDLL.hpp"
+#include "BrickwareCore/BrickwareCoreDLL.hpp"
 
 //Other Brickware Project Headers
-#include "BrickwareGraphics\Mesh.hpp"
+#include "BrickwareGraphics/Mesh.hpp"
 
-#include "BrickwareMath\Vector3.hpp"
+#include "BrickwareMath/Vector3.hpp"
 
 //Project Headers
-#include "BrickwareCore\PhysicsManager.hpp"
-#include "BrickwareCore\Component.hpp"
-#include "BrickwareCore\MeshRenderer.hpp"
-#include "BrickwareCore\GameObject.hpp"
-#include "BrickwareCore\Transform.hpp"
+#include "BrickwareCore/Component.hpp"
 
 namespace Brickware
 {
@@ -26,10 +22,11 @@ namespace Brickware
 		class Node;
 		class Spring;
 
+#ifdef _WIN32
 		//Warning evasion
-
 		template class __declspec(dllexport) std::vector < Node* >;
 		template class __declspec(dllexport) std::vector < Spring* >;
+#endif
 
 		//Represents a spring between nodes in the softbody
 		class Spring
@@ -87,6 +84,8 @@ namespace Brickware
 		//A Softbody mostly just acts as a collection of nodes
 		class BRICKWARE_CORE_API Softbody : public Component
 		{
+			friend class PhysicsManager;
+
 		public:
 			Softbody();
 			Softbody(float nodeMass, float stiffness);

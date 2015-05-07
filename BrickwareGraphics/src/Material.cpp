@@ -1,6 +1,6 @@
 #define BRICKWARE_GRAPHICS_EXPORTS
 
-#include "BrickwareGraphics\Material.hpp"
+#include "BrickwareGraphics/Material.hpp"
 
 using namespace Brickware;
 using namespace Graphics;

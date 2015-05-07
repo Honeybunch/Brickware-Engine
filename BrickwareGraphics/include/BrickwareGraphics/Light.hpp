@@ -2,7 +2,7 @@
 #define LIGHT_H
 
 //DLL Header
-#include "BrickwareGraphics\BrickwareGraphicsDLL.hpp"
+#include "BrickwareGraphics/BrickwareGraphicsDLL.hpp"
 
 //Graphics Headers
 #ifdef GL_SUPPORT
@@ -10,13 +10,13 @@
 #endif
 
 //Other Brickware Project Headers
-#include "BrickwareMath\Vector3.hpp"
+#include "BrickwareMath/Vector3.hpp"
 
 //System Level Headers
 #include <string>
 
 //Project Headers
-#include "BrickwareGraphics\Material.hpp"
+#include "BrickwareGraphics/Material.hpp"
 
 namespace Brickware
 {

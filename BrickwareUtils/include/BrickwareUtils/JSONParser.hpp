@@ -17,7 +17,7 @@
 #include <vector>
 
 //Project Headers
-#include "BrickwareUtils\StringUtils.hpp"
+#include "BrickwareUtils/StringUtils.hpp"
 
 using namespace std;
 

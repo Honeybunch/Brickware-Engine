@@ -2,7 +2,7 @@
 #define GAMETIME_H
 
 //DLL Header
-#include "BrickwareCore\BrickwareCoreDLL.hpp"
+#include "BrickwareCore/BrickwareCoreDLL.hpp"
 
 //System Level Headers
 #include <chrono>

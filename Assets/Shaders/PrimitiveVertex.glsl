@@ -8,3 +8,4 @@ void main()
 {
 	gl_Position = worldMatrix * vec4(position, 1.0f);
 }
+

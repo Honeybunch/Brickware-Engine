@@ -187,19 +187,21 @@ const char* StringUtils::trimAllWhitespace(const char* string)
 
 void StringUtils::printShaderInfoLog(GLuint obj)
 {
-	GLint infologLength = 0;
+	GLint infoLogLength = 0;
 	GLsizei charsWritten = 0;
 	char *infoLog;
 
-	glGetShaderiv(obj, GL_INFO_LOG_LENGTH, &infologLength);
+	glGetShaderiv(obj, GL_INFO_LOG_LENGTH, &infoLogLength);
 
-	if (infologLength > 0)
+	if (infoLogLength > 0)
 	{
-		infoLog = new char(infologLength);
-		glGetShaderInfoLog(obj, infologLength, &charsWritten, infoLog);
+		infoLogLength++;
+		infoLog = new char(infoLogLength);
+		glGetShaderInfoLog(obj, infoLogLength, &charsWritten, infoLog);
+		infoLog[infoLogLength] = '\0';
 		cout << infoLog << endl;
 		
-		delete infoLog;
+		//delete[] infoLog;
 	}
 }
 
@@ -213,12 +215,12 @@ void StringUtils::printProgramInfoLog(GLuint obj)
 
 	if (infologLength > 0)
 	{
-		infoLog = new char(infologLength);
-
+		infoLog = new char(infologLength + 1);
 		glGetProgramInfoLog(obj, infologLength, &charsWritten, infoLog);
+		infoLog[infologLength] = '\0';
 		cout << infoLog << endl;
 
-		delete infoLog;
+		//delete[] infoLog;
 	}
 }
 

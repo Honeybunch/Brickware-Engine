@@ -3,7 +3,6 @@
 
 #define NOMINMAX
 
-<<<<<<< HEAD
 #include "BrickwareMath/Vector4.hpp"
 #include "BrickwareMath/Vector3.hpp"
 #include "BrickwareMath/Vector2.hpp"
@@ -15,20 +14,6 @@
 #include "BrickwareCore/Camera.hpp"
 #include "BrickwareCore/PhysicsManager.hpp"
 #include "BrickwareGraphics/Primitive.hpp"
-=======
-#include "BrickwareMath\Vector4.hpp"
-#include "BrickwareMath\Vector3.hpp"
-#include "BrickwareMath\Vector2.hpp"
-#include "BrickwareMath\Matrix4.hpp"
-#include "BrickwareMath\Ray.hpp"
-
-#include "BrickwareGraphics\Primitive.hpp"
-
-#include "BrickwareCore\Input.hpp"
-#include "BrickwareCore\Screen.hpp"
-#include "BrickwareCore\Camera.hpp"
-#include "BrickwareCore\PhysicsManager.hpp"
->>>>>>> origin/dev
 
 namespace Brickware
 {

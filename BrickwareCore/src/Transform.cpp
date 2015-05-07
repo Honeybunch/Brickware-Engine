@@ -15,6 +15,8 @@ Transform::Transform()
 	position = Vector3(0.0f, 0.0f, 0.0f);
 	rotation = Quaternion::getQuaternionIdentity();
 	scale = Vector3(1.0f, 1.0f, 1.0f);
+
+	Update();
 }
 
 //Accessors
@@ -31,11 +33,20 @@ Vector3 Transform::getUp(){ return up; }
 
 Matrix4 Transform::getModelMatrix(){ return modelMatrix; }
 
+Matrix4 Transform::getTranslationMatrix(){ return translationMatrix; }
+Matrix4 Transform::getRotationMatrix(){ return rotationMatrix; }
+Matrix4 Transform::getScaleMatrix(){ return scaleMatrix; }
+
 //Mutators
-void Transform::setPosition(Vector3 newPosition){ position = newPosition; }
+void Transform::setPosition(Vector3 newPosition)
+{ 
+	position = newPosition; 
+	Update();
+}
 void Transform::setEulerRotation(Vector3 newEulerRotation){ 
 	rotation = Quaternion(newEulerRotation);
 	eulerRotation = newEulerRotation;
+	Update();
 }
 /*
 void Transform::setWorldEulerRotation(Vector3 newEulerRotation){
@@ -48,23 +59,31 @@ void Transform::setWorldEulerRotation(Vector3 newEulerRotation){
 
 	worldEulerRotation = newEulerRotation;
 }*/
-void Transform::setRotation(Quaternion newRotation){ rotation = newRotation; }
+void Transform::setRotation(Quaternion newRotation)
+{ 
+	rotation = newRotation; 
+	Update();
+}
 //void Transform::setWorldRotation(Quaternion newRotation){ worldRotation = newRotation; }
-void Transform::setScale(Vector3 newScale){ scale = newScale; }
+void Transform::setScale(Vector3 newScale)
+{ 
+	scale = newScale; 
+	Update();
+}
 
 //Public Functions
 Component* Transform::Clone(){ return new Transform(*this); }
 
 void Transform::Update()
 {
-	Matrix4 rotationMatrix = rotation.getRotationMatrix();
+	rotationMatrix = rotation.getRotationMatrix();
 
-	Matrix4 translationMatrix(1.0f, 0.0f, 0.0f, 0.0f,
+	translationMatrix = Matrix4(1.0f, 0.0f, 0.0f, 0.0f,
 						      0.0f, 1.0f, 0.0f, 0.0f,
 						      0.0f, 0.0f, 1.0f, 0.0f,
 						      position.getX(), position.getY(), position.getZ(), 1.0f);
 
-	Matrix4 scaleMatrix(scale.getX(), 0.0f, 0.0f, 0.0f,
+	scaleMatrix = Matrix4(scale.getX(), 0.0f, 0.0f, 0.0f,
 						0.0f, scale.getY(), 0.0f, 0.0f,
 						0.0f, 0.0f, scale.getZ(), 0.0f,
 						0.0f, 0.0f, 0.0f, 1.0f);

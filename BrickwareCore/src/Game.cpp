@@ -100,8 +100,6 @@ int Game::run()
 
 		GameInputManager::Update();
 
-		updateScene();
-
 		//Update physics "ticksPerSecond" times per second
 		loops = 0;
 		while (GameTime::GetMillisSinceStart() > nextGameTick && loops < maxFrameskip)
@@ -111,6 +109,8 @@ int Game::run()
 			nextGameTick += skipTicks;
 			loops++;
 		}
+
+		updateScene();
 
 		//Calculate interpolation (UNUSED)
 		//interpolation = (float)(((float)ticks + skipTicks - nextGameTick) / (float)skipTicks);
@@ -134,7 +134,7 @@ bool Game::init()
 	//Init managers
 	Graphics::PrimitiveManager::Initialize();
 #ifdef GL_SUPPORT
-	Graphics::RenderingManager::Initialize(NULL, NULL);
+	Graphics::RenderingManager::Initialize(nullptr, nullptr);
 #endif
 #ifdef D3D_SUPPORT
 	Graphics::RenderingManager::Initialize(device, deviceContext);
@@ -144,6 +144,22 @@ bool Game::init()
 
 	return initSuccess;
 }
+
+void Game::setCursorVisible(bool visible)
+{
+#ifdef GL_SUPPORT
+	if (visible)
+		glfwSetInputMode(glWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	else
+		glfwSetInputMode(glWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+		
+#endif
+
+#ifdef D3D_SUPPORT
+	ShowCursor(visible);
+#endif
+}
+
 
 //Private methods
 
@@ -196,7 +212,7 @@ bool Game::initGL()
 		return false;
 
 	//Create window
-	glWindow = glfwCreateWindow(Screen::width, Screen::height, "Brickware-Test", NULL, NULL);
+	glWindow = glfwCreateWindow(Screen::width, Screen::height, "Brickware-Test", nullptr, nullptr);
 
 	if (!glWindow)
 	{

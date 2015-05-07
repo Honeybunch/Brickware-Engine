@@ -32,7 +32,7 @@
 //Project Headers
 #include "BrickwareGraphics\Shader.hpp"
 
-#define BUFFER_OFFSET(i) ((char *)NULL + (i))
+#define BUFFER_OFFSET(i) ((char *)nullptr + (i))
 
 namespace Brickware
 {

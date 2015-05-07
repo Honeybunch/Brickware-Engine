@@ -53,7 +53,7 @@ BRICKWARE_GRAPHICS_API void WINAPI DXGetErrorDescriptionW(_In_ HRESULT hr, _Out_
 //         DWORD dwLine    The current line number, typically passed in using the 
 //                         __LINE__ macro.
 //         HRESULT hr      An HRESULT that will be traced to the debug stream.
-//         CHAR* strMsg    A string that will be traced to the debug stream (may be NULL)
+//         CHAR* strMsg    A string that will be traced to the debug stream (may be nullptr)
 //         BOOL bPopMsgBox If TRUE, then a message box will popup also containing the passed info.
 //
 //  Return: The hr that was passed in.  

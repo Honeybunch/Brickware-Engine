@@ -28,7 +28,7 @@ vector<string> StringUtils::stringSplit(const char* toSplit, const char* delimit
 		if(strlen(token) > 0)
 			split.push_back(std::string(token));
 
-		token = strtok_single(NULL, delimiter);
+		token = strtok_single(nullptr, delimiter);
 	}
 
 	//Cleanup
@@ -50,7 +50,7 @@ vector<string> StringUtils::splitOnce(const char* toSplit, const char* delimiter
 
 	vector<string> split;
 
-	if (firstHalf != NULL)
+	if (firstHalf != nullptr)
 	{
 		int delimiterIndex = strlen(firstHalf);
 		int secondHalfLen = strlen(toSplit) - delimiterIndex;
@@ -75,15 +75,15 @@ vector<string> StringUtils::splitOnce(const char* toSplit, const char* delimiter
 char* StringUtils::textFileRead(const char *fileName){
 
 	FILE *file;
-	char *content = NULL;
+	char *content = nullptr;
 
 	int count = 0;
 
-	if (fileName != NULL)
+	if (fileName != nullptr)
 	{
 		file = fopen(fileName, "rt");
 
-		if (file != NULL)
+		if (file != nullptr)
 		{
 			fseek(file, 0, SEEK_END);
 			count = ftell(file);
@@ -112,11 +112,11 @@ int StringUtils::textFileWrite(const char *fileName, char *stringToWrite)
 	FILE *file;
 	int status = 0;
 
-	if (fileName != NULL)
+	if (fileName != nullptr)
 	{
 		file = fopen(fileName, "w");
 
-		if (file != NULL)
+		if (file != nullptr)
 		{
 			if (fwrite(stringToWrite, sizeof(char), strlen(stringToWrite), file) == strlen(stringToWrite))
 				status = 1;
@@ -257,18 +257,18 @@ char* StringUtils::wideStringToString(WCHAR* wideString)
 //Used to more split a string while handling two consecutive delimeters which strok does not do by default
 char* StringUtils::strtok_single(char* string, const char* delimeters)
 {
-	static char* src = NULL;
+	static char* src = nullptr;
 	char* p = 0;
 	char* ret = 0;
 
-	if (string != NULL)
+	if (string != nullptr)
 	{
 		src = string;
 	}
-	if(src == NULL)
-		return NULL;
+	if(src == nullptr)
+		return nullptr;
 
-	if((p = strpbrk(src, delimeters)) != NULL)
+	if((p = strpbrk(src, delimeters)) != nullptr)
 	{
 		*p = 0;
 		

@@ -18,7 +18,7 @@ Material::Material(Shader* shader)
 	//With the the proper names from the shader's shader reflection
 	textureMap = shader->textureMap;
 
-	if (defaultTexture == NULL)
+	if (defaultTexture == nullptr)
 		defaultTexture = new Texture("Textures/defaultTexture.bmp");
 
 	this->setTexture("diffuseTexture", Material::defaultTexture);
@@ -53,7 +53,7 @@ void Material::bindShader()
 
 	for (std::pair<std::string, Texture*> texPair : textureMap)
 	{
-		if (texPair.second != NULL)
+		if (texPair.second != nullptr)
 			texPair.second->bindTexture();
 	}
 }
@@ -64,7 +64,7 @@ void Material::freeShader()
 
 	for (std::pair<std::string, Texture*> texPair : textureMap)
 	{
-		if (texPair.second != NULL)
+		if (texPair.second != nullptr)
 			texPair.second->freeTexture();
 	}
 }

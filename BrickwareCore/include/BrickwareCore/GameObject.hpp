@@ -60,7 +60,7 @@ namespace Brickware
 
 			/* Gets a <Component> of a given type.
 			 * @returns The first <Component> of the given type or,
-			 *          NULL if no component of that type is found.
+			 *          nullptr if no component of that type is found.
 			 */
 			template<class T> T* getComponent()
 			{
@@ -71,7 +71,7 @@ namespace Brickware
 						return type;
 				}
 
-				return NULL;
+				return nullptr;
 			}
 
 			/* Adds a <Component> on to this GameObject.

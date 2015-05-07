@@ -22,7 +22,7 @@ namespace Brickware
 		struct RaycastHit
 		{
 			Math::Vector3 point;
-			Collider* collider = NULL;
+			Collider* collider = nullptr;
 		};
 
 		class GameInputManager

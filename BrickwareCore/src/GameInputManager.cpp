@@ -91,7 +91,7 @@ void GameInputManager::MouseOverObjects()
 	}
 
 
-	if (closestHit.collider != NULL)
+	if (closestHit.collider != nullptr)
 	{
 		if (closestHit.collider == lastHit.collider)
 		{
@@ -106,7 +106,7 @@ void GameInputManager::MouseOverObjects()
 			std::cout << "Over" << std::endl;
 		}
 	}
-	else if (lastHit.collider != NULL)
+	else if (lastHit.collider != nullptr)
 	{
 		lastHit.collider->getGameObject()->OnMouseExit();
 		lastHit = RaycastHit();

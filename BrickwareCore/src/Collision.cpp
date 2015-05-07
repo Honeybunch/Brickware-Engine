@@ -31,10 +31,10 @@ void Collision::setPointsOfCollision(std::vector<Vector3> pointsOfCollision) { t
 
 Collision::Collision()
 {
-	this->thisRigidbody = NULL;
-	this->thisCollider = NULL;
-	this->otherRigidbody = NULL;
-	this->otherCollider = NULL;
+	this->thisRigidbody = nullptr;
+	this->thisCollider = nullptr;
+	this->otherRigidbody = nullptr;
+	this->otherCollider = nullptr;
 }
 
 Collision::~Collision()

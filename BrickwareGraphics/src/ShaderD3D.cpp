@@ -17,8 +17,8 @@ void Shader::bindHLSL()
 	RenderingManager::deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	//Setup shaders
-	RenderingManager::deviceContext->VSSetShader(vertexShader, NULL, 0);
-	RenderingManager::deviceContext->PSSetShader(pixelShader, NULL, 0);
+	RenderingManager::deviceContext->VSSetShader(vertexShader, nullptr, 0);
+	RenderingManager::deviceContext->PSSetShader(pixelShader, nullptr, 0);
 }
 void Shader::freeHLSL(){}
 
@@ -55,7 +55,7 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 	HR(RenderingManager::device->CreateVertexShader(
 		vsBlob->GetBufferPointer(),
 		vsBlob->GetBufferSize(),
-		NULL,
+		nullptr,
 		&vertexShader));
 
 	// Before cleaning up the data, create the input layout
@@ -78,7 +78,7 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 	HR(RenderingManager::device->CreatePixelShader(
 		psBlob->GetBufferPointer(),
 		psBlob->GetBufferSize(),
-		NULL,
+		nullptr,
 		&pixelShader));
 
 	//Get the shader description
@@ -148,7 +148,7 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 		cBufferDesc.StructureByteStride = 0;
 		HR(RenderingManager::device->CreateBuffer(
 			&cBufferDesc,
-			NULL,
+			nullptr,
 			&bufferSpace));
 
 		constantBuffers.push_back(bufferSpace);
@@ -258,7 +258,7 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 		cBufferDesc.StructureByteStride = 0;
 		HR(RenderingManager::device->CreateBuffer(
 			&cBufferDesc,
-			NULL,
+			nullptr,
 			&bufferSpace));
 
 		constantBuffers.push_back(bufferSpace);
@@ -270,7 +270,7 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 		pixelShaderReflection->GetResourceBindingDesc(i, &resourceDesc);
 
 		if (resourceDesc.Type == D3D_SIT_TEXTURE)
-			textureMap[std::string(resourceDesc.Name)] = NULL;
+			textureMap[std::string(resourceDesc.Name)] = nullptr;
 	}
 
 	//Free unneeded data

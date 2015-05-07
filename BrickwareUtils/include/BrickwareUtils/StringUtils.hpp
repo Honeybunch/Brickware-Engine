@@ -60,7 +60,7 @@ namespace Brickware
 			 * @filename The file name to read from Ex. "Data/mytext.txt".
 			 *
 			 * @returns The contents of the file if successful, 
-			 *          NULL if there was an error reading
+			 *          nullptr if there was an error reading
 			 */
 			static char* textFileRead(const char* fileName);
 

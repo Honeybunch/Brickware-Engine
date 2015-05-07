@@ -112,7 +112,7 @@ namespace Brickware
 			 * will be attempted to be mapped to.
 			 *
 			 * @return The value at the given key if it exists,
-			 *         NULL if it doesn't exist.
+			 *         0 if it doesn't exist.
 			 */
 			template <typename T> T getValue(char* key)
 			{
@@ -125,7 +125,7 @@ namespace Brickware
 						return (T)kvp.getValue();
 					}
 				}
-				return NULL;
+				return 0;
 			}
 
 			/* Get the number of pairs in the object.
@@ -157,15 +157,15 @@ namespace Brickware
 			/* Decode JSON from a file
 			 * @filename The name of the file that you want to parse Ex. "Data/myfile.json".
 			 *
-			 * @returns A pointer to the decoded JSONObject or NULL if the file couldn't be read.
+			 * @returns A pointer to the decoded JSONObject or nullptr if the file couldn't be read.
 			 */
 			inline static JSONObject* DecodeJSONFromFile(const char* filename)
 			{
 				char* filecontents = StringUtils::textFileRead(filename);
-				if (filecontents == NULL)
+				if (filecontents == nullptr)
 				{
 					std::cout << "Could not read JSON file" << std::endl;
-					return NULL;
+					return nullptr;
 				}
 
 				return DecodeJSONFromString(filecontents);

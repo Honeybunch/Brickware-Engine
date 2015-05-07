@@ -1,6 +1,9 @@
 #ifndef COLLIDER_H
 #define COLLIDER_H
 
+//Pre-Include Defines
+#define NOMINMAX
+
 //DLL Headers
 #include "BrickwareCore\BrickwareCoreDLL.hpp"
 
@@ -29,6 +32,7 @@ namespace Brickware
 		class FrustumCollider;
 
 		//Used to avoid warnings about exporting std::vectors
+
 		template class __declspec(dllexport) std::vector < Math::Vector3 >;
 
 		class BRICKWARE_CORE_API Collider : public Component
@@ -50,6 +54,8 @@ namespace Brickware
 			std::vector<Math::Vector3> normals;
 			std::vector<Math::Vector3> worldNormals;
 
+			bool TestSAT(Collider* other, Collision* collision);
+
 			void calculateWorldData();
 
 		private:
@@ -58,6 +64,8 @@ namespace Brickware
 			virtual bool isCollidingWithFrustum(FrustumCollider* other) = 0;
 			virtual bool isCollidingWithBounds(Math::Bounds other) = 0;
 			virtual bool isCollidingWithRay(Math::Ray other, Math::Vector3* pointOfCollision) = 0;
+
+			Math::Vector2 getProjectedBounds(Math::Vector3 axis);
 		};
 	}
 }

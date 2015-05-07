@@ -156,7 +156,7 @@ void Rigidbody::OnCollision(Collision* collision)
 	Rigidbody* otherRigidbody = collision->getOtherRigidbody();
 	Collider* otherCollider = collision->getOtherCollider();
 
-	if (otherRigidbody == NULL)
+	if (otherRigidbody == nullptr)
 		return;
 
 	//Reposition rigidbody's game object back to where the collision happened so that it no longer intersects

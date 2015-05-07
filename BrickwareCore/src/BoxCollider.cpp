@@ -124,9 +124,11 @@ bool BoxCollider::isCollidingWithSphere(SphereCollider* other)
 	return false;
 }
 
-//TODO: Implement
 bool BoxCollider::isCollidingWithBox(BoxCollider* other, Collision* collision)
 {
+	return TestSAT(other, collision);
+
+	/*
 	float radiusThis, radiusOther;
 	float projectedTranslation;
 	Matrix3 rot, absRot;
@@ -480,12 +482,13 @@ bool BoxCollider::isCollidingWithBox(BoxCollider* other, Collision* collision)
 	}
 
   	return true;
+	*/
 }
 
 //TODO: Refactor to mesh collision
 bool BoxCollider::isCollidingWithFrustum(FrustumCollider* other)
 {
-	return other->isColliding(this, NULL);
+	return other->isColliding(this, nullptr);
 }
 
 //Don't really care yet

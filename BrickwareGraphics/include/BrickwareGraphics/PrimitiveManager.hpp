@@ -1,6 +1,9 @@
 #ifndef PRIMITIVE_MANAGER_H
 #define PRIMITIVE_MANAGER_H
 
+//Pre-Include Defines
+#define _USE_MATH_DEFINES
+
 //DLL Header
 #include "BrickwareGraphics/BrickwareGraphicsDLL.hpp"
 
@@ -9,6 +12,7 @@
 
 //System Level Headers
 #include <vector>
+#include <cmath>
 
 //Project Headers
 #include "BrickwareGraphics/GraphicsSettings.hpp"

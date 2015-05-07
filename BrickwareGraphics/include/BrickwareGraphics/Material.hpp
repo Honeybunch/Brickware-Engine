@@ -29,7 +29,7 @@ namespace Brickware
 {
 	namespace Graphics
 	{
-#ifdef _WIN_32
+#ifdef _WIN32
 #ifdef D3D_SUPPORT
 		template class BRICKWARE_GRAPHICS_API std::vector < ID3D11Buffer* >;
 		template class BRICKWARE_GRAPHICS_API std::vector < char* >;

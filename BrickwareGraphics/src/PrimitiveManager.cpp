@@ -111,7 +111,7 @@ void PrimitiveManager::BufferDataGL()
 	float lineCircle[circlePoints * 3];
 	unsigned short lineCircleIndices[circlePoints];
 
-	float radsPerPoint = (float)(M_2_PI / circlePoints);
+	float radsPerPoint = (float)(M_PI_2 / circlePoints);
 
 	//We have to calculate the points in a circle
 	for (int i = 0; i < 20; i++)

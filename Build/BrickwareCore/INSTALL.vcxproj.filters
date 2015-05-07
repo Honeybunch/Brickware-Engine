@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\Users\amt3824\Git\Brickware-Engine\Build\CMakeFiles\ad2afb62118b648f28ba85787db935e8\INSTALL_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{54BA5B48-975A-4F69-B892-928FE63EF190}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

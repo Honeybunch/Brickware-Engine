@@ -3,6 +3,8 @@ cmake_minimum_required (VERSION 2.6)
 project(Brickware-Engine)
 
 set(BUILD_TEST TRUE)
+set(GL_SUPPORT TRUE)
+set(D3D_SUPPORT FALSE)
 
 set(BUILD_TEST "" CACHE BOOL "Whether or not to build the test")
 

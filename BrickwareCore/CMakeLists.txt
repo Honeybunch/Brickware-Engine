@@ -29,11 +29,9 @@ endif(UNIX)
 #Link GL, GLEW and GLFW
 if(GL_SUPPORT)
 	if(UNIX)
-		find_package(GLEW REQUIRED)
-		
 		target_link_libraries(BrickwareCore GL)
-		target_link_libraries(BrickwareCore ${GLEW_LIBRARY})
-		target_link_libraries(BrickwareCore ${GLFW_LIBRARIES})
+		target_link_libraries(BrickwareCore GLEW)
+		target_link_libraries(BrickwareCore glfw)
 	endif(UNIX)
 
 	if(WIN32)

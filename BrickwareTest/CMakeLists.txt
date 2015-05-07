@@ -32,8 +32,8 @@ if(GL_SUPPORT)
 
 	if(UNIX)
 		target_link_libraries(BrickwareTest GL)
-		target_link_libraries(BrickwareTest glew)
-		target_link_libraries(BrickwareTest GLFW3)
+		target_link_libraries(BrickwareTest GLEW)
+		target_link_libraries(BrickwareTest glfw)
 	endif(UNIX)
 
 	if(WIN32)

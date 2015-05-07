@@ -232,9 +232,8 @@ bool Game::initGL()
 
 	glfwSetInputMode(glWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
-#ifdef _WIN32
-	glewInit();
-#endif
+	if(glewInit() != GLEW_OK)
+		return false;
 
 	return true;
 }

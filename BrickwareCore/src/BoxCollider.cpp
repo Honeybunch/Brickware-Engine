@@ -141,10 +141,65 @@ bool BoxCollider::isCollidingWithBounds(Bounds other)
 	return false;
 }
 
-//Don't care yet
 bool BoxCollider::isCollidingWithRay(Ray other, Vector3* pointOfCollision)
 {
+	Transform* transform = getGameObject()->getTransform();
+
+	Vector3 rayOrigin = other.getOrigin();
+	Vector3 rayDirection = other.getDirection();
+
+	Vector3 localizedCenter = center - rayOrigin;
+
+	float min = std::numeric_limits<float>::min();
+	float max = std::numeric_limits<float>::max();
+
+	bool collisionOnRight =		isRayIntersectingSlab(transform->getRight(), rayDirection, localizedCenter, &min, &max);
+	bool collisionOnUp =		isRayIntersectingSlab(transform->getUp(), rayDirection, localizedCenter, &min, &max);
+	bool collisionOnForward =	isRayIntersectingSlab(transform->getForward(), rayDirection, localizedCenter, &min, &max);
+
+	if (collisionOnRight && collisionOnUp && collisionOnForward)
+	{
+		if (pointOfCollision != nullptr)
+			*pointOfCollision = rayDirection * min;
+		return true;
+	}
+
 	return false;
+}
+
+//Mostly used by isCollidingWithRay
+bool BoxCollider::isRayIntersectingSlab(Math::Vector3 projectionAxis, Math::Vector3 rayDirection, Math::Vector3 localizedCenter, float* min, float* max)
+{
+	float e = Vector3::Dot(projectionAxis, localizedCenter);
+	float f = Vector3::Dot(rayDirection, projectionAxis);
+
+	if (fabsf(f) > 0.001f)
+	{
+		float t1 = (e - halfSize[0]) / f;
+		float t2 = (e + halfSize[0]) / f;
+
+		if (t1 > t2)
+		{
+			//Swap varaiables
+			float t0 = t1;
+			t1 = t2;
+			t2 = t0;
+		}
+
+		if (t2 < (*max))
+			(*max) = t2;
+		if (t1 > (*min))
+			(*min) = t1;
+		if ((*min) > (*max))
+			return false;
+	}
+	else
+	{
+		if (-e - halfSize[0] > 0 || -e + halfSize[0] < 0.0f)
+			return false;
+	}
+
+	return true;
 }
 
 BoxCollider::~BoxCollider()

@@ -5,6 +5,7 @@
 using namespace Brickware;
 using namespace Core;
 using namespace Math;
+using namespace Graphics;
 
 //statics
 RaycastHit GameInputManager::lastHit;
@@ -90,6 +91,9 @@ void GameInputManager::MouseOverObjects()
 		}
 	}
 
+	Primitive::SetColor(Vector4(1.0f, 0.0f, 0.0f, 1.0f));
+	Primitive::SetPointSize(5.0f);
+	Primitive::DrawPoint(closestHit.point);
 
 	if (closestHit.collider != nullptr)
 	{

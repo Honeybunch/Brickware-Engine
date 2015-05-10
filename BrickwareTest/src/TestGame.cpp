@@ -60,6 +60,8 @@ bool TestGame::init()
 		std::cout << std::endl;
 	}
 
+	setCursorVisible(true);
+
 	//Load shader
 	Shader* shader = new Shader("Shaders/VertexShader", "Shaders/PixelShader");
 
@@ -150,7 +152,7 @@ bool TestGame::init()
 	GameObject* square = new GameObject();
 	square->getTransform()->setPosition(Vector3(0.0f, 1.0f, -5.0f));
 	square->addComponent(new MeshRenderer(squareMesh, squareMaterial));
-	square->addComponent(new Softbody());
+	//square->addComponent(new Softbody());
 	GameObject* circle = new GameObject();
 	circle->getTransform()->setPosition(Vector3(3.0f, 1.0f, -5.0f));
 	circle->addComponent(new MeshRenderer(circleMesh, circleMaterial));

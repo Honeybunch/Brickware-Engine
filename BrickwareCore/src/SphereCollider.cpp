@@ -88,14 +88,40 @@ bool SphereCollider::isCollidingWithBounds(Bounds other)
 		return false;
 }
 
+//This is based off of the implementation found at: http://www.siggraph.org/education/materials/HyperGraph/raytrace/rtinter1.htm
 bool SphereCollider::isCollidingWithRay(Ray other, Vector3* pointOfCollision)
 {
 	Vector3 rayOrigin = other.getOrigin();
-	Vector3 localizedCenter = center - rayOrigin;
-	float distanceToCenter = localizedCenter.getMagnitude();
-
 	Vector3 rayDirection = other.getDirection();
 
+	Vector3 localizedCenter = center - rayOrigin;
+
+	//The Ray direction is normalized so A will be 1
+	//float A = powf(rayDirection[0], 2) + powf(rayDirection[1], 2) + powf(rayDirection[2], 2);
+	
+	float B = 2 * ((rayDirection[0] * localizedCenter[0]) + (rayDirection[1] * localizedCenter[1]) + (rayDirection[2] * localizedCenter[2]));
+	float C = powf(localizedCenter[0], 2) + powf(localizedCenter[1], 2) + powf(localizedCenter[2], 2) - powf(radius, 2);
+
+	//Calculate discriminant
+	float d = powf(B, 2) - (4 * C);
+	
+	if (d < 0)
+	{
+		return false;
+	}
+	else
+	{
+		//Calculate collision point
+		float distance = (-B + powf(d, 0.5f)) * 0.5f;
+		if (distance < 0)
+			distance = (-B - powf(d, 0.5f)) * 0.5f;
+
+		*pointOfCollision = rayOrigin + (rayDirection * distance);
+
+		return true;
+	}
+
+	/*
 	//If the sphere center is behind the origin we can't just handle the projection as is
 	if (Vector3::Dot(localizedCenter, rayDirection) < 0)
 	{
@@ -157,6 +183,7 @@ bool SphereCollider::isCollidingWithRay(Ray other, Vector3* pointOfCollision)
 	}
 
 	return false;
+	*/
 }
 
 SphereCollider::~SphereCollider()

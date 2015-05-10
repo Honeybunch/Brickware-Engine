@@ -81,6 +81,8 @@ int Game::run()
 
 	while (running)
 	{
+		GameTime::frameStart();
+
 		//Handle windows messages
 #ifdef D3D_SUPPORT
 		if (msg.message == WM_QUIT)
@@ -102,12 +104,17 @@ int Game::run()
 
 		//Update physics "ticksPerSecond" times per second
 		loops = 0;
+		
 		while (GameTime::GetMillisSinceStart() > nextGameTick && loops < maxFrameskip)
 		{
+			GameTime::fixedFrameStart();
+
 			PhysicsManager::Update();
 
 			nextGameTick += skipTicks;
 			loops++;
+			
+			GameTime::fixedFrameEnd();
 		}
 
 		updateScene();
@@ -116,6 +123,8 @@ int Game::run()
 		//interpolation = (float)(((float)ticks + skipTicks - nextGameTick) / (float)skipTicks);
 
 		render();
+
+		GameTime::frameEnd();
 	}
 
 	return 0;
@@ -167,8 +176,6 @@ void Game::setCursorVisible(bool visible)
 //Render in the proper settings for the given rendering API
 void Game::render()
 {
-	GameTime::frameStart();
-
 #ifdef D3D_SUPPORT
 	startRenderD3D();
 #else
@@ -188,8 +195,6 @@ void Game::render()
 	swapBuffersGL();
 	Graphics::PrimitiveManager::ClearPrimitives();
 #endif
-
-	GameTime::frameEnd();
 }
 
 void Game::handleInput()

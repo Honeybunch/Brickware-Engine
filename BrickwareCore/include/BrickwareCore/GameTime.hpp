@@ -27,6 +27,11 @@ namespace Brickware
 			 */
 			static BRICKWARE_CORE_API float GetDeltaTime();
 
+			/* Gets the time that the last fixed update frame took
+			 * @returns the fixed delta time in float format.
+			 */
+			static BRICKWARE_CORE_API float GetFixedDeltaTime();
+
 			/* Gets the age of the program in milliseconds.
 			 * @returns The number of milliseconds since program start.
 			 */
@@ -35,11 +40,16 @@ namespace Brickware
 		private:
 			static long long startTime;
 			static long long frameStartTime;
+			static long long fixedFrameStartTime;
 
 			static float deltaTime;
+			static float fixedDeltaTime;
 
 			static void frameStart();
 			static void frameEnd();
+
+			static void fixedFrameStart();
+			static void fixedFrameEnd();
 		};
 	}
 }

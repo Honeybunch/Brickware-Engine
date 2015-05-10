@@ -433,7 +433,7 @@ bool Game::initD3DWindow()
 	wc.cbWndExtra = 0;
 	wc.hInstance = hAppInst;
 	wc.hIcon = LoadIcon(0, IDI_APPLICATION);
-	wc.hCursor = LoadCursor(0, IDC_NO);
+	wc.hCursor = LoadCursor(0, IDC_ARROW);
 	wc.hbrBackground = (HBRUSH)GetStockObject(NULL_BRUSH);
 	wc.lpszMenuName = 0;
 	wc.lpszClassName = "D3DWindow";

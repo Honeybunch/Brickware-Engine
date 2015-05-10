@@ -24,14 +24,14 @@
 		// on a failed HRESULT and then quitting (only in debug builds)
 #if defined(DEBUG) | defined(_DEBUG)
 #ifndef HR
-#define HR(x)												/
-		{															/
-		HRESULT hr = (x);										/
-		if(FAILED(hr))											/
-				{														/
-					DXTrace(__FILEW__, (DWORD)__LINE__, hr, L#x, true);	/
-					PostQuitMessage(0);									/
-				}														/
+#define HR(x)												\
+		{															\
+		HRESULT hr = (x);										\
+		if(FAILED(hr))											\
+				{														\
+					DXTrace(__FILEW__, (DWORD)__LINE__, hr, L#x, true);	\
+					PostQuitMessage(0);									\
+				}														\
 		}														
 #endif
 #else

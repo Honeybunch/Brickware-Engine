@@ -108,26 +108,31 @@ void Rigidbody::addInstantaneousTorque(Vector3 instantTorque)
 //Called on a fixed timestep for physics calculations
 void Rigidbody::FixedUpdate()
 {
-	float deltaTime = GameTime::GetDeltaTime();
-
-	//Calculate acceleration from applied forces
-	Vector3 frameAcceleration = (frameForce * inverseMass) * deltaTime;			//A = 1/mass * Force
-	angularAcceleration = inverseInertia * frameTorque;						//AA = 1/Inertia * Torque
-	
-	//Calcuate net impluse for later
-	Vector3 netImpulse = impulse * inverseMass;									//J = J * 1/mass
-	frameInstantTorque = inverseInertia * frameInstantTorque;
-
-	//Calculate velocities
-	Vector3 startVelocity = velocity * deltaTime;								//VT = V0 * deltaTime
-	angularVelocity += angularAcceleration * deltaTime;
-
-	Vector3 VAT = startVelocity + (acceleration * 0.5f * powf(deltaTime, 2));	//VAT = VT + (A1 * 1/2 * deltaTime^2)
-	Vector3 AngularVT = angularVelocity * deltaTime;							//AngularVT = AV0 + AA * deltaTime^2
+	float deltaTime = GameTime::GetFixedDeltaTime();
 
 	//Apply constant forces
 	if (useGravity)
 		acceleration[1] += PhysicsManager::gravity;
+
+	//Calculate acceleration from applied forces
+	Vector3 frameAcceleration = (frameForce * inverseMass) * deltaTime;			//A = 1/mass * Force
+	angularAcceleration = inverseInertia * frameTorque;							//AA = 1/Inertia * Torque
+	
+	//Calcuate net impluse for later
+	impulse = impulse * inverseMass;											//J = J * 1/mass
+	frameInstantTorque = inverseInertia * frameInstantTorque;
+
+	//Calculate velocities
+	Vector3 startVelocity = velocity * deltaTime;								//VT = V0 * deltaTime
+	Vector3 AngularAT = angularAcceleration * deltaTime;
+
+	Vector3 VAT = startVelocity + (acceleration * 0.5f * powf(deltaTime, 2));	//VAT = VT + (A1 * 1/2 * deltaTime^2)
+	
+	//AngularVT = AV0 + AA * deltaTime^2
+	angularVelocity += AngularAT;
+	angularVelocity += frameInstantTorque;
+
+	Vector3 AngularVAT = angularVelocity * deltaTime;
 	
 	//Integrate velocity into position
 	Vector3 position = transform->getPosition();
@@ -135,17 +140,17 @@ void Rigidbody::FixedUpdate()
 	transform->setPosition(position);
 
 	//Integrate angular velocity into rotation
-	Vector3 eulerRotation = transform->getEulerRotation();
-	eulerRotation += AngularVT;
-	transform->setEulerRotation(eulerRotation);
+	Quaternion rotation = transform->getRotation();
+	Quaternion quatVel = Quaternion(AngularVAT);
+	Quaternion newRotation = quatVel * rotation;
+
+	transform->setRotation(newRotation);
 
 	//Integrate acceleration into velocity
 	velocity += frameAcceleration;
-	angularVelocity += angularAcceleration;
 
 	//Apply impulse
-	velocity += netImpulse;
-	angularVelocity += frameInstantTorque;
+	velocity +=	impulse;
 
 	impulse = Vector3();
 	frameInstantTorque = Vector3();

@@ -79,10 +79,12 @@ int Game::run()
 	running = true;
 	int loops;
 
+	long long frames = 0;
+	long long lastTime = 0;
+	long long timeInterval = 0;
+
 	while (running)
 	{
-		GameTime::frameStart();
-
 		//Handle windows messages
 #ifdef D3D_SUPPORT
 		if (msg.message == WM_QUIT)
@@ -102,20 +104,33 @@ int Game::run()
 
 		GameInputManager::Update();
 
+		//Calculate FPS
+		timeInterval = GameTime::GetMillisSinceStart() - lastTime;
+
+		if (timeInterval > 1000)
+		{
+			float fps = frames / (timeInterval / 1000);
+			std::cout << "FPS: " << fps << std::endl;
+
+			lastTime = GameTime::GetMillisSinceStart();
+			frames = 0;
+		}
+
 		//Update physics "ticksPerSecond" times per second
 		loops = 0;
-		
 		while (GameTime::GetMillisSinceStart() > nextGameTick && loops < maxFrameskip)
 		{
 			GameTime::fixedFrameStart();
 
 			PhysicsManager::Update();
 
+			GameTime::fixedFrameEnd();
+
 			nextGameTick += skipTicks;
 			loops++;
-			
-			GameTime::fixedFrameEnd();
 		}
+
+		GameTime::frameStart();
 
 		updateScene();
 
@@ -123,6 +138,8 @@ int Game::run()
 		//interpolation = (float)(((float)ticks + skipTicks - nextGameTick) / (float)skipTicks);
 
 		render();
+
+		frames++;
 
 		GameTime::frameEnd();
 	}

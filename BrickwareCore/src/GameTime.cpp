@@ -22,7 +22,7 @@ float GameTime::GetDeltaTime()
 }
 float GameTime::GetFixedDeltaTime()
 {
-	return fixedDeltaTime;
+	return 1.0f/60.0f;
 }
 
 long long GameTime::GetMillisSinceStart()

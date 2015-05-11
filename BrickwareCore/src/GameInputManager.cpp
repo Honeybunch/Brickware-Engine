@@ -95,26 +95,20 @@ void GameInputManager::MouseOverObjects()
 	Primitive::SetPointSize(5.0f);
 	Primitive::DrawPoint(closestHit.point);
 
-	if (closestHit.collider != nullptr)
+	if (closestHit.collider == lastHit.collider)
 	{
-		if (closestHit.collider == lastHit.collider)
-		{
+		if (closestHit.collider != nullptr)
 			closestHit.collider->getGameObject()->OnMouseStay();
-			lastHit = closestHit;
-			std::cout << "Stay" << std::endl;
-		}
-		else
-		{
-			closestHit.collider->getGameObject()->OnMouseOver();
-			lastHit = closestHit;
-			std::cout << "Over" << std::endl;
-		}
+		lastHit = closestHit;
 	}
-	else if (lastHit.collider != nullptr)
+	else
 	{
-		lastHit.collider->getGameObject()->OnMouseExit();
-		lastHit = RaycastHit();
-		std::cout << "End" << std::endl;
+		if (closestHit.collider != nullptr)
+			closestHit.collider->getGameObject()->OnMouseOver();
+		if (lastHit.collider != nullptr)
+			lastHit.collider->getGameObject()->OnMouseExit();
+		
+		lastHit = closestHit;
 	}
 	
 }

@@ -97,11 +97,11 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;GL_SUPPORT;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;D3D_SUPPORT;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;GL_SUPPORT;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;D3D_SUPPORT;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareUtils\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareCore\include;D:\Users\amt3824\Git\Brickware-Engine\GL\include;D:\Users\amt3824\Git\Brickware-Engine\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
@@ -113,27 +113,9 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>		</Message>
+      <Message></Message>
       <Command>setlocal
 "C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_directory D:/Users/amt3824/Git/Brickware-Engine\Assets D:/Users/amt3824/Git/Brickware-Engine/Build\TestBuild
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy D:/Users/amt3824/Git/Brickware-Engine/GL/lib/Win32\glew32.dll D:/Users/amt3824/Git/Brickware-Engine/Build\TestBuild
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy D:/Users/amt3824/Git/Brickware-Engine/GLFW/lib/Win32\glfw3.dll D:/Users/amt3824/Git/Brickware-Engine/Build\TestBuild
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -144,7 +126,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </PostBuildEvent>
     <Link>
       <AdditionalOptions> /machine:X86 /debug %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;opengl32.lib;..\..\GL\lib\Win32\glew32.lib;..\..\GLFW\lib\Win32\glfw3dll.lib;..\TestBuild\BrickwareCore.lib;..\TestBuild\BrickwareGraphics.lib;..\..\GLFW\lib\Win32\glfw3dll.lib;..\TestBuild\BrickwareMath.lib;..\TestBuild\BrickwareUtils.lib;opengl32.lib;..\..\GL\lib\Win32\glew32.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;..\TestBuild\BrickwareCore.lib;..\TestBuild\BrickwareGraphics.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;..\TestBuild\BrickwareMath.lib;..\TestBuild\BrickwareUtils.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -169,12 +151,12 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;GL_SUPPORT;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;D3D_SUPPORT;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat></DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;GL_SUPPORT;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;D3D_SUPPORT;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareUtils\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareCore\include;D:\Users\amt3824\Git\Brickware-Engine\GL\include;D:\Users\amt3824\Git\Brickware-Engine\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
@@ -186,27 +168,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>		</Message>
+      <Message></Message>
       <Command>setlocal
 "C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_directory D:/Users/amt3824/Git/Brickware-Engine\Assets D:/Users/amt3824/Git/Brickware-Engine/Build\TestBuild
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy D:/Users/amt3824/Git/Brickware-Engine/GL/lib/Win32\glew32.dll D:/Users/amt3824/Git/Brickware-Engine/Build\TestBuild
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy D:/Users/amt3824/Git/Brickware-Engine/GLFW/lib/Win32\glfw3.dll D:/Users/amt3824/Git/Brickware-Engine/Build\TestBuild
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -217,7 +181,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </PostBuildEvent>
     <Link>
       <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;opengl32.lib;..\..\GL\lib\Win32\glew32.lib;..\..\GLFW\lib\Win32\glfw3dll.lib;..\TestBuild\BrickwareCore.lib;..\TestBuild\BrickwareGraphics.lib;..\..\GLFW\lib\Win32\glfw3dll.lib;..\TestBuild\BrickwareMath.lib;..\TestBuild\BrickwareUtils.lib;opengl32.lib;..\..\GL\lib\Win32\glew32.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;..\TestBuild\BrickwareCore.lib;..\TestBuild\BrickwareGraphics.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;..\TestBuild\BrickwareMath.lib;..\TestBuild\BrickwareUtils.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -242,12 +206,12 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;GL_SUPPORT;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;D3D_SUPPORT;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat></DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;GL_SUPPORT;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;D3D_SUPPORT;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareUtils\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareCore\include;D:\Users\amt3824\Git\Brickware-Engine\GL\include;D:\Users\amt3824\Git\Brickware-Engine\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
@@ -259,27 +223,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>		</Message>
+      <Message></Message>
       <Command>setlocal
 "C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_directory D:/Users/amt3824/Git/Brickware-Engine\Assets D:/Users/amt3824/Git/Brickware-Engine/Build\TestBuild
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy D:/Users/amt3824/Git/Brickware-Engine/GL/lib/Win32\glew32.dll D:/Users/amt3824/Git/Brickware-Engine/Build\TestBuild
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy D:/Users/amt3824/Git/Brickware-Engine/GLFW/lib/Win32\glfw3.dll D:/Users/amt3824/Git/Brickware-Engine/Build\TestBuild
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -290,7 +236,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </PostBuildEvent>
     <Link>
       <AdditionalOptions> /machine:X86 %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;opengl32.lib;..\..\GL\lib\Win32\glew32.lib;..\..\GLFW\lib\Win32\glfw3dll.lib;..\TestBuild\MinSizeRel\BrickwareCore.lib;..\TestBuild\MinSizeRel\BrickwareGraphics.lib;..\..\GLFW\lib\Win32\glfw3dll.lib;..\TestBuild\MinSizeRel\BrickwareMath.lib;..\TestBuild\MinSizeRel\BrickwareUtils.lib;opengl32.lib;..\..\GL\lib\Win32\glew32.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;..\TestBuild\MinSizeRel\BrickwareCore.lib;..\TestBuild\MinSizeRel\BrickwareGraphics.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;..\TestBuild\MinSizeRel\BrickwareMath.lib;..\TestBuild\MinSizeRel\BrickwareUtils.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -316,11 +262,11 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;GL_SUPPORT;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;D3D_SUPPORT;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;GL_SUPPORT;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;D3D_SUPPORT;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareUtils\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\include;D:\Users\amt3824\Git\Brickware-Engine\BrickwareCore\include;D:\Users\amt3824\Git\Brickware-Engine\GL\include;D:\Users\amt3824\Git\Brickware-Engine\GLFW\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
@@ -332,27 +278,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>		</Message>
+      <Message></Message>
       <Command>setlocal
 "C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy_directory D:/Users/amt3824/Git/Brickware-Engine\Assets D:/Users/amt3824/Git/Brickware-Engine/Build\TestBuild
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy D:/Users/amt3824/Git/Brickware-Engine/GL/lib/Win32\glew32.dll D:/Users/amt3824/Git/Brickware-Engine/Build\TestBuild
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-"C:\Program Files (x86)\CMake\bin\cmake.exe" -E copy D:/Users/amt3824/Git/Brickware-Engine/GLFW/lib/Win32\glfw3.dll D:/Users/amt3824/Git/Brickware-Engine/Build\TestBuild
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -363,7 +291,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </PostBuildEvent>
     <Link>
       <AdditionalOptions> /machine:X86 /debug %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;opengl32.lib;..\..\GL\lib\Win32\glew32.lib;..\..\GLFW\lib\Win32\glfw3dll.lib;..\TestBuild\RelWithDebInfo\BrickwareCore.lib;..\TestBuild\RelWithDebInfo\BrickwareGraphics.lib;..\..\GLFW\lib\Win32\glfw3dll.lib;..\TestBuild\RelWithDebInfo\BrickwareMath.lib;..\TestBuild\RelWithDebInfo\BrickwareUtils.lib;opengl32.lib;..\..\GL\lib\Win32\glew32.lib</AdditionalDependencies>
+      <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;..\TestBuild\RelWithDebInfo\BrickwareCore.lib;..\TestBuild\RelWithDebInfo\BrickwareGraphics.lib;d3d11.lib;dxguid.lib;d3dcompiler.lib;..\TestBuild\RelWithDebInfo\BrickwareMath.lib;..\TestBuild\RelWithDebInfo\BrickwareUtils.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>

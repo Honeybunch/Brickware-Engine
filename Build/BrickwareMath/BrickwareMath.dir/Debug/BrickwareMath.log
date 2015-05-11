@@ -1,10 +1,7 @@
-﻿Build started 5/9/2015 11:52:19 PM.
+﻿Build started 5/10/2015 9:38:43 PM.
      1>Project "D:\Users\amt3824\Git\Brickware-Engine\Build\BrickwareMath\BrickwareMath.vcxproj" on node 2 (Build target(s)).
-     1>CustomBuild:
-         Building Custom Rule D:/Users/amt3824/Git/Brickware-Engine/BrickwareMath/CMakeLists.txt
-         CMake does not need to re-run because D:\Users\amt3824\Git\Brickware-Engine\Build\BrickwareMath\CMakeFiles\generate.stamp is up-to-date.
-       ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\include" /Zi /nologo /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D GL_SUPPORT /D "CMAKE_INTDIR=\"Debug\"" /D BrickwareMath_EXPORTS /D _WINDLL /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"BrickwareMath.dir\Debug\\" /Fd"BrickwareMath.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt "D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\src\Bounds.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\src\Matrix3.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\src\Matrix4.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\src\Quaternion.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\src\Ray.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\src\Vector2.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\src\Vector3.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\src\Vector4.cpp"
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\include" /Zi /nologo /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D D3D_SUPPORT /D "CMAKE_INTDIR=\"Debug\"" /D BrickwareMath_EXPORTS /D _WINDLL /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"BrickwareMath.dir\Debug\\" /Fd"BrickwareMath.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt "D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\src\Bounds.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\src\Matrix3.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\src\Matrix4.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\src\Quaternion.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\src\Ray.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\src\Vector2.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\src\Vector3.cpp" "D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\src\Vector4.cpp"
          Bounds.cpp
          Matrix3.cpp
          Matrix4.cpp
@@ -23,10 +20,9 @@
          BrickwareMath.dir\Debug\Vector2.obj
          BrickwareMath.dir\Debug\Vector3.obj
          BrickwareMath.dir\Debug\Vector4.obj
-            Creating library D:/Users/amt3824/Git/Brickware-Engine/Build/TestBuild/BrickwareMath.lib and object D:/Users/amt3824/Git/Brickware-Engine/Build/TestBuild/BrickwareMath.exp
          BrickwareMath.vcxproj -> D:\Users\amt3824\Git\Brickware-Engine\Build\TestBuild\BrickwareMath.dll
      1>Done Building Project "D:\Users\amt3824\Git\Brickware-Engine\Build\BrickwareMath\BrickwareMath.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:04.02
+Time Elapsed 00:00:03.55

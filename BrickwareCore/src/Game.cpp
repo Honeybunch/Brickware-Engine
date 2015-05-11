@@ -253,6 +253,22 @@ void Game::handleInputGLFW()
 	glfwGetCursorPos(glWindow, &mouseX, &mouseY);
 	Input::mousePosition = Vector2((float)mouseX, (float)mouseY);
 
+	//Mouse Buttons
+	if(glfwGetMouseButton(glWindow, GLFW_MOUSE_BUTTON_1) == GLFW_PRESS)
+		Input::buttons[MouseButton::leftButton] = true;
+	else
+		Input::buttons[MouseButton::leftButton] = false;
+
+	if(glfwGetMouseButton(glWindow, GLFW_MOUSE_BUTTON_2) == GLFW_PRESS)
+		Input::buttons[MouseButton::rightButton] = true;
+	else
+		Input::buttons[MouseButton::rightButton] = false;
+
+	if(glfwGetMouseButton(glWindow, GLFW_MOUSE_BUTTON_3) == GLFW_PRESS)
+		Input::buttons[MouseButton::middleButton] = true;
+	else
+		Input::buttons[MouseButton::middleButton] = false;
+
 	//Keyboard letters
 	if (glfwGetKey(glWindow, GLFW_KEY_A) == GLFW_PRESS || glfwGetKey(glWindow, GLFW_KEY_A) == GLFW_REPEAT)
 		Input::keys[KeyCode::a] = true;
@@ -468,6 +484,21 @@ bool Game::initD3DWindow()
 
 LRESULT Game::MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
+	if (msg == WM_LBUTTONDOWN)
+		Input::buttons[MouseButton::leftButton] = true;
+	else
+		Input::buttons[MouseButton::leftButton] = false;
+
+	if (msg == WM_RBUTTONDOWN)
+		Input::buttons[MouseButton::rightButton] = true;
+	else
+		Input::buttons[MouseButton::rightButton] = false;
+
+	if (msg == WM_MBUTTONDOWN)
+		Input::buttons[MouseButton::middleButton] = true;
+	else
+		Input::buttons[MouseButton::middleButton] = false;
+
 	switch (wParam)
 	{
 	case 0x41:

@@ -49,10 +49,10 @@ void PhysicsManager::Update()
 {
 	//Update rigidbodies
 	for (std::pair<Rigidbody*, int> pair : rigidbodies)
-	{		
+	{
 		Rigidbody* rigidbody = pair.first;
 		rigidbody->FixedUpdate();
-	}	
+	}
 
 	//Update softbodies
 	for (std::pair<Softbody*, int> pair : softbodies)

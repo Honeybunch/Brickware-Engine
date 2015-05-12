@@ -1,4 +1,4 @@
-﻿Build started 5/11/2015 7:05:34 PM.
+﻿Build started 5/11/2015 10:22:24 PM.
      1>Project "D:\Users\amt3824\Git\Brickware-Engine\Build\BrickwareTest\BrickwareTest.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\include" /I"D:\Users\amt3824\Git\Brickware-Engine\BrickwareMath\include" /I"D:\Users\amt3824\Git\Brickware-Engine\BrickwareUtils\include" /I"D:\Users\amt3824\Git\Brickware-Engine\BrickwareGraphics\include" /I"D:\Users\amt3824\Git\Brickware-Engine\BrickwareCore\include" /I"D:\Users\amt3824\Git\Brickware-Engine\GL\include" /I"D:\Users\amt3824\Git\Brickware-Engine\GLFW\include" /Zi /nologo /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D GL_SUPPORT /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"BrickwareTest.dir\Debug\\" /Fd"BrickwareTest.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt "D:\Users\amt3824\Git\Brickware-Engine\BrickwareTest\src\Spawner.cpp"
@@ -43,4 +43,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:03.26
+Time Elapsed 00:00:02.43

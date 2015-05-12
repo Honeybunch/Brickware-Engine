@@ -137,9 +137,9 @@ int Game::run()
 		//Calculate interpolation (UNUSED)
 		//interpolation = (float)(((float)ticks + skipTicks - nextGameTick) / (float)skipTicks);
 
-		render();
-
 		frames++;
+
+		render();
 
 		GameTime::frameEnd();
 	}

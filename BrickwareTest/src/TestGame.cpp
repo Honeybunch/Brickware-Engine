@@ -146,7 +146,7 @@ bool TestGame::init()
 	cube->addComponent(cubeRigidbody);
 	Spin* cubeSpin = new Spin();
 	cubeSpin->rotationDelta = Vector3(0.05f, 0.0f, 0.0f);
-	cube->addComponent(cubeSpin);
+	//cube->addComponent(cubeSpin);
 	cube->addComponent(new BoxCollider());
 
 	GameObject* square = new GameObject();

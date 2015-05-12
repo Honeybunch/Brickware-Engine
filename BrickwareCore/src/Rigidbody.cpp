@@ -214,7 +214,7 @@ void Rigidbody::OnCollision(Collision* collision)
 	Vector3 otherRadius = pointOfCollision - (otherCollider->getGameObject()->getTransform()->getPosition() + otherCenterOfMass);
 
 	//Determine the impulse based on Chris Hecker's formula
-	float e = 0.5f;
+	float e = 0.9f;
 	Vector3 relativeVelocity;
 
 	//Calculate the numerator of the impulse calculation
@@ -261,7 +261,10 @@ void Rigidbody::OnCollision(Collision* collision)
 	//Finally calculate impulse
 	float impulse = numerator / denominator;
 	Vector3 impulseVec = normal * impulse;
- 	addImpulse(impulseVec, pointOfCollision);
+ 	addImpulse(impulseVec, radius);
+
+	//Immediately integrate
+	FixedUpdate();
 }
 
 Rigidbody::~Rigidbody()

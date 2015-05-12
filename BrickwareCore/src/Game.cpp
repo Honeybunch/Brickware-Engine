@@ -116,7 +116,7 @@ int Game::run()
 			frames = 0;
 		}
 
-		/*
+		
 		//Update physics "ticksPerSecond" times per second
 		loops = 0;
 		while (GameTime::GetMillisSinceStart() > nextGameTick && loops < maxFrameskip)
@@ -129,7 +129,7 @@ int Game::run()
 
 			nextGameTick += skipTicks;
 			loops++;
-		}*/
+		}
 
 		GameTime::frameStart();
 

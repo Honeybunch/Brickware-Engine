@@ -39,15 +39,6 @@ namespace Brickware
 {
 	namespace Graphics
 	{
-		//Struct to pass to the map so that we can compare char*'s in maps
-		struct cstringcmp
-		{
-			bool operator()(char const *a, char const *b)
-			{
-				return std::strcmp(a, b) < 0;
-			}
-		};
-
 #ifdef _WIN32
 
 #ifdef GL_SUPPORT
@@ -59,7 +50,7 @@ namespace Brickware
 		template class BRICKWARE_GRAPHICS_API std::map < std::string, D3D11_SHADER_VARIABLE_DESC* >;
 		template class BRICKWARE_GRAPHICS_API std::vector < std::map<std::string, D3D11_SHADER_VARIABLE_DESC*>* >;
 #endif
-		template class BRICKWARE_GRAPHICS_API std::map < const char*, Texture*, cstringcmp> ;
+		template class BRICKWARE_GRAPHICS_API std::map < std::string, Texture*>;
 #endif
 
 		class BRICKWARE_GRAPHICS_API Shader
@@ -76,13 +67,12 @@ namespace Brickware
 			~Shader();
 
 		private:
-			std::map<const char*, Texture*, cstringcmp> textureMap;
+			std::map<std::string, Texture*> textureMap;
 
 #ifdef GL_SUPPORT
 			GLuint shaderProgram;
 
-			//MUST use a string otherwise it will compare char*s as integer values and insert garbage data
-			std::map<std::string, GLuint> uniformMap;
+			std::map<std::string, GLuint > uniformMap;
 
 			void bindGLSL();
 			void freeGLSL();

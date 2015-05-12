@@ -106,85 +106,85 @@ void Material::sendDataToGPU()
 	for (auto iter : vector2Map)
 	{
 #ifdef GL_SUPPORT
-		setVector2GL(iter.first, iter.second);
+		setVector2GL(iter.first.c_str(), iter.second);
 #endif
 #ifdef D3D_SUPPORT
-		setVector2D3D(iter.first, iter.second);
+		setVector2D3D(iter.first.c_str(), iter.second);
 #endif
 	}
 
 	for (auto iter : vector3Map)
 	{
 #ifdef GL_SUPPORT
-		setVector3GL(iter.first, iter.second);
+		setVector3GL(iter.first.c_str(), iter.second);
 #endif
 #ifdef D3D_SUPPORT
-		setVector3D3D(iter.first, iter.second);
+		setVector3D3D(iter.first.c_str(), iter.second);
 #endif
 	}
 
 	for (auto iter : vector4Map)
 	{
 #ifdef GL_SUPPORT
-		setVector4GL(iter.first, iter.second);
+		setVector4GL(iter.first.c_str(), iter.second);
 #endif
 #ifdef D3D_SUPPORT
-		setVector4D3D(iter.first, iter.second);
+		setVector4D3D(iter.first.c_str(), iter.second);
 #endif
 	}
 
 	for (auto iter : intMap)
 	{
 #ifdef GL_SUPPORT
-		setIntGL(iter.first, iter.second);
+		setIntGL(iter.first.c_str(), iter.second);
 #endif
 #ifdef D3D_SUPPORT
-		setIntD3D(iter.first, iter.second);
+		setIntD3D(iter.first.c_str(), iter.second);
 #endif
 	}
 
 	for (auto iter : floatMap)
 	{
 #ifdef GL_SUPPORT
-		setFloatGL(iter.first, iter.second);
+		setFloatGL(iter.first.c_str(), iter.second);
 #endif
 #ifdef D3D_SUPPORT
-		setFloatD3D(iter.first, iter.second);
+		setFloatD3D(iter.first.c_str(), iter.second);
 #endif
 	}
 
 	for (auto iter : doubleMap)
 	{
 #ifdef GL_SUPPORT
-		setDoubleGL(iter.first, iter.second);
+		setDoubleGL(iter.first.c_str(), iter.second);
 #endif
 #ifdef D3D_SUPPORT
-		setDoubleD3D(iter.first, iter.second);
+		setDoubleD3D(iter.first.c_str(), iter.second);
 #endif
 	}
 
 	for (auto iter : matrix3Map)
 	{
 #ifdef GL_SUPPORT
-		setMatrix3GL(iter.first, iter.second);
+		setMatrix3GL(iter.first.c_str(), iter.second);
 #endif
 #ifdef D3D_SUPPORT
-		setMatrix3D3D(iter.first, iter.second);
+		setMatrix3D3D(iter.first.c_str(), iter.second);
 #endif
 	}
 
 	for (auto iter : matrix4Map)
 	{
 #ifdef GL_SUPPORT
-		setMatrix4GL(iter.first, iter.second);
+		setMatrix4GL(iter.first.c_str(), iter.second);
 #endif
 #ifdef D3D_SUPPORT
-		setMatrix4D3D(iter.first, iter.second);
+		setMatrix4D3D(iter.first.c_str(), iter.second);
 #endif
 	}
 
 	//Bind textures
-	for (std::pair<const char*, Texture*> texPair : textureMap)
+	for (std::pair<std::string, Texture*> texPair : textureMap)
 	{
 		if (texPair.second != nullptr)
 			texPair.second->bindTexture();

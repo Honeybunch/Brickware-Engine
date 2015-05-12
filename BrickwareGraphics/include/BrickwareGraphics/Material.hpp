@@ -34,19 +34,19 @@ namespace Brickware
 		template class BRICKWARE_GRAPHICS_API std::vector < ID3D11Buffer* >;
 		template class BRICKWARE_GRAPHICS_API std::vector < char* >;
 #endif
-		template class BRICKWARE_GRAPHICS_API std::map < const char*, Texture*, cstringcmp>;
+		template class BRICKWARE_GRAPHICS_API std::map < std::string, Texture* >;
 		template class BRICKWARE_GRAPHICS_API std::vector < Material* > ;
 
-		template class BRICKWARE_GRAPHICS_API std::map < const char*, Math::Vector2, cstringcmp > ;
-		template class BRICKWARE_GRAPHICS_API std::map < const char*, Math::Vector3, cstringcmp > ;
-		template class BRICKWARE_GRAPHICS_API std::map < const char*, Math::Vector4, cstringcmp > ;
+		template class BRICKWARE_GRAPHICS_API std::map < std::string, Math::Vector2 > ;
+		template class BRICKWARE_GRAPHICS_API std::map < std::string, Math::Vector3 > ;
+		template class BRICKWARE_GRAPHICS_API std::map < std::string, Math::Vector4 > ;
 
-		template class BRICKWARE_GRAPHICS_API std::map < const char*, int, cstringcmp>;
-		template class BRICKWARE_GRAPHICS_API std::map < const char*, float, cstringcmp >;
-		template class BRICKWARE_GRAPHICS_API std::map < const char*, double, cstringcmp >;
+		template class BRICKWARE_GRAPHICS_API std::map < std::string, int>;
+		template class BRICKWARE_GRAPHICS_API std::map < std::string, float >;
+		template class BRICKWARE_GRAPHICS_API std::map < std::string, double >;
 														
-		template class BRICKWARE_GRAPHICS_API std::map < const char*, Math::Matrix3, cstringcmp > ;
-		template class BRICKWARE_GRAPHICS_API std::map < const char*, Math::Matrix4, cstringcmp > ;
+		template class BRICKWARE_GRAPHICS_API std::map < std::string, Math::Matrix3 > ;
+		template class BRICKWARE_GRAPHICS_API std::map < std::string, Math::Matrix4 > ;
 #endif
 		class BRICKWARE_GRAPHICS_API Material
 		{
@@ -84,18 +84,18 @@ namespace Brickware
 		private:
 			Shader* shader;
 
-			std::map<const char*, Math::Vector2, cstringcmp> vector2Map;
-			std::map<const char*, Math::Vector3, cstringcmp> vector3Map;
-			std::map<const char*, Math::Vector4, cstringcmp> vector4Map;
+			std::map<std::string, Math::Vector2> vector2Map;
+			std::map<std::string, Math::Vector3> vector3Map;
+			std::map<std::string, Math::Vector4> vector4Map;
 
-			std::map<const char*, int, cstringcmp> intMap;
-			std::map<const char*, float, cstringcmp> floatMap;
-			std::map<const char*, double, cstringcmp> doubleMap;
+			std::map<std::string, int> intMap;
+			std::map<std::string, float> floatMap;
+			std::map<std::string, double> doubleMap;
 
-			std::map<const char*, Math::Matrix3, cstringcmp> matrix3Map;
-			std::map<const char*, Math::Matrix4, cstringcmp> matrix4Map;
+			std::map<std::string, Math::Matrix3> matrix3Map;
+			std::map<std::string, Math::Matrix4> matrix4Map;
 
-			std::map<const char*, Texture*, cstringcmp> textureMap;
+			std::map<std::string, Texture*> textureMap;
 
 			void sendDataToGPU();
 

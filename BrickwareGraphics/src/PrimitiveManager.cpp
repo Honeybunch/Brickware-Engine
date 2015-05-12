@@ -189,7 +189,7 @@ void PrimitiveManager::DrawPrimitiveGL(Primitive* p)
 	SetPointSizeGL(p->pointSize);
 	SetLineWidthGL(p->lineWidth);
 
-	GLuint worldLocation = (GLuint)(shader->uniformMap[std::string("worldMatrix")]);
+	GLuint worldLocation = (GLuint)(shader->uniformMap["worldMatrix"]);
 	glUniformMatrix4fv(worldLocation, 1, GL_FALSE, p->worldMatrix.getAsArray());
 
 	GLuint position = glGetAttribLocation(shader->shaderProgram, "position");
@@ -207,7 +207,7 @@ void PrimitiveManager::DrawPrimitiveGL(Primitive* p)
 
 void PrimitiveManager::SetColorGL(Math::Vector4 color)
 {
-	GLuint colorLocation = (GLuint)(shader->uniformMap[std::string("color")]);
+	GLuint colorLocation = (GLuint)(shader->uniformMap["color"]);
 	glUniform4fv(colorLocation, 1, color.getAsArray());
 }
 

@@ -1,4 +1,4 @@
-﻿Build started 5/12/2015 9:35:14 AM.
+﻿Build started 5/12/2015 3:32:43 PM.
      1>Project "D:\Users\amt3824\Git\Brickware-Engine\Build\BrickwareUtils\BrickwareUtils.vcxproj" on node 3 (Build target(s)).
      1>CustomBuild:
          Building Custom Rule D:/Users/amt3824/Git/Brickware-Engine/BrickwareUtils/CMakeLists.txt
@@ -9,4 +9,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.29
+Time Elapsed 00:00:00.31

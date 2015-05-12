@@ -30,18 +30,41 @@ void Light::setSpecularColor(Vector3 specularColor){ this->specularColor = specu
 void Light::Render(Material* material)
 {
 	//Using a string just for easy concatanation 
-	std::string lightString = "lights[";
-	lightString.append(std::to_string(lightIndex));
-	lightString.append("].");
+	//std::string lightString = "lights[";
+	//lightString.append(std::to_string(lightIndex));
+	//lightString.append("].");
+
+	//Faster than a string
+	char lightString[11];
+	memcpy(lightString, "lights[", 7);
+	_itoa(lightIndex, lightString + 7, 10);
+	memcpy(lightString + 8, "].\0", 3);
+
+	char posLightString[19];
+	memcpy(posLightString, lightString, 10);
+	memcpy(posLightString + 10, "position\0", 9);
+
+	char ambLightString[23];
+	memcpy(ambLightString, lightString, 10);
+	memcpy(ambLightString + 10, "ambientColor\0", 13);
+
+	char diffLightString[23];
+	memcpy(diffLightString, lightString, 10);
+	memcpy(diffLightString + 10, "diffuseColor\0", 13);
+
+	char specLightString[24];
+	memcpy(specLightString, lightString, 10);
+	memcpy(specLightString + 10, "specularColor\0", 14);
 
 	//Make sure to let the material know how many lights there are
 	material->setInt("lightCount", LightCount);
 
 	//Send light data
-	material->setVector3((lightString + "position").c_str(), position);
-	material->setVector3((lightString + "ambientColor").c_str(), ambientColor);
-	material->setVector3((lightString + "diffuseColor").c_str(), diffuseColor);
-	material->setVector3((lightString + "specularColor").c_str(), specularColor);
+	material->setVector3(posLightString, position);
+	material->setVector3(ambLightString, ambientColor);
+	material->setVector3(diffLightString, diffuseColor);
+	material->setVector3(specLightString, specularColor);
+
 }
 
 Light::~Light(void)

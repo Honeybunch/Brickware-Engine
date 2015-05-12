@@ -98,9 +98,9 @@ bool Shader::loadGLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 		name[nameLength] = 0;
 
 		if (type == GL_SAMPLER_2D)
-			textureMap[std::string(name)] = nullptr;
+			textureMap[name] = nullptr;
 		else
-			uniformMap[std::string(name)] = i;
+			uniformMap[name] = i;
 	}
 
 	glUseProgram(0);

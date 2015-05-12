@@ -42,20 +42,33 @@ void RenderingManager::DrawMesh(Mesh* mesh)
 
 void RenderingManager::Render()
 {
+	Shader* activeShader = nullptr;
+
 	//Render every renderable object
 	for (unsigned int i = 0; i < renderables.size(); i++)
 	{
+		Renderable renderable = renderables[i];
+
+		if (renderable.material->shader != activeShader)
+		{
+			if (activeShader != nullptr)
+				activeShader->freeShader();
+			activeShader = renderable.material->shader;
+		}
+
+		activeShader->bindShader();
+
 		//Send light data to the renderable material
 		for (unsigned int j = 0; j < lights.size(); j++)
 		{
-			lights[j]->Render(renderables[i].material);
+			lights[j]->Render(renderable.material);
 		}
 
 #ifdef GL_SUPPORT
-		RenderGL(renderables[i]);
+		RenderGL(renderable);
 #endif
 #ifdef D3D_SUPPORT
-		RenderD3D(renderables[i]);
+		RenderD3D(renderable);
 #endif
 	}
 

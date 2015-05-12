@@ -109,13 +109,14 @@ int Game::run()
 
 		if (timeInterval > 1000)
 		{
-			float fps = frames / (timeInterval / 1000);
+			float fps = frames / (float)(timeInterval / 1000);
 			std::cout << "FPS: " << fps << std::endl;
 
 			lastTime = GameTime::GetMillisSinceStart();
 			frames = 0;
 		}
 
+		/*
 		//Update physics "ticksPerSecond" times per second
 		loops = 0;
 		while (GameTime::GetMillisSinceStart() > nextGameTick && loops < maxFrameskip)
@@ -128,7 +129,7 @@ int Game::run()
 
 			nextGameTick += skipTicks;
 			loops++;
-		}
+		}*/
 
 		GameTime::frameStart();
 
@@ -251,6 +252,9 @@ bool Game::initGL()
 	glEnable(GL_LIGHTING);
 	glEnable(GL_PROGRAM_POINT_SIZE);
 	glClearColor(1.0, 1.0, 1.0, 1.0);
+
+	//Turn off VSYNC TODO: Make this a graphics option
+	glfwSwapInterval(0);
 
 	glfwSetInputMode(glWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 

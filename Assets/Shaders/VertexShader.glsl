@@ -31,15 +31,12 @@ void main()
 
 	//Shading
 	vec4 worldCoord4v = modelMatrix * vec4(vPosition, 1.0f);
-	vec3 worldCoord3v = vec3(worldCoord4v.x / worldCoord4v.w,
-							 worldCoord4v.y / worldCoord4v.w,
-							 worldCoord4v.z / worldCoord4v.w);
-
 	mat3 rotation = mat3(rotationMatrix);
-	vec3 worldNormal3v = rotation * vNormal;
-
-	worldNormal = worldNormal3v;
-	worldPosition = worldCoord3v;
+	
+	worldNormal = rotation * vNormal;
+	worldPosition = vec3(worldCoord4v.x / worldCoord4v.w,
+						 worldCoord4v.y / worldCoord4v.w,
+						 worldCoord4v.z / worldCoord4v.w);
 	eyePosition = eyePoint;
 
 	texCoord = vTexCoord;

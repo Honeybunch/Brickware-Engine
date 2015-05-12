@@ -1,7 +1,7 @@
 #version 430
 
 //Light Data
-const int maxLights = 8;
+const int maxLights = 4;
 struct Light
 {
 	vec3 position;

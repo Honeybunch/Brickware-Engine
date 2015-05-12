@@ -13,7 +13,6 @@ void RenderingManager::RenderGL(Renderable renderable)
 	Mesh* mesh = renderable.mesh;
 	Material* material = renderable.material;
 
-	material->bindShader();
 	material->sendDataToGPU();
 
 	GLint shaderProgram;
@@ -39,7 +38,5 @@ void RenderingManager::RenderGL(Renderable renderable)
 
 	//Draw Shape
 	glDrawElements(GL_TRIANGLES, mesh->getNumberOfVerts(), GL_UNSIGNED_SHORT, (void *)0);
-
-	material->freeShader();
 }
 #endif

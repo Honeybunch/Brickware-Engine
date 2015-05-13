@@ -39,7 +39,7 @@ void Texture::bufferD3D()
 	//Create a description of the resource view
 	D3D11_SHADER_RESOURCE_VIEW_DESC resourceDesc;
 	resourceDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
-	resourceDesc.Texture2D.MipLevels = 1;
+	resourceDesc.Texture2D.MipLevels = 0;
 
 	//Create the SRV
 	HR(RenderingManager::device->CreateShaderResourceView(d3dTexture, nullptr, &d3dTextureSRV));

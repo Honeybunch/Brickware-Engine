@@ -13,7 +13,6 @@ void RenderingManager::RenderD3D(Renderable renderable)
 	Mesh* mesh = renderable.mesh;
 	Material* material = renderable.material;
 
-	material->bindShader();
 	material->sendDataToGPU();
 
 	std::vector<ID3D11Buffer*> constantBuffers = material->getConstantBuffers();
@@ -34,8 +33,6 @@ void RenderingManager::RenderD3D(Renderable renderable)
 		deviceContext->PSSetConstantBuffers(i, 1, &(constantBuffers[i]));
 	}
 
-	//I CAN SET MORE THAN ONE BUFFER
-	//CONSIDER THIS LATER
 	UINT posStride = sizeof(float) * 3;
 	UINT normStride = sizeof(float) * 3;
 	UINT texCoordStride = sizeof(float) * 2;
@@ -55,7 +52,5 @@ void RenderingManager::RenderD3D(Renderable renderable)
 
 	//DRAW
 	deviceContext->DrawIndexed(mesh->getNumberOfVerts(), 0, 0);
-
-	material->freeShader();
 }
 #endif

@@ -54,14 +54,14 @@ void RenderingManager::Render()
 			if (activeShader != nullptr)
 				activeShader->freeShader();
 			activeShader = renderable.material->shader;
-		}
 
-		activeShader->bindShader();
+			activeShader->bindShader();
 
-		//Send light data to the renderable material
-		for (unsigned int j = 0; j < lights.size(); j++)
-		{
-			lights[j]->Render(renderable.material);
+			//Send light data to the shader
+			for (unsigned int j = 0; j < lights.size(); j++)
+			{
+				lights[j]->Render(activeShader);
+			}
 		}
 
 #ifdef GL_SUPPORT

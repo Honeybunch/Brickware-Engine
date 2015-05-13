@@ -19,6 +19,7 @@ void Shader::bindHLSL()
 	//Setup shaders
 	RenderingManager::deviceContext->VSSetShader(vertexShader, nullptr, 0);
 	RenderingManager::deviceContext->PSSetShader(pixelShader, nullptr, 0);
+	RenderingManager::deviceContext->PSSetSamplers(0, 1, &samplerState);
 }
 void Shader::freeHLSL(){}
 
@@ -273,6 +274,18 @@ bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 			textureMap[std::string(resourceDesc.Name)] = nullptr;
 	}
 
+	//Setup Sampler state
+	D3D11_SAMPLER_DESC samplerDesc;
+	ZeroMemory(&samplerDesc, sizeof(D3D11_SAMPLER_DESC));
+
+	samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
+	samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
+	samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
+
+	samplerDesc.MaxAnisotropy = 0;
+
+	HR(RenderingManager::device->CreateSamplerState(&samplerDesc, &samplerState));
+
 	//Free unneeded data
 	ReleaseMacro(vsBlob);
 	ReleaseMacro(psBlob);
@@ -305,5 +318,160 @@ ConstVariableInfo Shader::getVariableInfoByName(const char* valueName)
 
 	return constVariableInfo;
 }
+
+void Shader::setVector4D3D(const char* valueName, Vector4 value)
+{
+	ConstVariableInfo constVariableInfo = getVariableInfoByName(valueName);
+
+	//We didn't find any variable with that name if the bufferIndex is still -1
+	if (constVariableInfo.bufferIndex < 0)
+		return;
+
+	//Get info about variable
+	int variableOffset = constVariableInfo.variableInfo.StartOffset;
+	int variableSize = constVariableInfo.variableInfo.Size;
+
+	float* data = value.getAsArray();
+
+	char* bufferData = constantBufferData[constVariableInfo.bufferIndex];
+
+	//Copy our data into the buffer's data
+	memcpy(bufferData + variableOffset, data, variableSize);
+}
+
+void Shader::setVector3D3D(const char* valueName, Vector3 value)
+{
+	ConstVariableInfo constVariableInfo = getVariableInfoByName(valueName);
+
+	//We didn't find any variable with that name if the bufferIndex is still -1
+	if (constVariableInfo.bufferIndex < 0)
+		return;
+
+	//Get info about variable
+	int variableOffset = constVariableInfo.variableInfo.StartOffset;
+	int variableSize = constVariableInfo.variableInfo.Size;
+
+	float* data = value.getAsArray();
+
+	char* bufferData = constantBufferData[constVariableInfo.bufferIndex];
+
+	//Copy our data into the buffer's data
+	memcpy(bufferData + variableOffset, data, variableSize);
+}
+
+void Shader::setVector2D3D(const char* valueName, Vector2 value)
+{
+	ConstVariableInfo constVariableInfo = getVariableInfoByName(valueName);
+
+	//We didn't find any variable with that name if the bufferIndex is still -1
+	if (constVariableInfo.bufferIndex < 0)
+		return;
+
+	//Get info about variable
+	int variableOffset = constVariableInfo.variableInfo.StartOffset;
+	int variableSize = constVariableInfo.variableInfo.Size;
+
+	float* data = value.getAsArray();
+
+	char* bufferData = constantBufferData[constVariableInfo.bufferIndex];
+
+	//Copy our data into the buffer's data
+	memcpy(bufferData + variableOffset, data, variableSize);
+}
+
+void Shader::setIntD3D(const char* valueName, int value)
+{
+	ConstVariableInfo constVariableInfo = getVariableInfoByName(valueName);
+
+	//We didn't find any variable with that name if the bufferIndex is still -1
+	if (constVariableInfo.bufferIndex < 0)
+		return;
+
+	//Get info about variable
+	int variableOffset = constVariableInfo.variableInfo.StartOffset;
+	int variableSize = constVariableInfo.variableInfo.Size;
+
+	char* bufferData = constantBufferData[constVariableInfo.bufferIndex];
+
+	//Copy our data into the buffer's data
+	memcpy(bufferData + variableOffset, &value, sizeof(int));
+}
+
+void Shader::setFloatD3D(const char* valueName, float value)
+{
+	ConstVariableInfo constVariableInfo = getVariableInfoByName(valueName);
+
+	//We didn't find any variable with that name if the bufferIndex is still -1
+	if (constVariableInfo.bufferIndex < 0)
+		return;
+
+	//Get info about variable
+	int variableOffset = constVariableInfo.variableInfo.StartOffset;
+	int variableSize = constVariableInfo.variableInfo.Size;
+
+	char* bufferData = constantBufferData[constVariableInfo.bufferIndex];
+
+	//Copy our data into the buffer's data
+	memcpy(bufferData + variableOffset, &value, sizeof(float));
+}
+
+void Shader::setDoubleD3D(const char* valueName, double value)
+{
+	ConstVariableInfo constVariableInfo = getVariableInfoByName(valueName);
+
+	//We didn't find any variable with that name if the bufferIndex is still -1
+	if (constVariableInfo.bufferIndex < 0)
+		return;
+
+	//Get info about variable
+	int variableOffset = constVariableInfo.variableInfo.StartOffset;
+	int variableSize = constVariableInfo.variableInfo.Size;
+
+	char* bufferData = constantBufferData[constVariableInfo.bufferIndex];
+
+	//Copy our data into the buffer's data
+	memcpy(bufferData + variableOffset, &value, sizeof(double));
+}
+
+void Shader::setMatrix4D3D(const char* valueName, Matrix4 value)
+{
+	ConstVariableInfo constVariableInfo = getVariableInfoByName(valueName);
+
+	//We didn't find any variable with that name if the bufferIndex is still -1
+	if (constVariableInfo.bufferIndex < 0)
+		return;
+
+	//Get info about variable
+	int variableOffset = constVariableInfo.variableInfo.StartOffset;
+	int variableSize = constVariableInfo.variableInfo.Size;
+
+	float* data = value.getAsArray();
+
+	char* bufferData = constantBufferData[constVariableInfo.bufferIndex];
+
+	//Copy our data into the buffer's data
+	memcpy(bufferData + variableOffset, data, variableSize);
+}
+
+void Shader::setMatrix3D3D(const char* valueName, Matrix3 value)
+{
+	ConstVariableInfo constVariableInfo = getVariableInfoByName(valueName);
+
+	//We didn't find any variable with that name if the bufferIndex is still -1
+	if (constVariableInfo.bufferIndex < 0)
+		return;
+
+	//Get info about variable
+	int variableOffset = constVariableInfo.variableInfo.StartOffset;
+	int variableSize = constVariableInfo.variableInfo.Size;
+
+	float* data = value.getAsArray();
+
+	char* bufferData = constantBufferData[constVariableInfo.bufferIndex];
+
+	//Copy our data into the buffer's data
+	memcpy(bufferData + variableOffset, data, variableSize);
+}
+
 
 #endif

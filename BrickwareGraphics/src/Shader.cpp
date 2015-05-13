@@ -8,6 +8,7 @@
 using namespace Brickware;
 using namespace Graphics;
 using namespace Utility;
+using namespace Math;
 
 Shader::Shader(char* vertexShaderFileName, char* pixelShaderFileName)
 {
@@ -37,6 +38,73 @@ void Shader::freeShader()
 	freeHLSL();
 #else
 	freeGLSL();
+#endif
+}
+
+void Shader::setGlobalVector4(const char* valueName, Vector4 value)
+{
+#ifdef D3D_SUPPORT
+	setVector4D3D(valueName, value);
+#else
+	setVector4GL(valueName, value);
+#endif
+}
+void Shader::setGlobalVector3(const char* valueName, Vector3 value)
+{
+#ifdef D3D_SUPPORT
+	setVector3D3D(valueName, value);
+#else
+	setVector3GL(valueName, value);
+#endif
+}
+void Shader::setGlobalVector2(const char* valueName, Vector2 value)
+{
+#ifdef D3D_SUPPORT
+	setVector2D3D(valueName, value);
+#else
+	setVector2GL(valueName, value);
+#endif
+}
+
+void Shader::setGlobalInt(const char* valueName, int value)
+{
+#ifdef D3D_SUPPORT
+	setIntD3D(valueName, value);
+#else
+	setIntGL(valueName, value);
+#endif
+}
+void Shader::setGlobalFloat(const char* valueName, float value)
+{
+#ifdef D3D_SUPPORT
+	setFloatD3D(valueName, value);
+#else
+	setFloatGL(valueName, value);
+#endif
+}
+void Shader::setGlobalDouble(const char* valueName, double value)
+{
+#ifdef D3D_SUPPORT
+	setDoubleD3D(valueName, value);
+#else
+	setDoubleGL(valueName, value);
+#endif
+}
+
+void Shader::setGlobalMatrix4(const char* valueName, Matrix4 value)
+{
+#ifdef D3D_SUPPORT
+	setMatrix4D3D(valueName, value);
+#else
+	setMatrix4GL(valueName, value);
+#endif
+}
+void Shader::setGlobalMatrix3(const char* valueName, Matrix3 value)
+{
+#ifdef D3D_SUPPORT
+	setMatrix3D3D(valueName, value);
+#else
+	setMatrix3GL(valueName, value);
 #endif
 }
 

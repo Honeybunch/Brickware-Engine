@@ -26,6 +26,14 @@ struct ConstVariableInfo{
 #include <GL/glew.h>
 #endif
 
+//Other Brickware Project Headers
+#include "BrickwareMath/Vector2.hpp"
+#include "BrickwareMath/Vector3.hpp"
+#include "BrickwareMath/Vector4.hpp"
+
+#include "BrickwareMath/Matrix3.hpp"
+#include "BrickwareMath/Matrix4.hpp"
+
 //System Level Headers
 #include <vector>
 #include <map>
@@ -64,6 +72,17 @@ namespace Brickware
 			void bindShader();
 			void freeShader();
 
+			void setGlobalVector4(const char* valueName, Math::Vector4 value);
+			void setGlobalVector3(const char* valueName, Math::Vector3 value);
+			void setGlobalVector2(const char* valueName, Math::Vector2 value);
+
+			void setGlobalInt(const char* valueName, int value);
+			void setGlobalFloat(const char* valueName, float value);
+			void setGlobalDouble(const char* valueName, double value);
+
+			void setGlobalMatrix4(const char* valueName, Math::Matrix4 value);
+			void setGlobalMatrix3(const char* valueName, Math::Matrix3 value);
+
 			~Shader();
 
 		private:
@@ -78,6 +97,17 @@ namespace Brickware
 			void freeGLSL();
 
 			bool loadGLSL(char* vertexShaderFileName, char* pixelShaderFileName);
+
+			void setVector4GL(const char* valueName, Math::Vector4 value);
+			void setVector3GL(const char* valueName, Math::Vector3 value);
+			void setVector2GL(const char* valueName, Math::Vector2 value);
+
+			void setIntGL(const char* valueName, int value);
+			void setFloatGL(const char* valueName, float value);
+			void setDoubleGL(const char* valueName, double value);
+
+			void setMatrix4GL(const char* valueName, Math::Matrix4 value);
+			void setMatrix3GL(const char* valueName, Math::Matrix3 value);
 #endif
 
 #ifdef D3D_SUPPORT
@@ -87,6 +117,7 @@ namespace Brickware
 			ID3D11VertexShader* vertexShader;
 			ID3D11PixelShader* pixelShader;
 
+			ID3D11SamplerState* samplerState;
 			ID3D11InputLayout* inputLayout;
 			ID3D11Buffer* vsConstantBuffer;
 
@@ -100,6 +131,17 @@ namespace Brickware
 			void freeHLSL();
 
 			bool loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName);
+
+			void setVector4D3D(const char* valueName, Math::Vector4 value);
+			void setVector3D3D(const char* valueName, Math::Vector3 value);
+			void setVector2D3D(const char* valueName, Math::Vector2 value);
+
+			void setIntD3D(const char* valueName, int value);
+			void setFloatD3D(const char* valueName, float value);
+			void setDoubleD3D(const char* valueName, double value);
+
+			void setMatrix4D3D(const char* valueName, Math::Matrix4 value);
+			void setMatrix3D3D(const char* valueName, Math::Matrix3 value);
 #endif
 		};
 	}

@@ -27,7 +27,7 @@ void Light::setAmbientColor(Vector3 ambientColor){ this->ambientColor = ambientC
 void Light::setDiffuseColor(Vector3 diffuseColor){ this->diffuseColor = diffuseColor; }
 void Light::setSpecularColor(Vector3 specularColor){ this->specularColor = specularColor; }
 
-void Light::Render(Material* material)
+void Light::Render(Shader* shader)
 {
 	//Using a string just for easy concatanation 
 	//std::string lightString = "lights[";
@@ -57,13 +57,13 @@ void Light::Render(Material* material)
 	memcpy(specLightString + 10, "specularColor\0", 14);
 
 	//Make sure to let the material know how many lights there are
-	material->setInt("lightCount", LightCount);
+	shader->setGlobalInt("lightCount", LightCount);
 
 	//Send light data
-	material->setVector3(posLightString, position);
-	material->setVector3(ambLightString, ambientColor);
-	material->setVector3(diffLightString, diffuseColor);
-	material->setVector3(specLightString, specularColor);
+	shader->setGlobalVector3(posLightString, position);
+	shader->setGlobalVector3(ambLightString, ambientColor);
+	shader->setGlobalVector3(diffLightString, diffuseColor);
+	shader->setGlobalVector3(specLightString, specularColor);
 
 }
 

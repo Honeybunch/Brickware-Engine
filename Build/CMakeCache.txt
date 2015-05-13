@@ -23,16 +23,16 @@ Brickware-Engine_BINARY_DIR:STATIC=D:/Users/amt3824/Git/Brickware-Engine/Build
 Brickware-Engine_SOURCE_DIR:STATIC=D:/Users/amt3824/Git/Brickware-Engine
 
 //Dependencies for the target
-BrickwareCore_LIB_DEPENDS:STATIC=general;opengl32.lib;general;D:/Users/amt3824/Git/Brickware-Engine/GL/lib/Win32/glew32.lib;general;D:/Users/amt3824/Git/Brickware-Engine/GLFW/lib/Win32/glfw3dll.lib;general;BrickwareMath;general;BrickwareUtils;general;BrickwareGraphics;
+BrickwareCore_LIB_DEPENDS:STATIC=general;d3d11.lib;general;dxguid.lib;general;d3dcompiler.lib;general;BrickwareMath;general;BrickwareUtils;general;BrickwareGraphics;
 
 //Dependencies for the target
-BrickwareGraphics_LIB_DEPENDS:STATIC=general;opengl32.lib;general;D:/Users/amt3824/Git/Brickware-Engine/GL/lib/Win32/glew32.lib;general;D:/Users/amt3824/Git/Brickware-Engine/GLFW/lib/Win32/glfw3dll.lib;general;BrickwareMath;general;BrickwareUtils;
+BrickwareGraphics_LIB_DEPENDS:STATIC=general;d3d11.lib;general;dxguid.lib;general;d3dcompiler.lib;general;BrickwareMath;general;BrickwareUtils;
 
 //Dependencies for target
 BrickwareMath_LIB_DEPENDS:STATIC=
 
-//Dependencies for the target
-BrickwareUtils_LIB_DEPENDS:STATIC=general;opengl32.lib;general;D:/Users/amt3824/Git/Brickware-Engine/GL/lib/Win32/glew32.lib;
+//Dependencies for target
+BrickwareUtils_LIB_DEPENDS:STATIC=
 
 //Semicolon separated list of supported configuration types, only
 // supports Debug, Release, MinSizeRel, and RelWithDebInfo, anything
@@ -168,7 +168,7 @@ CMAKE_USE_RELATIVE_PATHS:BOOL=OFF
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=OFF
 
-D3D_SUPPORT:BOOL=OFF
+D3D_SUPPORT:BOOL=ON
 
 //GLFW Include Path
 GLEW_INCLUDE:PATH=D:/Users/amt3824/Git/Brickware-Engine/GL/include
@@ -182,7 +182,7 @@ GLFW_INCLUDE:PATH=D:/Users/amt3824/Git/Brickware-Engine/GLFW/include
 //GLFW Lib Path
 GLFW_LIB:PATH=D:/Users/amt3824/Git/Brickware-Engine/GLFW/lib/Win32
 
-GL_SUPPORT:BOOL=ON
+GL_SUPPORT:BOOL=OFF
 
 
 ########################

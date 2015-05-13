@@ -1,6 +1,9 @@
 #ifndef LIGHT_H
 #define LIGHT_H
 
+//Pre-Include Defines
+#define _CRT_SECURE_NO_WARNINGS
+
 //DLL Header
 #include "BrickwareGraphics/BrickwareGraphicsDLL.hpp"
 
@@ -34,7 +37,7 @@ namespace Brickware
 			void setDiffuseColor(Math::Vector3 diffuseColor);
 			void setSpecularColor(Math::Vector3 specularColor);
 
-			void Render(Material* material);
+			void Render(Shader* shader);
 
 			~Light(void);
 

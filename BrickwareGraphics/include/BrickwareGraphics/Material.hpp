@@ -58,14 +58,13 @@ namespace Brickware
 
 			static std::vector<Material*> Materials;
 
-			void bindShader();
-			void freeShader();
+			Shader* getShader();
 
 #ifdef D3D_SUPPORT
 			std::vector<ID3D11Buffer*> getConstantBuffers();
 			std::vector<char*> getConstantBufferData();
 #endif
-
+			
 			void setVector4(const char* valueName, Math::Vector4 value);
 			void setVector3(const char* valueName, Math::Vector3 value);
 			void setVector2(const char* valueName, Math::Vector2 value);
@@ -101,32 +100,6 @@ namespace Brickware
 
 			//Default texture to be loaded once and passed by default to every material
 			static Texture* defaultTexture;
-
-#ifdef GL_SUPPORT
-			void setVector4GL(const char* valueName, Math::Vector4 value);
-			void setVector3GL(const char* valueName, Math::Vector3 value);
-			void setVector2GL(const char* valueName, Math::Vector2 value);
-
-			void setIntGL(const char* valueName, int value);
-			void setFloatGL(const char* valueName, float value);
-			void setDoubleGL(const char* valueName, double value);
-
-			void setMatrix4GL(const char* valueName, Math::Matrix4 value);
-			void setMatrix3GL(const char* valueName, Math::Matrix3 value);
-#endif
-
-#ifdef D3D_SUPPORT
-			void setVector4D3D(const char* valueName, Math::Vector4 value);
-			void setVector3D3D(const char* valueName, Math::Vector3 value);
-			void setVector2D3D(const char* valueName, Math::Vector2 value);
-
-			void setIntD3D    (const char* valueName, int value);
-			void setFloatD3D  (const char* valueName, float value);
-			void setDoubleD3D (const char* valueName, double value);
-
-			void setMatrix4D3D(const char* valueName, Math::Matrix4 value);
-			void setMatrix3D3D(const char* valueName, Math::Matrix3 value);
-#endif
 		};
 	}
 }

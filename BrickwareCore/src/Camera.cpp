@@ -65,13 +65,9 @@ void Camera::Render()
 	{
 		Graphics::Material* material = Graphics::Material::Materials[i];
 
-		material->bindShader();
-
 		material->setVector3("lookAt", lookAt);
 		material->setVector3("eyePoint", getGameObject()->getTransform()->getPosition());
 		material->setVector3("up", getGameObject()->getTransform()->getUp());
-
-		material->freeShader();
 	}
 }
 

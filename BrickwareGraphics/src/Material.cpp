@@ -45,17 +45,9 @@ Material::Material(const Material& other)
 	Materials.push_back(this);
 }
 
+Shader* Material::getShader(){ return shader; }
+
 Material::~Material(){}
-
-void Material::bindShader()
-{
-	shader->bindShader();
-}
-
-void Material::freeShader()
-{
-	shader->freeShader();
-}
 
 void Material::setVector4(const char* valueName, Vector4 value)
 {
@@ -106,80 +98,80 @@ void Material::sendDataToGPU()
 	for (auto iter : vector2Map)
 	{
 #ifdef GL_SUPPORT
-		setVector2GL(iter.first.c_str(), iter.second);
+		shader->setVector2GL(iter.first.c_str(), iter.second);
 #endif
 #ifdef D3D_SUPPORT
-		setVector2D3D(iter.first.c_str(), iter.second);
+		shader->setVector2D3D(iter.first.c_str(), iter.second);
 #endif
 	}
 
 	for (auto iter : vector3Map)
 	{
 #ifdef GL_SUPPORT
-		setVector3GL(iter.first.c_str(), iter.second);
+		shader->setVector3GL(iter.first.c_str(), iter.second);
 #endif
 #ifdef D3D_SUPPORT
-		setVector3D3D(iter.first.c_str(), iter.second);
+		shader->setVector3D3D(iter.first.c_str(), iter.second);
 #endif
 	}
 
 	for (auto iter : vector4Map)
 	{
 #ifdef GL_SUPPORT
-		setVector4GL(iter.first.c_str(), iter.second);
+		shader->setVector4GL(iter.first.c_str(), iter.second);
 #endif
 #ifdef D3D_SUPPORT
-		setVector4D3D(iter.first.c_str(), iter.second);
+		shader->setVector4D3D(iter.first.c_str(), iter.second);
 #endif
 	}
 
 	for (auto iter : intMap)
 	{
 #ifdef GL_SUPPORT
-		setIntGL(iter.first.c_str(), iter.second);
+		shader->setIntGL(iter.first.c_str(), iter.second);
 #endif
 #ifdef D3D_SUPPORT
-		setIntD3D(iter.first.c_str(), iter.second);
+		shader->setIntD3D(iter.first.c_str(), iter.second);
 #endif
 	}
 
 	for (auto iter : floatMap)
 	{
 #ifdef GL_SUPPORT
-		setFloatGL(iter.first.c_str(), iter.second);
+		shader->setFloatGL(iter.first.c_str(), iter.second);
 #endif
 #ifdef D3D_SUPPORT
-		setFloatD3D(iter.first.c_str(), iter.second);
+		shader->setFloatD3D(iter.first.c_str(), iter.second);
 #endif
 	}
 
 	for (auto iter : doubleMap)
 	{
 #ifdef GL_SUPPORT
-		setDoubleGL(iter.first.c_str(), iter.second);
+		shader->setDoubleGL(iter.first.c_str(), iter.second);
 #endif
 #ifdef D3D_SUPPORT
-		setDoubleD3D(iter.first.c_str(), iter.second);
+		shader->setDoubleD3D(iter.first.c_str(), iter.second);
 #endif
 	}
 
 	for (auto iter : matrix3Map)
 	{
 #ifdef GL_SUPPORT
-		setMatrix3GL(iter.first.c_str(), iter.second);
+		shader->setMatrix3GL(iter.first.c_str(), iter.second);
 #endif
 #ifdef D3D_SUPPORT
-		setMatrix3D3D(iter.first.c_str(), iter.second);
+		shader->setMatrix3D3D(iter.first.c_str(), iter.second);
 #endif
 	}
 
 	for (auto iter : matrix4Map)
 	{
 #ifdef GL_SUPPORT
-		setMatrix4GL(iter.first.c_str(), iter.second);
+		shader->setMatrix4GL(iter.first.c_str(), iter.second);
 #endif
 #ifdef D3D_SUPPORT
-		setMatrix4D3D(iter.first.c_str(), iter.second);
+		shader->setMatrix4D3D(iter.first.c_str(), iter.second);
 #endif
 	}
 

@@ -22,6 +22,17 @@ namespace Brickware
 			friend class Game;
 
 		public:
+
+			/* Gets the current time scale.
+			 * @returns The game's current time scale.
+			 */
+			static BRICKWARE_CORE_API float GetTimeScale();
+
+			/* Sets the time scale of the game.
+			 * @timeScale The new time scale for the game to run at.
+			 */
+			static BRICKWARE_CORE_API void SetTimeScale(float timeScale);
+
 			/* Gets the time that the last frame took in float format.
 			 * @returns The delta time in float format.
 			 */
@@ -43,13 +54,10 @@ namespace Brickware
 			static long long fixedFrameStartTime;
 
 			static float deltaTime;
-			static float fixedDeltaTime;
-
+			static float timeScale;
+			
 			static void frameStart();
 			static void frameEnd();
-
-			static void fixedFrameStart();
-			static void fixedFrameEnd();
 		};
 	}
 }

@@ -6,6 +6,7 @@
 using namespace Brickware;
 using namespace Core;
 using namespace Math;
+using namespace Graphics;
 
 Rigidbody::Rigidbody()
 {
@@ -108,50 +109,53 @@ void Rigidbody::addInstantaneousTorque(Vector3 instantTorque)
 //Called on a fixed timestep for physics calculations
 void Rigidbody::FixedUpdate()
 {
-	float deltaTime = GameTime::GetFixedDeltaTime();
+	float deltaTime = GameTime::GetFixedDeltaTime() * GameTime::GetTimeScale();
 
 	//Apply constant forces
 	if (useGravity)
-		acceleration[1] += PhysicsManager::gravity;
+		acceleration = PhysicsManager::gravity * inverseMass * deltaTime;
+	else
+		acceleration = Vector3();
 
-	//Calculate acceleration from applied forces
-	Vector3 frameAcceleration = (frameForce * inverseMass) * deltaTime;			//A = 1/mass * Force
-	angularAcceleration = inverseInertia * frameTorque;							//AA = 1/Inertia * Torque
+	//Apply linear forces
+	Vector3 VT, AT, VAT2;
+
+	acceleration += frameForce * inverseMass;
+	impulse *= inverseMass;
+
+	VT = velocity * deltaTime;
+	AT = acceleration * deltaTime;
+
+	//AT^2
+	VAT2 = AT * deltaTime;
+	//AT^2 * 1/2
+	VAT2 *= 0.5f;
+	//VT + (AT^2 * 1/2)
+	VAT2 += VT;
+
+	transform->setPosition(transform->getPosition() + VAT2);
+
+	velocity += AT;
+	velocity += impulse;
+
+	//Apply rotational forces
+	Vector3 AAT, AVT;
 	
-	//Calcuate net impluse for later
-	impulse = impulse * inverseMass;											//J = J * 1/mass
+	angularAcceleration = inverseInertia * frameTorque;
 	frameInstantTorque = inverseInertia * frameInstantTorque;
 
-	//Calculate velocities
-	Vector3 startVelocity = velocity * deltaTime;								//VT = V0 * deltaTime
-	Vector3 AngularAT = angularAcceleration * deltaTime;
+	AAT = angularAcceleration * deltaTime;
 
-	Vector3 VAT = startVelocity + (acceleration * 0.5f * powf(deltaTime, 2));	//VAT = VT + (A1 * 1/2 * deltaTime^2)
-	
-	//AngularVT = AV0 + AA * deltaTime^2
-	angularVelocity += AngularAT;
+	angularVelocity += AAT;
 	angularVelocity += frameInstantTorque;
 
-	Vector3 AngularVAT = angularVelocity * deltaTime;
-	
-	//Integrate velocity into position
-	Vector3 position = transform->getPosition();
-	position += VAT;
-	transform->setPosition(position);
+	AVT = angularVelocity * deltaTime;
 
 	//Integrate angular velocity into rotation
-	Quaternion rotation = transform->getRotation();
-	Quaternion quatVel = Quaternion(AngularVAT);
-	Quaternion newRotation = quatVel * rotation;
+	Vector3 rotation = transform->getEulerRotation();
+	transform->setEulerRotation(rotation + AVT);
 
-	transform->setRotation(newRotation);
-
-	//Integrate acceleration into velocity
-	velocity += frameAcceleration;
-
-	//Apply impulse
-	velocity +=	impulse;
-
+	//Clear out frame forces
 	impulse = Vector3();
 	frameInstantTorque = Vector3();
 
@@ -162,6 +166,9 @@ void Rigidbody::OnCollision(Collision* collision)
 {
 	if (!isKinematic)
 		return;
+
+	if (Debug::Debugging)
+		GameTime::SetTimeScale(0);
 
 	Rigidbody* otherRigidbody = collision->getOtherRigidbody();
 	Collider* otherCollider = collision->getOtherCollider();
@@ -210,11 +217,11 @@ void Rigidbody::OnCollision(Collision* collision)
 	pointOfCollision = pointsOfCollision[bestPointIndex];
 
 	//Get radii
-	Vector3 radius = pointOfCollision - (centerOfMass);
-	Vector3 otherRadius = pointOfCollision - (otherCollider->getGameObject()->getTransform()->getPosition() + otherCenterOfMass);
+	Vector3 radius = pointOfCollision - (centerOfMass) - MTV;
+	Vector3 otherRadius = pointOfCollision - (otherCollider->getGameObject()->getTransform()->getPosition() + otherCenterOfMass) + MTV;	
 
 	//Determine the impulse based on Chris Hecker's formula
-	float e = 0.9f;
+	float e = 0.5f;
 	Vector3 relativeVelocity;
 
 	//Calculate the numerator of the impulse calculation
@@ -235,7 +242,6 @@ void Rigidbody::OnCollision(Collision* collision)
 	float numerator = (-1 - e) * relativeNormalVelocity;
 	
 	//Calculate the denominator
-
 	Vector3 torque1 = Vector3::Cross(radius, MTV);
 	Vector3 torque2 = Vector3::Cross(otherRadius, MTV);
 
@@ -264,7 +270,7 @@ void Rigidbody::OnCollision(Collision* collision)
  	addImpulse(impulseVec, radius);
 
 	//Immediately integrate
-	FixedUpdate();
+	//FixedUpdate();
 }
 
 Rigidbody::~Rigidbody()

@@ -34,8 +34,8 @@ namespace Brickware
 			friend class GameInputManager;
 
 		public:
-			static float GetGravity();
-			static void SetGravity(float gravity);
+			static Math::Vector3 GetGravity();
+			static void SetGravity(Math::Vector3 gravity);
 
 		private:
 			static void Initialize();
@@ -58,7 +58,8 @@ namespace Brickware
 			static std::unordered_map<Rigidbody*, int> rigidbodies;
 			static std::unordered_map<Softbody*, int> softbodies;
 			static std::unordered_map<Collider*, int> colliders;
-			static float gravity;
+
+			static Math::Vector3 gravity;
 		};
 	}
 }

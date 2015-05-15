@@ -58,19 +58,12 @@ void Collider::calculateWorldData()
 	center = transform->getPosition();
 	Matrix3 rotationMatrix = transform->getRotation().getRotationMatrix();
 
-	Primitive::SetColor(Vector4(1, 0, 0, 1));
-
 	for (unsigned int i = 0; i < normals.size(); i++)
 	{
 		Vector3 worldNormal = rotationMatrix * normals[i];
 
 		//Renormalize after being rotated
 		worldNormals.push_back(Vector3::Normalize(worldNormal));
-
-#ifdef _DEBUG
-		if (Debug::Debugging)
-			Primitive::DrawLine(center, center + worldNormals[i] * 2);
-#endif
 	}
 }
 

@@ -37,18 +37,26 @@ namespace Brickware
 		 */
 		class BRICKWARE_CORE_API GameObject
 		{
+			friend class Game;
+			friend class GameInputManager;
+
 		public:
+			/* Static function for releasing game objects (DO NOT JUST DELETE GAME OBJECT POINTERS)
+			* @gameObject The game object that you want to destroy.
+			*/
+			static void Destroy(GameObject* gameObject);
+
+			/* Gets all the game objects in the scene.
+			* @returns The static vector of all the game objects in the scene.
+			*/
+			static std::vector<GameObject*> getGameObjects();
+
 			//Basic Constructor; attaches a blank transform for you
 			GameObject();
 			//Constructor if you have a transform that you have already created
 			GameObject(Transform* transform);
 			//Copy Constructor
 			GameObject(GameObject& other);
-
-			/* Gets all the game objects in the scene.
-			 * @returns The static vector of all the game objects in the scene.
-			 */
-			static std::vector<GameObject*> getGameObjects();
 
 			/* Gets the attached <Transform> component.
 			 * @returns The <Transform> component that every <GameObject> must have.
@@ -113,6 +121,9 @@ namespace Brickware
 
 			//All attached <Component>s
 			std::vector<Component*> components;
+
+		private:
+			bool toDestroy;
 		};
 	}
 }

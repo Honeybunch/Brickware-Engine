@@ -11,6 +11,12 @@ using namespace Core;
 using namespace Math;
 using namespace Graphics;
 
+//Statics
+void GameObject::Destroy(GameObject* gameObject)
+{
+	gameObject->toDestroy = true;
+}
+
 GameObject::GameObject()
 {
 	transform = new Transform();
@@ -18,6 +24,8 @@ GameObject::GameObject()
 	addComponent(transform);
 
 	Game::gameObjects.push_back(this);
+
+	toDestroy = false;
 }
 
 GameObject::GameObject(Transform* transform)
@@ -27,6 +35,8 @@ GameObject::GameObject(Transform* transform)
 	addComponent(GameObject::transform);
 
 	Game::gameObjects.push_back(this);
+
+	toDestroy = false;
 }
 
 GameObject::GameObject(GameObject& other)
@@ -58,6 +68,8 @@ GameObject::GameObject(GameObject& other)
 	}
 
 	Game::gameObjects.push_back(this);
+
+	toDestroy = false;
 }
 
 vector<GameObject*> GameObject::getGameObjects(){ return Game::gameObjects; }
@@ -131,9 +143,7 @@ void GameObject::OnRender()
 GameObject::~GameObject()
 {
 	for (unsigned int i = 0; i < components.size(); i++)
-	{
 		delete components[i];
-	}
 
 	components.clear();
 

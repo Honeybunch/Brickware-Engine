@@ -94,7 +94,7 @@ void BoxCollider::DebugDraw()
 	Vector3 bottomLeftBackward = worldMatrix *Vector3(-halfSize[0], -halfSize[1], halfSize[2]);
 	Vector3 bottomRightBackward = worldMatrix *Vector3(halfSize[0], -halfSize[1], halfSize[2]);
 
-	//Draw!
+	//DrawBounds
 	Primitive::SetLineWidth(2.0f);
 	Primitive::SetColor(Vector4(0, 0.7f, 0, 1));
 
@@ -112,6 +112,12 @@ void BoxCollider::DebugDraw()
 	Primitive::DrawLine(topRightBackward, topRightForward);
 	Primitive::DrawLine(bottomLeftBackward, bottomLeftForward);
 	Primitive::DrawLine(bottomRightBackward, bottomRightForward);
+
+	//Draw normals
+	Primitive::SetColor(Vector4(1.0f, 0.0f, 0.0f, 1.0f));
+	for (unsigned int i = 0; i < worldNormals.size(); i++)
+		Primitive::DrawLine(center, center + (worldNormals[i] * 2) * halfSize[i]);
+
 }
 #endif
 

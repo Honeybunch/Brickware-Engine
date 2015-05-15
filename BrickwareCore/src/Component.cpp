@@ -45,4 +45,5 @@ void Component::DebugDraw(){}
 
 Component::~Component()
 {
+	this->gameObject = nullptr;
 }

@@ -45,7 +45,7 @@ namespace Brickware
 			bool isColliding(Math::Bounds bounds);
 			bool isColliding(Math::Ray ray, Math::Vector3* pointOfCollision);
 
-			~Collider();
+			virtual ~Collider();
 
 		protected:
 			bool enabled;

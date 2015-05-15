@@ -115,5 +115,12 @@ void GameInputManager::MouseOverObjects()
 		
 		lastHit = closestHit;
 	}
+
+	//If the last hit's collider is marked for deletion then we should call OnMouseExit early
+	if (lastHit.collider != nullptr && lastHit.collider->getGameObject()->toDestroy)
+	{
+		lastHit.collider->getGameObject()->OnMouseExit();
+		lastHit = RaycastHit();
+	}
 	
 }

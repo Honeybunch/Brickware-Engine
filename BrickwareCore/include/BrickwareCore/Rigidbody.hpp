@@ -9,6 +9,8 @@
 #include "BrickwareMath/Vector4.hpp"
 #include "BrickwareMath/Quaternion.hpp"
 
+#include "BrickwareGraphics/Primitive.hpp"
+
 //Project Headers
 #include "BrickwareCore/GameObject.hpp"
 #include "BrickwareCore/Transform.hpp"

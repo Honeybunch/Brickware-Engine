@@ -13,8 +13,18 @@ long long GameTime::startTime = duration_cast<milliseconds>
 long long GameTime::frameStartTime;
 long long GameTime::fixedFrameStartTime;
 
-float GameTime::deltaTime;
-float GameTime::fixedDeltaTime;
+float GameTime::deltaTime = 1.0f/60.0f;
+float GameTime::timeScale = 1.0f;
+
+float GameTime::GetTimeScale()
+{
+	return timeScale;
+}
+
+void GameTime::SetTimeScale(float timeScale)
+{
+	GameTime::timeScale = timeScale;
+}
 
 float GameTime::GetDeltaTime()
 {
@@ -48,24 +58,4 @@ void GameTime::frameEnd()
 		(high_resolution_clock::now().time_since_epoch()).count() - frameStartTime;
 
 	deltaTime = frameDifference/1000.0f;
-}
-
-
-void GameTime::fixedFrameStart()
-{
-	fixedFrameStartTime = duration_cast<milliseconds>
-		(high_resolution_clock::now().time_since_epoch()).count();
-}
-
-void GameTime::fixedFrameEnd()
-{
-	//If the frame start time is 0 we just have to drop this
-	//Or else our delta time will be huge
-	if (fixedFrameStartTime == 0)
-		return;
-
-	long long frameDifference = duration_cast<milliseconds>
-		(high_resolution_clock::now().time_since_epoch()).count() - fixedFrameStartTime;
-
-	fixedDeltaTime = frameDifference / 1000.0f;
 }

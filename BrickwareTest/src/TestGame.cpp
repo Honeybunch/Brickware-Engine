@@ -200,6 +200,8 @@ void TestGame::updateScene()
 	if (Input::getKeyDown(KeyCode::F1) && dKeyDown == false)
 	{
 		Debug::Debugging = !Debug::Debugging;
+		if (GameTime::GetTimeScale() != 1.0f)
+			GameTime::SetTimeScale(1.0f);
 		dKeyDown = true;
 	}
 	else if (Input::getKeyUp(KeyCode::F1))

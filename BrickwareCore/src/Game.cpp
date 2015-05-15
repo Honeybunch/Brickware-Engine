@@ -85,6 +85,8 @@ int Game::run()
 
 	while (running)
 	{
+		GameTime::frameStart();
+
 		//Handle windows messages
 #ifdef D3D_SUPPORT
 		if (msg.message == WM_QUIT)
@@ -102,8 +104,6 @@ int Game::run()
 
 		handleInput();
 
-		GameInputManager::Update();
-
 		//Calculate FPS
 		timeInterval = GameTime::GetMillisSinceStart() - lastTime;
 
@@ -116,24 +116,17 @@ int Game::run()
 			frames = 0;
 		}
 
+		updateScene();
 		
 		//Update physics "ticksPerSecond" times per second
 		loops = 0;
-		/*while (GameTime::GetMillisSinceStart() > nextGameTick && loops < maxFrameskip)
+		while (GameTime::GetMillisSinceStart() > nextGameTick && loops < maxFrameskip)
 		{
-			GameTime::fixedFrameStart();
-
 			PhysicsManager::Update();
-
-			GameTime::fixedFrameEnd();
 
 			nextGameTick += skipTicks;
 			loops++;
-		}*/
-
-		GameTime::frameStart();
-
-		updateScene();
+		}		
 
 		//Calculate interpolation (UNUSED)
 		//interpolation = (float)(((float)ticks + skipTicks - nextGameTick) / (float)skipTicks);
@@ -141,6 +134,16 @@ int Game::run()
 		frames++;
 
 		render();
+
+		GameInputManager::Update();
+
+		//See which Game Objects need deletion
+		for (unsigned int i = 0; i < GameObject::getGameObjects().size(); i++)
+		{
+			GameObject* gameObject = GameObject::getGameObjects().at(i);
+			if (gameObject->toDestroy)
+				delete gameObject;
+		}
 
 		GameTime::frameEnd();
 	}

@@ -12,14 +12,15 @@ std::vector<Collision*> PhysicsManager::lastFrameActiveCollisions;
 std::unordered_map<Rigidbody*, int> PhysicsManager::rigidbodies;
 std::unordered_map<Softbody*, int> PhysicsManager::softbodies;
 std::unordered_map<Collider*, int> PhysicsManager::colliders;
-float PhysicsManager::gravity;
 
-float PhysicsManager::GetGravity(){ return gravity; }
-void PhysicsManager::SetGravity(float gravity){ PhysicsManager::gravity = gravity; }
+Vector3 PhysicsManager::gravity;
+
+Vector3 PhysicsManager::GetGravity(){ return gravity; }
+void PhysicsManager::SetGravity(Vector3 gravity){ PhysicsManager::gravity = gravity; }
 
 void PhysicsManager::Initialize()
 {
-	gravity = -9.81f;
+	gravity[1] = -9.81f;
 }
 
 bool PhysicsManager::IsCollisionActive(Collision* collision)

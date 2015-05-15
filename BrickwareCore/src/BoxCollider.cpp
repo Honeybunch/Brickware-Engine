@@ -166,7 +166,7 @@ bool BoxCollider::isCollidingWithRay(Ray other, Vector3* pointOfCollision)
 	if (collisionOnRight && collisionOnUp && collisionOnForward)
 	{
 		if (pointOfCollision != nullptr)
-			*pointOfCollision = rayDirection * min;
+			*pointOfCollision = rayOrigin + (rayDirection * min);
 		return true;
 	}
 

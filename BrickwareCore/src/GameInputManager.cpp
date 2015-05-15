@@ -96,7 +96,7 @@ void GameInputManager::MouseOverObjects()
 	{
 		Primitive::SetColor(Vector4(1.0f, 0.0f, 1.0f, 1.0f));
 		Primitive::SetPointSize(10.0f);
-		Primitive::DrawPoint(closestHit.collider->getGameObject()->getTransform()->getPosition() + closestHit.point);
+		Primitive::DrawPoint(closestHit.point);
 	}
 #endif
 

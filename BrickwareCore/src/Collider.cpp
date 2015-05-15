@@ -42,11 +42,13 @@ bool Collider::isColliding(Collider* other, Collision* collision)
 
 bool Collider::isColliding(Bounds bounds)
 {
+	calculateWorldData();
 	return isCollidingWithBounds(bounds);
 }
 
 bool Collider::isColliding(Ray ray, Vector3* pointOfCollision)
 {
+	calculateWorldData();
 	return isCollidingWithRay(ray, pointOfCollision);
 }
 

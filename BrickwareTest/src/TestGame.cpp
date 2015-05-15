@@ -131,7 +131,15 @@ bool TestGame::init()
 	GameObject* sphere = new GameObject();
 	sphere->getTransform()->setPosition(Vector3(-6.0f, 1.0f, -5.0f));
 	sphere->addComponent(new MeshRenderer(sphereMesh, sphereMaterial));
-	sphere->addComponent(new SphereCollider(Vector3(-6.0f, 1.0f, -5.0f),1.0f));
+	sphere->addComponent(new SphereCollider(Vector3(),1.0f));
+
+	GameObject* smallSphere = new GameObject();
+	smallSphere->getTransform()->setPosition(Vector3(-6.0f, 1.0f, -5.0f));
+	smallSphere->getTransform()->setScale(Vector3(.5f, .5f, .5f));
+	smallSphere->addComponent(new MeshRenderer(sphereMesh, sphereMaterial));
+	smallSphere->addComponent(new SphereCollider(Vector3(), .5f));
+
+
 	Spin* sphereSpin = new Spin();
 	sphereSpin->rotationDelta = Vector3(0.05f, 0.05f, 0.0f);
 	sphere->addComponent(sphereSpin);

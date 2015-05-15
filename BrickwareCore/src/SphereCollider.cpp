@@ -112,11 +112,11 @@ bool SphereCollider::isCollidingWithRay(Ray other, Vector3* pointOfCollision)
 	else
 	{
 		//Calculate collision point
-		float distance = (-B + powf(d, 0.5f)) * 0.5f;
-		if (distance < 0)
-			distance = (-B - powf(d, 0.5f)) * 0.5f;
+		float distance = ((-B) + powf(d, 0.5f)) * 0.5f;
+		if (distance > 0)
+			distance = ((-B) - powf(d, 0.5f)) * 0.5f;
 
-		*pointOfCollision = rayOrigin + (rayDirection * distance);
+		*pointOfCollision = rayOrigin + (rayDirection * fabsf(distance));
 
 		return true;
 	}

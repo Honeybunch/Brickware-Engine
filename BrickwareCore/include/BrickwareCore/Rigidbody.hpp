@@ -15,6 +15,7 @@
 #include "BrickwareCore/GameObject.hpp"
 #include "BrickwareCore/Transform.hpp"
 #include "BrickwareCore/Component.hpp"
+#include "BrickwareCore/Body.hpp"
 
 namespace Brickware
 {
@@ -29,11 +30,7 @@ namespace Brickware
 
 			//Accessors
 			Math::Vector3 getVelocity();
-			Math::Vector3 getSleepVelocity();
-
 			Math::Vector3 getAngularVelocity();
-			Math::Vector3 getAngluarSleepVelocity();
-
 			Math::Vector3 getCenterOfMass();
 			Math::Vector3 getWorldCenterOfMass();
 
@@ -52,9 +49,6 @@ namespace Brickware
 			void addTorque(Math::Vector3 torque);
 			void addInstantaneousTorque(Math::Vector3 instantTorque);
 
-			//void addForceAtPosition(Math::Vector3 force, Math::Vector3 position);
-			//void addExplosionForce(Math::Vector3 force, Math::Vector3 position, float radius);
-
 			void Start();
 			void FixedUpdate();
 			void OnCollision(Collision* collision);
@@ -63,37 +57,10 @@ namespace Brickware
 
 		private:
 			Transform* transform;
-
-			Math::Vector3 acceleration;
-			Math::Vector3 velocity;
-			Math::Vector3 sleepVelocity;
-
-			Math::Vector3 angularAcceleration;
-			Math::Vector3 angularVelocity;
-			Math::Vector3 angularSleepVelocity;
-
-			Math::Vector3 centerOfMass;
-			Math::Vector3 worldCenterOfMass;
-
-			Math::Vector3 inertiaTensor;
-			Math::Matrix3 inertia;
-			Math::Matrix3 inverseInertia;
-
-			int collisionIterations;
+			Body body;
 
 			bool detectCollisions;
 			bool isKinematic;
-			bool useGravity;
-
-			float mass;
-			float inverseMass;
-			float drag;
-			float angularDrag;
-
-			Math::Vector3 impulse;
-			Math::Vector3 frameForce;
-			Math::Vector3 frameTorque;
-			Math::Vector3 frameInstantTorque;
 		};
 	}
 }

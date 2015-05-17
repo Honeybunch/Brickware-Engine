@@ -10,26 +10,7 @@ using namespace Graphics;
 
 Rigidbody::Rigidbody()
 {
-	velocity = Vector3();
-	sleepVelocity = Vector3(.1f, .1f, .1f);
-
-	angularVelocity = Vector3();
-	angularSleepVelocity = Vector3(.1f, .1f, .1f);
-
-	centerOfMass = Vector3();
-	worldCenterOfMass = Vector3();
-
-	mass = 1.0f;
-	inverseMass = 1.0f;
-
-	collisionIterations = 3;
-
-	drag = .999f;
-	angularDrag = .999f;
-
-	detectCollisions = true;
-	isKinematic = true;
-	useGravity = true;
+	
 }
 
 void Rigidbody::Start()
@@ -38,72 +19,49 @@ void Rigidbody::Start()
 
 	//We should probably get an inertia tensor from a collider or mesh but we'll just assume it's a box
 	Vector3 scale = getGameObject()->getTransform()->getScale();
-	
+	float mass = body.getMass();
+
 	float inertiaTensorX = (mass * (powf(scale[1] * 2, 2) + powf(scale[2] * 2, 2))) / 12;
 	float inertiaTensorY = (mass * (powf(scale[0] * 2, 2) + powf(scale[2] * 2, 2))) / 12;
 	float inertiaTensorZ = (mass * (powf(scale[0] * 2, 2) + powf(scale[1] * 2, 2))) / 12;
 
-	float inverseInertiaTensorX = (1/ inertiaTensorX);
-	float inverseInertiaTensorY = (1/ inertiaTensorY);
-	float inverseInertiaTensorZ = (1/ inertiaTensorZ);
-
-	inertiaTensor = Vector3(inertiaTensorX, inertiaTensorY, inertiaTensorZ);
-
-	inertia[0][0] = inertiaTensorX * mass;
-	inertia[1][1] = inertiaTensorY * mass;
-	inertia[2][2] = inertiaTensorZ * mass;
-
-	inverseInertia[0][0] = inverseInertiaTensorX * inverseMass;
-	inverseInertia[1][1] = inverseInertiaTensorY * inverseMass;
-	inverseInertia[2][2] = inverseInertiaTensorZ * inverseMass;
+	body.setInertia(Vector3(inertiaTensorX, inertiaTensorY, inertiaTensorZ));
 
 	//Register into the physics system
 	PhysicsManager::AddRigidbody(this);
 }
 
 //Accessors
-Vector3 Rigidbody::getVelocity(){ return velocity; }
-Vector3 Rigidbody::getSleepVelocity(){ return sleepVelocity; }
+Vector3 Rigidbody::getVelocity(){ return body.getVelocity(); }
 
-Vector3 Rigidbody::getAngularVelocity(){ return angularVelocity; }
-Vector3 Rigidbody::getAngluarSleepVelocity(){ return angularSleepVelocity; }
+Vector3 Rigidbody::getAngularVelocity(){ return body.getAngularVelocity(); }
 
-Vector3 Rigidbody::getCenterOfMass(){ return centerOfMass; }
-Vector3 Rigidbody::getWorldCenterOfMass(){ return worldCenterOfMass; }
+Vector3 Rigidbody::getCenterOfMass(){ return body.getCenterOfMass(); }
 
 //Mutators
-void Rigidbody::setMass(float mass){ this->mass = mass; this->inverseMass = 1 / mass; }
+void Rigidbody::setMass(float mass){ body.setMass(mass); }
 void Rigidbody::setIsKinematic(bool isKinematic){ this->isKinematic = isKinematic; }
-void Rigidbody::setUseGravity(bool useGravity){ this->useGravity = useGravity; }
+void Rigidbody::setUseGravity(bool useGravity){ body.setUseGravity(useGravity); }
 
 //Functions to manipulate rigidbody
 void Rigidbody::addForce(Vector3 force, Vector3 point)
 {
-	frameForce += force;
-
-	Vector3 torque = Vector3::Cross(point, force);
-	frameTorque += torque;
+	body.addForce(force, point);
 }
 
 void Rigidbody::addImpulse(Vector3 impulse, Vector3 point)
 {
-	this->impulse += impulse;
-
-	Vector3 instantTorque = Vector3::Cross(point, impulse);
-	frameInstantTorque += instantTorque;
+	body.addImpulse(impulse, point);
 }
-
-//void Rigidbody::addForceAtPosition(Vector3 force, Vector3 position){}
-//void Rigidbody::addExplosionForce(Vector3 force, Vector3 position, float radius){}
 
 void Rigidbody::addTorque(Vector3 torque)
 {
-	frameTorque += torque;
+	body.addTorque(torque);
 }
 
 void Rigidbody::addInstantaneousTorque(Vector3 instantTorque)
 {
-	frameInstantTorque += instantTorque;
+	body.addInstantaneousTorque(instantTorque);
 }
 
 //Called on a fixed timestep for physics calculations
@@ -111,56 +69,13 @@ void Rigidbody::FixedUpdate()
 {
 	float deltaTime = GameTime::GetFixedDeltaTime() * GameTime::GetTimeScale();
 
-	//Apply constant forces
-	if (useGravity)
-		acceleration = PhysicsManager::gravity * inverseMass * deltaTime;
-	else
-		acceleration = Vector3();
+	Vector3 pos = transform->getPosition();
+	Vector3 rot = transform->getEulerRotation();
 
-	//Apply linear forces
-	Vector3 VT, AT, VAT2;
+	body.updateForces(deltaTime, &pos, &rot);
 
-	acceleration += frameForce * inverseMass;
-	impulse *= inverseMass;
-
-	VT = velocity * deltaTime;
-	AT = acceleration * deltaTime;
-
-	//AT^2
-	VAT2 = AT * deltaTime;
-	//AT^2 * 1/2
-	VAT2 *= 0.5f;
-	//VT + (AT^2 * 1/2)
-	VAT2 += VT;
-
-	transform->setPosition(transform->getPosition() + VAT2);
-
-	velocity += AT;
-	velocity += impulse;
-
-	//Apply rotational forces
-	Vector3 AAT, AVT;
-	
-	angularAcceleration = inverseInertia * frameTorque;
-	frameInstantTorque = inverseInertia * frameInstantTorque;
-
-	AAT = angularAcceleration * deltaTime;
-
-	angularVelocity += AAT;
-	angularVelocity += frameInstantTorque;
-
-	AVT = angularVelocity * deltaTime;
-
-	//Integrate angular velocity into rotation
-	Vector3 rotation = transform->getEulerRotation();
-	transform->setEulerRotation(rotation + AVT);
-
-	//Clear out frame forces
-	impulse = Vector3();
-	frameInstantTorque = Vector3();
-
-	frameForce = Vector3();
-	frameTorque = Vector3();
+	transform->setPosition(pos);
+	transform->setEulerRotation(rot);
 }
 void Rigidbody::OnCollision(Collision* collision)
 {
@@ -183,12 +98,12 @@ void Rigidbody::OnCollision(Collision* collision)
 	transform->setPosition(transform->getPosition() + MTV);
 
 	//Calculate new forces
+	Body otherBody = otherRigidbody->body;
 	bool    otherIsKinematic = otherRigidbody->isKinematic;
-	float   otherMass = otherRigidbody->mass;
-	Vector3 otherVelocity = otherRigidbody->velocity;
-	Vector3 otherAngularVelocity = otherRigidbody->angularVelocity;
-	Vector3 otherCenterOfMass = otherRigidbody->centerOfMass;
-	Vector3 otherInertiaTensor = otherRigidbody->inertiaTensor;
+	float   otherMass = otherBody.getMass();
+	Vector3 otherVelocity = otherBody.getVelocity();
+	Vector3 otherAngularVelocity = otherBody.getAngularVelocity();
+	Vector3 otherCenterOfMass = otherBody.getCenterOfMass();
 	Matrix3 otherRotationMatrix = otherRigidbody->getGameObject()->getTransform()->getRotation().getRotationMatrix();
 	
 	//Calculate which point we're going to use as the "Point of collision"
@@ -217,7 +132,7 @@ void Rigidbody::OnCollision(Collision* collision)
 	pointOfCollision = pointsOfCollision[bestPointIndex];
 
 	//Get radii
-	Vector3 radius = pointOfCollision - (centerOfMass) - MTV;
+	Vector3 radius = pointOfCollision - (body.getCenterOfMass()) - MTV;
 	Vector3 otherRadius = pointOfCollision - (otherCollider->getGameObject()->getTransform()->getPosition() + otherCenterOfMass) + MTV;	
 
 	//Determine the impulse based on Chris Hecker's formula
@@ -225,8 +140,8 @@ void Rigidbody::OnCollision(Collision* collision)
 	Vector3 relativeVelocity;
 
 	//Calculate the numerator of the impulse calculation
-	Vector3 totalVelocity1 = Vector3::Cross(angularVelocity, radius);
-	totalVelocity1 += velocity;
+	Vector3 totalVelocity1 = Vector3::Cross(body.getVelocity(), radius);
+	totalVelocity1 += body.getVelocity();
 
 	Vector3 totalVelocity2;
 
@@ -245,22 +160,22 @@ void Rigidbody::OnCollision(Collision* collision)
 	Vector3 torque1 = Vector3::Cross(radius, MTV);
 	Vector3 torque2 = Vector3::Cross(otherRadius, MTV);
 
-	Vector3 velFromTorque1 = inverseInertia * torque1;
+	Vector3 velFromTorque1 = body.getInverseInertia() * torque1;
 	velFromTorque1 = Vector3::Cross(velFromTorque1, radius);
 
 	Vector3 velFromTorque2;
 	if (otherIsKinematic)
 	{
-		velFromTorque2 = otherRigidbody->inverseInertia * torque2;
+		velFromTorque2 = otherBody.getInverseInertia() * torque2;
 		velFromTorque2 = Vector3::Cross(velFromTorque2, otherRadius);
 	}
 
 	Vector3 velFromTorques = velFromTorque1;
 	velFromTorques += velFromTorque2;
 
-	float inverseMassSum = inverseMass;
+	float inverseMassSum = body.getInverseMass();
 	if (otherIsKinematic)
-		inverseMassSum += otherRigidbody->inverseMass;
+		inverseMassSum += otherBody.getInverseMass();
 
 	float denominator = inverseMassSum + Vector3::Dot(velFromTorques, MTV);
 

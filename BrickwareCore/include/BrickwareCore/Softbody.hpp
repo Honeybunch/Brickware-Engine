@@ -11,6 +11,7 @@
 
 //Project Headers
 #include "BrickwareCore/Component.hpp"
+#include "BrickwareCore/Body.hpp"
 
 namespace Brickware
 {
@@ -59,26 +60,15 @@ namespace Brickware
 		private:
 			Node(Math::Vector3 position);
 
-			void setMass(float mass);
-
-			void addForce(Math::Vector3 force);
 			void addNeighbor(Node* node);
 
-			void updateForces();
-
-			float mass;
-
 			Math::Vector3 restPosition;
-			float restVelocity;
-
 			Math::Vector3 position;
-			Math::Vector3 velocity;
-			Math::Vector3 acceleration;
 
-			Math::Vector3 frameForce;
 			std::vector <Node*> neighbors;
 
 			bool pinned;
+			Body body;
 		};
 		
 		//A Softbody mostly just acts as a collection of nodes

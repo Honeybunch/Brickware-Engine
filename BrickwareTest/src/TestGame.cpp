@@ -154,13 +154,13 @@ bool TestGame::init()
 	cube->addComponent(cubeRigidbody);
 	Spin* cubeSpin = new Spin();
 	cubeSpin->rotationDelta = Vector3(0.05f, 0.0f, 0.0f);
-	//cube->addComponent(cubeSpin);
+	cube->addComponent(cubeSpin);
 	cube->addComponent(new BoxCollider());
 
 	GameObject* square = new GameObject();
 	square->getTransform()->setPosition(Vector3(0.0f, 1.0f, -5.0f));
 	square->addComponent(new MeshRenderer(squareMesh, squareMaterial));
-	//square->addComponent(new Softbody());
+	square->addComponent(new Softbody());
 	GameObject* circle = new GameObject();
 	circle->getTransform()->setPosition(Vector3(3.0f, 1.0f, -5.0f));
 	circle->addComponent(new MeshRenderer(circleMesh, circleMaterial));

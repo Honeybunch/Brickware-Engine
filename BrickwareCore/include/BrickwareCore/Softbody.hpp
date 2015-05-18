@@ -45,10 +45,11 @@ namespace Brickware
 			Node* node1;
 			Node* node2;
 
-			float restingDistance;
+			Math::Vector3 node1RestPos;
+			Math::Vector3 node2RestPos;
 
-			float node1StiffnessScalar;
-			float node2StiffnessScalar;
+			float length;
+			float stiffness;
 		};
 
 		//Represents a spring node in the softbody 

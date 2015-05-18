@@ -1,0 +1,19 @@
+# CMake generation dependency list for this directory.
+C:/Users/arsen/Git/Brickware-Engine/CMakeLists.txt
+C:/Users/arsen/Git/Brickware-Engine/Build/CMakeFiles/2.8.12.2/CMakeSystem.cmake
+C:/Users/arsen/Git/Brickware-Engine/Build/CMakeFiles/2.8.12.2/CMakeCCompiler.cmake
+C:/Users/arsen/Git/Brickware-Engine/Build/CMakeFiles/2.8.12.2/CMakeCXXCompiler.cmake
+C:/ProgramData/Chocolatey/lib/cmake.2.8.12/content/cmake-2.8.12.2-win32-x86/share/cmake-2.8/Modules/CMakeSystemSpecificInformation.cmake
+C:/ProgramData/Chocolatey/lib/cmake.2.8.12/content/cmake-2.8.12.2-win32-x86/share/cmake-2.8/Modules/CMakeGenericSystem.cmake
+C:/ProgramData/Chocolatey/lib/cmake.2.8.12/content/cmake-2.8.12.2-win32-x86/share/cmake-2.8/Modules/Platform/Windows.cmake
+C:/ProgramData/Chocolatey/lib/cmake.2.8.12/content/cmake-2.8.12.2-win32-x86/share/cmake-2.8/Modules/Platform/WindowsPaths.cmake
+C:/ProgramData/Chocolatey/lib/cmake.2.8.12/content/cmake-2.8.12.2-win32-x86/share/cmake-2.8/Modules/CMakeCInformation.cmake
+C:/ProgramData/Chocolatey/lib/cmake.2.8.12/content/cmake-2.8.12.2-win32-x86/share/cmake-2.8/Modules/Platform/Windows-MSVC-C.cmake
+C:/ProgramData/Chocolatey/lib/cmake.2.8.12/content/cmake-2.8.12.2-win32-x86/share/cmake-2.8/Modules/Platform/Windows-MSVC.cmake
+C:/Users/arsen/Git/Brickware-Engine/Build/CMakeFiles/2.8.12.2/CMakeRCCompiler.cmake
+C:/ProgramData/Chocolatey/lib/cmake.2.8.12/content/cmake-2.8.12.2-win32-x86/share/cmake-2.8/Modules/CMakeRCInformation.cmake
+C:/ProgramData/Chocolatey/lib/cmake.2.8.12/content/cmake-2.8.12.2-win32-x86/share/cmake-2.8/Modules/CMakeCommonLanguageInclude.cmake
+C:/ProgramData/Chocolatey/lib/cmake.2.8.12/content/cmake-2.8.12.2-win32-x86/share/cmake-2.8/Modules/CMakeCXXInformation.cmake
+C:/ProgramData/Chocolatey/lib/cmake.2.8.12/content/cmake-2.8.12.2-win32-x86/share/cmake-2.8/Modules/Platform/Windows-MSVC-CXX.cmake
+C:/ProgramData/Chocolatey/lib/cmake.2.8.12/content/cmake-2.8.12.2-win32-x86/share/cmake-2.8/Modules/Platform/Windows-MSVC.cmake
+C:/ProgramData/Chocolatey/lib/cmake.2.8.12/content/cmake-2.8.12.2-win32-x86/share/cmake-2.8/Modules/CMakeCommonLanguageInclude.cmake

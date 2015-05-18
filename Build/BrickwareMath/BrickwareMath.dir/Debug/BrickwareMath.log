@@ -1,0 +1,29 @@
+﻿Build started 5/17/2015 10:58:44 PM.
+     1>Project "C:\Users\arsen\Git\Brickware-Engine\Build\BrickwareMath\BrickwareMath.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\arsen\Git\Brickware-Engine\BrickwareMath\include" /Zi /nologo /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D GL_SUPPORT /D "CMAKE_INTDIR=\"Debug\"" /D BrickwareMath_EXPORTS /D _WINDLL /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"BrickwareMath.dir\Debug\\" /Fd"BrickwareMath.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\BrickwareMath\src\Bounds.cpp ..\..\BrickwareMath\src\Matrix3.cpp ..\..\BrickwareMath\src\Matrix4.cpp ..\..\BrickwareMath\src\Quaternion.cpp ..\..\BrickwareMath\src\Ray.cpp ..\..\BrickwareMath\src\Vector2.cpp ..\..\BrickwareMath\src\Vector3.cpp ..\..\BrickwareMath\src\Vector4.cpp
+         Bounds.cpp
+         Matrix3.cpp
+         Matrix4.cpp
+         Quaternion.cpp
+         Ray.cpp
+         Vector2.cpp
+         Vector3.cpp
+         Vector4.cpp
+         Generating Code...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\arsen\Git\Brickware-Engine\Build\TestBuild\BrickwareMath.dll" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/arsen/Git/Brickware-Engine/Build/TestBuild/BrickwareMath.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/arsen/Git/Brickware-Engine/Build/TestBuild/BrickwareMath.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /debug /DLL BrickwareMath.dir\Debug\Bounds.obj
+         BrickwareMath.dir\Debug\Matrix3.obj
+         BrickwareMath.dir\Debug\Matrix4.obj
+         BrickwareMath.dir\Debug\Quaternion.obj
+         BrickwareMath.dir\Debug\Ray.obj
+         BrickwareMath.dir\Debug\Vector2.obj
+         BrickwareMath.dir\Debug\Vector3.obj
+         BrickwareMath.dir\Debug\Vector4.obj
+            Creating library C:/Users/arsen/Git/Brickware-Engine/Build/TestBuild/BrickwareMath.lib and object C:/Users/arsen/Git/Brickware-Engine/Build/TestBuild/BrickwareMath.exp
+         BrickwareMath.vcxproj -> C:\Users\arsen\Git\Brickware-Engine\Build\TestBuild\BrickwareMath.dll
+     1>Done Building Project "C:\Users\arsen\Git\Brickware-Engine\Build\BrickwareMath\BrickwareMath.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:08.19

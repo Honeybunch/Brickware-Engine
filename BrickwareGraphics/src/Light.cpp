@@ -37,7 +37,13 @@ void Light::Render(Shader* shader)
 	//Faster than a string
 	char lightString[11];
 	memcpy(lightString, "lights[", 7);
+
+#ifdef _WIN32
+	_snprintf(lightString + 7, 10, "%d", lightIndex);
+#else
 	snprintf(lightString+7, 10, "%d", lightIndex);
+#endif
+	
 	//_itoa(lightIndex, lightString + 7, 10);
 	memcpy(lightString + 8, "].\0", 3);
 

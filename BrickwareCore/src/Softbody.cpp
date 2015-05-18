@@ -23,8 +23,8 @@ Spring::Spring(Node* node1, Node* node2, float stiffness)
 	node1RestPos = node1->restPosition;
 	node2RestPos = node2->restPosition; 
 
-	this->length = (node1RestPos - node2RestPos).getMagnitude();
 	this->stiffness = stiffness;
+	this->length = (node1RestPos - node2RestPos).getMagnitude();
 }
 
 void Spring::updateForces()
@@ -37,13 +37,12 @@ void Spring::updateForces()
 
 	if (magnitude != 0)
 	{
-		Vector3 force = node1Delta * -0.1f;
-		Vector3 frictionForce = (node1->body.getVelocity() - node2->body.getVelocity()) * -0.5f;
+		Vector3 force = node1Delta * -0.2f;
+		Vector3 frictionForce = (node1->body.getVelocity() - node2->body.getVelocity()) * -0.98f;
 		force += frictionForce;
 
-		Vector3 force2 = node2Delta * -0.1f;
-		Vector3 frictionForce2 = (node2->body.getVelocity() - node1->body.getVelocity()) * -0.5f;
-		force2 += frictionForce2;
+		Vector3 force2 = node2Delta * -0.2f;
+		force2 -= frictionForce;
 
 		node1->body.addForce(force);
 		node2->body.addForce(force2);
@@ -64,6 +63,10 @@ Node::Node(Vector3 position)
 
 	pinned = false;
 }
+
+Body* Node::getBody(){ return &body; }
+Vector3 Node::getPosition(){ return position; }
+bool Node::getPinned(){ return pinned; }
 
 void Node::addNeighbor(Node* node)
 { 

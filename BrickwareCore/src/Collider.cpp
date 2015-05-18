@@ -52,6 +52,12 @@ bool Collider::isColliding(Ray ray, Vector3* pointOfCollision)
 	return isCollidingWithRay(ray, pointOfCollision);
 }
 
+bool Collider::isColliding(Vector3 point)
+{
+	calculateWorldData();
+	return isCollidingWithPoint(point);
+}
+
 void Collider::calculateWorldData()
 {
 	worldNormals.clear();

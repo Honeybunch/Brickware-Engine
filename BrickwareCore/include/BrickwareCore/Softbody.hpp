@@ -58,6 +58,11 @@ namespace Brickware
 			friend class Spring;
 			friend class Softbody;
 
+		public:
+			Body* getBody();
+			Math::Vector3 getPosition();
+			bool getPinned();
+
 		private:
 			Node(Math::Vector3 position);
 

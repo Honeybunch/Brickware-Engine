@@ -44,6 +44,7 @@ namespace Brickware
 			bool isColliding(Collider* collider, Collision* collsion);
 			bool isColliding(Math::Bounds bounds);
 			bool isColliding(Math::Ray ray, Math::Vector3* pointOfCollision);
+			bool isColliding(Math::Vector3 point);
 
 			virtual ~Collider();
 
@@ -65,6 +66,7 @@ namespace Brickware
 			virtual bool isCollidingWithFrustum(FrustumCollider* other) = 0;
 			virtual bool isCollidingWithBounds(Math::Bounds other) = 0;
 			virtual bool isCollidingWithRay(Math::Ray other, Math::Vector3* pointOfCollision) = 0;
+			virtual bool isCollidingWithPoint(Math::Vector3 point) = 0;
 
 			Math::Vector2 getProjectedBounds(Math::Vector3 axis);
 		};

@@ -118,6 +118,33 @@ void PhysicsManager::Update()
 		}
 	}
 
+	//MESSY
+	//Detect rigidbodies colliding with softbody nodes
+	for (auto it1 = colliders.begin(); it1 != colliders.end(); it1++)
+	{
+		Collider* test = it1->first;
+		if (test->getGameObject()->getComponent<Rigidbody>() == nullptr)
+			continue;
+
+		for (auto it2 = softbodies.begin(); it2 != softbodies.end(); it2++)
+		{
+			Softbody* softbody = it2->first;
+			std::vector<Node*> nodes = softbody->nodes;
+
+			for (unsigned int i = 0; i < nodes.size(); i++)
+			{
+				Node* node = nodes[i];
+				Body* body = node->getBody();
+				if (test->isColliding(softbody->getGameObject()->getTransform()->getPosition() + node->getPosition()))
+				{
+					//Apply impulses
+					if (!node->getPinned())
+						body->addForce(Vector3(0.0f, 0.0f, -10.0f));
+				}
+			}
+		}
+	}
+
 	//Any collisions that were active last frame that are not active now can be untracked
 	for (unsigned int i = 0; i < lastFrameActiveCollisions.size(); i++)
 	{

@@ -1,17 +1,12 @@
-﻿Build started 5/17/2015 11:15:53 PM.
+﻿Build started 5/18/2015 1:25:22 AM.
      1>Project "C:\Users\arsen\Git\Brickware-Engine\Build\BrickwareTest\BrickwareTest.vcxproj" on node 3 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\Users\arsen\Git\Brickware-Engine\BrickwareTest\include" /I"C:\Users\arsen\Git\Brickware-Engine\BrickwareMath\include" /I"C:\Users\arsen\Git\Brickware-Engine\BrickwareUtils\include" /I"C:\Users\arsen\Git\Brickware-Engine\BrickwareGraphics\include" /I"C:\Users\arsen\Git\Brickware-Engine\BrickwareCore\include" /I"C:\Users\arsen\Git\Brickware-Engine\GL\include" /I"C:\Users\arsen\Git\Brickware-Engine\GLFW\include" /Zi /nologo /W3 /WX- /Od /Ob0 /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D GL_SUPPORT /D "CMAKE_INTDIR=\"Debug\"" /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /GR /Fo"BrickwareTest.dir\Debug\\" /Fd"BrickwareTest.dir\Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt ..\..\BrickwareTest\src\Main.cpp ..\..\BrickwareTest\src\TestGame.cpp
-         Main.cpp
-         TestGame.cpp
-     1>..\..\BrickwareTest\src\TestGame.cpp(29): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
-         Generating Code...
-       Link:
+     1>Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\arsen\Git\Brickware-Engine\Build\TestBuild\BrickwareTest.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib opengl32.lib ..\..\GL\lib\Win32\glew32.lib ..\..\GLFW\lib\Win32\glfw3dll.lib ..\TestBuild\BrickwareMath.lib ..\TestBuild\BrickwareUtils.lib ..\TestBuild\BrickwareGraphics.lib ..\TestBuild\BrickwareCore.lib ..\TestBuild\BrickwareGraphics.lib ..\..\GLFW\lib\Win32\glfw3dll.lib ..\TestBuild\BrickwareMath.lib ..\TestBuild\BrickwareUtils.lib opengl32.lib ..\..\GL\lib\Win32\glew32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/Users/arsen/Git/Brickware-Engine/Build/TestBuild/BrickwareTest.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:/Users/arsen/Git/Brickware-Engine/Build/TestBuild/BrickwareTest.lib" /MACHINE:X86 /SAFESEH  /machine:X86 /debug BrickwareTest.dir\Debug\Despawn.obj
          BrickwareTest.dir\Debug\Main.obj
          BrickwareTest.dir\Debug\Spawner.obj
          BrickwareTest.dir\Debug\Spin.obj
          BrickwareTest.dir\Debug\TestGame.obj
+            Creating library C:/Users/arsen/Git/Brickware-Engine/Build/TestBuild/BrickwareTest.lib and object C:/Users/arsen/Git/Brickware-Engine/Build/TestBuild/BrickwareTest.exp
          BrickwareTest.vcxproj -> C:\Users\arsen\Git\Brickware-Engine\Build\TestBuild\BrickwareTest.exe
        PostBuildEvent:
          setlocal
@@ -46,4 +41,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:09.09
+Time Elapsed 00:00:02.28

@@ -252,8 +252,12 @@ void Softbody::FixedUpdate()
 	for (unsigned int i = 0; i < nodes.size(); i++)
 	{
 		Node* n = nodes[i];
+	
 		if (!n->pinned)
-			n->body.updateForces(deltaTime, &(n->position), &(Vector3()));
+		{
+			Vector3 tempRot;
+			n->body.updateForces(deltaTime, &(n->position), &tempRot);
+		}
 	}
 
 	//Update mesh data appropriately

@@ -81,9 +81,10 @@ void Rigidbody::OnCollision(Collision* collision)
 {
 	if (!isKinematic)
 		return;
-
+#ifdef _DEBUG
 	if (Debug::Debugging)
 		GameTime::SetTimeScale(0);
+#endif
 
 	Rigidbody* otherRigidbody = collision->getOtherRigidbody();
 	Collider* otherCollider = collision->getOtherCollider();

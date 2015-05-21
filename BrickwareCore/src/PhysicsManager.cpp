@@ -65,32 +65,32 @@ void PhysicsManager::Update()
 	//Detect collisions
 	for (auto it1 = colliders.begin(); it1 != colliders.end(); it1++)
 	{
-		Collider* test = it1->first;
-		if (test->getGameObject()->getComponent<Rigidbody>() == nullptr)
+		Collider* testCollider = it1->first;
+		if (testCollider->getGameObject()->getComponent<Rigidbody>() == nullptr)
 			continue;
 
 		for (auto it2 = colliders.begin(); it2 != colliders.end(); it2++)
 		{
-			Collider* other = it2->first;
-			if (other->getGameObject()->getComponent<Rigidbody>() == nullptr)
+			Collider* otherCollider = it2->first;
+			if (otherCollider->getGameObject()->getComponent<Rigidbody>() == nullptr)
 				continue;
 
 			bool colliding = false;
 			Collision* collision = new Collision();
 			Collision* oppositeCollision = new Collision();
-			if (other != test)
+			if (otherCollider != testCollider)
 			{
-				colliding = test->isColliding(other, collision);
-				other->isColliding(test, oppositeCollision);
+				colliding = testCollider->isColliding(otherCollider, collision);
+				otherCollider->isColliding(testCollider, oppositeCollision);
 			}
 
-			if (other != test && colliding)
+			if (otherCollider != testCollider && colliding)
 			{
 				//Dispatch collision
 				if (collision)
 				{
-					GameObject* testObj = test->getGameObject();
-					GameObject* otherObj = other->getGameObject();
+					GameObject* testObj = testCollider->getGameObject();
+					GameObject* otherObj = otherCollider->getGameObject();
 
 					//If there isn't any identical collision, we will send a collision enter call
 					if (IsCollisionActive(collision) == false && IsCollisionActive(oppositeCollision) == false)
@@ -100,6 +100,148 @@ void PhysicsManager::Update()
 
 						activeCollisions.push_back(collision);
 						activeCollisions.push_back(oppositeCollision);
+
+#ifdef _DEBUG
+						if (Debug::Debugging)
+							GameTime::SetTimeScale(0);
+#endif
+
+						Vector3 MTV = collision->getMTV();
+						Vector3 normal = Vector3::Normalize(MTV);
+
+						//Reposition rigidbody's game objects back to where the collision happened so that it no longer intersects
+						Transform* testTransform = testObj->getTransform();
+						Transform* otherTransform = otherObj->getTransform();
+
+						Rigidbody* testRigidbody = collision->getThisRigidbody();
+						Rigidbody* otherRigidbody = collision->getOtherRigidbody();
+
+						//Get some Variables
+						Body*	testBody =				testRigidbody->body;
+						bool    testIsKinematic =		testRigidbody->isKinematic;
+						float   testMass =				testBody->getMass();
+						Vector3 testVelocity =			testBody->getVelocity();
+						Vector3 testAngularVelocity =	testBody->getAngularVelocity();
+						Vector3 testCenterOfMass =		testBody->getCenterOfMass();
+						Matrix3 testRotationMatrix =	testRigidbody->getGameObject()->getTransform()->getRotation().getRotationMatrix();
+
+						Body*	otherBody =				otherRigidbody->body;
+						bool    otherIsKinematic =		otherRigidbody->isKinematic;
+						float   otherMass =				otherBody->getMass();
+						Vector3 otherVelocity =			otherBody->getVelocity();
+						Vector3 otherAngularVelocity =	otherBody->getAngularVelocity();
+						Vector3 otherCenterOfMass =		otherBody->getCenterOfMass();
+						Matrix3 otherRotationMatrix =	otherRigidbody->getGameObject()->getTransform()->getRotation().getRotationMatrix();
+
+						if (otherRigidbody->isKinematic && !testRigidbody->isKinematic)
+						{
+							otherTransform->setPosition(otherTransform->getPosition() - MTV);
+						}
+						else if (testRigidbody->isKinematic && !otherRigidbody->isKinematic)
+						{
+							testTransform->setPosition(testTransform->getPosition() + MTV);
+						}
+						else if (testRigidbody->isKinematic && otherRigidbody->isKinematic)
+						{
+							testTransform->setPosition(testTransform->getPosition() + (MTV/2));
+							otherTransform->setPosition(otherTransform->getPosition() - (MTV/2));
+						}
+						else
+						{
+							continue;
+						}
+
+						//Calculate which point we're going to use as the "Point of collision"
+						std::vector<Vector3> pointsOfCollision = collision->getPointsOfCollision();
+						Vector3 pointOfCollision;
+
+						if (pointsOfCollision.size() == 0)
+							return;
+
+						unsigned int bestPointIndex = 0;
+						float bestPointDot = 0;
+
+						if (pointsOfCollision.size() > 1)
+						{
+							for (unsigned int i = 0; i < pointsOfCollision.size(); i++)
+							{
+								float dot = Vector3::Dot(pointsOfCollision[i], MTV);
+								if (fabsf(dot) > fabsf(bestPointDot))
+								{
+									bestPointDot = dot;
+									bestPointIndex = i;
+								}
+							}
+						}
+
+						pointOfCollision = pointsOfCollision[bestPointIndex];
+
+						//Get radii
+						Vector3 radius = pointOfCollision - (testBody->getCenterOfMass()) - MTV;
+						Vector3 otherRadius = pointOfCollision - (otherCollider->getGameObject()->getTransform()->getPosition() + otherCenterOfMass) + MTV;
+
+						//Determine the impulse based on Chris Hecker's formula
+						float e = 0.5f;
+						Vector3 relativeVelocity;
+
+						//Calculate the numerator of the impulse calculation
+						Vector3 totalVelocity1;
+						Vector3 totalVelocity2;
+						
+						if (testIsKinematic)
+						{
+							totalVelocity1 = Vector3::Cross(testAngularVelocity, radius);
+							totalVelocity1 += testVelocity;
+						}
+
+						if (otherIsKinematic)
+						{
+							totalVelocity2 = Vector3::Cross(otherAngularVelocity, otherRadius);
+							totalVelocity2 += otherVelocity;
+						}
+
+						relativeVelocity = totalVelocity1 - totalVelocity2;
+
+						float relativeNormalVelocity = Vector3::Dot(relativeVelocity, normal);
+						float numerator = (-1 - e) * relativeNormalVelocity;
+
+						//Calculate the denominator
+						Vector3 torque1 = Vector3::Cross(radius, MTV);
+						Vector3 torque2 = Vector3::Cross(otherRadius, MTV);
+
+						Vector3 velFromTorque1;
+						Vector3 velFromTorque2;
+
+						if (testIsKinematic)
+						{
+							velFromTorque1 = testBody->getInverseInertia() * torque1;
+							velFromTorque1 = Vector3::Cross(velFromTorque1, radius);
+						}
+						
+						if (otherIsKinematic)
+						{
+							velFromTorque2 = otherBody->getInverseInertia() * torque2;
+							velFromTorque2 = Vector3::Cross(velFromTorque2, otherRadius);
+						}
+
+						Vector3 velFromTorques = velFromTorque1;
+						velFromTorques += velFromTorque2;
+
+						float inverseMassSum = 0;
+							inverseMassSum = testBody->getInverseMass();
+							inverseMassSum += otherBody->getInverseMass();
+
+						float denominator = inverseMassSum + Vector3::Dot(velFromTorques, MTV);
+
+						//Finally calculate impulse
+						float impulse = numerator / denominator;
+						Vector3 impulseVec1 = normal * impulse;
+						Vector3 impulseVec2 = (normal * -1) * impulse;
+						
+						if (testIsKinematic)
+							testBody->addImpulse(impulseVec1, radius);
+						if (otherIsKinematic)
+							otherBody->addImpulse(impulseVec2 , radius);
 					}
 					//Otherwise we will send a collision continue call
 					else

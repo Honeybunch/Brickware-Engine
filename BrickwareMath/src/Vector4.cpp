@@ -52,6 +52,7 @@ float Vector4::getY(){ return vector[1]; }
 float Vector4::getZ(){ return vector[2]; }
 float Vector4::getW(){ return vector[3]; }
 
+float Vector4::getMagnitude(){ return sqrt((vector[0] * vector[0]) + (vector[1] * vector[1]) + (vector[2] * vector[2]) + (vector[3] + vector[3])); }
 float* Vector4::getAsArray(){ return vector; }
 
 void Vector4::setX(float x){ this->vector[0] = x; }

@@ -58,9 +58,8 @@ float Vector3::getX(){ return vector[0]; }
 float Vector3::getY(){ return vector[1]; }
 float Vector3::getZ(){ return vector[2];}
 
-float* Vector3::getAsArray(){ return vector; }
-
 float Vector3::getMagnitude(){ return sqrt((vector[0] * vector[0]) + (vector[1] * vector[1]) + (vector[2] * vector[2])); }
+float* Vector3::getAsArray(){ return vector; }
 
 void Vector3::setX(float x){ Vector3::vector[0] = x; }
 void Vector3::setY(float y){ Vector3::vector[1] = y; }

@@ -27,6 +27,7 @@ namespace Brickware
 			float getX();
 			float getY();
 
+			float getMagnitude();
 			float* getAsArray();
 
 			void setX(float x);

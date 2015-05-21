@@ -5,6 +5,7 @@
 using namespace Brickware;
 using namespace Core;
 using namespace Math;
+using namespace Graphics;
 
 //Statics
 std::vector<Collision*> PhysicsManager::activeCollisions;
@@ -166,7 +167,7 @@ void PhysicsManager::Update()
 							for (unsigned int i = 0; i < pointsOfCollision.size(); i++)
 							{
 								float dot = Vector3::Dot(pointsOfCollision[i], MTV);
-								if (fabsf(dot) > fabsf(bestPointDot))
+								if (fabsf(dot) < fabsf(bestPointDot))
 								{
 									bestPointDot = dot;
 									bestPointIndex = i;
@@ -177,8 +178,8 @@ void PhysicsManager::Update()
 						pointOfCollision = pointsOfCollision[bestPointIndex];
 
 						//Get radii
-						Vector3 radius = pointOfCollision - (testBody->getCenterOfMass()) - MTV;
-						Vector3 otherRadius = pointOfCollision - (otherCollider->getGameObject()->getTransform()->getPosition() + otherCenterOfMass) + MTV;
+						Vector3 radius = pointOfCollision - (testTransform->getPosition() + testCenterOfMass) - MTV;
+						Vector3 otherRadius = pointOfCollision - (otherTransform->getPosition() + otherCenterOfMass) + MTV;
 
 						//Determine the impulse based on Chris Hecker's formula
 						float e = 0.5f;
@@ -228,7 +229,9 @@ void PhysicsManager::Update()
 						velFromTorques += velFromTorque2;
 
 						float inverseMassSum = 0;
+						if (testIsKinematic)
 							inverseMassSum = testBody->getInverseMass();
+						if (otherIsKinematic)
 							inverseMassSum += otherBody->getInverseMass();
 
 						float denominator = inverseMassSum + Vector3::Dot(velFromTorques, MTV);
@@ -241,7 +244,7 @@ void PhysicsManager::Update()
 						if (testIsKinematic)
 							testBody->addImpulse(impulseVec1, radius);
 						if (otherIsKinematic)
-							otherBody->addImpulse(impulseVec2 , radius);
+							otherBody->addImpulse(impulseVec2 , otherRadius);
 					}
 					//Otherwise we will send a collision continue call
 					else

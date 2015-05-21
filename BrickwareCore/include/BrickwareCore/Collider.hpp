@@ -68,7 +68,7 @@ namespace Brickware
 			virtual bool isCollidingWithRay(Math::Ray other, Math::Vector3* pointOfCollision) = 0;
 			virtual bool isCollidingWithPoint(Math::Vector3 point) = 0;
 
-			Math::Vector2 getProjectedBounds(Math::Vector3 axis);
+			Math::Vector2 getProjectedBounds(Math::Vector3 axis, Math::Vector3* worldPoints);
 		};
 	}
 }

@@ -89,6 +89,9 @@ bool Collider::TestSAT(Collider* other, Collision* collision)
 	MeshRenderer* thisMeshRenderer = this->getGameObject()->getComponent<MeshRenderer>();
 	MeshRenderer* otherMeshRenderer = other->getGameObject()->getComponent<MeshRenderer>();
 
+	Vector3 thisPos = this->center;
+	Vector3 otherPos = other->center;
+
 	if (thisMeshRenderer == nullptr)
 	{
 		std::cout << "Error testing SAT. The called collider did not have an attached MeshRenderer." << std::endl;
@@ -117,8 +120,10 @@ bool Collider::TestSAT(Collider* other, Collision* collision)
 	{
 		Vector3 axis = thisAxes[i];
 
-		thisProjectedBounds = this->getProjectedBounds(axis);
-		otherProjectedBounds = other->getProjectedBounds(axis);
+		Vector3 otherWorldPoints[2];
+
+		thisProjectedBounds = this->getProjectedBounds(axis, nullptr);
+		otherProjectedBounds = other->getProjectedBounds(axis, otherWorldPoints);
 
 		//Check if bounds overlap
 		if (thisProjectedBounds[0] < otherProjectedBounds[1] && thisProjectedBounds[1] > otherProjectedBounds[0])
@@ -138,7 +143,19 @@ bool Collider::TestSAT(Collider* other, Collision* collision)
 			{
 				smallestOverlap = smallerOverlap;
 				possibleMTV = (axis * smallestOverlap);
-				pointsOfCollision.push_back(possibleMTV);
+
+				//Determine which world point should be used as the collision point
+				Vector3 worldPoint;
+
+				float testOne = Vector3::Dot(axis, otherWorldPoints[0]);
+				float testTwo = Vector3::Dot(axis, otherWorldPoints[1]);
+				if (testOne < testTwo)
+					worldPoint = otherWorldPoints[0];
+				else
+					worldPoint = otherWorldPoints[1];
+
+				//Add a collision point
+				pointsOfCollision.push_back(worldPoint);
 			}
 		}
 		else
@@ -156,8 +173,10 @@ bool Collider::TestSAT(Collider* other, Collision* collision)
 		{
 			Vector3 axis = otherAxes[i];
 
-			thisProjectedBounds = this->getProjectedBounds(axis);
-			otherProjectedBounds = other->getProjectedBounds(axis);
+			Vector3 thisWorldPoints[2];
+
+			thisProjectedBounds = this->getProjectedBounds(axis, thisWorldPoints);
+			otherProjectedBounds = other->getProjectedBounds(axis, nullptr);
 
 			//Check if bounds overlap
 			if (thisProjectedBounds[0] < otherProjectedBounds[1] && thisProjectedBounds[1] > otherProjectedBounds[0])
@@ -177,7 +196,18 @@ bool Collider::TestSAT(Collider* other, Collision* collision)
 				{
 					smallestOverlap = smallerOverlap;
 					possibleMTV = (axis * smallestOverlap);
-					pointsOfCollision.push_back(possibleMTV);
+
+					//Determine which world point should be used as the collision point
+					Vector3 worldPoint;
+					float testOne = Vector3::Dot(axis, thisWorldPoints[0]);
+					float testTwo = Vector3::Dot(axis, thisWorldPoints[1]);
+					if (testOne < testTwo)
+						worldPoint = thisWorldPoints[0];
+					else
+						worldPoint = thisWorldPoints[1];
+
+					//Add a collision point
+					pointsOfCollision.push_back(worldPoint);
 				}
 			}
 			else
@@ -208,14 +238,12 @@ bool Collider::TestSAT(Collider* other, Collision* collision)
 		collision->setPointsOfCollision(pointsOfCollision);
 	}
 
-	if (collided)
-		int i = 0;
-
 	return collided;
 }
 
 //Return the min and max points of the game object's mesh projected along an axis
-Vector2 Collider::getProjectedBounds(Vector3 axis)
+//Also optionally return the world points that match the lengths projected along the axis
+Vector2 Collider::getProjectedBounds(Vector3 axis, Vector3* worldPoints)
 {
 	MeshRenderer* meshRenderer = getGameObject()->getComponent<MeshRenderer>();
 	Transform* transform = getGameObject()->getTransform();
@@ -228,23 +256,40 @@ Vector2 Collider::getProjectedBounds(Vector3 axis)
 	}
 
 	//Get transform data to get the mesh points into the proper frame of reference
-	Matrix4 basisMatrix = transform->getModelMatrix();
+	Matrix4 modelMatrix = transform->getModelMatrix();
 
 	std::vector<Vector3> points = meshRenderer->getMesh()->getVerticies();
 	
 	//Set defaults to be projection of first point
-	float projection = Vector3::Dot(axis, basisMatrix * points[0]);
+	Vector3 orientedPoint = modelMatrix * points[0];
+	float projection = Vector3::Dot(axis, orientedPoint);
 
 	projectedBounds[0] = projection;
 	projectedBounds[1] = projection;
 
+	if (worldPoints != nullptr)
+	{
+		worldPoints[0] = orientedPoint;
+		worldPoints[1] = orientedPoint;
+	}
+
 	for (unsigned int i = 1; i < points.size(); i++)
 	{
-		projection = Vector3::Dot(axis, basisMatrix * points[i]);
+		orientedPoint = modelMatrix * points[i];
+
+		projection = Vector3::Dot(axis, orientedPoint);
 		if (projection < projectedBounds[0])
+		{
 			projectedBounds[0] = projection;
+			if (worldPoints != nullptr)
+				worldPoints[0] = orientedPoint;
+		}
 		else if (projection > projectedBounds[1])
+		{
 			projectedBounds[1] = projection;
+			if (worldPoints != nullptr)
+				worldPoints[1] = orientedPoint;
+		}
 	}
 
 	return projectedBounds;

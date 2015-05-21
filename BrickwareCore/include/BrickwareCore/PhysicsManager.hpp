@@ -17,6 +17,8 @@
 #include "BrickwareCore/Collider.hpp"
 #include "BrickwareCore/Softbody.hpp"
 
+#include "BrickwareGraphics/Primitive.hpp"
+
 #ifdef _DEBUG
 #include "BrickwareCore/Debug.hpp"
 #endif

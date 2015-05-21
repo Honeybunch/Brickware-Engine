@@ -24,25 +24,25 @@ Spring::Spring(Node* node1, Node* node2, float stiffness)
 	node2RestPos = node2->restPosition; 
 
 	this->stiffness = stiffness;
-	this->length = (node1RestPos - node2RestPos).getMagnitude();
+	this->length = node1RestPos - node2RestPos;
 }
 
 void Spring::updateForces()
 {
-	Vector3 node1Delta = node1->position - node1RestPos;
-	Vector3 node2Delta = node2->position - node2RestPos;
+	Vector3 node1Delta = node1->position - node1RestPos - length;
+	Vector3 node2Delta = node2->position - node2RestPos - length;
 
 	Vector3 springVector = node1->position - node2->position;
 	float magnitude = springVector.getMagnitude();
+	float springLength = length.getMagnitude();
 
 	if (magnitude != 0)
 	{
-		Vector3 force = node1Delta * -0.2f;
-		Vector3 frictionForce = (node1->body.getVelocity() - node2->body.getVelocity()) * -0.98f;
+		Vector3 force = Vector3::Normalize(springVector) * (magnitude - springLength) * -0.92f;
+		Vector3 frictionForce = (node1->body.getVelocity() - node2->body.getVelocity()) * -0.8f;
 		force += frictionForce;
 
-		Vector3 force2 = node2Delta * -0.2f;
-		force2 -= frictionForce;
+		Vector3 force2 = force * -1;
 
 		node1->body.addForce(force);
 		node2->body.addForce(force2);
@@ -94,7 +94,7 @@ void Node::addNeighbor(Node* node)
 
 Softbody::Softbody()
 {
-	this->mass = 1.0f;
+	this->mass = 10.0f;
 	this->stiffness = .92f;
 }
 
@@ -115,7 +115,7 @@ void Softbody::Start()
 	vector<Vector3> vertices = mesh->getVerticies();
 	vector<Vector3> indices = mesh->getIndices();
 
-	float nodeMass = 1.0f;
+	float nodeMass = mass / vertices.size();
 
 	int vertCounter = 0;
 	for (unsigned int i = 0; i < indices.size() - 2; i+=3)

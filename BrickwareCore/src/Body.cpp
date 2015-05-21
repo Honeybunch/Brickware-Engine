@@ -39,7 +39,7 @@ Vector3 Body::getCenterOfMass(){ return centerOfMass; }
 void Body::setMass(float mass)
 { 
 	this->mass = mass;
-	this->inverseMass = 1 / mass;
+	this->inverseMass = 1.0f / mass;
 }
 
 void Body::setInertia(Vector3 inertiaTensor)

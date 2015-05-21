@@ -48,7 +48,7 @@ namespace Brickware
 			Math::Vector3 node1RestPos;
 			Math::Vector3 node2RestPos;
 
-			float length;
+			Math::Vector3 length;
 			float stiffness;
 		};
 

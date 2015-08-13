@@ -1,5 +1,5 @@
-<img src="http://i.imgur.com/Qje9ZhI.png" alt="brickware_logo" height="100">
 <img src="http://i.imgur.com/83X6Kfn.png" alt="brickware_name" height="100">
+<img src="http://i.imgur.com/Qje9ZhI.png" alt="brickware_logo" height="100">
 
 A Simple 3D engine in OpenGL+DirectX and C++ modeled off of Unity3D
 

@@ -60,4 +60,4 @@ Anyway here are the steps
 I do not have a good machine to test any Mac OSX port on. If you have the XCode command line tools installed (g++) you should be able to get away with installing GLEW and GLFW3 with Macports or Brew and follow the steps for Linux. If not then I may need to write some Objective-C shim. 
 
 #### Logos
-Artwork on this README are courtesy of [Kyle Labriola](http://www.kylelabriola.com/)
+Artwork on this README is courtesy of [Kyle Labriola](http://www.kylelabriola.com/)

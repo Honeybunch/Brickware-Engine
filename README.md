@@ -1,4 +1,6 @@
-# Brickware-Engine
+<img src="http://i.imgur.com/Qje9ZhI.png" alt="brickware_logo" style="height:50px;">
+<img src="http://i.imgur.com/83X6Kfn.png" alt="brickware_name" style="height:50px;">
+
 A Simple 3D engine in OpenGL+DirectX and C++ modeled off of Unity3D
 
 This is mostly for my own fulfillment and education but if you want to fork or dig through it feel free. 
@@ -56,3 +58,6 @@ Anyway here are the steps
 #### Mac OSX
 
 I do not have a good machine to test any Mac OSX port on. If you have the XCode command line tools installed (g++) you should be able to get away with installing GLEW and GLFW3 with Macports or Brew and follow the steps for Linux. If not then I may need to write some Objective-C shim. 
+
+#### Logos
+Artwork on this README are courtesy of [Kyle Labriola](http://www.kylelabriola.com/)

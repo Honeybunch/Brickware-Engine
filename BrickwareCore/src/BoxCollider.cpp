@@ -173,6 +173,18 @@ bool BoxCollider::isCollidingWithRay(Ray other, Vector3* pointOfCollision)
 	return false;
 }
 
+bool BoxCollider::isCollidingWithPoint(Vector3 point)
+{
+	//Rotate point into same space
+	point -= center;
+	point = getGameObject()->getTransform()->getRotationMatrix() * point;
+
+	//Now just compare to center and sizes
+	return	(point[0] > -halfSize[0]) && (point[0] < halfSize[0]) && 
+			(point[1] > -halfSize[1]) && (point[1] < halfSize[1]) &&
+			(point[2] > -halfSize[2]) && (point[2] < halfSize[2]);
+}
+
 //Mostly used by isCollidingWithRay
 bool BoxCollider::isRayIntersectingSlab(Math::Vector3 projectionAxis, Math::Vector3 rayDirection, Math::Vector3 localizedCenter, float* min, float* max)
 {

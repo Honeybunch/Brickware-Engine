@@ -42,6 +42,7 @@ namespace Brickware
 			bool isCollidingWithFrustum(FrustumCollider* other);
 			bool isCollidingWithBounds(Math::Bounds other);
 			bool isCollidingWithRay(Math::Ray other, Math::Vector3* pointOfCollision);
+			bool isCollidingWithPoint(Math::Vector3 point);
 
 			//Box specific methods
 			bool isRayIntersectingSlab(Math::Vector3 projectionAxis, Math::Vector3 rayDirection, Math::Vector3 localizedCenter, float* min, float* max);

@@ -57,7 +57,7 @@ namespace Brickware
 
 		private:
 			Transform* transform;
-			Body body;
+			Body* body;
 
 			bool detectCollisions;
 			bool isKinematic;

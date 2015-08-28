@@ -31,6 +31,7 @@ namespace Brickware
 			float getZ();
 			float getW();
 
+			float getMagnitude();
 			float* getAsArray();
 
 			void setX(float x);

@@ -43,6 +43,7 @@ Vector2::~Vector2()
 float Vector2::getX(){ return vector[0]; }
 float Vector2::getY(){ return vector[1]; }
 
+float Vector2::getMagnitude(){ return sqrt((vector[0] * vector[0]) + (vector[1] * vector[1])); }
 float* Vector2::getAsArray(){ return vector; }
 
 void Vector2::setX(float x){ vector[0] = x; }

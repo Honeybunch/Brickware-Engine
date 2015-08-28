@@ -20,31 +20,34 @@ Spring::Spring(Node* node1, Node* node2, float stiffness)
 	this->node1 = node1;
 	this->node2 = node2;
 
-	restingDistance = (node1->position - node2->position).getMagnitude();
+	node1RestPos = node1->restPosition;
+	node2RestPos = node2->restPosition; 
 
-	float invMass1 = 1 / node1->body.getMass();
-	float invMass2 = 1 / node2->body.getMass();
-
-	float invMassSum = invMass1 + invMass2;
-
-	node1StiffnessScalar = stiffness;
-	node2StiffnessScalar = stiffness;
+	this->stiffness = stiffness;
+	this->length = node1RestPos - node2RestPos;
 }
 
 void Spring::updateForces()
 {
-	Vector3 delta = node1->position - node2->position;
-	float mag = delta.getMagnitude();
-	float distance = (restingDistance - mag) / mag;
+	Vector3 node1Delta = node1->position - node1RestPos - length;
+	Vector3 node2Delta = node2->position - node2RestPos - length;
 
-	if (restingDistance != 0 && mag != 0 && distance != 0)
+	Vector3 springVector = node1->position - node2->position;
+	float magnitude = springVector.getMagnitude();
+	float springLength = length.getMagnitude();
+
+	if (magnitude != 0)
 	{
-		Vector3 force1 = delta * (distance * node1StiffnessScalar);
-		Vector3 force2 = delta * (-distance * node2StiffnessScalar);
+		Vector3 force = Vector3::Normalize(springVector) * (magnitude - springLength) * -0.92f;
+		Vector3 frictionForce = (node1->body.getVelocity() - node2->body.getVelocity()) * -0.8f;
+		force += frictionForce;
 
-		node1->body.addForce(force1);
+		Vector3 force2 = force * -1;
+
+		node1->body.addForce(force);
 		node2->body.addForce(force2);
 	}
+
 }
 
 Spring::~Spring(){}
@@ -60,6 +63,10 @@ Node::Node(Vector3 position)
 
 	pinned = false;
 }
+
+Body* Node::getBody(){ return &body; }
+Vector3 Node::getPosition(){ return position; }
+bool Node::getPinned(){ return pinned; }
 
 void Node::addNeighbor(Node* node)
 { 
@@ -87,8 +94,8 @@ void Node::addNeighbor(Node* node)
 
 Softbody::Softbody()
 {
-	this->mass = 1.0f;
-	this->stiffness = .999f;
+	this->mass = 10.0f;
+	this->stiffness = .92f;
 }
 
 Softbody::Softbody(float nodeMass, float stiffness)
@@ -108,8 +115,10 @@ void Softbody::Start()
 	vector<Vector3> vertices = mesh->getVerticies();
 	vector<Vector3> indices = mesh->getIndices();
 
+	float nodeMass = mass / vertices.size();
+
 	int vertCounter = 0;
-	for (unsigned int i = 0; i < indices.size() - 2; i++)
+	for (unsigned int i = 0; i < indices.size() - 2; i+=3)
 	{
 		int vert1Index = (int)indices[i][0];
 		int vert2Index = (int)indices[i + 1][0];
@@ -128,18 +137,21 @@ void Softbody::Start()
 		if (node1 == nullptr)
 		{
 			node1 = new Node(vert1);
+			node1->body.setMass(nodeMass);
 			nodes.push_back(node1);
 		}
 
 		if (node2 == nullptr)
 		{
 			node2 = new Node(vert2);
+			node2->body.setMass(nodeMass);
 			nodes.push_back(node2);
 		}
 
 		if (node3 == nullptr)
 		{
 			node3 = new Node(vert3);
+			node3->body.setMass(nodeMass);
 			nodes.push_back(node3);
 		}
 		
@@ -162,7 +174,7 @@ void Softbody::Start()
 	//DEBUG
 	//Pin some nodes
 	nodes[4]->pinned = true;
-	nodes[6]->pinned = true;
+	nodes[0]->pinned = true;
 
 	//Sort nodes into the same order as the verts
 	vector<Node*> orderedNodes;
@@ -231,16 +243,6 @@ void Softbody::addSpring(Spring* spring)
 void Softbody::FixedUpdate()
 {
 	float deltaTime = GameTime::GetFixedDeltaTime();
-
-	//DEBUG
-	if (Input::getKeyDown(KeyCode::e))
-	{
-		nodes[0]->body.addForce(Vector3(-3.0f, 3.0f, 0));
-	}
-	if (Input::getKeyDown(KeyCode::q))
-	{
-		nodes[3]->body.addForce(Vector3(3.0f, 3.0f, 0));
-	}
 
 	vector<Vector3> newVerts;
 

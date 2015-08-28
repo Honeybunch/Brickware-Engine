@@ -1,7 +1,0 @@
-C:/Users/arsen/Git/Brickware-Engine/Build/CMakeFiles/ALL_BUILD.dir
-C:/Users/arsen/Git/Brickware-Engine/Build/BrickwareCore/CMakeFiles/BrickwareCore.dir
-C:/Users/arsen/Git/Brickware-Engine/Build/BrickwareGraphics/CMakeFiles/BrickwareGraphics.dir
-C:/Users/arsen/Git/Brickware-Engine/Build/BrickwareMath/CMakeFiles/BrickwareMath.dir
-C:/Users/arsen/Git/Brickware-Engine/Build/BrickwareTest/CMakeFiles/BrickwareTest.dir
-C:/Users/arsen/Git/Brickware-Engine/Build/BrickwareUtils/CMakeFiles/BrickwareUtils.dir
-C:/Users/arsen/Git/Brickware-Engine/Build/CMakeFiles/ZERO_CHECK.dir

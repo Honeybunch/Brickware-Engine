@@ -15,7 +15,6 @@
 #include "BrickwareCore/Rigidbody.hpp"
 #include "BrickwareCore/GameObject.hpp"
 #include "BrickwareCore/Collider.hpp"
-#include "BrickwareCore/Softbody.hpp"
 
 #include "BrickwareGraphics/Primitive.hpp"
 
@@ -31,7 +30,6 @@ namespace Brickware
 		{
 			friend class Game;
 			friend class Rigidbody;
-			friend class Softbody;
 			friend class Collider;
 			friend class GameInputManager;
 
@@ -47,18 +45,15 @@ namespace Brickware
 			static bool IsCollisionActive(Collision* collision);
 
 			static void AddRigidbody(Rigidbody* rigidbody);
-			static void AddSoftbody(Softbody* softbody);
 			static void AddCollider(Collider* collider);
 
 			static void RemoveRigidbody(Rigidbody* rigidbody);
-			static void RemoveSoftbody(Softbody* softbody);
 			static void RemoveCollider(Collider* collider);
 
 			//Using unordered map for faster removals
 			static std::vector<Collision*> activeCollisions;
 			static std::vector<Collision*> lastFrameActiveCollisions;
 			static std::unordered_map<Rigidbody*, int> rigidbodies;
-			static std::unordered_map<Softbody*, int> softbodies;
 			static std::unordered_map<Collider*, int> colliders;
 
 			static Math::Vector3 gravity;

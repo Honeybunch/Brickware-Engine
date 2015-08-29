@@ -11,7 +11,6 @@ using namespace Graphics;
 std::vector<Collision*> PhysicsManager::activeCollisions;
 std::vector<Collision*> PhysicsManager::lastFrameActiveCollisions;
 std::unordered_map<Rigidbody*, int> PhysicsManager::rigidbodies;
-std::unordered_map<Softbody*, int> PhysicsManager::softbodies;
 std::unordered_map<Collider*, int> PhysicsManager::colliders;
 
 Vector3 PhysicsManager::gravity;
@@ -54,13 +53,6 @@ void PhysicsManager::Update()
 	{
 		Rigidbody* rigidbody = pair.first;
 		rigidbody->FixedUpdate();
-	}
-
-	//Update softbodies
-	for (std::pair<Softbody*, int> pair : softbodies)
-	{
-		Softbody* softbody = pair.first;
-		softbody->FixedUpdate();
 	}
 
 	//Detect collisions
@@ -263,117 +255,6 @@ void PhysicsManager::Update()
 		}
 	}
 
-	//MESSY
-	//Detect rigidbodies colliding with softbody nodes
-	for (auto it1 = colliders.begin(); it1 != colliders.end(); it1++)
-	{
-		Collider* test = it1->first;
-		Rigidbody* rigidbody = test->getGameObject()->getComponent<Rigidbody>();
-		if (rigidbody == nullptr)
-			continue;
-
-		for (auto it2 = softbodies.begin(); it2 != softbodies.end(); it2++)
-		{
-			Softbody* softbody = it2->first;
-			std::vector<Node*> nodes = softbody->nodes;
-
-			for (unsigned int i = 0; i < nodes.size(); i++)
-			{
-				Node* node = nodes[i];
-				Body* bodySoft = node->getBody();
-
-				if (test->isColliding(softbody->getGameObject()->getTransform()->getPosition() + node->getPosition()))
-				{
-					Body* bodyRigid = rigidbody->body;
-
-					//Reposition rigidbody's game objects back to where the collision happened so that it no longer intersects
-					Transform* rigidTransform = rigidbody->getGameObject()->getTransform();
-					Transform* softTransform = softbody->getGameObject()->getTransform();
-
-					//Get some Variables
-					bool    rigidIsKinematic = rigidbody->isKinematic;
-					float   rigidMass = bodyRigid->getMass();
-					Vector3 rigidVelocity = bodyRigid->getVelocity();
-					Vector3 rigidAngularVelocity = bodyRigid->getAngularVelocity();
-					Vector3 rigidCenterOfMass = bodyRigid->getCenterOfMass();
-					Matrix3 rigidRotationMatrix = softTransform->getRotation().getRotationMatrix();
-
-					bool    softIsKinematic =		!node->getPinned();
-					float   softMass =				bodySoft->getMass();
-					Vector3 softVelocity =			bodySoft->getVelocity();
-					Vector3 softAngularVelocity =	bodySoft->getAngularVelocity();
-					Vector3 softCenterOfMass =		bodySoft->getCenterOfMass();
-					Matrix3 softRotationMatrix =	softTransform->getRotation().getRotationMatrix();
-
-					Vector3 MTV = bodyRigid->getVelocity() * -1;
-					Vector3 normal = Vector3::Normalize(MTV);
-					MTV = normal / 10;
-
-					if (rigidIsKinematic)
-						rigidTransform->setPosition(rigidTransform->getPosition() + MTV);
-
-					Vector3 pointOfCollision = softTransform->getPosition() + node->getPosition();
-
-					//Get radii
-					Vector3 radius = pointOfCollision - (rigidTransform->getPosition() + rigidCenterOfMass);
-
-					//Determine the impulse based on Chris Hecker's formula
-					float e = 0.5f;
-					Vector3 relativeVelocity;
-
-					//Calculate the numerator of the impulse calculation
-					Vector3 totalVelocity1;
-					Vector3 totalVelocity2;
-
-					if (rigidIsKinematic)
-					{
-						totalVelocity1 = Vector3::Cross(rigidAngularVelocity, radius);
-						totalVelocity1 += rigidVelocity;
-					}
-
-					if (softIsKinematic)
-					{
-						totalVelocity2 += softVelocity;
-					}
-
-					relativeVelocity = totalVelocity1 - totalVelocity2;
-
-					float relativeNormalVelocity = Vector3::Dot(relativeVelocity, normal);
-					float numerator = (-1 - e) * relativeNormalVelocity;
-
-					//Calculate the denominator
-					Vector3 torque1 = Vector3::Cross(radius, MTV);
-
-					Vector3 velFromTorque;
-
-					if (rigidIsKinematic)
-					{
-						velFromTorque = bodyRigid->getInverseInertia() * torque1;
-						velFromTorque = Vector3::Cross(velFromTorque, radius);
-					}
-
-					float inverseMassSum = 0;
-					if (rigidIsKinematic)
-						inverseMassSum = bodyRigid->getInverseMass();
-					if (softIsKinematic)
-						inverseMassSum += bodySoft->getInverseMass();
-
-					float denominator = inverseMassSum + Vector3::Dot(velFromTorque, MTV);
-
-					//Finally calculate impulse
-					float impulse = numerator / denominator;
-					Vector3 impulseVec1 = normal * impulse;
-					Vector3 impulseVec2 = (normal * -1) * impulse;
-
- 					if (rigidIsKinematic)
-						bodyRigid->addImpulse(impulseVec1, radius);
-					if (softIsKinematic)
-						bodySoft->addImpulse(impulseVec2, Vector3());
-				}
-			}
-		}
-	}
-
 	//Any collisions that were active last frame that are not active now can be untracked
 	for (unsigned int i = 0; i < lastFrameActiveCollisions.size(); i++)
 	{
@@ -412,10 +293,6 @@ void PhysicsManager::AddRigidbody(Rigidbody* rigidbody)
 {
 	rigidbodies[rigidbody] = 0;
 }
-void PhysicsManager::AddSoftbody(Softbody* softbody)
-{
-	softbodies[softbody] = 0;
-}
 void PhysicsManager::AddCollider(Collider* collider)
 {
 	colliders[collider] = 0;
@@ -424,10 +301,6 @@ void PhysicsManager::AddCollider(Collider* collider)
 void PhysicsManager::RemoveRigidbody(Rigidbody* rigidbody)
 {
 	rigidbodies.erase(rigidbody);
-}
-void PhysicsManager::RemoveSoftbody(Softbody* softbody)
-{
-	softbodies.erase(softbody);
 }
 void PhysicsManager::RemoveCollider(Collider* collider)
 {

@@ -44,7 +44,7 @@ namespace Brickware
 		template class BRICKWARE_GRAPHICS_API std::map < std::string, int>;
 		template class BRICKWARE_GRAPHICS_API std::map < std::string, float >;
 		template class BRICKWARE_GRAPHICS_API std::map < std::string, double >;
-														
+								
 		template class BRICKWARE_GRAPHICS_API std::map < std::string, Math::Matrix3 > ;
 		template class BRICKWARE_GRAPHICS_API std::map < std::string, Math::Matrix4 > ;
 #endif

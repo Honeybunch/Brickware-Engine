@@ -58,20 +58,16 @@ target_link_libraries(BrickwareTest BrickwareCore)
 
 set_property(TARGET BrickwareTest PROPERTY FOLDER "lib")
 
-#Copy Assets
-add_custom_command(TARGET BrickwareTest POST_BUILD 
-					COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}\\Assets ${BUILD_DIR})
-#Copy OpenGL Shared Libs	
+#Copy OpenGL Shared Libs
 if(WIN32 AND GL_SUPPORT)
-	add_custom_command(TARGET BrickwareTest POST_BUILD 
-						COMMAND ${CMAKE_COMMAND} -E copy ${GLEW_LIB}\\glew32.dll ${BUILD_DIR})
-	add_custom_command(TARGET BrickwareTest POST_BUILD 
-						COMMAND ${CMAKE_COMMAND} -E copy ${GLFW_LIB}\\glfw3.dll ${BUILD_DIR})
+	add_custom_command(TARGET BrickwareTest POST_BUILD
+	COMMAND ${CMAKE_COMMAND} -E copy ${GLEW_LIB}/glew32.dll ${BUILD_DIR})
+	add_custom_command(TARGET BrickwareTest POST_BUILD
+	COMMAND ${CMAKE_COMMAND} -E copy ${GLFW_LIB}/glfw3.dll ${BUILD_DIR})
 endif(WIN32 AND GL_SUPPORT)
 
-#Copy compiled HLSL shaders
-if(D3D_SUPPORT)
-	
-endif(D3D_SUPPORT)
+#Copy Shaders
+add_custom_command(TARGET BrickwareTest POST_BUILD
+COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/Shaders ${BUILD_DIR}/Shaders)
 
 install(TARGETS BrickwareTest DESTINATION ${PROJECT_BINARY_DIR})

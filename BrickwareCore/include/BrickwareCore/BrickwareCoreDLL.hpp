@@ -4,13 +4,13 @@
 #ifdef _WIN32
 
 #ifdef BRICKWARE_CORE_EXPORTS
-#define BRICKWARE_CORE_API __declspec(dllexport)
+#	define BRICKWARE_CORE_API __declspec(dllexport)
 #else
-#define BRICKWARE_CORE_API __declspec(dllimport)
+#	define BRICKWARE_CORE_API __declspec(dllimport)
 #endif
 
 #else
-#define BRICKWARE_CORE_API
+#	define BRICKWARE_CORE_API
 #endif
 
 #endif

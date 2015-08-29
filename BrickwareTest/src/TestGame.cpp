@@ -153,7 +153,6 @@ bool TestGame::init()
 	GameObject* square = new GameObject();
 	square->getTransform()->setPosition(Vector3(0.0f, 2.5f, -5.0f));
 	square->addComponent(new MeshRenderer(squareMesh, squareMaterial));
-	square->addComponent(new Softbody());
 	GameObject* circle = new GameObject();
 	circle->getTransform()->setPosition(Vector3(3.0f, 1.0f, -5.0f));
 	circle->addComponent(new MeshRenderer(circleMesh, circleMaterial));

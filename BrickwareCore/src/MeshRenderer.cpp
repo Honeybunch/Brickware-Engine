@@ -1,7 +1,6 @@
 #define BRICKWARE_CORE_EXPORTS
 
 #include "BrickwareCore/MeshRenderer.hpp"
-#include "BrickwareCore/Softbody.hpp"
 #include "BrickwareCore/GameObject.hpp"
 
 using namespace Brickware;
@@ -29,9 +28,7 @@ Component* MeshRenderer::Clone()
 //Determine if there is any chance that we'll need to rebuffer the mesh
 void MeshRenderer::Start()
 {
-	GameObject* gameObject = getGameObject();
-	if (gameObject->getComponent<Softbody>() != nullptr)
-		mesh->setBufferHint(BufferHint::DYNAMIC_DRAW);
+
 }
 
 //Draw everything in the VBOs

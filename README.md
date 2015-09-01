@@ -29,26 +29,18 @@ The goal is to have as few dependencies as possible with this project. Right now
 I have recently removed the Assets folder from the repo as it was adding quite a large chunk of crap data to the repo's history. I suggest editing the `TestGame.cpp` file in the BrickwareTest project to load whatever assets you have available. I will keep the shaders available as it would be a pain to write those all out but any models or textures you will have to bring in yourself. If you want to make contributions but don't want to deal with all that I can share my assets with you on Google Drive.
 
 The structure for assets is as such:
-
+```
 TestBuild/
-
   BrickwareTest.exe
-  
-  Shaders/
-  
-    Shaders.glsl (or .cso if DX11)
-    
-  Textures/
-  
-    Textures.bmp (24bpp bmps only right now)
-    
-  Models/
-  
-    Models.obj (triangulated objs only)
-    
-  Data/
-  
-    Data.json
+Shaders/
+  Shaders.glsl (or .cso if DX11)
+Textures/
+  Textures.bmp (24bpp bmps only right now)
+Models/
+  Models.obj (triangulated objs only)
+Data/
+  Data.json
+```
 
 ### Building
 

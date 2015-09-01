@@ -74,7 +74,7 @@ namespace Brickware
 			 * @key The string to be this pair's key
 			 * @JSONValue The object to be mapped to the key
 			 */
-			inline JSONPair(char* key, JSONValue value)
+			inline JSONPair(const char* key, JSONValue value)
 			{
 				this->key = key;
 				this->value = value;
@@ -83,13 +83,13 @@ namespace Brickware
 			/* Returns the key of this pair.
 			 * @returns The key
 			 */
-			inline char* getKey(){ return key; }
+			inline const char* getKey(){ return key; }
 			/* Returns the value of this pair
 			 * @returns The value
 			 */
 			inline JSONValue getValue(){ return value; }
 		private:
-			char* key;
+			const char* key;
 			JSONValue value;
 		};
 
@@ -119,7 +119,7 @@ namespace Brickware
 				for(unsigned int i = 0; i < keyValuePairs.size(); i++)
 				{
 					JSONPair kvp = keyValuePairs[i];
-					char* kvpKey = kvp.getKey();
+					const char* kvpKey = kvp.getKey();
 					if (strcmp(kvpKey, key) == 0)
 					{
 						return (T)kvp.getValue();
@@ -312,7 +312,7 @@ namespace Brickware
 						else
 							memberString[memberLength] = '\0';
 
-						JSONPair member = parseMember(memberString);
+						JSONPair member = parseMember(std::string(memberString));
 
 						//If the key is never set then there was a problem
 						if (member.getKey() != "")
@@ -419,34 +419,17 @@ namespace Brickware
 
 				return elements;
 			}
-			inline static JSONPair parseMember(const char* string)
+			inline static JSONPair parseMember(std::string member)
 			{
-				int stringLength = strlen(string) + 1;
-				char* memberString = new char[stringLength];
-				memcpy(memberString, string, stringLength);
-				memberString[stringLength - 1] = '\0';
-
-				char* key;
-				JSONValue value;
-
 				//We can't parse the member just yet, we need to know its type
-				std::vector<std::string> split = StringUtils::splitOnce(memberString, ":");
-				if (split.size() == 2)
-				{
-					const char* memberKeyString = split[0].c_str();
-					const char* memberValueString = split[1].c_str();
+				std::size_t index = member.find(":");
 
-					int keyStringLen = strlen(memberKeyString);
+				std::string key = member.substr(0, index);
+				std::string valueString = member.substr(index + 1);
 
-					value = parseValue(memberValueString);
+				JSONValue value = parseValue(valueString.c_str());
 
-					key = new char[keyStringLen];
-					memcpy(key, memberKeyString, keyStringLen);
-					key[keyStringLen - 1] = '\0';
-				}
-
-				delete[] memberString;
-				return JSONPair(key, value);
+				return JSONPair(key.c_str(), value);
 			}
 		};
 	}

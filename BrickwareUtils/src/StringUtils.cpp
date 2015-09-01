@@ -38,40 +38,6 @@ vector<string> StringUtils::stringSplit(const char* toSplit, const char* delimit
 	return split;
 }
 
-//Returns a vector of two strings that have been split out of a string at a given delimiter
-vector<string> StringUtils::splitOnce(const char* toSplit, const char* delimiter)
-{
-	char* toSplitMod = new char[strlen(toSplit) + 1];
-	strcpy(toSplitMod, toSplit);
-	toSplitMod[strlen(toSplitMod)] = '\0';
-
-	char* firstHalf = strtok_single(toSplitMod, delimiter);
-	char* secondHalf = "";
-
-	vector<string> split;
-
-	if (firstHalf != nullptr)
-	{
-		int delimiterIndex = strlen(firstHalf);
-		int secondHalfLen = strlen(toSplit) - delimiterIndex;
-
-		secondHalf = new char[secondHalfLen];
-		memcpy(secondHalf, toSplit + delimiterIndex + 1, secondHalfLen);
-		secondHalf[secondHalfLen] = '\0';
-	}
-	else
-	{
-		firstHalf = "";
-	}
-
-	delete[] toSplitMod;
-
-	split.push_back(string(firstHalf));
-	split.push_back(string(secondHalf));
-
-	return split;
-}
-
 char* StringUtils::textFileRead(const char *fileName){
 
 	FILE *file;
@@ -151,7 +117,7 @@ const char* StringUtils::trimAllWhitespace(const char* string)
 	//Determine how many spaces there are in the string so we can build a proper string
 	for (unsigned int i = 0; i < originalStringSize; i++)
 	{
-		if (string[i] == ' ' || string[i] == '\n' || string[i] == '\t')
+		if (string[i] == ' ' || string[i] == '\n' || string[i] == '\t' || string[i] == '\r')
 			spaceCount++;
 	}
 

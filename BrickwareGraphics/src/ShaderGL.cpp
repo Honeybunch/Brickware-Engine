@@ -107,8 +107,6 @@ bool Shader::loadGLSL(std::string vertexShaderFileName, std::string pixelShaderF
 	//Delete unneeded strings
 	delete vertexShaderSource;
 	delete pixelShaderSource;
-	delete glslVertexFileName;
-	delete glslPixelFileName;
 
 	//Save program
 	shaderProgram = program;

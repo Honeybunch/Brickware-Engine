@@ -129,7 +129,7 @@ const char* StringUtils::trimAllWhitespace(const char* string)
 	int offset = 0;
 	for (unsigned int i = 0; i < originalStringSize; i++)
 	{
-		if (string[i] != ' ' && string[i] != '\n' && string[i] != '\t')
+		if (string[i] != ' ' && string[i] != '\n' && string[i] != '\t' && string[i] != '\r')
 			trimmedString[i - offset] = string[i];
 		else
 			offset++;

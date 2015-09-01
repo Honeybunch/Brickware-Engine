@@ -32,14 +32,14 @@ The structure for assets is as such:
 ```
 TestBuild/
   BrickwareTest.exe
-Shaders/
-  Shaders.glsl (or .cso if DX11)
-Textures/
-  Textures.bmp (24bpp bmps only right now)
-Models/
-  Models.obj (triangulated objs only)
-Data/
-  Data.json
+  Shaders/
+    Shaders.glsl (or .cso if DX11)
+  Textures/
+    Textures.bmp (24bpp bmps only right now)
+  Models/
+    Models.obj (triangulated objs only)
+  Data/
+    Data.json
 ```
 
 ### Building

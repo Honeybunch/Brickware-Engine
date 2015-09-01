@@ -63,7 +63,7 @@ vector<string> StringUtils::splitOnce(const char* toSplit, const char* delimiter
 	{
 		firstHalf = "";
 	}
-	
+
 	delete[] toSplitMod;
 
 	split.push_back(string(firstHalf));
@@ -89,7 +89,7 @@ char* StringUtils::textFileRead(const char *fileName){
 			count = ftell(file);
 			rewind(file);
 
-			if (count > 0) 
+			if (count > 0)
 			{
 				content = (char*)malloc(sizeof(char) * (count + 1));
 
@@ -127,13 +127,12 @@ int StringUtils::textFileWrite(const char *fileName, char *stringToWrite)
 	return(status);
 }
 
-char* StringUtils::trimToLastChar(char* string, char lastChar)
+std::string StringUtils::trimToLastChar(std::string string, char lastChar)
 {
-	unsigned int stringLength = strlen(string);
 	int lastIndex = 0;
 
 	//Get the index that we want to trim the string at
-	for (unsigned int i = 0; i < stringLength; i++)
+	for (unsigned int i = 0; i < string.length(); i++)
 	{
 		char indexedChar = string[i];
 		if (indexedChar == lastChar)
@@ -141,16 +140,7 @@ char* StringUtils::trimToLastChar(char* string, char lastChar)
 	}
 
 	//Return everything after that index
-	unsigned int returnedStringLength = stringLength - lastIndex;
-	char* toReturn = new char[returnedStringLength + 1];
-
-	//Manual copy
-	for (unsigned int i = 0; i < returnedStringLength; i++)
-		toReturn[i] = string[i + lastIndex + 1];
-
-	toReturn[returnedStringLength] = '\0';
-	
-	return toReturn;
+	return string.substr(0, lastIndex);
 }
 
 const char* StringUtils::trimAllWhitespace(const char* string)
@@ -200,7 +190,7 @@ void StringUtils::printShaderInfoLog(GLuint obj)
 		glGetShaderInfoLog(obj, infoLogLength, &charsWritten, infoLog);
 		infoLog[infoLogLength] = '\0';
 		cout << infoLog << endl;
-		
+
 		//delete[] infoLog;
 	}
 }
@@ -250,7 +240,7 @@ char* StringUtils::wideStringToString(WCHAR* wideString)
 	return string;
 }
 
-#endif 
+#endif
 
 /*
 	Private Functions
@@ -273,7 +263,7 @@ char* StringUtils::strtok_single(char* string, const char* delimeters)
 	if((p = strpbrk(src, delimeters)) != nullptr)
 	{
 		*p = 0;
-		
+
 		ret = new char[strlen(src) + 1];
 		strcpy(ret, src);
 		ret[strlen(src) + 1] = '\0';

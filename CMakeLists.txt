@@ -31,7 +31,7 @@ endif(D3D_SUPPORT)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-set(BUILD_DIR ${CMAKE_BINARY_DIR}\\TestBuild)
+set(BUILD_DIR ${CMAKE_BINARY_DIR}/TestBuild)
 
 add_subdirectory(BrickwareMath)
 add_subdirectory(BrickwareUtils)

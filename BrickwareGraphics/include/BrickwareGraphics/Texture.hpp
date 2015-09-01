@@ -34,14 +34,14 @@ namespace Brickware
 			friend class Material;
 
 		public:
-			Texture(char* textureFileName);
+			Texture(const char* textureFileName);
 
 			unsigned char* getPixels();
 
 			~Texture();
 
 		private:
-			void loadBMP(char* textureFileName);
+			void loadBMP(const char* textureFileName);
 
 			void bufferTexture();
 			void bindTexture();

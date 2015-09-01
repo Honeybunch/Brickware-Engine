@@ -10,11 +10,11 @@ using namespace Graphics;
 using namespace Utility;
 using namespace Math;
 
-Shader::Shader(char* vertexShaderFileName, char* pixelShaderFileName)
+Shader::Shader(std::string vertexShaderFileName, std::string pixelShaderFileName)
 {
 	//TODO: Strip existing file extension if any
-	char* trimmedVertexFileName = StringUtils::trimToLastChar(vertexShaderFileName, '/');
-	char* trimmedPixelFileName = StringUtils::trimToLastChar(pixelShaderFileName, '/');
+	std::string trimmedVertexFileName = StringUtils::trimToLastChar(vertexShaderFileName, '/');
+	std::string trimmedPixelFileName = StringUtils::trimToLastChar(pixelShaderFileName, '/');
 
 #ifdef D3D_SUPPORT
 	loadHLSL(trimmedVertexFileName, trimmedPixelFileName);

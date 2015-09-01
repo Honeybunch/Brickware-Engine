@@ -2,7 +2,7 @@
 #define MESH_H
 
 //Pre-Include Defines
-#define _CRT_SECURE_NO_WARNINGS 
+#define _CRT_SECURE_NO_WARNINGS
 
 //DLL Header
 #include "BrickwareGraphics/BrickwareGraphicsDLL.hpp"
@@ -46,7 +46,6 @@ namespace Brickware
 
 		#ifdef _WIN32
 		//Warning aversion
-
 		template class __declspec(dllexport) std::vector < Math::Vector3 >;
 		template class __declspec(dllexport) std::vector < Math::Vector2 >;
 		#endif
@@ -54,7 +53,7 @@ namespace Brickware
 		class BRICKWARE_GRAPHICS_API Mesh
 		{
 		public:
-			Mesh(char* modelFilePath);
+			Mesh(const char* modelFilePath);
 
 			std::vector<Math::Vector3> getVerticies();
 			std::vector<Math::Vector3> getNormals();
@@ -68,7 +67,7 @@ namespace Brickware
 			int getIndexSize();
 			int getNumberOfVerts();
 			int getTexCoordSize();
-			
+
 			void setBufferHint(BufferHint hint);
 
 			void setVertices(std::vector<Math::Vector3> newVerts);
@@ -97,7 +96,7 @@ namespace Brickware
 			~Mesh();
 
 		private:
-			void loadOBJ(char* fileName);
+			void loadOBJ(const char* fileName);
 
 			std::vector<Math::Vector3> modelVerts;
 			std::vector<Math::Vector3> modelNormals;
@@ -115,7 +114,7 @@ namespace Brickware
 			unsigned int numberOfVerts;
 
 			unsigned int pointSize;
-			unsigned int normalSize;			
+			unsigned int normalSize;
 			unsigned int texCoordSize;
 
 			unsigned int indexSize;

@@ -6,7 +6,7 @@ using namespace Brickware;
 using namespace Graphics;
 using namespace Utility;
 
-Texture::Texture(char* textureFileName)
+Texture::Texture(const char* textureFileName)
 {
 	//TODO: check file name once we support multiple file namess
 	loadBMP(textureFileName);
@@ -43,7 +43,7 @@ void Texture::freeTexture()
 
 unsigned char* Texture::getPixels(){ return pixels; }
 
-void Texture::loadBMP(char* textureFileName)
+void Texture::loadBMP(const char* textureFileName)
 {
 	char* bmpBytes = StringUtils::textFileRead(textureFileName);
 

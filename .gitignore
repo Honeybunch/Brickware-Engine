@@ -1,8 +1,10 @@
+# Build directories
+[Bb]uild/
+
 # Compiled Object files
 *.slo
 *.lo
 *.o
-
 
 # Precompiled Headers
 *.gch

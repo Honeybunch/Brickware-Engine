@@ -2,7 +2,7 @@
 #define SETTINGS_H
 
 //If we're not on windows, we can't use DirectX
-#ifndef _WIN32
+#if !defined(_WIN32) && !defined(GL_SUPPORT)
 #define GL_SUPPORT
 #undef D3D_SUPPORT
 #else

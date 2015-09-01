@@ -24,12 +24,12 @@ using namespace std;
 namespace Brickware
 {
 	namespace Utility
-	{		
+	{
 		class JSONObject;
 
 		/* A union of types that represents a possible value in JSON
 		 *
-		 * This union solves the problem of 
+		 * This union solves the problem of
 		 *  "How do we store data in a template if we don't know its type"
 		 *  without using a void* and the possiblity of the user causing a crash
 		 *  when retrieving data.
@@ -61,7 +61,7 @@ namespace Brickware
 		/* A class that represents a basic key value pair in JSON
 		 *
 		 * This is mostly a  container class to store data similar to std::pair.
-		 * However in the JSON spec data will always be paired 
+		 * However in the JSON spec data will always be paired
 		 *  with a string as the key so there's no need for templating
 		 */
 		class JSONPair
@@ -108,13 +108,13 @@ namespace Brickware
 			/* Get a value out of the object.
 			 * @key The string that maps to the value we want to get.
 			 *
-			 * The given typename will be the type that the resulting data 
+			 * The given typename will be the type that the resulting data
 			 * will be attempted to be mapped to.
 			 *
 			 * @return The value at the given key if it exists,
 			 *         0 if it doesn't exist.
 			 */
-			template <typename T> T getValue(char* key)
+			template <typename T> T getValue(const char* key)
 			{
 				for(unsigned int i = 0; i < keyValuePairs.size(); i++)
 				{
@@ -274,8 +274,8 @@ namespace Brickware
 								break;
 							}
 
-							m = string[startIndex + memberLength];							
-							
+							m = string[startIndex + memberLength];
+
 							if (m == '}' && nestedObjects == 0)
 								break;
 
@@ -300,7 +300,7 @@ namespace Brickware
 							index++;
 							continue;
 						}
-				
+
 						char* memberString = new char[memberLength + 1];
 						memcpy(memberString, string + startIndex, memberLength);
 
@@ -319,7 +319,7 @@ namespace Brickware
 							object->addPair(member);
 						else
 							std::cout << "Error parsing member in object" << std::endl;
-						
+
 						delete[] memberString;
 
 						index += (memberLength - 1);
@@ -426,7 +426,7 @@ namespace Brickware
 				memcpy(memberString, string, stringLength);
 				memberString[stringLength - 1] = '\0';
 
-				char* key = "";
+				char* key;
 				JSONValue value;
 
 				//We can't parse the member just yet, we need to know its type
@@ -444,7 +444,7 @@ namespace Brickware
 					memcpy(key, memberKeyString, keyStringLen);
 					key[keyStringLen - 1] = '\0';
 				}
-			
+
 				delete[] memberString;
 				return JSONPair(key, value);
 			}

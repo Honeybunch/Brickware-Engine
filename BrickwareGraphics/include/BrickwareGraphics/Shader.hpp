@@ -67,7 +67,7 @@ namespace Brickware
 			friend class PrimitiveManager;
 
 		public:
-			Shader(char* vertexShaderFileName, char* pixelShaderFileName);
+			Shader(std::string vertexShaderFileName, std::string pixelShaderFileName);
 
 			void bindShader();
 			void freeShader();
@@ -96,7 +96,7 @@ namespace Brickware
 			void bindGLSL();
 			void freeGLSL();
 
-			bool loadGLSL(char* vertexShaderFileName, char* pixelShaderFileName);
+			bool loadGLSL(std::string vertexShaderFileName, std::string pixelShaderFileName);
 
 			void setVector4GL(const char* valueName, Math::Vector4 value);
 			void setVector3GL(const char* valueName, Math::Vector3 value);

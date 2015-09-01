@@ -1,3 +1,4 @@
+
 #define BRICKWARE_GRAPHICS_EXPORTS
 
 #include "BrickwareGraphics/Mesh.hpp"
@@ -8,7 +9,7 @@ using namespace Graphics;
 using namespace Utility;
 using namespace Math;
 
-Mesh::Mesh(char* modelFileName)
+Mesh::Mesh(const char* modelFileName)
 {
 	points = nullptr;
 	normals = nullptr;
@@ -163,7 +164,7 @@ ID3D11Buffer* Mesh::getIndexBuffer(){ return indexBuffer; }
 //Private functions
 
 //Load a shape from an OBJ
-void Mesh::loadOBJ(char* fileName)
+void Mesh::loadOBJ(const char* fileName)
 {
 	ifstream objFile(fileName, ios::in);
 

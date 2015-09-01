@@ -1,4 +1,4 @@
-#version 430
+#version 130
 
 //Light Data
 const int maxLights = 4;

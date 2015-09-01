@@ -43,11 +43,11 @@ namespace Brickware
 			/* Splits a string into a series of strings by a delimiter.
 			 * @toSplit The string to split.
 			 * @delimiter The string that acts as a delimiter to split the other string by.
-			 * 
+			 *
 			 * @returns A std::vector of std::strings (not c-strings because they won't be able to be freed on windows).
 			 */
 			static std::vector<std::string> stringSplit(const char* toSplit, const char* delimiter);
-			
+
 			/* Splits a string into two strings by a delimiter.
 			 * @toSplit The string to split.
 			 * @delimiter The string that acts as a delimiter to split the other string by.
@@ -59,7 +59,7 @@ namespace Brickware
 			/* Reads a file into a c-styled string.
 			 * @filename The file name to read from Ex. "Data/mytext.txt".
 			 *
-			 * @returns The contents of the file if successful, 
+			 * @returns The contents of the file if successful,
 			 *          nullptr if there was an error reading
 			 */
 			static char* textFileRead(const char* fileName);
@@ -67,8 +67,8 @@ namespace Brickware
 			/* Writes a string into a file.
 			 * @filename The name of the file to create and or write into.
 			 * @contents The data to fill the file with.
-			 * 
-			 * @returns 1 if sucessful, 
+			 *
+			 * @returns 1 if sucessful,
 			 *          0 if there was an error.
 			 */
 			static int textFileWrite(const char* fileName, char* contents);
@@ -76,15 +76,15 @@ namespace Brickware
 			/* Trims the string down to the last instance of a character.
 			 * @string The string to trim down.
 			 * @lastChar The character that you want to trim to.
-			 * 
+			 *
 			 * Super useful if you need to trim off everything after the last '/'
 			 * in a file path or a file extension from a file name.
 			 *
-			 * @returns A properly trimmed string if the character was found, 
+			 * @returns A properly trimmed string if the character was found,
 			 *          the original string if the character was not found.
 			 */
-			static char* trimToLastChar(char* string, char lastChar);
-			
+			static std::string trimToLastChar(std::string s, char lastChar);
+
 			/* Trims all whitespace out of a string.
 			 * @string The string that you want to remove whitespace from
 			 * @returns The trimmed string
@@ -94,7 +94,7 @@ namespace Brickware
 #ifdef GL_SUPPORT
 			/* Prints the shader info log *GL_SUPPORT ONLY*
 			 * @obj the int that points to the shader on the GPU
-			 * 
+			 *
 			 * Used mostly for when GLSL Shaders are compiled
 			 */
 			static void printShaderInfoLog(GLuint obj);
@@ -106,8 +106,8 @@ namespace Brickware
 			*/
 			static void printProgramInfoLog(GLuint obj);
 #endif
-		
-#ifdef _WIN32	
+
+#ifdef _WIN32
 			/* Converts a c-string to a windows wide-string *WINDOWS ONLY*
 			 * @string The c-styled string to convert.
 			 */

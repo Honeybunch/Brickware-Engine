@@ -20,24 +20,20 @@ void Shader::freeGLSL()
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-bool Shader::loadGLSL(char* vertexShaderFileName, char* pixelShaderFileName)
+bool Shader::loadGLSL(std::string vertexShaderFileName, std::string pixelShaderFileName)
 {
 	//Assume strings have no file extension
 
 	//+5 for .glsl +1 for null terminator
-	char* glslVertexFileName = new char[strlen(vertexShaderFileName) + 6];
-	strcpy(glslVertexFileName, vertexShaderFileName);
-	strcat(glslVertexFileName, ".glsl");
+	const char* glslVertexFileName = vertexShaderFileName.append(".glsl").c_str();
 
-	char* glslPixelFileName = new char[strlen(pixelShaderFileName) + 6];
-	strcpy(glslPixelFileName, pixelShaderFileName);
-	strcat(glslPixelFileName, ".glsl");
+	const char* glslPixelFileName = pixelShaderFileName.append(".glsl").c_str();
 
 	// Read in shader source
 	char* vertexShaderSource;
 	char* pixelShaderSource;
 
-	// Create the shader 
+	// Create the shader
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	GLuint pixelShader = glCreateShader(GL_FRAGMENT_SHADER);
 
@@ -99,9 +95,11 @@ bool Shader::loadGLSL(char* vertexShaderFileName, char* pixelShaderFileName)
 		name[nameLength] = 0;
 
 		if (type == GL_SAMPLER_2D)
-			textureMap[name] = nullptr;
+			textureMap[std::string(name)] = nullptr;
 		else
-			uniformMap[name] = i;
+			uniformMap[std::string(name)] = i;
+
+		delete[] name;
 	}
 
 	glUseProgram(0);

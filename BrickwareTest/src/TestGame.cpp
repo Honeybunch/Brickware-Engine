@@ -71,7 +71,7 @@ bool TestGame::init()
 	Texture* castleTexture = new Texture("Textures/castleAOTexture.bmp");
 	Texture* grassTexture = new Texture("Textures/grassTexture.bmp");
 	Texture* stoneTexture = new Texture("Textures/stoneTexture.bmp");
-	
+
 	//Setup materials
 	Material* castleMaterial = new Material(shader);
 	castleMaterial->setTexture("diffuseTexture", castleTexture);
@@ -97,7 +97,7 @@ bool TestGame::init()
 	Mesh* squareMesh = new Mesh("Models/cloth.obj");
 	Mesh* circleMesh = new Mesh("Models/circle.obj");
 	Mesh* triangleMesh = new Mesh("Models/triangle.obj");
-	
+
 	//Create Lights
 	GameObject* light1 = new GameObject();
 	PointLight* light1Comp = new PointLight();
@@ -171,7 +171,7 @@ bool TestGame::init()
 	rigidbody->setUseGravity(false);
 	rigidbody->setMass(1.0f);
 	nonSpinBox->addComponent(rigidbody);
-	nonSpinBox->addComponent(new MeshRenderer(cubeMesh, cubeMaterial));	
+	nonSpinBox->addComponent(new MeshRenderer(cubeMesh, cubeMaterial));
 	nonSpinBox->addComponent(new BoxCollider());
 	nonSpinBox->getTransform()->setPosition(Vector3(0, .5f, 2.0f));
 	nonSpinBox->getTransform()->setScale(Vector3(1.0f, 1.0f, 1.0f));

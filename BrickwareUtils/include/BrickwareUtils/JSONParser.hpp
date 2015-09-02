@@ -74,7 +74,7 @@ namespace Brickware
 			 * @key The string to be this pair's key
 			 * @JSONValue The object to be mapped to the key
 			 */
-			inline JSONPair(const char* key, JSONValue value)
+			inline JSONPair(std::string key, JSONValue value)
 			{
 				this->key = key;
 				this->value = value;
@@ -83,13 +83,13 @@ namespace Brickware
 			/* Returns the key of this pair.
 			 * @returns The key
 			 */
-			inline const char* getKey(){ return key; }
+			inline std::string getKey(){ return key; }
 			/* Returns the value of this pair
 			 * @returns The value
 			 */
 			inline JSONValue getValue(){ return value; }
 		private:
-			const char* key;
+			std::string key;
 			JSONValue value;
 		};
 
@@ -119,8 +119,8 @@ namespace Brickware
 				for(unsigned int i = 0; i < keyValuePairs.size(); i++)
 				{
 					JSONPair kvp = keyValuePairs[i];
-					const char* kvpKey = kvp.getKey();
-					if (strcmp(kvpKey, key) == 0)
+					std::string kvpKey = kvp.getKey();
+					if (strcmp(kvpKey.c_str(), key) == 0)
 					{
 						return (T)kvp.getValue();
 					}
@@ -424,12 +424,12 @@ namespace Brickware
 				//We can't parse the member just yet, we need to know its type
 				std::size_t index = member.find(":");
 
-				std::string key = member.substr(0, index);
+				std::string key = member.substr(0, index - 1);
 				std::string valueString = member.substr(index + 1);
 
 				JSONValue value = parseValue(valueString.c_str());
 
-				return JSONPair(key.c_str(), value);
+				return JSONPair(key, value);
 			}
 		};
 	}

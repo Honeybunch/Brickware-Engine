@@ -339,12 +339,11 @@ namespace Brickware
 				std::vector<JSONValue>* elements = new std::vector<JSONValue>();
 
 				//Trim the brackets from the array string
-				char* trimmedString = new char[strlen(string) - 1];
-				memcpy(trimmedString, string + 1, strlen(string));
-				trimmedString[strlen(trimmedString) - 1] = '\0';
+				std::string trimmedString = std::string(string);
+				trimmedString = trimmedString.substr(1,trimmedString.length() - 2);
 
 				//Split
-				int stringLength = strlen(trimmedString);
+				int stringLength = trimmedString.size();
 				int index = 0;
 
 				char m = trimmedString[0];
@@ -392,25 +391,22 @@ namespace Brickware
 						continue;
 					}
 
-					char* valueString = new char[valueLength + 1];
-					memcpy(valueString, trimmedString + index, valueLength);
+					std::string valueString = trimmedString.substr(index, valueLength);
 
 					//We MAY want to trim off the last character
 					if (valueString[valueLength - 1] == ','
-						|| (!strstr(valueString, "{") && valueString[valueLength - 1] == '}'))
+						|| (valueString.find("{") == std::string::npos) && valueString[valueLength - 1] == '}')
 						valueString[valueLength - 1] = '\0';
 					//Regardless the string needs a null terminator
 					else
 						valueString[valueLength] = '\0';
 
 					/*Actually put the parsed value object into the array*/
-					elements->push_back(parseValue(valueString));
+					elements->push_back(parseValue(valueString.c_str()));
 
 					//If we've read past our string length we can just break
 					if (valueLength >= stringLength)
 						parsing = false;
-
-					delete[] valueString;
 
 					index += valueLength;
 

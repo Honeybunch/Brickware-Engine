@@ -713,7 +713,7 @@ void Game::onResize()
 	// Create the depth/stencil buffer and corresponding view
 	HR(device->CreateTexture2D(&depthStencilDesc, 0, &depthStencilBuffer));
 	HR(device->CreateDepthStencilView(depthStencilBuffer, 0, &depthStencilView));
-
+	
 	//Create rasterizer state
 	HR(device->CreateRasterizerState(&rasterDesc, &rasterState));
 

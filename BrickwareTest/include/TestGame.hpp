@@ -2,7 +2,7 @@
 #define TESTGAME_H
 
 #include "BrickwareCore/Game.hpp"
-
+#include "BrickwareGraphics/RendererInfo.hpp"
 #include "BrickwareUtils/JSONParser.hpp"
 
 #include <iostream>

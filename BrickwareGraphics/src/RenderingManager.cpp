@@ -13,6 +13,8 @@ std::vector<Light*> RenderingManager::lights;
 #ifdef D3D_SUPPORT
 ID3D11Device* RenderingManager::device;
 ID3D11DeviceContext* RenderingManager::deviceContext;
+IDXGIDevice* RenderingManager::dxgiDevice;
+IDXGIAdapter* RenderingManager::dxgiAdapter;
 #endif
 
 void RenderingManager::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext)
@@ -20,6 +22,9 @@ void RenderingManager::Initialize(ID3D11Device* device, ID3D11DeviceContext* dev
 #ifdef D3D_SUPPORT
 	RenderingManager::device = device;
 	RenderingManager::deviceContext = deviceContext;
+	
+	RenderingManager::device->QueryInterface(__uuidof(IDXGIDevice), (void**)&dxgiDevice);
+	RenderingManager::dxgiDevice->GetAdapter(&dxgiAdapter);
 #endif
 }
 

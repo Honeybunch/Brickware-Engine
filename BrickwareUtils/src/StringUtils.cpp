@@ -155,7 +155,8 @@ void StringUtils::printShaderInfoLog(GLuint obj)
 		infoLog = new char(infoLogLength);
 		glGetShaderInfoLog(obj, infoLogLength, &charsWritten, infoLog);
 		infoLog[infoLogLength] = '\0';
-		cout << infoLog << endl;
+		if (infoLogLength > 1)
+			cout << infoLog << endl;
 
 		//delete[] infoLog;
 	}
@@ -163,18 +164,19 @@ void StringUtils::printShaderInfoLog(GLuint obj)
 
 void StringUtils::printProgramInfoLog(GLuint obj)
 {
-	GLint infologLength = 0;
+	GLint infoLogLength = 0;
 	GLsizei charsWritten = 0;
 	char *infoLog;
 
-	glGetProgramiv(obj, GL_INFO_LOG_LENGTH, &infologLength);
+	glGetProgramiv(obj, GL_INFO_LOG_LENGTH, &infoLogLength);
 
-	if (infologLength > 0)
+	if (infoLogLength > 0)
 	{
-		infoLog = new char(infologLength + 1);
-		glGetProgramInfoLog(obj, infologLength, &charsWritten, infoLog);
-		infoLog[infologLength] = '\0';
-		cout << infoLog << endl;
+		infoLog = new char(infoLogLength + 1);
+		glGetProgramInfoLog(obj, infoLogLength, &charsWritten, infoLog);
+		infoLog[infoLogLength] = '\0';
+		if (infoLogLength > 1)
+			cout << infoLog << endl;
 
 		//delete[] infoLog;
 	}
@@ -184,7 +186,7 @@ void StringUtils::printProgramInfoLog(GLuint obj)
 
 #ifdef _WIN32
 
-WCHAR* StringUtils::stringToWideString(char* string)
+WCHAR* StringUtils::stringToWideString(const char* string)
 {
 	int stringSize = strlen(string) + 1;
 

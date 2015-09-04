@@ -23,16 +23,12 @@ void Shader::bindHLSL()
 }
 void Shader::freeHLSL(){}
 
-bool Shader::loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName)
+bool Shader::loadHLSL(std::string vertexShaderFileName, std::string pixelShaderFileName)
 {
 	//Assume strings have no file extension
-	char* hlslVertexFileName = new char[strlen(vertexShaderFileName) + 5];
-	strcpy(hlslVertexFileName, vertexShaderFileName);
-	strcat(hlslVertexFileName, ".cso");
+	const char* hlslVertexFileName = vertexShaderFileName.append(".cso").c_str();
 
-	char* hlslPixelFileName = new char[strlen(pixelShaderFileName) + 5];
-	strcpy(hlslPixelFileName, pixelShaderFileName);
-	strcat(hlslPixelFileName, ".cso");
+	const char* hlslPixelFileName = pixelShaderFileName.append(".cso").c_str();
 
 	//Convert to wide strings because DirectX asked nicely
 	WCHAR* hlslVertexWideString = StringUtils::stringToWideString(hlslVertexFileName);

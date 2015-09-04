@@ -17,6 +17,17 @@ bool TestGame::init()
 	if (!good)
 		return false;
 
+	//Test Renderer Info
+	std::cout << "API Version: " << RendererInfo::GetAPIVersion() << std::endl;
+	std::cout << "Card Vendor: " << RendererInfo::GetVendor() << std::endl;
+	std::cout << "Renderer: " << RendererInfo::GetRenderer() << std::endl;
+	std::cout << "Shading Language Version: " << RendererInfo::GetShadingLanguageVersion() << std::endl;
+	std::vector<std::string> SupportedShadingLanguageVersions = RendererInfo::GetAllSupportedShadingLanguageVersions();
+	std::cout << "All Supported Shading Language Versions: " << std::endl;
+	for (unsigned int i = 0; i < SupportedShadingLanguageVersions.size(); i++)
+		std::cout << "\t" << SupportedShadingLanguageVersions[i] << std::endl;
+
+
 	//Test JSON loading
 	JSONObject* object = JSONParser::DecodeJSONFromFile("Data/test.json");
 

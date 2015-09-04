@@ -130,7 +130,7 @@ namespace Brickware
 			void bindHLSL();
 			void freeHLSL();
 
-			bool loadHLSL(char* vertexShaderFileName, char* pixelShaderFileName);
+			bool loadHLSL(std::string vertexShaderFileName, std::string pixelShaderFileName);
 
 			void setVector4D3D(const char* valueName, Math::Vector4 value);
 			void setVector3D3D(const char* valueName, Math::Vector3 value);

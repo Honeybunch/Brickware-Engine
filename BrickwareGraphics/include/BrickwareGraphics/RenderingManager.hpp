@@ -39,6 +39,7 @@ namespace Brickware
 			friend class Mesh;
 			friend class Light;
 			friend class Texture;
+			friend class RendererInfo;
 
 		public:
 			static void AddLight(Light* light);
@@ -57,6 +58,8 @@ namespace Brickware
 #ifdef D3D_SUPPORT
 			static ID3D11Device* device;
 			static ID3D11DeviceContext* deviceContext;
+			static IDXGIDevice* dxgiDevice;
+			static IDXGIAdapter* dxgiAdapter;
 
 			static void RenderD3D(Renderable renderable);
 #endif

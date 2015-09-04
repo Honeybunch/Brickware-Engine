@@ -111,7 +111,7 @@ namespace Brickware
 			/* Converts a c-string to a windows wide-string *WINDOWS ONLY*
 			 * @string The c-styled string to convert.
 			 */
-			static WCHAR* stringToWideString(char* string);
+			static WCHAR* stringToWideString(const char* string);
 
 			/* Converts a windows wide-string to a c-string *WINDOWS ONLY*
 			 * @wideString The windows wide-string to convert to a c-styled string

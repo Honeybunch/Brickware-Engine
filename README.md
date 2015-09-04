@@ -74,9 +74,9 @@ Anyway here are the steps to build
  * Clone down the repo somewhere
  * Make sure you've installed GLEW, GLFW3, CMake and Mesa or your proprietary driver.
  * In the repo create a Build directory
- * cd into Build and run cmake : `cmake ../ -DBUILD_TEST=true -DGL_SUPPORT=true -G "Unix Makefiles"`
+ * cd into Build and run cmake : `cmake ../`
  * CMake should generate the project just fine
- * Run `make` (and cross fingers a bit)
+ * Run `make`
  * cd into TestBuild
  * Make sure all assets are copied into their proper directories
  * In TestBuild you should be able to execute the test with `.\BrickwareTest`

@@ -3,6 +3,9 @@ cmake_minimum_required (VERSION 2.6)
 project(Brickware-Engine)
 
 set(BUILD_TEST TRUE CACHE BOOL "Build the Test project")
+
+set(RENDERER "OpenGL" CACHE STRING "Use the OpenGL renderer by default")
+
 set(GL_SUPPORT TRUE CACHE BOOL "Build with OpenGL")
 set(D3D_SUPPORT FALSE CACHE BOOL "Build with Direct X 11")
 

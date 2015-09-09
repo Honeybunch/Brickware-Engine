@@ -205,7 +205,6 @@ void Game::render()
 
 	renderScene(); //Will be overridden 
 
-
 	Graphics::RenderingManager::Render();
 
 #ifdef D3D_SUPPORT

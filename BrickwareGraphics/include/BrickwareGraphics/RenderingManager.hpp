@@ -10,6 +10,7 @@
 #include "BrickwareGraphics/Mesh.hpp"
 #include "BrickwareGraphics/Light.hpp"
 #include "BrickwareGraphics/GraphicsSettings.hpp"
+#include "BrickwareGraphics/RendererInfo.hpp"
 
 namespace Brickware
 {
@@ -47,13 +48,13 @@ namespace Brickware
 			static void DrawMesh(Mesh* mesh);
 
 			static void Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext);
-			static void Render();
+			static void (*Render)();
 			static void Destroy();
 
 		private:
 
 #ifdef GL_SUPPORT
-			static void RenderGL(Renderable renderable);
+			static void RenderGL();
 #endif
 #ifdef D3D_SUPPORT
 			static ID3D11Device* device;
@@ -61,7 +62,7 @@ namespace Brickware
 			static IDXGIDevice* dxgiDevice;
 			static IDXGIAdapter* dxgiAdapter;
 
-			static void RenderD3D(Renderable renderable);
+			static void RenderD3D();
 #endif
 			static Material* currentMaterial;
 			static std::vector <Renderable> renderables;

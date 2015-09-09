@@ -1,6 +1,8 @@
 #ifndef GRAPHICS_SETTINGS_H
 #define GRAPHICS_SETTINGS_H
 
+#include "BrickwareGraphics/BrickwareGraphicsDLL.hpp"
+
 		//Special GL Macros
 #ifdef GL_SUPPORT
 #define BUFFER_OFFSET(i) ((char *)nullptr + (i))
@@ -46,7 +48,39 @@ namespace Brickware
 {
 	namespace Graphics
 	{
+		enum BRICKWARE_GRAPHICS_API RenderingAPI{
+			DirectX, 
+			OpenGL,
+			OpenGLES,
+			WebGL,
+			Vulcan
+		};
 
+		enum BRICKWARE_GRAPHICS_API AntiAliasing
+		{
+			MSAAx2,
+			MSAAx4,
+			MSAAx8
+		};
+
+		enum BRICKWARE_GRAPHICS_API TextureFiltering
+		{
+			Bilinear,
+			Trilinear,
+			Anisotropicx2,
+			Anisotropicx4,
+			Anisotropicx8,
+			Anisotropicx16
+		};
+
+		class BRICKWARE_GRAPHICS_API GraphicsSettings
+		{
+		public:
+			static RenderingAPI Renderer;
+			static bool VSync;
+			static AntiAliasing AntiAliasing;
+			static TextureFiltering TextureFiltering;
+		};
 	}
 }
 #endif

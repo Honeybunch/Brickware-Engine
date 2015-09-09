@@ -86,6 +86,9 @@ namespace Brickware
 			~Shader();
 
 		private:
+			void(Shader::*bindShaderPtr)();
+			void(Shader::*freeShaderPtr)();
+
 			std::map<std::string, Texture*> textureMap;
 
 #ifdef GL_SUPPORT

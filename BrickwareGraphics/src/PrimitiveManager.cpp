@@ -68,7 +68,6 @@ void PrimitiveManager::DrawPrimitives(Math::Matrix4 viewMatrix, Math::Matrix4 pr
 		DrawPrimitiveGL(p);
 #endif
 	}
-
 	shader->freeShader();
 }
 

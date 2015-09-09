@@ -3,6 +3,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "BrickwareGraphics/Shader.hpp"
+#include "BrickwareGraphics/RendererInfo.hpp"
+
 #include "BrickwareUtils/StringUtils.hpp"
 
 using namespace Brickware;
@@ -16,6 +18,28 @@ Shader::Shader(std::string vertexShaderFileName, std::string pixelShaderFileName
 	std::string trimmedVertexFileName = StringUtils::trimToLastChar(vertexShaderFileName, '/');
 	std::string trimmedPixelFileName = StringUtils::trimToLastChar(pixelShaderFileName, '/');
 
+	RenderingAPI renderer = GraphicsSettings::Renderer;
+
+	//Setup function pointers based on rendering API
+	if (renderer = RenderingAPI::OpenGL)
+	{
+		if (RendererInfo::GetAPIMajorVersion() >= 3)
+		{
+			bindShaderPtr = &Shader::bindGLSL;
+			freeShaderPtr = &Shader::freeGLSL;
+		}
+	}
+	else if (renderer = RenderingAPI::DirectX)
+	{
+		if (RendererInfo::GetAPIMajorVersion() == 11)
+		{
+#ifdef D3D_SUPPORT
+			bindShaderPtr = &Shader::bindHLSL;
+			freeShaderPtr = &Shader::freeHLSL;
+#endif
+		}
+	}
+
 #ifdef D3D_SUPPORT
 	loadHLSL(trimmedVertexFileName, trimmedPixelFileName);
 #else
@@ -25,20 +49,12 @@ Shader::Shader(std::string vertexShaderFileName, std::string pixelShaderFileName
 
 void Shader::bindShader()
 {
-#ifdef D3D_SUPPORT
-	bindHLSL();
-#else
-	bindGLSL();
-#endif
+	(this->*bindShaderPtr)();
 }
 
 void Shader::freeShader()
 {
-#ifdef D3D_SUPPORT
-	freeHLSL();
-#else
-	freeGLSL();
-#endif
+	(this->*freeShaderPtr)();
 }
 
 void Shader::setGlobalVector4(const char* valueName, Vector4 value)

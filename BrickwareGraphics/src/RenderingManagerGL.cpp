@@ -8,35 +8,63 @@
 using namespace Brickware;
 using namespace Graphics;
 
-void RenderingManager::RenderGL(Renderable renderable)
+void RenderingManager::RenderGL()
 {
-	Mesh* mesh = renderable.mesh;
-	Material* material = renderable.material;
+	Shader* activeShader = nullptr;
 
-	material->sendDataToGPU();
+	//Render every renderable object
+	for (unsigned int i = 0; i < renderables.size(); i++)
+	{
+		Renderable renderable = renderables[i];
 
-	GLint shaderProgram;
-	glGetIntegerv(GL_CURRENT_PROGRAM, &shaderProgram);
+		if (renderable.material->shader != activeShader)
+		{
+			if (activeShader != nullptr)
+				activeShader->freeShader();
+			activeShader = renderable.material->shader;
 
-	GLuint vPosition = glGetAttribLocation(shaderProgram, "vPosition");
-	GLuint vNormal = glGetAttribLocation(shaderProgram, "vNormal");
-	GLuint vTexCoord = glGetAttribLocation(shaderProgram, "vTexCoord");
+			activeShader->bindShader();
 
-	glEnableVertexAttribArray(vPosition);
-	glEnableVertexAttribArray(vNormal);
-	glEnableVertexAttribArray(vTexCoord);
+			//Send light data to the shader
+			for (unsigned int j = 0; j < lights.size(); j++)
+			{
+				lights[j]->Render(activeShader);
+			}
+		}
 
-	int normalOffset = mesh->getPointSize();
-	int texCoordOffset = normalOffset + mesh->getNormalSize();
+		Mesh* mesh = renderable.mesh;
+		Material* material = renderable.material;
 
-	glBindBuffer(GL_ARRAY_BUFFER, mesh->getVBO());
-	glVertexAttribPointer(vPosition, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
-	glVertexAttribPointer(vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(normalOffset));
-	glVertexAttribPointer(vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(texCoordOffset));
+		material->sendDataToGPU();
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->getIBO());
+		GLint shaderProgram;
+		glGetIntegerv(GL_CURRENT_PROGRAM, &shaderProgram);
 
-	//Draw Shape
-	glDrawElements(GL_TRIANGLES, mesh->getNumberOfVerts(), GL_UNSIGNED_SHORT, (void *)0);
+		GLuint vPosition = glGetAttribLocation(shaderProgram, "vPosition");
+		GLuint vNormal = glGetAttribLocation(shaderProgram, "vNormal");
+		GLuint vTexCoord = glGetAttribLocation(shaderProgram, "vTexCoord");
+
+		glEnableVertexAttribArray(vPosition);
+		glEnableVertexAttribArray(vNormal);
+		glEnableVertexAttribArray(vTexCoord);
+
+		int normalOffset = mesh->getPointSize();
+		int texCoordOffset = normalOffset + mesh->getNormalSize();
+
+		glBindBuffer(GL_ARRAY_BUFFER, mesh->getVBO());
+		glVertexAttribPointer(vPosition, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
+		glVertexAttribPointer(vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(normalOffset));
+		glVertexAttribPointer(vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(texCoordOffset));
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->getIBO());
+
+		//Draw Shape
+		glDrawElements(GL_TRIANGLES, mesh->getNumberOfVerts(), GL_UNSIGNED_SHORT, (void *)0);
+
+
+	}
+
+	lights.clear();
+	renderables.clear();
 }
 #endif

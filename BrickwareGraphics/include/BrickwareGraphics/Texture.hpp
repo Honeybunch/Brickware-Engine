@@ -47,6 +47,11 @@ namespace Brickware
 			void bindTexture();
 			void freeTexture();
 
+			//Function pointers for branching between rendering APIs
+			void(Texture::*bufferTexturePtr)();
+			void(Texture::*bindTexturePtr)();
+			void(Texture::*freeTexturePtr)();
+
 			TextureType textureType;
 
 #ifdef GL_SUPPORT

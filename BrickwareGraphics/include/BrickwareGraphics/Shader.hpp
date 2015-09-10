@@ -89,6 +89,17 @@ namespace Brickware
 			void(Shader::*bindShaderPtr)();
 			void(Shader::*freeShaderPtr)();
 
+			void(Shader::*setGlobalVector4Ptr)(const char*, Math::Vector4);
+			void(Shader::*setGlobalVector3Ptr)(const char*, Math::Vector3);
+			void(Shader::*setGlobalVector2Ptr)(const char*, Math::Vector2);
+
+			void(Shader::*setGlobalIntPtr)(const char*, int);
+			void(Shader::*setGlobalFloatPtr)(const char*, float);
+			void(Shader::*setGlobalDoublePtr)(const char*, double);
+
+			void(Shader::*setGlobalMatrix4Ptr)(const char*, Math::Matrix4);
+			void(Shader::*setGlobalMatrix3Ptr)(const char*, Math::Matrix3);
+
 			std::map<std::string, Texture*> textureMap;
 
 #ifdef GL_SUPPORT

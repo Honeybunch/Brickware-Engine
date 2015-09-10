@@ -2,6 +2,7 @@
 #define GRAPHICS_SETTINGS_H
 
 #include "BrickwareGraphics/BrickwareGraphicsDLL.hpp"
+#include "BrickwareGraphics/RendererInfo.hpp"
 
 		//Special GL Macros
 #ifdef GL_SUPPORT

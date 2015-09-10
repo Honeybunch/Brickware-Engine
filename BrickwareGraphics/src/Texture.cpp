@@ -1,6 +1,7 @@
 #define BRICKWARE_GRAPHICS_EXPORTS
 
 #include "BrickwareGraphics/Texture.hpp"
+#include "BrickwareGraphics/GraphicsSettings.hpp"
 
 using namespace Brickware;
 using namespace Graphics;
@@ -11,34 +12,51 @@ Texture::Texture(const char* textureFileName)
 	//TODO: check file name once we support multiple file namess
 	loadBMP(textureFileName);
 
+	//Setup function pointers
+	RenderingAPI renderer = GraphicsSettings::Renderer;
+
+	//Setup function pointers based on rendering API
+	if (renderer = RenderingAPI::OpenGL)
+	{
+		if (RendererInfo::GetAPIMajorVersion() >= 3)
+		{
+			bufferTexturePtr = &Texture::bufferGL;
+			bindTexturePtr = &Texture::bindGL;
+			freeTexturePtr = &Texture::freeGL;
+		}
+		else
+		{
+			std::cout << "Your card does not support OpenGL 3+" << std::endl;
+		}
+	}
+	else if (renderer = RenderingAPI::DirectX)
+	{
+		if (RendererInfo::GetAPIMajorVersion() == 11)
+		{
+#ifdef D3D_SUPPORT
+			bufferTexturePtr = &Texture::bufferD3D;
+			bindTexturePtr = &Texture::bindD3D;
+			freeTexturePtr = &Texture::freeD3D;
+#endif
+		}
+	}
+
 	bufferTexture();
 }
 
 void Texture::bufferTexture()
 {
-#ifdef D3D_SUPPORT
-	bufferD3D();
-#else
-	bufferGL();
-#endif
+	(this->*bufferTexturePtr)();
 }
 
 void Texture::bindTexture()
 {
-#ifdef D3D_SUPPORT
-	bindD3D();
-#else
-	bindGL();
-#endif
+	(this->*bindTexturePtr)();
 }
 
 void Texture::freeTexture()
 {
-#ifdef D3D_SUPPORT
-	freeD3D();
-#else
-	freeGL();
-#endif
+	(this->*freeTexturePtr)();
 }
 
 unsigned char* Texture::getPixels(){ return pixels; }

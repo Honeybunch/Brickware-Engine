@@ -30,21 +30,15 @@ namespace Brickware
 		public:
 			Light();
 
-			static int LightCount;
-
-			void setPosition(Math::Vector3 position);
 			void setAmbientColor(Math::Vector3 ambientColor);
 			void setDiffuseColor(Math::Vector3 diffuseColor);
 			void setSpecularColor(Math::Vector3 specularColor);
 
-			void Render(Shader* shader);
+			virtual void Render(Shader* shader) = 0;
 
-			~Light(void);
+			virtual ~Light(void);
 
-		private:
-			int lightIndex;
-
-			Math::Vector3 position;
+		protected:
 			Math::Vector3 ambientColor;
 			Math::Vector3 diffuseColor;
 			Math::Vector3 specularColor;

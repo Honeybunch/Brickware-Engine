@@ -7,7 +7,7 @@
 //Other Brickware Project Headers
 #include "BrickwareMath/Vector3.hpp"
 
-#include "BrickwareGraphics/Light.hpp"
+#include "BrickwareGraphics/PointLightInternal.hpp"
 #include "BrickwareGraphics/RenderingManager.hpp"
 
 //Project Headers
@@ -17,11 +17,11 @@ namespace Brickware
 {
 	namespace Core
 	{
-		/* A <Component> which makes the attached <GameObject> emit light in all directions
+		/* A <Component> which makes the attached <GameObject> emit light outwards in all directions
 		 * 
 		 * This <Component> works by sending data about itself and its <GameObject>
 		 * to the <Brickware::Graphics::RenderingManager> via <Brickware::Graphics::RederingManager::AddLight>.
-		 * Right now there is a hardware limit of 8 lights so any more than that 
+		 * Right now there is a hardware limit of 4 lights so any more than that 
 		 * may cause undefined behaviour. 
 		 */
 		class BRICKWARE_CORE_API PointLight : public Component
@@ -51,7 +51,7 @@ namespace Brickware
 			virtual ~PointLight(void);
 
 		private:
-			Graphics::Light* light;
+			Graphics::PointLightInternal* light;
 		};
 	}
 }

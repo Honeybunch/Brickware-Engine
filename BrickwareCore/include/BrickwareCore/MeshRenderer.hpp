@@ -50,6 +50,26 @@ namespace Brickware
 			 */
 			Math::Bounds getBounds();
 
+			/* Gets whether or not this mesh renderer will cast shadows
+			 * @return the boolean describing whether or not this mesh renderer casts shadows
+			 */
+			bool getCastsShadows();
+
+			/* Gets whether or not this mesh renderer will recieve shadows
+			 * @return the boolean describing whether or not this mesh renderer recieves shadows
+			 */
+			bool getRecievesShadows();
+
+			/* Sets whether or not this mesh renderer will cast shadows
+			 * @castsShadows the boolean describing whether or not this mesh renderer casts shadows
+			 */
+			void setCastsShadows(bool castsShadows);
+
+			/* Sets whether or not this mesh renderer will recieve shadows
+			 * @recievesShadows the boolean describing whether or not this mesh renderer recieves shadows
+			 */
+			void setRecievesShadows(bool recievesShadows);
+
 			//Overridden Clone method so that this <Component> can be copied
 			virtual Component* Clone() override;
 
@@ -65,6 +85,9 @@ namespace Brickware
 		private:
 			Graphics::Mesh* mesh;
 			Graphics::Material* material;
+
+			bool castsShadows;
+			bool recievesShadows;
 		};
 	}
 }

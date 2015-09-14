@@ -5,5 +5,8 @@
 using namespace Brickware;
 using namespace Graphics;
 
-//OpenGL by default
+//Default Grapics Settings
 RenderingAPI GraphicsSettings::Renderer = OpenGL;
+bool GraphicsSettings::VSync = false;
+AntiAliasing GraphicsSettings::AA = AntiAliasing::MSAAx2;
+TextureFiltering GraphicsSettings::TexFiltering = TextureFiltering::Anisotropicx2;

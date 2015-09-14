@@ -35,7 +35,7 @@
 					DXTrace(__FILEW__, (DWORD)__LINE__, hr, L#x, true);	\
 					PostQuitMessage(0);									\
 				}														\
-		}														
+		}
 #endif
 #else
 #ifndef HR
@@ -50,7 +50,7 @@ namespace Brickware
 	namespace Graphics
 	{
 		enum BRICKWARE_GRAPHICS_API RenderingAPI{
-			DirectX, 
+			DirectX,
 			OpenGL,
 			OpenGLES,
 			WebGL,
@@ -79,8 +79,8 @@ namespace Brickware
 		public:
 			static RenderingAPI Renderer;
 			static bool VSync;
-			static AntiAliasing AntiAliasing;
-			static TextureFiltering TextureFiltering;
+			static AntiAliasing AA;
+			static TextureFiltering TexFiltering;
 		};
 	}
 }

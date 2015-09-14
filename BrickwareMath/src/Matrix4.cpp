@@ -7,6 +7,63 @@ using namespace Brickware;
 using namespace Math;
 
 /*
+	Statics
+*/
+
+Matrix4 Matrix4::getIdentityMatrix()
+{
+	return Matrix4();
+}
+
+Matrix4 Matrix4::getOrthographicProjection(float left, float right, float bottom, float top, float near, float far)
+{
+	float a = 2 / (right - left);
+	float b = 2 / (top - bottom);
+	float c = -2 / (far - near);
+	float d = -1 * ((right + left) / (right - left));
+	float e = -1 * ((top + bottom) / (top - bottom));
+	float f = (far + near) / (far - near);
+
+	return Matrix4(a, 0, 0, d,
+				   0, b, 0, e,
+				   0, 0, c, f, 
+				   0, 0, 0, 1);
+}
+
+Matrix4 Matrix4::getPerspectiveProjection(float fov, float width, float height, float near, float far)
+{
+	float depth = far - near;
+	float q = -(far + near) / depth;
+	float qn = -2 * (far * near) / depth;
+
+	float w = 2 * near / width;
+	w /= (width / height);
+	float h = 2 * near / height;
+
+	return Matrix4 (w, 0, 0, 0,
+			 0, h, 0, 0,
+			 0, 0, q, -1,
+			 0, 0, qn, 0);
+}
+
+Matrix4 Matrix4::getLookAtView(Vector3 eye, Vector3 center, Vector3 up)
+{
+	//Calculate axes 
+	Vector3 zAxis = Vector3::Normalize((eye - center));
+	Vector3 xAxis = Vector3::Normalize(Vector3::Cross(up, zAxis));
+	Vector3 yAxis = Vector3::Cross(zAxis, xAxis);
+
+	//Create view matrix;
+	return Matrix4(xAxis.getX(), yAxis.getX(), zAxis.getX(), 0,
+				   xAxis.getY(), yAxis.getY(), zAxis.getY(), 0,
+				   xAxis.getZ(), yAxis.getZ(), zAxis.getZ(), 0,
+				   Vector3::Dot(xAxis * -1, eye),
+				   Vector3::Dot(yAxis * -1, eye),
+				   Vector3::Dot(zAxis * -1, eye),
+				   1);
+}
+
+/*
 	Constructors
 */
 

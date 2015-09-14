@@ -37,6 +37,16 @@ namespace Brickware
 
 		private:
 			Math::Vector3 direction;
+			void Init();
+			void (DirectionalLightInternal::*InternalRender)(Shader* shader);
+
+#ifdef GL_SUPPORT
+			void InitGL();
+			void RenderGL(Shader* shader);
+
+			GLuint shadowBuffer;
+			GLuint depthTexture;
+#endif
 		};
 	}
 }

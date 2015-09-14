@@ -59,7 +59,7 @@ namespace Brickware
 
 		enum BRICKWARE_GRAPHICS_API AntiAliasing
 		{
-			MSAAx0
+			MSAAx0,
 			MSAAx2,
 			MSAAx4,
 			MSAAx8

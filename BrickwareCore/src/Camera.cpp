@@ -80,48 +80,17 @@ Camera* Camera::ActiveCamera;
 
 Matrix4 Camera::calcViewMatrix()
 {
-	Vector3 position = getGameObject()->getTransform()->getPosition();
-	 
-	//Calculate axes 
-	Vector3 zAxis = Vector3::Normalize((position - lookAt));
-	Vector3 xAxis = Vector3::Normalize(Vector3::Cross(getGameObject()->getTransform()->getUp(), zAxis));
-	Vector3 yAxis = Vector3::Cross(zAxis, xAxis);
+	Transform* transform = getGameObject()->getTransform();
 
-	//Create view matrix;
-	Matrix4 view(xAxis.getX(), yAxis.getX(), zAxis.getX(), 0, 
-				 xAxis.getY(), yAxis.getY(), zAxis.getY(), 0,
-				 xAxis.getZ(), yAxis.getZ(), zAxis.getZ(), 0,
-				 Vector3::Dot(xAxis * -1, position),
-				 Vector3::Dot(yAxis * -1, position),
-				 Vector3::Dot(zAxis * -1, position), 
-				 1);
+	Vector3 eye = transform->getPosition();
+	Vector3 up = transform->getUp();
 
-	return view;
+	return Matrix4::getLookAtView(eye, lookAt, up);
 }
 
 Matrix4 Camera::calcProjectionMatrix()
 {
-	float aspectRatio = width / height;
-
-	float top = zNear * tanf(((float)M_PI / 180.0f) * (FoV * 2.0f));
-	float bottom = -top;
-	float right = top * aspectRatio;
-	float left = -right;
-
-	float depth = zFar - zNear;
-	float q = -(zFar + zNear) / depth;
-	float qn = -2 * (zFar * zNear) / depth;
-
-	float w = 2 * zNear / width;
-	w /= aspectRatio;
-	float h = 2 * zNear / height;
-
-	Matrix4 projection(w, 0, 0, 0,
-					   0, h, 0, 0,
-					   0, 0, q, -1,
-					   0, 0, qn, 0);
-
-	return projection;
+	return Matrix4::getPerspectiveProjection(FoV, width, height, zNear, zFar);
 }
 
 Camera::~Camera(void)

@@ -27,6 +27,11 @@ namespace Brickware
 			Matrix4(Vector4 one, Vector4 two, Vector4 three, Vector4 four);
 
 			static Matrix4 getIdentityMatrix();
+			
+			static Matrix4 getOrthographicProjection(float left, float right, float bottom, float top, float near, float far);
+			static Matrix4 getPerspectiveProjection(float fov, float width, float height, float near, float far);
+
+			static Matrix4 getLookAtView(Vector3 eye, Vector3 center, Vector3 up);
 
 			//Accessors
 			Matrix4 getTranspose();

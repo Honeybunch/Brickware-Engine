@@ -36,9 +36,12 @@ namespace Brickware
 			virtual ~DirectionalLightInternal(void);
 
 		private:
+			static Shader* ShadowShader;
+
 			Math::Vector3 direction;
 			void Init();
 			void (DirectionalLightInternal::*InternalRender)(Shader* shader);
+			void BasicRender(Shader* shader);
 
 #ifdef GL_SUPPORT
 			void InitGL();

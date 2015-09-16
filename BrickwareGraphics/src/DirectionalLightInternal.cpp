@@ -7,6 +7,8 @@ using namespace Brickware;
 using namespace Graphics;
 using namespace Math;
 
+Shader* DirectionalLightInternal::ShadowShader = nullptr;
+
 DirectionalLightInternal::DirectionalLightInternal() : Light()
 {
 	direction = Vector3(0, -1, 0);
@@ -19,7 +21,18 @@ DirectionalLightInternal::DirectionalLightInternal() : Light()
 		if (RendererInfo::GetAPIMajorVersion() >= 3)
 		{
 			InitGL();
-			InternalRender = &DirectionalLightInternal::RenderGL;
+			if (GraphicsSettings::Shadows)
+			{
+				InternalRender = &DirectionalLightInternal::RenderGL;
+				if (ShadowShader == nullptr)
+				{
+					ShadowShader = new Shader("Shaders/PrimitiveVertex", "Shaders/ShadowPixel");
+				}
+			}
+			else
+			{
+				InternalRender = &DirectionalLightInternal::BasicRender;
+			}
 		}
 		else
 		{
@@ -36,6 +49,11 @@ void DirectionalLightInternal::setDirection(Vector3 direction)
 
 void DirectionalLightInternal::Render(Shader* shader)
 {
+	(this->*InternalRender)(shader);
+}
+
+void DirectionalLightInternal::BasicRender(Shader* shader)
+{
 	std::string baseString = "directionalLight.";
 
 	std::string dirLightString = baseString + "direction";
@@ -49,9 +67,6 @@ void DirectionalLightInternal::Render(Shader* shader)
 	shader->setGlobalVector3(ambLightString.c_str(), ambientColor);
 	shader->setGlobalVector3(diffLightString.c_str(), diffuseColor);
 	shader->setGlobalVector3(specLightString.c_str(), specularColor);
-
-	//Render frame data for shadows
-	(this->*InternalRender)(shader);
 }
 
 DirectionalLightInternal::~DirectionalLightInternal()

@@ -8,5 +8,6 @@ using namespace Graphics;
 //Default Grapics Settings
 RenderingAPI GraphicsSettings::Renderer = OpenGL;
 bool GraphicsSettings::VSync = false;
+bool GraphicsSettings::Shadows = true;
 AntiAliasing GraphicsSettings::AA = AntiAliasing::MSAAx2;
 TextureFiltering GraphicsSettings::TexFiltering = TextureFiltering::Anisotropicx2;

@@ -37,7 +37,7 @@ bool TestGame::init()
 		char* string = object->getValue<char*>("testStr");
 		int integer = object->getValue<int>("testInt");
 		float floatingPoint = object->getValue<float>("testFloat");
-		bool testNULL = object->getValue<int>("testNull");
+		bool testNULL = object->getValue<int>("testNull") != 0;
 		JSONObject* nestedObject = object->getValue<JSONObject*>("testObject");
 		int nestedInt = nestedObject->getValue<int>("testObjectInt");
 		char* nestedString = nestedObject->getValue<char*>("testObjectStr");

@@ -80,6 +80,7 @@ namespace Brickware
 		public:
 			static RenderingAPI Renderer;
 			static bool VSync;
+			static bool Shadows;
 			static AntiAliasing AA;
 			static TextureFiltering TexFiltering;
 		};

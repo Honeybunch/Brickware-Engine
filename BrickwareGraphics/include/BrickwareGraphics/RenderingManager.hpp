@@ -49,12 +49,14 @@ namespace Brickware
 
 			static void Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext);
 			static void (*Render)();
+			static void (*RenderPass)(Shader* shader);
 			static void Destroy();
 
 		private:
-
 #ifdef GL_SUPPORT
 			static void RenderGL();
+			static void RenderObjectGL(Renderable renderable);
+			static void RenderPassGL(Shader* shader);
 #endif
 #ifdef D3D_SUPPORT
 			static ID3D11Device* device;
@@ -63,6 +65,8 @@ namespace Brickware
 			static IDXGIAdapter* dxgiAdapter;
 
 			static void RenderD3D();
+			static void RenderObjectD3D(Renderable renderable);
+			static void RenderPassD3D(Shader* shader);
 #endif
 			static Material* currentMaterial;
 			static std::vector <Renderable> renderables;

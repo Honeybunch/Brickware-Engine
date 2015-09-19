@@ -32,6 +32,19 @@ void RenderingManager::RenderGL()
 			}
 		}
 
+		//Render object
+		RenderObjectGL(renderable);
+	}
+
+	if(activeShader != nullptr)
+		activeShader->freeShader();
+
+	lights.clear();
+	renderables.clear();
+}
+
+void RenderingManager::RenderObjectGL(Renderable renderable)
+{
 		Mesh* mesh = renderable.mesh;
 		Material* material = renderable.material;
 
@@ -60,11 +73,17 @@ void RenderingManager::RenderGL()
 
 		//Draw Shape
 		glDrawElements(GL_TRIANGLES, mesh->getNumberOfVerts(), GL_UNSIGNED_SHORT, (void *)0);
-
-
-	}
-
-	lights.clear();
-	renderables.clear();
 }
+
+//With the given shader, render over every renderable object in the scene
+void RenderingManager::RenderPassGL(Shader* shader)
+{
+	shader->bindShader();
+
+	for(unsigned int i = 0; i < renderables.size(); i++)
+		RenderObjectGL(renderables[i]);
+
+	shader->freeShader();
+}
+
 #endif

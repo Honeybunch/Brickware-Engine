@@ -19,6 +19,7 @@ IDXGIAdapter* RenderingManager::dxgiAdapter;
 #endif
 
 void(*RenderingManager::Render)();
+void(*RenderingManager::RenderPass)(Shader* shader);
 
 void RenderingManager::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext)
 {
@@ -30,6 +31,7 @@ void RenderingManager::Initialize(ID3D11Device* device, ID3D11DeviceContext* dev
 		if (RendererInfo::GetAPIMajorVersion() >= 3)
 		{
 			RenderingManager::Render = &RenderingManager::RenderGL;
+			RenderingManager::RenderPass = &RenderingManager::RenderPassGL;
 		}
 	}
 	else if (renderer = RenderingAPI::DirectX)
@@ -46,6 +48,7 @@ void RenderingManager::Initialize(ID3D11Device* device, ID3D11DeviceContext* dev
 		{
 #ifdef D3D_SUPPORT
 			RenderingManager::Render = &RenderingManager::RenderD3D;
+			RenderingManager::RenderPass = &RenderingManager::RenderPassD3D;
 #endif
 		}
 	}

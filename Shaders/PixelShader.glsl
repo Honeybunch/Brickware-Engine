@@ -46,7 +46,7 @@ uniform Material material;
 out vec4 fragColor;
 
 in vec2 texCoord;
-in vec2 shadowCoord;
+in vec4 shadowCoord;
 
 uniform sampler2D diffuseTexture;
 uniform sampler2D shadowMap;
@@ -55,6 +55,20 @@ uniform sampler2D shadowMap;
 in vec3 worldNormal;
 in vec3 worldPosition;
 in vec3 eyePosition;
+
+float CalcDirShadows()
+{
+	//Perspective divide
+	vec3 projCoords = shadowCoord.xyz / shadowCoord.w;
+	//Get into 0-1 range
+	projCoords = projCoords * 0.5 + 0.5;
+	
+	float closestDepth = texture(shadowMap, projCoords.xy).r;
+	float currentDepth = projCoords.z;
+	float shadow = currentDepth > closestDepth ? 1.0 : 0.0;
+	
+	return shadow;
+}
 
 //Calcuate the light on this object from the scene's directional light
 vec3 CalcDirectionalLight(DirectionalLight light, vec4 hue, vec3 viewDir)
@@ -69,7 +83,12 @@ vec3 CalcDirectionalLight(DirectionalLight light, vec4 hue, vec3 viewDir)
 	vec3 diffuse = light.diffuseColor * diffusePower * hue.rgb;
 	vec3 specular = light.specularColor * specularPower * hue.rgb;
 
-	return (ambient + diffuse + specular);
+	//Calculate shadows
+	float shadow = CalcDirShadows();
+	
+	vec3 dirLight = (ambient + (1.0 - shadow) * (diffuse + specular));
+	
+	return  dirLight;
 }
 
 //Calculate the light on this object from the scene's point lights
@@ -111,11 +130,5 @@ void main()
 		finalColor += CalcPointLight(pointLight, hue, viewDirection);
 	}
 
-	//Calculate shadows
-	float Depth = texture(shadowMap, shadowCoord).x;
-	Depth = 1.0 - (1.0 - Depth);
-
-	finalColor *= vec3(Depth);
-
-  fragColor = vec4(finalColor, hue.a);
+	fragColor = vec4(finalColor, hue.a);
 }

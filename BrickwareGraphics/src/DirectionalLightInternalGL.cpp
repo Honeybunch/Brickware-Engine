@@ -46,7 +46,7 @@ void DirectionalLightInternal::RenderShadowMapGL(Shader* shadowShader)
 	Vector3 inverseLightDir = direction * -1;
 	
 	//Compute MVP from light's direction
-	Matrix4 depthProjection = Matrix4::getOrthographicProjection(-10, 10, -10, 10, -10, 20);
+	Matrix4 depthProjection = Matrix4::getOrthographicProjection(-10, 10, -10, 10, 1.0f, 10.0f);
 	Matrix4 depthView = Matrix4::getLookAtView(inverseLightDir, Vector3(), Vector3(0, 1, 0));
 	Matrix4 depthModel = Matrix4::getIdentityMatrix();
 	

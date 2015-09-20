@@ -24,7 +24,7 @@ out vec3 worldPosition;
 out vec3 eyePosition;
 
 out vec2 texCoord;
-out vec2 shadowCoord;
+out vec4 shadowCoord;
 
 void main()
 {
@@ -41,6 +41,6 @@ void main()
 	eyePosition = eyePoint;
 
 	texCoord = vTexCoord;
-	shadowCoord = (depthBiasMVP * vec4(vPosition, 1.0f)).xy;
+	shadowCoord = (depthBiasMVP * vec4(vPosition, 1.0f));
 }
 

@@ -36,7 +36,8 @@ namespace Brickware
 			void setLinear(float linear);
 			void setQuadratic(float quadratic);
 
-			virtual void Render(Shader* shader);
+			virtual void RenderLight(Shader* shader);
+			virtual void RenderShadowMap(Shader* shadowShader);
 
 			virtual ~PointLightInternal(void);
 

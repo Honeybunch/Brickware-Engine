@@ -18,7 +18,7 @@ void PointLight::setSpecularColor(Vector3 specularColor){ light->setSpecularColo
 void PointLight::Render()
 {
 	light->setPosition(getGameObject()->getTransform()->getPosition());
-	Graphics::RenderingManager::AddLight(light);
+	Graphics::RenderingManager::AddPointLight(light);
 }
 
 #ifdef _DEBUG

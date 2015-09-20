@@ -9,7 +9,8 @@ using namespace Graphics;
 //Statics
 Material* RenderingManager::currentMaterial;
 std::vector<Renderable> RenderingManager::renderables;
-std::vector<Light*> RenderingManager::lights;
+std::vector<DirectionalLightInternal*> RenderingManager::directionalLights;
+std::vector<PointLightInternal*> RenderingManager::pointLights;
 
 #ifdef D3D_SUPPORT
 ID3D11Device* RenderingManager::device;
@@ -19,11 +20,19 @@ IDXGIAdapter* RenderingManager::dxgiAdapter;
 #endif
 
 void(*RenderingManager::Render)();
-void(*RenderingManager::RenderPass)(Shader* shader);
+void(*RenderingManager::RenderPass)();
+
+Shader* RenderingManager::ShadowShader = nullptr;
 
 void RenderingManager::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext)
 {
 	RenderingAPI renderer = GraphicsSettings::Renderer;
+
+	if (GraphicsSettings::Shadows)
+	{
+		if (ShadowShader == nullptr)
+			ShadowShader = new Shader("Shaders/ShadowVertex", "Shaders/ShadowPixel");
+	}
 
 	//Setup function pointers based on rendering API
 	if (renderer = RenderingAPI::OpenGL)
@@ -54,9 +63,13 @@ void RenderingManager::Initialize(ID3D11Device* device, ID3D11DeviceContext* dev
 	}
 }
 
-void RenderingManager::AddLight(Light* light)
+void RenderingManager::AddDirectionalLight(DirectionalLightInternal* light)
 {
-	lights.push_back(light);
+	directionalLights.push_back(light);
+}
+void RenderingManager::AddPointLight(PointLightInternal* light)
+{
+	pointLights.push_back(light);
 }
 void RenderingManager::UseMaterial(Material* material)
 {

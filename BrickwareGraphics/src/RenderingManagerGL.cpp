@@ -10,6 +10,40 @@ using namespace Graphics;
 
 void RenderingManager::RenderGL()
 {
+	PreRenderGL();
+
+	ShadowPassGL();
+
+	//Other user defined render passes here?
+
+	ScenePassGL();
+
+	//Cleanup 
+	directionalLights.clear();
+	pointLights.clear();
+	renderables.clear();
+}
+
+void RenderingManager::PreRenderGL()
+{
+	glCullFace(GL_BACK);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+}
+
+void RenderingManager::ShadowPassGL()
+{
+	glViewport(0, 0, 1024, 1024);
+	for (unsigned int i = 0; i < directionalLights.size(); i++)
+	{
+		directionalLights[0]->RenderShadowMap(ShadowShader);
+	}
+}
+
+void RenderingManager::ScenePassGL()
+{
+	glViewport(0, 0, 800, 600);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	Shader* activeShader = nullptr;
 
 	//Render every renderable object
@@ -25,22 +59,21 @@ void RenderingManager::RenderGL()
 
 			activeShader->bindShader();
 
-			//Send light data to the shader
-			for (unsigned int j = 0; j < lights.size(); j++)
-			{
-				lights[j]->Render(activeShader);
-			}
+			//Send directional light data to the shader
+			for (unsigned int j = 0; j < directionalLights.size(); j++)
+				directionalLights[j]->RenderLight(activeShader);
+
+			//Send point light data to the shader
+			for (unsigned int j = 0; j < pointLights.size(); j++)
+				pointLights[j]->RenderLight(activeShader);
 		}
 
 		//Render object
 		RenderObjectGL(renderable);
 	}
 
-	if(activeShader != nullptr)
+	if (activeShader != nullptr)
 		activeShader->freeShader();
-
-	lights.clear();
-	renderables.clear();
 }
 
 void RenderingManager::RenderObjectGL(Renderable renderable)
@@ -75,15 +108,11 @@ void RenderingManager::RenderObjectGL(Renderable renderable)
 		glDrawElements(GL_TRIANGLES, mesh->getNumberOfVerts(), GL_UNSIGNED_SHORT, (void *)0);
 }
 
-//With the given shader, render over every renderable object in the scene
-void RenderingManager::RenderPassGL(Shader* shader)
+//Render every object in the scene; assume a bound shader 
+void RenderingManager::RenderPassGL()
 {
-	shader->bindShader();
-
 	for(unsigned int i = 0; i < renderables.size(); i++)
 		RenderObjectGL(renderables[i]);
-
-	shader->freeShader();
 }
 
 #endif

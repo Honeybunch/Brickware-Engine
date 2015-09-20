@@ -19,7 +19,7 @@ void DirectionalLight::setSpecularColor(Vector3 specularColor){ light->setSpecul
 
 void DirectionalLight::Render()
 {
-	Graphics::RenderingManager::AddLight(light);
+	Graphics::RenderingManager::AddDirectionalLight(light);
 }
 
 #ifdef _DEBUG

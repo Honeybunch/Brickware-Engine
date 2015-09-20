@@ -22,7 +22,7 @@ void PointLightInternal::setPosition(Vector3 position)
 	this->position = position;
 }
 
-void PointLightInternal::Render(Shader* shader)
+void PointLightInternal::RenderLight(Shader* shader)
 {
 	//Using a string just for easy concatanation 
 	std::string lightString = "pointLights[";
@@ -44,6 +44,11 @@ void PointLightInternal::Render(Shader* shader)
 	shader->setGlobalVector3(ambLightString.c_str(), ambientColor);
 	shader->setGlobalVector3(diffLightString.c_str(), diffuseColor);
 	shader->setGlobalVector3(specLightString.c_str(), specularColor);
+}
+
+void PointLightInternal::RenderShadowMap(Shader* shadowShader)
+{
+
 }
 
 PointLightInternal::~PointLightInternal()

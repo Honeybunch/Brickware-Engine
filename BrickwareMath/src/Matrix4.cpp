@@ -24,10 +24,10 @@ Matrix4 Matrix4::getOrthographicProjection(float left, float right, float bottom
 	float e = -1 * ((top + bottom) / (top - bottom));
 	float f = (far + near) / (far - near);
 
-	return Matrix4(a, 0, 0, d,
-				   0, b, 0, e,
-				   0, 0, c, f, 
-				   0, 0, 0, 1);
+	return Matrix4(a, 0, 0, 0,
+				   0, b, 0, 0,
+				   0, 0, c, 0, 
+				   d, e, f, 1);
 }
 
 Matrix4 Matrix4::getPerspectiveProjection(float fov, float width, float height, float near, float far)
@@ -41,9 +41,9 @@ Matrix4 Matrix4::getPerspectiveProjection(float fov, float width, float height, 
 	float h = 2 * near / height;
 
 	return Matrix4 (w, 0, 0, 0,
-			 0, h, 0, 0,
-			 0, 0, q, -1,
-			 0, 0, qn, 0);
+					0, h, 0, 0,
+					0, 0, q, -1,
+					0, 0, qn, 0);
 }
 
 Matrix4 Matrix4::getLookAtView(Vector3 eye, Vector3 center, Vector3 up)

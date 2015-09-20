@@ -136,7 +136,6 @@ namespace Brickware
 
 			bool initGL();
 			void handleInputGLFW();
-			void startRenderGL();
 			void swapBuffersGL();
 			void endGL();
 #endif

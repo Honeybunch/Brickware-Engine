@@ -8,7 +8,8 @@
 #include "BrickwareGraphics/Shader.hpp"
 #include "BrickwareGraphics/Material.hpp"
 #include "BrickwareGraphics/Mesh.hpp"
-#include "BrickwareGraphics/Light.hpp"
+#include "BrickwareGraphics/DirectionalLightInternal.hpp"
+#include "BrickwareGraphics/PointLightInternal.hpp"
 #include "BrickwareGraphics/GraphicsSettings.hpp"
 #include "BrickwareGraphics/RendererInfo.hpp"
 
@@ -30,7 +31,8 @@ namespace Brickware
 
 #ifdef _WIN32
 		template class BRICKWARE_GRAPHICS_API std::vector < Renderable >;
-		template class BRICKWARE_GRAPHICS_API std::vector < Light* >;
+		template class BRICKWARE_GRAPHICS_API std::vector < DirectionalLightInternal* >;
+		template class BRICKWARE_GRAPHICS_API std::vector < PointLightInternal* >;
 #endif
 
 		class BRICKWARE_GRAPHICS_API RenderingManager
@@ -43,20 +45,27 @@ namespace Brickware
 			friend class RendererInfo;
 
 		public:
-			static void AddLight(Light* light);
+			static void AddDirectionalLight(DirectionalLightInternal* light);
+			static void AddPointLight(PointLightInternal* light);
 			static void UseMaterial(Material* material);
 			static void DrawMesh(Mesh* mesh);
 
 			static void Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext);
 			static void (*Render)();
-			static void (*RenderPass)(Shader* shader);
+			static void (*RenderPass)();
 			static void Destroy();
 
 		private:
+			static Shader* ShadowShader;
+
 #ifdef GL_SUPPORT
 			static void RenderGL();
+			static void PreRenderGL();
+			static void ShadowPassGL();
+			static void ScenePassGL();
+
 			static void RenderObjectGL(Renderable renderable);
-			static void RenderPassGL(Shader* shader);
+			static void RenderPassGL();
 #endif
 #ifdef D3D_SUPPORT
 			static ID3D11Device* device;
@@ -66,11 +75,12 @@ namespace Brickware
 
 			static void RenderD3D();
 			static void RenderObjectD3D(Renderable renderable);
-			static void RenderPassD3D(Shader* shader);
+			static void RenderPassD3D();
 #endif
 			static Material* currentMaterial;
 			static std::vector <Renderable> renderables;
-			static std::vector <Light*> lights;
+			static std::vector <DirectionalLightInternal* > directionalLights;
+			static std::vector <PointLightInternal* > pointLights;
 		};
 	}
 }

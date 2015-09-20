@@ -199,8 +199,6 @@ void Game::render()
 {
 #ifdef D3D_SUPPORT
 	startRenderD3D();
-#else
-	startRenderGL();
 #endif
 
 	renderScene(); //Will be overridden 
@@ -439,13 +437,6 @@ void Game::handleInputGLFW()
 		Input::keys[KeyCode::F2] = true;
 	else
 		Input::keys[KeyCode::F2] = false;
-}
-
-void Game::startRenderGL()
-{
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glCullFace(GL_BACK);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 void Game::swapBuffersGL()

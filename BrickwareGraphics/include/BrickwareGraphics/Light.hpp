@@ -34,7 +34,8 @@ namespace Brickware
 			void setDiffuseColor(Math::Vector3 diffuseColor);
 			void setSpecularColor(Math::Vector3 specularColor);
 
-			virtual void Render(Shader* shader) = 0;
+			virtual void RenderLight(Shader* shader) = 0;
+			virtual void RenderShadowMap(Shader* shadowShader) = 0;
 
 			virtual ~Light(void);
 

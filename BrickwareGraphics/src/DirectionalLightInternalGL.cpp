@@ -37,10 +37,10 @@ void DirectionalLightInternal::InitGL()
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void DirectionalLightInternal::RenderShadowMapGL(Shader* shader)
+void DirectionalLightInternal::RenderShadowMapGL(Shader* shadowShader)
 {	
 	//Bind shadow shader for rendering shadow maps
-	shader->bindShader();
+	shadowShader->bindShader();
 	
 	//Send info about the directional light to the shader for shadow mapping
 	Vector3 inverseLightDir = direction * -1;
@@ -50,7 +50,7 @@ void DirectionalLightInternal::RenderShadowMapGL(Shader* shader)
 	Matrix4 depthView = Matrix4::getLookAtView(inverseLightDir, Vector3(), Vector3(0, 1, 0));
 	Matrix4 depthModel = Matrix4::getIdentityMatrix();
 	
-	Matrix4 depthMVP = depthProjection * depthView * depthModel;
+	depthMVP = depthProjection * depthView * depthModel;
 	
 	Matrix4 biasMatrix(0.5f, 0.0f, 0.0f, 0.0f,
 					   0.0f, 0.5f, 0.0f, 0.0f,
@@ -58,15 +58,16 @@ void DirectionalLightInternal::RenderShadowMapGL(Shader* shader)
 					   0.5f, 0.5f, 0.5f, 1.0f);
 	
 	//Apply bias to get texture coordinates
-	depthMVP = biasMatrix * depthMVP;
+	depthBiasMVP = biasMatrix * depthMVP;
 	
-	shader->setGlobalMatrix4("depthMVP", depthMVP);
+	shadowShader->setGlobalMatrix4("depthMVP", depthMVP);
 	
 	//Actually bind framebuffer and render shadow map for texture
 	
 	//Bind buffer for drawing
 	glBindFramebuffer(GL_FRAMEBUFFER, shadowBuffer);
 
+	glClearDepth(1.0f);
 	glClear(GL_DEPTH_BUFFER_BIT);
 
 	//render buffer
@@ -74,5 +75,13 @@ void DirectionalLightInternal::RenderShadowMapGL(Shader* shader)
 	
 	//Clean up
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	shader->freeShader();
+	shadowShader->freeShader();
+}
+
+void DirectionalLightInternal::BindShadowMapGL(Shader* shader)
+{
+	shader->setGlobalMatrix4("depthBiasMVP", depthBiasMVP);
+
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, depthTexture);
 }

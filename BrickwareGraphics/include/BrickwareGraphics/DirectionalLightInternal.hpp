@@ -33,18 +33,24 @@ namespace Brickware
 			void setDirection(Math::Vector3 direction);
 			virtual void RenderLight(Shader* shader);
 			virtual void RenderShadowMap(Shader* shadowShader);
+			virtual void BindShadowMap(Shader* shader);
 
 			virtual ~DirectionalLightInternal(void);
 
 		private:
 			Math::Vector3 direction;
+			Math::Matrix4 depthMVP;
+			Math::Matrix4 depthBiasMVP;
+
 			void Init();
 
 			void (DirectionalLightInternal::*RenderShadowMapPtr)(Shader* shadowShader);
+			void (DirectionalLightInternal::*BindShadowMapPtr)(Shader* shader);
 
 #ifdef GL_SUPPORT
 			void InitGL();
 			void RenderShadowMapGL(Shader* shadowShader);
+			void BindShadowMapGL(Shader* shader);
 
 			GLuint shadowBuffer;
 			GLuint depthTexture;
@@ -52,6 +58,7 @@ namespace Brickware
 #ifdef D3D_SUPPORT
 			void InitD3D();
 			void RenderShadowMapD3D(Shader* shadowShader);
+			void BindShadowMapD3D(Shader* shader);
 #endif
 		};
 	}

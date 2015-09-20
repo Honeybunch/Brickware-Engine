@@ -12,7 +12,7 @@ uniform mat4 worldMatrix;
 uniform mat4 modelMatrix;
 uniform mat4 rotationMatrix;
 
-uniform sampler2D diffuseTexture;
+uniform mat4 depthBiasMVP;
 
 uniform vec3 lookAt;
 uniform vec3 eyePoint;
@@ -24,6 +24,7 @@ out vec3 worldPosition;
 out vec3 eyePosition;
 
 out vec2 texCoord;
+out vec2 shadowCoord;
 
 void main()
 {
@@ -40,5 +41,6 @@ void main()
 	eyePosition = eyePoint;
 
 	texCoord = vTexCoord;
+	shadowCoord = (depthBiasMVP * vec4(vPosition, 1.0f)).xy;
 }
 

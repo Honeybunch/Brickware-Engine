@@ -38,6 +38,7 @@ namespace Brickware
 
 			virtual void RenderLight(Shader* shader);
 			virtual void RenderShadowMap(Shader* shadowShader);
+			virtual void BindShadowMap(Shader* shader);
 
 			virtual ~PointLightInternal(void);
 

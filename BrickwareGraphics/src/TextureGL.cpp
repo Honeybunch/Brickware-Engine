@@ -32,11 +32,13 @@ void Texture::bufferGL()
 
 void Texture::bindGL()
 {
+	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, glTexture);
 }
 
 void Texture::freeGL()
 {
+	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 #endif

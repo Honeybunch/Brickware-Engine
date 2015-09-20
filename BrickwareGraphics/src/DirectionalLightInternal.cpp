@@ -22,6 +22,7 @@ DirectionalLightInternal::DirectionalLightInternal() : Light()
 			if (GraphicsSettings::Shadows)
 			{
 				RenderShadowMapPtr = &DirectionalLightInternal::RenderShadowMapGL;
+				BindShadowMapPtr = &DirectionalLightInternal::BindShadowMapGL;
 			}
 		}
 		else
@@ -57,6 +58,11 @@ void DirectionalLightInternal::RenderLight(Shader* shader)
 void DirectionalLightInternal::RenderShadowMap(Shader* shadowShader)
 {
 	(this->*RenderShadowMapPtr)(shadowShader);
+}
+
+void DirectionalLightInternal::BindShadowMap(Shader* shader)
+{
+	(this->*BindShadowMapPtr)(shader);
 }
 
 DirectionalLightInternal::~DirectionalLightInternal()

@@ -5,8 +5,6 @@ in vec3 vNormal;
 
 uniform mat4 depthMVP;
 
-out vec2 TexCoordOut;
-
 void main()
 {
 	gl_Position = depthMVP * vec4(vPosition, 1.0);

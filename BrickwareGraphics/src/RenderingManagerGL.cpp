@@ -35,7 +35,7 @@ void RenderingManager::ShadowPassGL()
 	glViewport(0, 0, 1024, 1024);
 	for (unsigned int i = 0; i < directionalLights.size(); i++)
 	{
-		directionalLights[0]->RenderShadowMap(ShadowShader);
+		directionalLights[i]->RenderShadowMap(ShadowShader);
 	}
 }
 
@@ -61,7 +61,10 @@ void RenderingManager::ScenePassGL()
 
 			//Send directional light data to the shader
 			for (unsigned int j = 0; j < directionalLights.size(); j++)
+			{
 				directionalLights[j]->RenderLight(activeShader);
+				directionalLights[j]->BindShadowMap(activeShader);
+			}
 
 			//Send point light data to the shader
 			for (unsigned int j = 0; j < pointLights.size(); j++)

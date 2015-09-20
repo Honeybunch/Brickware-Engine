@@ -82,6 +82,9 @@ bool Shader::loadGLSL(std::string vertexShaderFileName, std::string pixelShaderF
 	int totalUniforms;
 	glGetProgramiv(program, GL_ACTIVE_UNIFORMS, &totalUniforms);
 
+	//Count textures so that we can index them
+	int textureCount = 0;
+
 	//Build a map of all uniform locations
 	for (int i = 0; i < totalUniforms; i++)
 	{
@@ -95,9 +98,17 @@ bool Shader::loadGLSL(std::string vertexShaderFileName, std::string pixelShaderF
 		name[nameLength] = 0;
 
 		if (type == GL_SAMPLER_2D)
+		{
 			textureMap[std::string(name)] = nullptr;
+
+			//Get texture location
+			GLuint texLoc = glGetUniformLocation(program, name);
+			glUniform1i(texLoc, textureCount++);
+		}
 		else
+		{
 			uniformMap[std::string(name)] = i;
+		}
 
 		delete[] name;
 	}

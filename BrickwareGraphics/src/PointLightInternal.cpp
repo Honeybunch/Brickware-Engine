@@ -48,7 +48,12 @@ void PointLightInternal::RenderLight(Shader* shader)
 
 void PointLightInternal::RenderShadowMap(Shader* shadowShader)
 {
+	//Render cube map
+}
 
+void PointLightInternal::BindShadowMap(Shader* shader)
+{
+	//Bind Shadow cube map
 }
 
 PointLightInternal::~PointLightInternal()

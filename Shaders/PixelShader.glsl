@@ -46,7 +46,10 @@ uniform Material material;
 out vec4 fragColor;
 
 in vec2 texCoord;
+in vec2 shadowCoord;
+
 uniform sampler2D diffuseTexture;
+uniform sampler2D shadowMap;
 
 //Vertex data
 in vec3 worldNormal;
@@ -108,5 +111,11 @@ void main()
 		finalColor += CalcPointLight(pointLight, hue, viewDirection);
 	}
 
+	//Calculate shadows
+	float Depth = texture(shadowMap, shadowCoord).x;
+	Depth = 1.0 - (1.0 - Depth) * 25.0;
+	
+	finalColor += vec3(Depth);
+	
     fragColor = vec4(finalColor, hue.a);
 }

@@ -36,6 +36,7 @@ namespace Brickware
 
 			virtual void RenderLight(Shader* shader) = 0;
 			virtual void RenderShadowMap(Shader* shadowShader) = 0;
+			virtual void BindShadowMap(Shader* shader) = 0;
 
 			virtual ~Light(void);
 

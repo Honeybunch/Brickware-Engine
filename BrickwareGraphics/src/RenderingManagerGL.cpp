@@ -72,6 +72,10 @@ void RenderingManager::ScenePassGL()
 		}
 
 		//Render object
+		Material* material = renderable.material;
+
+		material->sendDataToGPU();
+
 		RenderObjectGL(renderable);
 	}
 
@@ -82,9 +86,6 @@ void RenderingManager::ScenePassGL()
 void RenderingManager::RenderObjectGL(Renderable renderable)
 {
 		Mesh* mesh = renderable.mesh;
-		Material* material = renderable.material;
-
-		material->sendDataToGPU();
 
 		GLint shaderProgram;
 		glGetIntegerv(GL_CURRENT_PROGRAM, &shaderProgram);

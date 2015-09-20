@@ -4,7 +4,7 @@
 struct DirectionalLight
 {
 	vec3 direction;
-	
+
 	vec3 ambientColor;
 	vec3 diffuseColor;
 	vec3 specularColor;
@@ -21,7 +21,7 @@ struct PointLight
 	float constant;
 	float linear;
 	float quadratic;
-	
+
 	vec3 ambientColor;
 	vec3 diffuseColor;
 	vec3 specularColor;
@@ -61,14 +61,14 @@ vec3 CalcDirectionalLight(DirectionalLight light, vec4 hue, vec3 viewDir)
 {
 	vec3 lightDir = normalize(-light.direction);
 	vec3 reflectDir = reflect(-lightDir, worldNormal);
-	
+
 	float diffusePower = max(dot(worldNormal, lightDir), 0.0);
 	float specularPower = pow(max(dot(viewDir, reflectDir), 0.0), 128);
-	
+
 	vec3 ambient = light.ambientColor * hue.rgb;
 	vec3 diffuse = light.diffuseColor * diffusePower * hue.rgb;
 	vec3 specular = light.specularColor * specularPower * hue.rgb;
-	
+
 	return (ambient + diffuse + specular);
 }
 
@@ -84,7 +84,7 @@ vec3 CalcPointLight(PointLight light, vec4 hue, vec3 viewDir)
 	vec3 ambient  = light.ambientColor  * hue.rgb;
 	vec3 diffuse  = light.diffuseColor  * diffusePower  * hue.rgb;
 	vec3 specular = light.specularColor * specularPower * hue.rgb;
-	
+
 	return (ambient + diffuse + specular);
 }
 
@@ -102,7 +102,7 @@ void main()
 
 	//Calculate directional light
 	finalColor += CalcDirectionalLight(directionalLight, hue, viewDirection);
-	
+
 	//Calculate products of every point light applying to this object
 	for(int i = 0; i < pointLightCount; i++)
 	{
@@ -113,9 +113,9 @@ void main()
 
 	//Calculate shadows
 	float Depth = texture(shadowMap, shadowCoord).x;
-	Depth = 1.0 - (1.0 - Depth) * 25.0;
-	
-	finalColor += vec3(Depth);
-	
-    fragColor = vec4(finalColor, hue.a);
+	Depth = 1.0 - (1.0 - Depth);
+
+	finalColor *= vec3(Depth);
+
+  fragColor = vec4(finalColor, hue.a);
 }

@@ -112,20 +112,20 @@ bool TestGame::init()
 	//Create Lights
 	GameObject* dirLight = new GameObject();
 	DirectionalLight* dirLightComp = new DirectionalLight();
-	dirLightComp->setDirection(Vector3(0, 0.5f, 1.0f));
+	dirLightComp->setDirection(Vector3(0, -0.5f, 1.0f));
 	dirLightComp->setDiffuseColor(Vector3(0.5f, 0.5f, 0.5f));
 	dirLightComp->setSpecularColor(Vector3(0.5f, 0.5f, 0.5f));
 	
 	dirLight->addComponent(dirLightComp);
 
-	GameObject* light1 = new GameObject();
-	PointLight* light1Comp = new PointLight();
-	light1Comp->setDiffuseColor(Vector3(.3f, .3f, .3f));
-	light1Comp->setSpecularColor(Vector3(.6f, .6f, .6f));
-	
-	light1->getTransform()->setPosition(Vector3(1.0f, 0.1f, 0.0f));
-	light1->addComponent(light1Comp);
-	
+	//GameObject* light1 = new GameObject();
+	//PointLight* light1Comp = new PointLight();
+	//light1Comp->setDiffuseColor(Vector3(.3f, .3f, .3f));
+	//light1Comp->setSpecularColor(Vector3(.6f, .6f, .6f));
+	//
+	//light1->getTransform()->setPosition(Vector3(1.0f, 0.1f, 0.0f));
+	//light1->addComponent(light1Comp);
+	//
 	//GameObject* light2 = new GameObject();
 	//PointLight* light2Comp = new PointLight();
 	//light2Comp->setDiffuseColor(Vector3(.6f, 0, 0));
@@ -149,7 +149,7 @@ bool TestGame::init()
 
 	//GameObject* floor = new GameObject();
 	//floor->getTransform()->setPosition(Vector3(0, -1, 0));
-	//floor->getTransform()->setEulerRotation(Vector3(-3.14/2, 0, 0));
+	//floor->getTransform()->setEulerRotation(Vector3(-3.14f/2.0f, 0, 0));
 	//floor->getTransform()->setScale(Vector3(100, 100, 1));
 	//floor->addComponent(new MeshRenderer(squareMesh, squareMaterial));
 

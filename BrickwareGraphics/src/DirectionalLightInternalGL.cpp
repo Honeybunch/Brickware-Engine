@@ -2,6 +2,7 @@
 
 #include "BrickwareGraphics/DirectionalLightInternal.hpp"
 #include "BrickwareGraphics/RenderingManager.hpp"
+#include "BrickwareGraphics/Primitive.hpp"
 
 using namespace Brickware;
 using namespace Graphics;
@@ -43,14 +44,29 @@ void DirectionalLightInternal::RenderShadowMapGL(Shader* shadowShader)
 	shadowShader->bindShader();
 	
 	//Send info about the directional light to the shader for shadow mapping
-	Vector3 inverseLightDir = direction * -1;
-	
+	Vector3 focalPoint = direction * -30;
+	Vector3 inverseLightDir = focalPoint * -1;
+
 	//Compute MVP from light's direction
-	Matrix4 depthProjection = Matrix4::getOrthographicProjection(-10, 10, -10, 10, 1.0f, 10.0f);
-	Matrix4 depthView = Matrix4::getLookAtView(inverseLightDir, Vector3(), Vector3(0, 1, 0));
+	Matrix4 depthProjection = Matrix4::getOrthographicProjection(-25, 25, -25, 25, 0.1f, -100.0f);
+	Matrix4 depthView = Matrix4::getLookAtView(direction, Vector3(), Vector3(0, 1, 0));
 	Matrix4 depthModel = Matrix4::getIdentityMatrix();
 	
 	depthMVP = depthProjection * depthView * depthModel;
+
+	Primitive::SetColor(Vector4(1.0f, 0.0f, 0.0f, 1.0f));
+	Primitive::DrawLine(Vector3(), Vector3(1,0,0));
+
+	Primitive::SetColor(Vector4(0.0f, 1.0f, 0.0f, 1.0f));
+	Primitive::DrawLine(Vector3(), Vector3(0, 1, 0));
+
+	Primitive::SetColor(Vector4(0.0f, 0.0f, 1.0f, 1.0f));
+	Primitive::DrawLine(Vector3(), Vector3(0, 0, 1));
+
+	Primitive::SetColor(Vector4(1.0f, 0.0f, 1.0f, 1.0f));
+	Primitive::SetPointSize(10.0f);
+	Primitive::DrawPoint(focalPoint);
+	Primitive::DrawLine(focalPoint, inverseLightDir);
 	
 	Matrix4 biasMatrix(0.5f, 0.0f, 0.0f, 0.0f,
 					   0.0f, 0.5f, 0.0f, 0.0f,

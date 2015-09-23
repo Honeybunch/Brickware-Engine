@@ -63,11 +63,13 @@ float CalcDirShadows()
 	//Get into 0-1 range
 	projCoords = projCoords * 0.5 + 0.5;
 	
-	float closestDepth = texture(shadowMap, projCoords.xy).r;
-	float currentDepth = projCoords.z;
-	float shadow = currentDepth > closestDepth ? 1.0 : 0.0;
-	
-	return shadow;
+	float bias = 0.0005;
+
+	float visibility = 0.5;
+	if (texture(shadowMap, projCoords.xy).z < projCoords.z - bias)
+		visibility = 1.0;
+
+	return visibility;
 }
 
 //Calcuate the light on this object from the scene's directional light

@@ -44,7 +44,7 @@ void DirectionalLightInternal::RenderShadowMapGL(Shader* shadowShader)
 	shadowShader->bindShader();
 	
 	//Send info about the directional light to the shader for shadow mapping
-	Vector3 focalPoint = direction * -40;
+	Vector3 focalPoint = direction * -30;
 
 	//Compute MVP from light's direction
 	Matrix4 depthProjection = Matrix4::getOrthographicProjection(-30, 30, -30, 30, -60, 60);
@@ -66,10 +66,10 @@ void DirectionalLightInternal::RenderShadowMapGL(Shader* shadowShader)
 	Primitive::DrawPoint(focalPoint);
 	Primitive::DrawLine(focalPoint, Vector3());
 	
-	Matrix4 biasMatrix(0.5f, 0.0f, 0.0f, 0.0f,
-					   0.0f, 0.5f, 0.0f, 0.0f,
-					   0.0f, 0.0f, 0.5f, 0.0f,
-					   0.5f, 0.5f, 0.5f, 1.0f);
+	Matrix4 biasMatrix(1.0f, 0.0f, 0.0f, 0.0f,
+					   0.0f, 1.0f, 0.0f, 0.0f,
+					   0.0f, 0.0f, 1.0f, 0.0f,
+					   0.0f, 0.0f, 0.0f, 1.0f);
 	
 	//Apply bias to get texture coordinates
 	depthBiasMVP = biasMatrix * depthMVP;
@@ -81,7 +81,7 @@ void DirectionalLightInternal::RenderShadowMapGL(Shader* shadowShader)
 	//Bind buffer for drawing
 	glBindFramebuffer(GL_FRAMEBUFFER, shadowBuffer);
 
-	//glClearDepth(1.0f);
+	glClearDepth(1.0f);
 	glClear(GL_DEPTH_BUFFER_BIT);
 
 	//render buffer

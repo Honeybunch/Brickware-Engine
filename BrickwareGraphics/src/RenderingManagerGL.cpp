@@ -34,9 +34,8 @@ void RenderingManager::ShadowPassGL()
 {
 	glViewport(0, 0, 1024, 1024);
 	for (unsigned int i = 0; i < directionalLights.size(); i++)
-	{
 		directionalLights[i]->RenderShadowMap(ShadowShader);
-	}
+	
 }
 
 void RenderingManager::ScenePassGL()

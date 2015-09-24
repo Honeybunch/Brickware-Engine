@@ -18,7 +18,7 @@ void RenderingManager::RenderGL()
 
 	ScenePassGL();
 
-	//Cleanup 
+	//Cleanup
 	directionalLights.clear();
 	pointLights.clear();
 	renderables.clear();
@@ -35,7 +35,7 @@ void RenderingManager::ShadowPassGL()
 	glViewport(0, 0, 1024, 1024);
 	for (unsigned int i = 0; i < directionalLights.size(); i++)
 		directionalLights[i]->RenderShadowMap(ShadowShader);
-	
+
 }
 
 void RenderingManager::ScenePassGL()
@@ -111,7 +111,7 @@ void RenderingManager::RenderObjectGL(Renderable renderable)
 		glDrawElements(GL_TRIANGLES, mesh->getNumberOfVerts(), GL_UNSIGNED_SHORT, (void *)0);
 }
 
-//Render every object in the scene; assume a bound shader 
+//Render every object in the scene; assume a bound shader
 void RenderingManager::RenderPassGL()
 {
 	for(unsigned int i = 0; i < renderables.size(); i++)

@@ -1,4 +1,4 @@
-#version 130
+#version 130 
 
 //Directional Light data
 struct DirectionalLight
@@ -62,7 +62,7 @@ float CalcDirShadows()
 	vec3 projCoords = shadowCoord.xyz / shadowCoord.w;
 	//Get into 0-1 range
 	projCoords = projCoords * 0.5 + 0.5;
-	
+
 	float bias = 0.0005;
 
 	float visibility = 0.5;
@@ -87,9 +87,9 @@ vec3 CalcDirectionalLight(DirectionalLight light, vec4 hue, vec3 viewDir)
 
 	//Calculate shadows
 	float shadow = CalcDirShadows();
-	
+
 	vec3 dirLight = (ambient + (1.0 - shadow) * (diffuse + specular));
-	
+
 	return  dirLight;
 }
 

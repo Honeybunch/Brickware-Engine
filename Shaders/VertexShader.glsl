@@ -8,7 +8,7 @@ in vec3 vNormal;
 in vec2 vTexCoord;
 
 //Uniforms
-uniform mat4 worldMatrix; 
+uniform mat4 worldMatrix;
 uniform mat4 modelMatrix;
 uniform mat4 rotationMatrix;
 
@@ -33,7 +33,7 @@ void main()
 	//Shading
 	vec4 worldCoord4v = modelMatrix * vec4(vPosition, 1.0f);
 	mat3 rotation = mat3(rotationMatrix);
-	
+
 	worldNormal = rotation * vNormal;
 	worldPosition = vec3(worldCoord4v.x / worldCoord4v.w,
 						 worldCoord4v.y / worldCoord4v.w,
@@ -43,4 +43,3 @@ void main()
 	texCoord = vTexCoord;
 	shadowCoord = (depthBiasMVP * vec4(vPosition, 1.0f));
 }
-

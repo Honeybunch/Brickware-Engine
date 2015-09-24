@@ -115,17 +115,17 @@ bool TestGame::init()
 	dirLightComp->setDirection(Vector3(0, -0.5f, 1.0f));
 	dirLightComp->setDiffuseColor(Vector3(0.5f, 0.5f, 0.5f));
 	dirLightComp->setSpecularColor(Vector3(0.5f, 0.5f, 0.5f));
-	
+
 	dirLight->addComponent(dirLightComp);
 
-	//GameObject* light1 = new GameObject();
-	//PointLight* light1Comp = new PointLight();
-	//light1Comp->setDiffuseColor(Vector3(.3f, .3f, .3f));
-	//light1Comp->setSpecularColor(Vector3(.6f, .6f, .6f));
-	//
-	//light1->getTransform()->setPosition(Vector3(1.0f, 0.1f, 0.0f));
-	//light1->addComponent(light1Comp);
-	//
+	GameObject* light1 = new GameObject();
+	PointLight* light1Comp = new PointLight();
+	light1Comp->setDiffuseColor(Vector3(.3f, .3f, .3f));
+	light1Comp->setSpecularColor(Vector3(.6f, .6f, .6f));
+
+	light1->getTransform()->setPosition(Vector3(1.0f, 0.1f, 0.0f));
+	light1->addComponent(light1Comp);
+	
 	//GameObject* light2 = new GameObject();
 	//PointLight* light2Comp = new PointLight();
 	//light2Comp->setDiffuseColor(Vector3(.6f, 0, 0));

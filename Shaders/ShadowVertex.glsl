@@ -3,9 +3,12 @@ in vec3 vPosition;
 in vec2 vTexCoord;
 in vec3 vNormal;
 
-uniform mat4 depthMVP;
+uniform mat4 depthProj;
+uniform mat4 depthView;
+uniform mat4 modelMatrix;
 
 void main()
 {
-	gl_Position = depthMVP * vec4(vPosition, 1.0);
+	mat4 MVP = depthProj * depthView * modelMatrix;
+	gl_Position = MVP * vec4(vPosition, 1.0);
 }

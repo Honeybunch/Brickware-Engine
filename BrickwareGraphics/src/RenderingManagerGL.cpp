@@ -19,8 +19,7 @@ void RenderingManager::RenderGL()
 	ScenePassGL();
 
 	//Cleanup
-	directionalLights.clear();
-	pointLights.clear();
+	lights.clear();
 	renderables.clear();
 }
 
@@ -33,9 +32,8 @@ void RenderingManager::PreRenderGL()
 void RenderingManager::ShadowPassGL()
 {
 	glViewport(0, 0, 1024, 1024);
-	for (unsigned int i = 0; i < directionalLights.size(); i++)
-		directionalLights[i]->RenderShadowMap(ShadowShader);
-
+	for (unsigned int i = 0; i < lights.size(); i++)
+		lights[i]->RenderShadowMap(ShadowShader);
 }
 
 void RenderingManager::ScenePassGL()
@@ -43,72 +41,64 @@ void RenderingManager::ScenePassGL()
 	glViewport(0, 0, 800, 600);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	Shader* activeShader = nullptr;
-
 	//Render every renderable object
 	for (unsigned int i = 0; i < renderables.size(); i++)
 	{
 		Renderable renderable = renderables[i];
+		Shader* shader = renderable.material->shader;
 
-		if (renderable.material->shader != activeShader)
+		if (shader != Shader::ActiveShader)
 		{
-			if (activeShader != nullptr)
-				activeShader->freeShader();
-			activeShader = renderable.material->shader;
+			shader->bindShader();
 
-			activeShader->bindShader();
-
-			//Send directional light data to the shader
-			for (unsigned int j = 0; j < directionalLights.size(); j++)
+			//Send light data to the shader
+			for (unsigned int j = 0; j < lights.size(); j++)
 			{
-				directionalLights[j]->RenderLight(activeShader);
-				directionalLights[j]->BindShadowMap(activeShader);
+				lights[j]->RenderLight(shader);
+				lights[j]->BindShadowMap(shader);
 			}
-
-			//Send point light data to the shader
-			for (unsigned int j = 0; j < pointLights.size(); j++)
-				pointLights[j]->RenderLight(activeShader);
 		}
 
-		//Render object
 		Material* material = renderable.material;
 
 		material->sendDataToGPU();
 
+		//Render object
 		RenderObjectGL(renderable);
 	}
 
-	if (activeShader != nullptr)
-		activeShader->freeShader();
+	Shader::ActiveShader->freeShader();
 }
 
 void RenderingManager::RenderObjectGL(Renderable renderable)
 {
-		Mesh* mesh = renderable.mesh;
+	Shader::ActiveShader->setGlobalMatrix4("modelMatrix",renderable.modelMatrix);
 
-		GLint shaderProgram;
-		glGetIntegerv(GL_CURRENT_PROGRAM, &shaderProgram);
+	Mesh* mesh = renderable.mesh;
 
-		GLuint vPosition = glGetAttribLocation(shaderProgram, "vPosition");
-		GLuint vNormal = glGetAttribLocation(shaderProgram, "vNormal");
-		GLuint vTexCoord = glGetAttribLocation(shaderProgram, "vTexCoord");
+	GLint shaderProgram;
+	glGetIntegerv(GL_CURRENT_PROGRAM, &shaderProgram);
 
-		glEnableVertexAttribArray(vPosition);
-		glEnableVertexAttribArray(vNormal);
-		glEnableVertexAttribArray(vTexCoord);
+	GLuint vPosition = glGetAttribLocation(shaderProgram, "vPosition");
+	GLuint vNormal = glGetAttribLocation(shaderProgram, "vNormal");
+	GLuint vTexCoord = glGetAttribLocation(shaderProgram, "vTexCoord");
 
-		int normalOffset = mesh->getPointSize();
-		int texCoordOffset = normalOffset + mesh->getNormalSize();
+	glEnableVertexAttribArray(vPosition);
+	glEnableVertexAttribArray(vNormal);
+	glEnableVertexAttribArray(vTexCoord);
 
-		glBindBuffer(GL_ARRAY_BUFFER, mesh->getVBO());
-		glVertexAttribPointer(vPosition, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
-		glVertexAttribPointer(vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(normalOffset));
-		glVertexAttribPointer(vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(texCoordOffset));
+	int normalOffset = mesh->getPointSize();
+	int texCoordOffset = normalOffset + mesh->getNormalSize();
 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->getIBO());
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->getVBO());
+	glVertexAttribPointer(vPosition, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
+	glVertexAttribPointer(vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(normalOffset));
+	glVertexAttribPointer(vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(texCoordOffset));
 
-		//Draw Shape
-		glDrawElements(GL_TRIANGLES, mesh->getNumberOfVerts(), GL_UNSIGNED_SHORT, (void *)0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->getIBO());
+
+	//Draw Shape
+	glDrawElements(GL_TRIANGLES, mesh->getNumberOfVerts(), GL_UNSIGNED_SHORT, (void *)0);
 }
 
 //Render every object in the scene; assume a bound shader

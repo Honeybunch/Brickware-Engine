@@ -39,7 +39,7 @@ namespace Brickware
 
 		private:
 			Math::Vector3 direction;
-			Math::Matrix4 depthMVP;
+			Math::Matrix4 depthVP;
 			Math::Matrix4 depthBiasMVP;
 
 			void Init();

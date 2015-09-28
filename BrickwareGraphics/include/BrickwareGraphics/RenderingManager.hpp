@@ -27,12 +27,12 @@ namespace Brickware
 		{
 			Mesh* mesh;
 			Material* material;
+			Math::Matrix4 modelMatrix;
 		};
 
 #ifdef _WIN32
 		template class BRICKWARE_GRAPHICS_API std::vector < Renderable >;
-		template class BRICKWARE_GRAPHICS_API std::vector < DirectionalLightInternal* >;
-		template class BRICKWARE_GRAPHICS_API std::vector < PointLightInternal* >;
+		template class BRICKWARE_GRAPHICS_API std::vector < Light* >;
 #endif
 
 		class BRICKWARE_GRAPHICS_API RenderingManager
@@ -45,9 +45,9 @@ namespace Brickware
 			friend class RendererInfo;
 
 		public:
-			static void AddDirectionalLight(DirectionalLightInternal* light);
-			static void AddPointLight(PointLightInternal* light);
+			static void AddLight(Light* light);
 			static void UseMaterial(Material* material);
+			static void UseModelMatrix(Math::Matrix4 modelMatrix);
 			static void DrawMesh(Mesh* mesh);
 
 			static void Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext);
@@ -78,9 +78,10 @@ namespace Brickware
 			static void RenderPassD3D();
 #endif
 			static Material* currentMaterial;
+			static Math::Matrix4 currentModelMatrix;
+
 			static std::vector <Renderable> renderables;
-			static std::vector <DirectionalLightInternal* > directionalLights;
-			static std::vector <PointLightInternal* > pointLights;
+			static std::vector <Light* > lights;
 		};
 	}
 }

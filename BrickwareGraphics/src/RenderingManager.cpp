@@ -8,9 +8,10 @@ using namespace Graphics;
 
 //Statics
 Material* RenderingManager::currentMaterial;
+Math::Matrix4 RenderingManager::currentModelMatrix;
+
 std::vector<Renderable> RenderingManager::renderables;
-std::vector<DirectionalLightInternal*> RenderingManager::directionalLights;
-std::vector<PointLightInternal*> RenderingManager::pointLights;
+std::vector<Light*> RenderingManager::lights;
 
 #ifdef D3D_SUPPORT
 ID3D11Device* RenderingManager::device;
@@ -63,23 +64,24 @@ void RenderingManager::Initialize(ID3D11Device* device, ID3D11DeviceContext* dev
 	}
 }
 
-void RenderingManager::AddDirectionalLight(DirectionalLightInternal* light)
+void RenderingManager::AddLight(Light* light)
 {
-	directionalLights.push_back(light);
-}
-void RenderingManager::AddPointLight(PointLightInternal* light)
-{
-	pointLights.push_back(light);
+	lights.push_back(light);
 }
 void RenderingManager::UseMaterial(Material* material)
 {
 	currentMaterial = material;
+}
+void RenderingManager::UseModelMatrix(Math::Matrix4 modelMatrix)
+{
+	currentModelMatrix = modelMatrix;
 }
 void RenderingManager::DrawMesh(Mesh* mesh)
 {
 	Renderable renderable;
 	renderable.mesh = mesh;
 	renderable.material = currentMaterial;
+	renderable.modelMatrix = currentModelMatrix;
 
 	renderables.push_back(renderable);
 }

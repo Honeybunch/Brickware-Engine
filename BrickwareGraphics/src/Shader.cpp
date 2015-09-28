@@ -12,6 +12,8 @@ using namespace Graphics;
 using namespace Utility;
 using namespace Math;
 
+Shader* Shader::ActiveShader = nullptr;
+
 Shader::Shader(std::string vertexShaderFileName, std::string pixelShaderFileName)
 {
 	//TODO: Strip existing file extension if any
@@ -73,11 +75,13 @@ Shader::Shader(std::string vertexShaderFileName, std::string pixelShaderFileName
 
 void Shader::bindShader()
 {
+	ActiveShader = this;
 	(this->*bindShaderPtr)();
 }
 
 void Shader::freeShader()
 {
+	ActiveShader = nullptr;
 	(this->*freeShaderPtr)();
 }
 

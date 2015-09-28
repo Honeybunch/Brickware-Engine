@@ -65,6 +65,7 @@ namespace Brickware
 		{
 			friend class Material;
 			friend class PrimitiveManager;
+			friend class RenderingManager;
 
 		public:
 			Shader(std::string vertexShaderFileName, std::string pixelShaderFileName);
@@ -86,6 +87,8 @@ namespace Brickware
 			~Shader();
 
 		private:
+			static Shader* ActiveShader;
+
 			void(Shader::*bindShaderPtr)();
 			void(Shader::*freeShaderPtr)();
 

@@ -150,7 +150,7 @@ bool TestGame::init()
 	//GameObject* floor = new GameObject();
 	//floor->getTransform()->setPosition(Vector3(0, -1, 0));
 	//floor->getTransform()->setEulerRotation(Vector3(-3.14f/2.0f, 0, 0));
-	//floor->getTransform()->setScale(Vector3(100, 100, 1));
+	//floor->getTransform()->setScale(Vector3(10, 10, 1));
 	//floor->addComponent(new MeshRenderer(squareMesh, squareMaterial));
 
 	GameObject* sphere = new GameObject();
@@ -198,7 +198,7 @@ bool TestGame::init()
 	nonSpinBox->addComponent(rigidbody);
 	nonSpinBox->addComponent(new MeshRenderer(cubeMesh, cubeMaterial));
 	nonSpinBox->addComponent(new BoxCollider());
-	nonSpinBox->getTransform()->setPosition(Vector3(0, .5f, 2.0f));
+	nonSpinBox->getTransform()->setPosition(Vector3(0, 1.0f, -10.0f));
 	nonSpinBox->getTransform()->setScale(Vector3(1.0f, 1.0f, 1.0f));
 
 	//Create Camera

@@ -3,6 +3,7 @@
 #include "BrickwareCore/Transform.hpp"
 #include "BrickwareCore/GameObject.hpp"
 #include "BrickwareCore/Camera.hpp"
+#include "BrickwareGraphics/RenderingManager.hpp"
 
 #include <iostream>
 
@@ -112,8 +113,9 @@ void Transform::Render()
 		Matrix4 worldMatrix = (modelMatrix * viewMatrix) * projectionMatrix;
 
 		material->setMatrix4("worldMatrix", worldMatrix);
-		material->setMatrix4("modelMatrix", modelMatrix);
 		material->setMatrix4("rotationMatrix", rotation.getRotationMatrix());
+
+		Graphics::RenderingManager::UseModelMatrix(modelMatrix);
 	}
 }
 

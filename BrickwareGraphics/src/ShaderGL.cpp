@@ -66,7 +66,7 @@ bool Shader::loadGLSL(std::string vertexShaderFileName, std::string pixelShaderF
 	StringUtils::printShaderInfoLog(vertexShader);
 	StringUtils::printShaderInfoLog(pixelShader);
 
-	// Create the program -- attaching your shaders
+	// Create the program
 	program = glCreateProgram();
 	glAttachShader(program, vertexShader);
 	glAttachShader(program, pixelShader);

@@ -50,7 +50,7 @@ void DirectionalLightInternal::RenderShadowMapGL(Shader* shadowShader)
 	Matrix4 depthProjection = Matrix4::getOrthographicProjection(-30, 30, -30, 30, -60, 60);
 	Matrix4 depthView = Matrix4::getLookAtView(focalPoint, Vector3(0, 0, 0), Vector3(0, 1, 0));
 
-	depthMVP = depthView * depthProjection;
+	depthVP = depthView * depthProjection;
 
 	Matrix4 biasMatrix(1.0f, 0.0f, 0.0f, 0.0f,
 					   0.0f, 1.0f, 0.0f, 0.0f,
@@ -58,9 +58,11 @@ void DirectionalLightInternal::RenderShadowMapGL(Shader* shadowShader)
 					   0.0f, 0.0f, 0.0f, 1.0f);
 
 	//Apply bias to get texture coordinates
-	depthBiasMVP = biasMatrix * depthMVP;
+	depthBiasMVP = biasMatrix * depthVP;
 
-	shadowShader->setGlobalMatrix4("depthMVP", depthMVP);
+	shadowShader->setGlobalMatrix4("depthProj", depthProjection);
+	shadowShader->setGlobalMatrix4("depthView", depthView);
+	//shadowShader->setGlobalMatrix4("depthVP", depthVP);
 
 	//Actually bind framebuffer and render shadow map for texture
 

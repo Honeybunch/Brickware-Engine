@@ -249,7 +249,6 @@ bool Game::initGL()
 	//OpenGL initialization
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
-	glEnable(GL_LIGHTING);
 	glEnable(GL_PROGRAM_POINT_SIZE);
 	glClearColor(1.0, 1.0, 1.0, 1.0);
 

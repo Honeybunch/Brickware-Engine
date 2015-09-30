@@ -45,6 +45,11 @@ namespace Brickware
 			 */
 			Graphics::Material* getMaterial();
 
+			/* Gets the <Material> that is used for the shadow pass
+			 * @return A pointer ot the <Material> that is used to draw the <Mesh> during the shadow pass
+			 */
+			Graphics::Material* getShadowMaterial();
+
 			/* Gets the <Bounds> of the <Mesh> that it is drawing
 			 * @return The <Bounds> of the <Mesh> that it is drawing
 			 */
@@ -85,6 +90,7 @@ namespace Brickware
 		private:
 			Graphics::Mesh* mesh;
 			Graphics::Material* material;
+			Graphics::Material* shadowMaterial;
 
 			bool castsShadows;
 			bool recievesShadows;

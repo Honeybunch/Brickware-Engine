@@ -105,17 +105,25 @@ void Transform::Render()
 	if (meshRenderer)
 	{
 		Graphics::Material* material = meshRenderer->getMaterial();
+		Graphics::Material* shadowMaterial = meshRenderer->getShadowMaterial();
 
-		Camera* currentCamera = Camera::GetActiveCamera();
-		Matrix4 viewMatrix = currentCamera->getViewMatrix();
-		Matrix4 projectionMatrix = currentCamera->getProjectionMatrix();
+		if (material)
+		{
+			Camera* currentCamera = Camera::GetActiveCamera();
+			Matrix4 viewMatrix = currentCamera->getViewMatrix();
+			Matrix4 projectionMatrix = currentCamera->getProjectionMatrix();
 
-		Matrix4 worldMatrix = (modelMatrix * viewMatrix) * projectionMatrix;
+			Matrix4 worldMatrix = (modelMatrix * viewMatrix) * projectionMatrix;
 
-		material->setMatrix4("worldMatrix", worldMatrix);
-		material->setMatrix4("rotationMatrix", rotation.getRotationMatrix());
+			material->setMatrix4("worldMatrix", worldMatrix);
+			material->setMatrix4("rotationMatrix", rotation.getRotationMatrix());
+			material->setMatrix4("modelMatrix", modelMatrix);
+		}
 
-		Graphics::RenderingManager::UseModelMatrix(modelMatrix);
+		if (shadowMaterial)
+		{
+			shadowMaterial->setMatrix4("modelMatrix", modelMatrix);
+		}
 	}
 }
 

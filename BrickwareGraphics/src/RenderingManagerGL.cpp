@@ -31,9 +31,27 @@ void RenderingManager::PreRenderGL()
 
 void RenderingManager::ShadowPassGL()
 {
-	glViewport(0, 0, 1024, 1024);
-	for (unsigned int i = 0; i < lights.size(); i++)
-		lights[i]->RenderShadowMap(ShadowShader);
+	//Bind shadow shader for rendering shadow maps
+	ShadowShader->bindShader();
+
+	//Send light data to the shader
+	for (unsigned int j = 0; j < 1; j++)
+	{
+		lights[j]->RenderShadowMap(ShadowShader);
+
+		//Render every renderable object for the light
+		for (unsigned int i = 0; i < renderables.size(); i++)
+		{
+			Renderable renderable = renderables[i];
+
+			//Render object
+			RenderObjectGL(renderable.mesh, renderable.shadowMaterial);
+		}
+	}
+
+	//unbind
+	ShadowShader->freeShader();
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 void RenderingManager::ScenePassGL()
@@ -59,22 +77,16 @@ void RenderingManager::ScenePassGL()
 			}
 		}
 
-		Material* material = renderable.material;
-
-		material->sendDataToGPU();
-
 		//Render object
-		RenderObjectGL(renderable);
+		RenderObjectGL(renderable.mesh, renderable.material);
 	}
 
 	Shader::ActiveShader->freeShader();
 }
 
-void RenderingManager::RenderObjectGL(Renderable renderable)
+void RenderingManager::RenderObjectGL(Mesh* mesh, Material* material)
 {
-	Shader::ActiveShader->setGlobalMatrix4("modelMatrix",renderable.modelMatrix);
-
-	Mesh* mesh = renderable.mesh;
+	material->sendDataToGPU();
 
 	GLint shaderProgram;
 	glGetIntegerv(GL_CURRENT_PROGRAM, &shaderProgram);
@@ -99,13 +111,6 @@ void RenderingManager::RenderObjectGL(Renderable renderable)
 
 	//Draw Shape
 	glDrawElements(GL_TRIANGLES, mesh->getNumberOfVerts(), GL_UNSIGNED_SHORT, (void *)0);
-}
-
-//Render every object in the scene; assume a bound shader
-void RenderingManager::RenderPassGL()
-{
-	for(unsigned int i = 0; i < renderables.size(); i++)
-		RenderObjectGL(renderables[i]);
 }
 
 #endif

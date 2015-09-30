@@ -8,7 +8,7 @@ using namespace Graphics;
 
 //Statics
 Material* RenderingManager::currentMaterial;
-Math::Matrix4 RenderingManager::currentModelMatrix;
+Material* RenderingManager::currentShadowMaterial;
 
 std::vector<Renderable> RenderingManager::renderables;
 std::vector<Light*> RenderingManager::lights;
@@ -21,7 +21,6 @@ IDXGIAdapter* RenderingManager::dxgiAdapter;
 #endif
 
 void(*RenderingManager::Render)();
-void(*RenderingManager::RenderPass)();
 
 Shader* RenderingManager::ShadowShader = nullptr;
 
@@ -41,7 +40,6 @@ void RenderingManager::Initialize(ID3D11Device* device, ID3D11DeviceContext* dev
 		if (RendererInfo::GetAPIMajorVersion() >= 3)
 		{
 			RenderingManager::Render = &RenderingManager::RenderGL;
-			RenderingManager::RenderPass = &RenderingManager::RenderPassGL;
 		}
 	}
 	else if (renderer = RenderingAPI::DirectX)
@@ -72,16 +70,16 @@ void RenderingManager::UseMaterial(Material* material)
 {
 	currentMaterial = material;
 }
-void RenderingManager::UseModelMatrix(Math::Matrix4 modelMatrix)
+void RenderingManager::UseShadowMaterial(Material* shadowMaterial)
 {
-	currentModelMatrix = modelMatrix;
+	currentShadowMaterial = shadowMaterial;
 }
 void RenderingManager::DrawMesh(Mesh* mesh)
 {
 	Renderable renderable;
 	renderable.mesh = mesh;
 	renderable.material = currentMaterial;
-	renderable.modelMatrix = currentModelMatrix;
+	renderable.shadowMaterial = currentShadowMaterial;
 
 	renderables.push_back(renderable);
 }

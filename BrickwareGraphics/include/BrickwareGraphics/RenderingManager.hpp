@@ -22,12 +22,11 @@ namespace Brickware
 		struct ID3D11Device;
 		struct ID3D11DeviceContext;
 #endif
-
 		struct Renderable
 		{
 			Mesh* mesh;
 			Material* material;
-			Math::Matrix4 modelMatrix;
+			Material* shadowMaterial;
 		};
 
 #ifdef _WIN32
@@ -47,16 +46,15 @@ namespace Brickware
 		public:
 			static void AddLight(Light* light);
 			static void UseMaterial(Material* material);
-			static void UseModelMatrix(Math::Matrix4 modelMatrix);
+			static void UseShadowMaterial(Material* shadowMaterial);
 			static void DrawMesh(Mesh* mesh);
 
 			static void Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext);
 			static void (*Render)();
-			static void (*RenderPass)();
 			static void Destroy();
 
-		private:
 			static Shader* ShadowShader;
+		private:
 
 #ifdef GL_SUPPORT
 			static void RenderGL();
@@ -64,8 +62,7 @@ namespace Brickware
 			static void ShadowPassGL();
 			static void ScenePassGL();
 
-			static void RenderObjectGL(Renderable renderable);
-			static void RenderPassGL();
+			static void RenderObjectGL(Mesh* mesh, Material* material);
 #endif
 #ifdef D3D_SUPPORT
 			static ID3D11Device* device;
@@ -74,11 +71,10 @@ namespace Brickware
 			static IDXGIAdapter* dxgiAdapter;
 
 			static void RenderD3D();
-			static void RenderObjectD3D(Renderable renderable);
-			static void RenderPassD3D();
+			static void RenderObjectD3D(Mesh* mesh, Material* material);
 #endif
 			static Material* currentMaterial;
-			static Math::Matrix4 currentModelMatrix;
+			static Material* currentShadowMaterial;
 
 			static std::vector <Renderable> renderables;
 			static std::vector <Light* > lights;

@@ -65,9 +65,19 @@ float CalcDirShadows()
 
 	float bias = 0.0005;
 
-	float visibility = 0.5;
-	if (texture(shadowMap, projCoords.xy).z < projCoords.z - bias)
-		visibility = 1.0;
+	vec2 poissonDisk[4] = vec2[](
+		vec2(-0.94201624, -0.39906216),
+		vec2(0.94558609, -0.76890725),
+		vec2(-0.094184101, -0.92938870),
+		vec2(0.34495938, 0.29387760)
+		);
+
+	float visibility = 1.0;
+	for (int i = 0; i < 4; i++)
+	{
+		if (texture(shadowMap, projCoords.xy + poissonDisk[i]/700.0).z < projCoords.z - bias)
+			visibility -= 0.2;
+	}
 
 	return visibility;
 }
@@ -88,7 +98,7 @@ vec3 CalcDirectionalLight(DirectionalLight light, vec4 hue, vec3 viewDir)
 	//Calculate shadows
 	float shadow = CalcDirShadows();
 
-	vec3 dirLight = (ambient + (1.0 - shadow) * (diffuse + specular));
+	vec3 dirLight = (ambient + shadow * (diffuse + specular));
 
 	return  dirLight;
 }

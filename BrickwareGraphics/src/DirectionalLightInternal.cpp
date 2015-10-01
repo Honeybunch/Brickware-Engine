@@ -18,7 +18,7 @@ DirectionalLightInternal::DirectionalLightInternal() : Light()
 	{
 		if (RendererInfo::GetAPIMajorVersion() >= 3)
 		{
-			InitGL();
+			InitPtr = &DirectionalLightInternal::InitGL;
 			if (GraphicsSettings::Shadows)
 			{
 				RenderShadowMapPtr = &DirectionalLightInternal::RenderShadowMapGL;
@@ -30,7 +30,8 @@ DirectionalLightInternal::DirectionalLightInternal() : Light()
 			std::cout << "Your card does not support OpenGL 3+" << std::endl;
 		}
 	}
-	
+
+	Init();
 }
 
 void DirectionalLightInternal::setDirection(Vector3 direction)
@@ -53,6 +54,11 @@ void DirectionalLightInternal::RenderLight(Shader* shader)
 	shader->setGlobalVector3(ambLightString.c_str(), ambientColor);
 	shader->setGlobalVector3(diffLightString.c_str(), diffuseColor);
 	shader->setGlobalVector3(specLightString.c_str(), specularColor);
+}
+
+void DirectionalLightInternal::Init()
+{
+	(this->*InitPtr)();
 }
 
 void DirectionalLightInternal::RenderShadowMap(Shader* shadowShader)

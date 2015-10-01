@@ -9,6 +9,7 @@
 
 #include "BrickwareGraphics/DirectionalLightInternal.hpp"
 #include "BrickwareGraphics/RenderingManager.hpp"
+#include "BrickwareGraphics/GraphicsSettings.hpp"
 
 //Project Headers
 #include "BrickwareCore/Component.hpp"
@@ -30,19 +31,34 @@ namespace Brickware
 			DirectionalLight();
 
 			/* Sets the direction that the light will follow
-			* @direction A <Math::Vector3> describing the light's direction
-			*/
+			 * @direction A <Math::Vector3> describing the light's direction
+			 */
 			void setDirection(Math::Vector3 direction);
 
 			/* Sets the diffuse color of the light
-			* @diffuseColor A <Math::Vector3> describing a color's RGB values
-			*/
+			 * @diffuseColor A <Math::Vector3> describing a color's RGB values
+			 */
 			void setDiffuseColor(Math::Vector3 diffuseColor);
 
 			/* Sets the color of the light's specular highlights
-			* @diffuseColor A <Math::Vector3> describing a color's RGB values
-			*/
+			 * @diffuseColor A <Math::Vector3> describing a color's RGB values
+			 */
 			void setSpecularColor(Math::Vector3 specularColor);
+
+			/* Sets how dark shadows casted by this light will get
+			 * @shadowStrength A float describing how dark shadows will get
+			 */
+			void setShadowStrength(float shadowStrength);
+
+			/* Sets the bias when rendering shadows
+			 * @shadowBias A float describing how much bias to apply when rendering shadows
+			 */
+			void setShadowBias(float shadowBias);
+
+			/* Sets the level of quality to render the shadow map from this light
+			 * @shadowQuality a <Graphics::ShadowQuality> describing the resolution of the shadow map
+			 */
+			void setShadowMapQuality(Graphics::ShadowQuality shadowQuality);
 
 			//When called will send light data to the <Brickware::Graphics::RenderingManager>
 			virtual void Render();

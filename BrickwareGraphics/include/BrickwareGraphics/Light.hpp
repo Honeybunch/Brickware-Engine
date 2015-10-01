@@ -34,6 +34,11 @@ namespace Brickware
 			void setDiffuseColor(Math::Vector3 diffuseColor);
 			void setSpecularColor(Math::Vector3 specularColor);
 
+			void setShadowStrength(float shadowStrength);
+			void setShadowBias(float shadowBias);
+
+			void setShadowMapQuality(ShadowQuality shadowQuality);
+
 			virtual void RenderLight(Shader* shader) = 0;
 			virtual void RenderShadowMap(Shader* shadowShader) = 0;
 			virtual void BindShadowMap(Shader* shader) = 0;
@@ -41,9 +46,21 @@ namespace Brickware
 			virtual ~Light(void);
 
 		protected:
+
+			virtual void Init() = 0;
+
 			Math::Vector3 ambientColor;
 			Math::Vector3 diffuseColor;
 			Math::Vector3 specularColor;
+
+			GLuint shadowBuffer;
+			GLuint depthTexture;
+
+			float shadowStrength;
+			float shadowBias;
+			float shadowNormalBias; //TODO: Implement
+
+			unsigned int shadowMapRes;
 		};
 	}
 }

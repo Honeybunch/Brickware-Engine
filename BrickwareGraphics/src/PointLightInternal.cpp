@@ -46,6 +46,11 @@ void PointLightInternal::RenderLight(Shader* shader)
 	shader->setGlobalVector3(specLightString.c_str(), specularColor);
 }
 
+void PointLightInternal::Init()
+{
+	//Init shadow cube map
+}
+
 void PointLightInternal::RenderShadowMap(Shader* shadowShader)
 {
 	//Render cube map

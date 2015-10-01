@@ -214,7 +214,7 @@ char* StringUtils::wideStringToString(WCHAR* wideString)
 	Private Functions
 */
 
-//Used to more split a string while handling two consecutive delimeters which strok does not do by default
+//Used to split a string while handling two consecutive delimeters which strtok does not do by default
 char* StringUtils::strtok_single(char* string, const char* delimeters)
 {
 	static char* src = nullptr;

@@ -58,7 +58,7 @@ void RenderingManager::ScenePassGL()
 {
 	glViewport(0, 0, 800, 600);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+	
 	//Render every renderable object
 	for (unsigned int i = 0; i < renderables.size(); i++)
 	{

@@ -75,6 +75,15 @@ namespace Brickware
 			Anisotropicx16
 		};
 
+		enum BRICKWARE_GRAPHICS_API ShadowQuality
+		{
+			UseQualSetting = 0,
+			Low = 512,
+			Medium = 1024,
+			High = 2048, 
+			VeryHigh = 4096
+		};
+
 		class BRICKWARE_GRAPHICS_API GraphicsSettings
 		{
 		public:
@@ -83,6 +92,7 @@ namespace Brickware
 			static bool Shadows;
 			static AntiAliasing AA;
 			static TextureFiltering TexFiltering;
+			static ShadowQuality ShadowQual;
 		};
 	}
 }

@@ -112,9 +112,11 @@ bool TestGame::init()
 	//Create Lights
 	GameObject* dirLight = new GameObject();
 	DirectionalLight* dirLightComp = new DirectionalLight();
-	dirLightComp->setDirection(Vector3(0, -0.5f, 1.0f));
+	dirLightComp->setDirection(Vector3(0, -0.9f, 1.0f));
 	dirLightComp->setDiffuseColor(Vector3(0.5f, 0.5f, 0.5f));
 	dirLightComp->setSpecularColor(Vector3(0.5f, 0.5f, 0.5f));
+
+	dirLightComp->setShadowMapQuality(ShadowQuality::VeryHigh);
 
 	dirLight->addComponent(dirLightComp);
 

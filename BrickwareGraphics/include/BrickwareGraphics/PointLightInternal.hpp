@@ -42,7 +42,9 @@ namespace Brickware
 
 			virtual ~PointLightInternal(void);
 
-		private:
+		protected:
+			virtual void Init();
+
 			static int LightCount;
 			int lightIndex;
 

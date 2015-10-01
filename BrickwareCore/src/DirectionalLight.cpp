@@ -17,6 +17,11 @@ void DirectionalLight::setDirection(Vector3 direction){ light->setDirection(dire
 void DirectionalLight::setDiffuseColor(Vector3 diffuseColor){ light->setDiffuseColor(diffuseColor); }
 void DirectionalLight::setSpecularColor(Vector3 specularColor){ light->setSpecularColor(specularColor); }
 
+void DirectionalLight::setShadowStrength(float shadowStrength){ light->setShadowStrength(shadowStrength); }
+void DirectionalLight::setShadowBias(float shadowBias){ light->setShadowBias(shadowBias); }
+
+void DirectionalLight::setShadowMapQuality(Graphics::ShadowQuality shadowQuality){ light->setShadowMapQuality(shadowQuality); }
+
 void DirectionalLight::Render()
 {
 	Graphics::RenderingManager::AddLight(light);

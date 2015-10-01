@@ -45,7 +45,7 @@ Quaternion::Quaternion(Vector3 v)
 	Quaternion xQ(attitudeSin, 0, 0, attitudeCos);
 	Quaternion yQ(0, headingSin, 0, headingCos);
 	Quaternion zQ(0, 0, bankSin, bankCos);
-	
+
 	//Note: this order matters!
 	Quaternion product = xQ * yQ * zQ;
 
@@ -120,8 +120,8 @@ Matrix3 Quaternion::getRotationMatrix()
 	float m21 = 2 * ((y * z) - (x * w));
 
 	Matrix3 rotationMat(m00, m01, m02,
-						m10, m11, m12,
-						m20, m21, m22);
+											m10, m11, m12,
+											m20, m21, m22);
 
 	return rotationMat;
 }

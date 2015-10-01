@@ -10,6 +10,8 @@ using namespace Math;
 
 MeshRenderer::MeshRenderer(Mesh* mesh, Material* material)
 {
+	castsShadows = true;
+
 	if (castsShadows)
 		this->shadowMaterial = new Material(RenderingManager::ShadowShader);
 
@@ -31,11 +33,11 @@ Material* MeshRenderer::getShadowMaterial()
 Bounds MeshRenderer::getBounds(){ return mesh->getBounds(); }
 
 Component* MeshRenderer::Clone()
-{ 
+{
 	MeshRenderer* copy = new MeshRenderer(*this);
 	copy->material = new Material(*material);
 	copy->shadowMaterial = new Material(*shadowMaterial);
-	return copy; 
+	return copy;
 }
 
 //Determine if there is any chance that we'll need to rebuffer the mesh
@@ -46,7 +48,7 @@ void MeshRenderer::Start()
 
 //Draw everything in the VBOs
 void MeshRenderer::Render()
-{	
+{
 	RenderingManager::UseMaterial(material);
 	RenderingManager::UseShadowMaterial(shadowMaterial);
 	RenderingManager::DrawMesh(mesh);

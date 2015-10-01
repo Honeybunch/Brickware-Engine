@@ -127,7 +127,7 @@ bool TestGame::init()
 
 	light1->getTransform()->setPosition(Vector3(1.0f, 0.1f, 0.0f));
 	light1->addComponent(light1Comp);
-	
+
 	//GameObject* light2 = new GameObject();
 	//PointLight* light2Comp = new PointLight();
 	//light2Comp->setDiffuseColor(Vector3(.6f, 0, 0));

@@ -70,12 +70,12 @@ void Rigidbody::FixedUpdate()
 	float deltaTime = GameTime::GetFixedDeltaTime() * GameTime::GetTimeScale();
 
 	Vector3 pos = transform->getPosition();
-	Vector3 rot = transform->getEulerRotation();
+	Quaternion rot = transform->getRotation();
 
 	body->updateForces(deltaTime, &pos, &rot);
 
 	transform->setPosition(pos);
-	transform->setEulerRotation(rot);
+	transform->setRotation(rot);
 }
 void Rigidbody::OnCollision(Collision* collision)
 {

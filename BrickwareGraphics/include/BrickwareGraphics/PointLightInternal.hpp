@@ -53,6 +53,21 @@ namespace Brickware
 			float constant;
 			float linear;
 			float quadratic;
+
+			void (PointLightInternal::*InitPtr)();
+			void (PointLightInternal::*RenderShadowMapPtr)(Shader* shadowShader);
+			void (PointLightInternal::*BindShadowMapPtr)(Shader* shader);
+
+#ifdef GL_SUPPORT
+			void InitGL();
+			void RenderShadowMapGL(Shader* shadowShader);
+			void BindShadowMapGL(Shader* shader);
+#endif
+#ifdef D3D_SUPPORT
+			void InitD3D();
+			void RenderShadowMapD3D(Shader* shadowShader);
+			void BindShadowMapD3D(Shader* shader);
+#endif
 		};
 	}
 }

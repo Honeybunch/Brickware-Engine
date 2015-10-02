@@ -1,7 +1,6 @@
 #define BRICKWARE_GRAPHICS_EXPORTS
 
 #include "BrickwareGraphics/DirectionalLightInternal.hpp"
-#include "BrickwareGraphics/RendererInfo.hpp"
 
 using namespace Brickware;
 using namespace Graphics;
@@ -49,11 +48,17 @@ void DirectionalLightInternal::RenderLight(Shader* shader)
 	std::string diffLightString = baseString + "diffuseColor";
 	std::string specLightString = baseString + "specularColor";
 
+	std::string shadowStrengthString = baseString += "shadowStrength";
+	std::string shadowBiasString = baseString += "shadowBias";
+
 	//Send light data
 	shader->setGlobalVector3(dirLightString.c_str(), direction);
 	shader->setGlobalVector3(ambLightString.c_str(), ambientColor);
 	shader->setGlobalVector3(diffLightString.c_str(), diffuseColor);
 	shader->setGlobalVector3(specLightString.c_str(), specularColor);
+
+	shader->setGlobalFloat(shadowStrengthString.c_str(), shadowStrength);
+	shader->setGlobalFloat(shadowBiasString.c_str(), shadowBias);
 }
 
 void DirectionalLightInternal::Init()

@@ -8,6 +8,7 @@
 #include "BrickwareMath/Vector3.hpp"
 #include "BrickwareMath/Matrix3.hpp"
 #include "BrickwareMath/Matrix4.hpp"
+#include "BrickwareMath/Quaternion.hpp"
 
 namespace Brickware
 {
@@ -48,7 +49,7 @@ namespace Brickware
 			void addInstantaneousTorque(Math::Vector3 instantTorque);
 
 			//Integrates all forces this frame onto the body
-			void updateForces(float deltaTime, Math::Vector3* newPos, Math::Vector3* newEulerRot);
+			void updateForces(float deltaTime, Math::Vector3* newPos, Math::Quaternion* newRot);
 
 		private:
 			Math::Vector3 acceleration;

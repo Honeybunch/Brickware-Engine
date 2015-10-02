@@ -13,6 +13,9 @@ Light::Light()
 	diffuseColor = Vector3(1.0f, 1.0f, 1.0f);
 	specularColor = Vector3(1.0f, 1.0f, 1.0f);
 
+	shadowStrength = 0.5f;
+	shadowBias = 0.005f;
+
 	shadowMapRes = GraphicsSettings::ShadowQual;
 }
 

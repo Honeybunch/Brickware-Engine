@@ -20,6 +20,7 @@
 
 //Project Headers
 #include "BrickwareGraphics/Material.hpp"
+#include "BrickwareGraphics/RendererInfo.hpp"
 
 namespace Brickware
 {

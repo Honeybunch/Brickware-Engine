@@ -8,6 +8,9 @@ struct DirectionalLight
 	vec3 ambientColor;
 	vec3 diffuseColor;
 	vec3 specularColor;
+
+	float shadowStrength;
+	float shadowBias;
 };
 
 uniform DirectionalLight directionalLight;
@@ -25,6 +28,9 @@ struct PointLight
 	vec3 ambientColor;
 	vec3 diffuseColor;
 	vec3 specularColor;
+
+	float shadowStrength;
+	float shadowBias;
 };
 
 uniform int pointLightCount;
@@ -47,6 +53,8 @@ out vec4 fragColor;
 
 in vec2 texCoord;
 in vec4 shadowCoord;
+uniform float shadowStrength;
+uniform float shadowBias;
 
 uniform sampler2D diffuseTexture;
 uniform sampler2D shadowMap;
@@ -56,14 +64,12 @@ in vec3 worldNormal;
 in vec3 worldPosition;
 in vec3 eyePosition;
 
-float CalcDirShadows()
+float CalcDirShadows(DirectionalLight light)
 {
 	//Perspective divide
 	vec3 projCoords = shadowCoord.xyz / shadowCoord.w;
 	//Get into 0-1 range
 	projCoords = projCoords * 0.5 + 0.5;
-
-	float bias = 0.0005;
 
 	vec2 poissonDisk[4] = vec2[](
 		vec2(-0.94201624, -0.39906216),
@@ -72,11 +78,12 @@ float CalcDirShadows()
 		vec2(0.34495938, 0.29387760)
 		);
 
-	float visibility = 1.0;
+	float visibility = 1.0f;
+	float strengthFactor = light.shadowStrength / 4;
 	for (int i = 0; i < 4; i++)
 	{
-		if (texture(shadowMap, projCoords.xy + poissonDisk[i]/700.0).z < projCoords.z - bias)
-			visibility -= 0.2;
+		if (texture(shadowMap, projCoords.xy + poissonDisk[i]/700.0).z < projCoords.z - light.shadowBias)
+			visibility -= strengthFactor;
 	}
 
 	return visibility;
@@ -96,7 +103,7 @@ vec3 CalcDirectionalLight(DirectionalLight light, vec4 hue, vec3 viewDir)
 	vec3 specular = light.specularColor * specularPower * hue.rgb;
 
 	//Calculate shadows
-	float shadow = CalcDirShadows();
+	float shadow = CalcDirShadows(light);
 
 	vec3 dirLight = (ambient + shadow * (diffuse + specular));
 

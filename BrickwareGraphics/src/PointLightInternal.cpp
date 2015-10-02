@@ -15,6 +15,28 @@ PointLightInternal::PointLightInternal() : Light()
 	//Note the index of this light
 	lightIndex = LightCount;
 	LightCount++;
+
+	RenderingAPI renderer = GraphicsSettings::Renderer;
+
+	//Initialize based on rendering API
+	if (renderer = RenderingAPI::OpenGL)
+	{
+		if (RendererInfo::GetAPIMajorVersion() >= 3)
+		{
+			InitPtr = &PointLightInternal::InitGL;
+			if (GraphicsSettings::Shadows)
+			{
+				RenderShadowMapPtr = &PointLightInternal::RenderShadowMapGL;
+				BindShadowMapPtr = &PointLightInternal::BindShadowMapGL;
+			}
+		}
+		else
+		{
+			std::cout << "Your card does not support OpenGL 3+" << std::endl;
+		}
+	}
+
+	Init();
 }
 
 void PointLightInternal::setPosition(Vector3 position)
@@ -48,17 +70,19 @@ void PointLightInternal::RenderLight(Shader* shader)
 
 void PointLightInternal::Init()
 {
-	//Init shadow cube map
+	(this->*InitPtr)();
 }
 
 void PointLightInternal::RenderShadowMap(Shader* shadowShader)
 {
 	//Render cube map
+	(this->*RenderShadowMapPtr)(shadowShader);
 }
 
 void PointLightInternal::BindShadowMap(Shader* shader)
 {
 	//Bind Shadow cube map
+	(this->*BindShadowMapPtr)(shader);
 }
 
 PointLightInternal::~PointLightInternal()

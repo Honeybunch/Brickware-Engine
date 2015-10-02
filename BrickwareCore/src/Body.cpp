@@ -99,7 +99,7 @@ void Body::addInstantaneousTorque(Vector3 instantTorque)
 }
 
 //Integrates all forces this frame onto the body
-void Body::updateForces(float deltaTime, Vector3* newPos, Vector3* newEulerRot)
+void Body::updateForces(float deltaTime, Vector3* newPos, Quaternion* newRot)
 {
 	//Apply constant forces
 	if (useGravity)
@@ -142,7 +142,7 @@ void Body::updateForces(float deltaTime, Vector3* newPos, Vector3* newEulerRot)
 	AVT = angularVelocity * deltaTime;
 
 	//Integrate angular velocity into rotation
-	(*newEulerRot) += AVT;
+	(*newRot) = (*newRot) * Quaternion(AVT);
 
 	//Clear out frame forces
 	impulse = Vector3();

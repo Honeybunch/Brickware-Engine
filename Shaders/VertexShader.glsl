@@ -41,5 +41,7 @@ void main()
 	eyePosition = eyePoint;
 
 	texCoord = vTexCoord;
-	shadowCoord = (depthBiasMVP * vec4(vPosition, 1.0f));
+
+	mat4 shadowMVP = depthBiasMVP * modelMatrix;
+	shadowCoord = (shadowMVP * vec4(vPosition, 1.0f));
 }

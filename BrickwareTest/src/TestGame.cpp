@@ -116,8 +116,8 @@ bool TestGame::init()
 	dirLightComp->setDiffuseColor(Vector3(0.5f, 0.5f, 0.5f));
 	dirLightComp->setSpecularColor(Vector3(0.5f, 0.5f, 0.5f));
 
-	dirLightComp->setShadowMapQuality(ShadowQuality::Low);
-	dirLightComp->setShadowStrength(0.5f);
+	dirLightComp->setShadowMapQuality(ShadowQuality::VeryHigh);
+	dirLightComp->setShadowStrength(0.7f);
 
 	dirLight->addComponent(dirLightComp);
 

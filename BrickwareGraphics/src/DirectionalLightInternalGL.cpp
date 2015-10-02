@@ -2,7 +2,6 @@
 
 #include "BrickwareGraphics/DirectionalLightInternal.hpp"
 #include "BrickwareGraphics/RenderingManager.hpp"
-#include "BrickwareGraphics/Primitive.hpp"
 
 using namespace Brickware;
 using namespace Graphics;
@@ -13,7 +12,7 @@ void DirectionalLightInternal::InitGL()
 	//Gen framebuffer
 	glGenFramebuffers(1, &shadowBuffer);
 
-	//Setup 1024x1024 16 bit depth texture
+	//Setup 16 bit depth texture
 	glGenTextures(1, &depthTexture);
 	glBindTexture(GL_TEXTURE_2D, depthTexture);
 
@@ -59,13 +58,17 @@ void DirectionalLightInternal::RenderShadowMapGL(Shader* shadowShader)
 
 	shadowShader->setGlobalMatrix4("depthVP", depthVP);
 
+	//Setup for drawing to buffer
 	glViewport(0, 0, shadowMapRes, shadowMapRes);
-
-	//Bind buffer for drawing
 	glBindFramebuffer(GL_FRAMEBUFFER, shadowBuffer);
 
 	glClearDepth(1.0f);
 	glClear(GL_DEPTH_BUFFER_BIT);
+
+	//Render to texture
+	RenderingManager::RenderSceneShadowsGL();
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 void DirectionalLightInternal::BindShadowMapGL(Shader* shader)

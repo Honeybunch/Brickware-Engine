@@ -40,6 +40,8 @@ namespace Brickware
 			friend class Shader;
 			friend class Mesh;
 			friend class Light;
+			friend class PointLightInternal;
+			friend class DirectionalLightInternal;
 			friend class Texture;
 			friend class RendererInfo;
 
@@ -63,6 +65,7 @@ namespace Brickware
 			static void ScenePassGL();
 
 			static void RenderObjectGL(Mesh* mesh, Material* material);
+			static void RenderSceneShadowsGL();
 #endif
 #ifdef D3D_SUPPORT
 			static ID3D11Device* device;

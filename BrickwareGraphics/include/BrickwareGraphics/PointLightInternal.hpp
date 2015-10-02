@@ -25,6 +25,17 @@ namespace Brickware
 {
 	namespace Graphics
 	{
+		using namespace Math;
+
+#ifdef GL_SUPPORT
+		struct CameraDirection
+		{
+			GLenum CubemapFace;
+			Vector3 Target;
+			Vector3 Up;
+		};
+#endif
+
 		class BRICKWARE_GRAPHICS_API PointLightInternal : public Light
 		{
 		public:
@@ -48,7 +59,7 @@ namespace Brickware
 			static int LightCount;
 			int lightIndex;
 
-			Math::Vector3 position;
+			Vector3 position;
 
 			float constant;
 			float linear;
@@ -59,6 +70,10 @@ namespace Brickware
 			void (PointLightInternal::*BindShadowMapPtr)(Shader* shader);
 
 #ifdef GL_SUPPORT
+			static CameraDirection CameraDirections[6];
+
+			GLuint shadowCubeMap;
+
 			void InitGL();
 			void RenderShadowMapGL(Shader* shadowShader);
 			void BindShadowMapGL(Shader* shader);

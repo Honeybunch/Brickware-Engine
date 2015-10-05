@@ -2,7 +2,6 @@
 #define BRICKWARE_GRAPHICS_EXPORTS
 
 #include "BrickwareGraphics/BrickwareGraphicsDLL.hpp"
-
 #include "BrickwareGraphics/RenderingManager.hpp"
 
 using namespace Brickware;
@@ -96,7 +95,7 @@ void RenderingManager::RenderObjectSceneGL(Mesh* mesh, Material* material)
 }
 
 //Doesn't try to send texCoord and normal info
-void RenderingManager::RenderObjectShadowGL(Mesh* mesh, Material* shadowMaterial)
+void RenderingManager::RenderObjectShadowGL(Mesh* mesh,  Material* shadowMaterial)
 {
 	shadowMaterial->sendDataToGPU();
 
@@ -119,12 +118,13 @@ void RenderingManager::RenderObjectShadowGL(Mesh* mesh, Material* shadowMaterial
 	glDrawElements(GL_TRIANGLES, mesh->getNumberOfVerts(), GL_UNSIGNED_SHORT, (void *)0);
 }
 
-void RenderingManager::RenderSceneShadowsGL()
+void RenderingManager::RenderSceneShadowsGL(Shader* shadowShader)
 {
 	//Render every renderable object for the light
 	for (unsigned int i = 0; i < renderables.size(); i++)
 	{
 		Renderable renderable = renderables[i];
+		renderable.shadowMaterial->setShader(shadowShader);
 
 		//Render object
 		RenderObjectShadowGL(renderable.mesh, renderable.shadowMaterial);

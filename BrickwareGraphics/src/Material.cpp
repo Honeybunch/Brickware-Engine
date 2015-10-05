@@ -45,6 +45,7 @@ Material::Material(const Material& other)
 	Materials.push_back(this);
 }
 
+void Material::setShader(Shader* shader){ this->shader = shader; }
 Shader* Material::getShader(){ return shader; }
 
 Material::~Material(){}

@@ -103,7 +103,7 @@ void PointLightInternal::RenderShadowMapGL()
 		//Render to texture
 		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
-		RenderingManager::RenderSceneShadowsGL();
+		RenderingManager::RenderSceneShadowsGL(RenderingManager::PointShadowShader);
 	}
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);

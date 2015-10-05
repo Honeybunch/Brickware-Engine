@@ -68,7 +68,7 @@ void DirectionalLightInternal::RenderShadowMapGL()
 	glClear(GL_DEPTH_BUFFER_BIT);
 
 	//Render to texture
-	RenderingManager::RenderSceneShadowsGL();
+	RenderingManager::RenderSceneShadowsGL(RenderingManager::DirectionalShadowShader);
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	RenderingManager::DirectionalShadowShader->freeShader();

@@ -68,7 +68,7 @@ namespace Brickware
 			static void RenderObjectSceneGL(Mesh* mesh, Material* material);
 			static void RenderObjectShadowGL(Mesh* mesh, Material* shadowMaterial);
 
-			static void RenderSceneShadowsGL();
+			static void RenderSceneShadowsGL(Shader* shadowShader);
 #endif
 #ifdef D3D_SUPPORT
 			static ID3D11Device* device;

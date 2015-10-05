@@ -58,6 +58,7 @@ namespace Brickware
 
 			static std::vector<Material*> Materials;
 
+			void setShader(Shader* shader);
 			Shader* getShader();
 
 #ifdef D3D_SUPPORT

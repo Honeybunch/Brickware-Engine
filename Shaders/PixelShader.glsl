@@ -58,6 +58,7 @@ uniform float shadowBias;
 
 uniform sampler2D diffuseTexture;
 uniform sampler2D shadowMap;
+uniform samplerCube pointShadowMaps[4];
 
 //Vertex data
 in vec3 worldNormal;

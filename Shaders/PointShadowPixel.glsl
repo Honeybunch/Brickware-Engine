@@ -1,8 +1,16 @@
 #version 130
 
-//out float fragmentdepth;
+in vec3 worldPos;
+
+uniform vec3 lightPos;
+
+out float fragColor;
 
 void main()
 {
-    //fragmentdepth = gl_FragCoord.z;
+	//Distance from the object's vert to the light
+	vec3 lightToVertex = worldPos - lightPos;
+	float lightToPixelDistance = length(lightToVertex);
+
+	fragColor = lightToPixelDistance;
 }

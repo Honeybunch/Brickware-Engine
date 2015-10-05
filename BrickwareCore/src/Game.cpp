@@ -265,8 +265,8 @@ bool Game::initGL()
 	// GL_DEBUG_OUTPUT_SYNCHRONUS - Callback is in sync with errors, so a breakpoint
 	// can be placed on the callback in order to get a stacktrace for the GL error.
 
-	//glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-	//glDebugMessageCallback(GLPrintErrorCallback, NULL);
+	glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+	glDebugMessageCallback(GLPrintErrorCallback, NULL);
 
 	return true;
 }

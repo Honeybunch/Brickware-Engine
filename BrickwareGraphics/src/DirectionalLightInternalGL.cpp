@@ -71,7 +71,6 @@ void DirectionalLightInternal::RenderShadowMapGL()
 	RenderingManager::RenderSceneShadowsGL();
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
 	RenderingManager::DirectionalShadowShader->freeShader();
 }
 

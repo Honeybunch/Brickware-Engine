@@ -246,12 +246,6 @@ bool Game::initGL()
 	//Make Context
 	glfwMakeContextCurrent(glWindow);
 
-	//OpenGL initialization
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
-	glEnable(GL_PROGRAM_POINT_SIZE);
-	glClearColor(1.0, 1.0, 1.0, 1.0);
-
 	//Turn off VSYNC TODO: Make this a graphics option
 	glfwSwapInterval(0);
 
@@ -259,6 +253,20 @@ bool Game::initGL()
 
 	if(glewInit() != GLEW_OK)
 		return false;
+
+	//OpenGL initialization
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
+	glEnable(GL_PROGRAM_POINT_SIZE);
+	glClearColor(1.0, 1.0, 1.0, 1.0);
+
+	// Enable the debugging layer of OpenGL
+	// GL_DEBUG_OUTPUT - Faster version but not useful for breakpoints
+	// GL_DEBUG_OUTPUT_SYNCHRONUS - Callback is in sync with errors, so a breakpoint
+	// can be placed on the callback in order to get a stacktrace for the GL error.
+
+	//glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+	//glDebugMessageCallback(GLPrintErrorCallback, NULL);
 
 	return true;
 }

@@ -31,15 +31,9 @@ void RenderingManager::PreRenderGL()
 
 void RenderingManager::ShadowPassGL()
 {
-	//Bind shadow shader for rendering shadow maps
-	ShadowShader->bindShader();
-
 	//Send light data to the shader
 	for (unsigned int j = 0; j < lights.size(); j++)
-		lights[j]->RenderShadowMap(ShadowShader);
-	
-	//unbind
-	ShadowShader->freeShader();
+		lights[j]->RenderShadowMap();
 }
 
 void RenderingManager::ScenePassGL()
@@ -66,13 +60,13 @@ void RenderingManager::ScenePassGL()
 		}
 
 		//Render object
-		RenderObjectGL(renderable.mesh, renderable.material);
+		RenderObjectSceneGL(renderable.mesh, renderable.material);
 	}
 
 	Shader::ActiveShader->freeShader();
 }
 
-void RenderingManager::RenderObjectGL(Mesh* mesh, Material* material)
+void RenderingManager::RenderObjectSceneGL(Mesh* mesh, Material* material)
 {
 	material->sendDataToGPU();
 
@@ -101,6 +95,30 @@ void RenderingManager::RenderObjectGL(Mesh* mesh, Material* material)
 	glDrawElements(GL_TRIANGLES, mesh->getNumberOfVerts(), GL_UNSIGNED_SHORT, (void *)0);
 }
 
+//Doesn't try to send texCoord and normal info
+void RenderingManager::RenderObjectShadowGL(Mesh* mesh, Material* shadowMaterial)
+{
+	shadowMaterial->sendDataToGPU();
+
+	GLint shaderProgram;
+	glGetIntegerv(GL_CURRENT_PROGRAM, &shaderProgram);
+
+	GLuint vPosition = glGetAttribLocation(shaderProgram, "vPosition");
+
+	glEnableVertexAttribArray(vPosition);
+
+	int normalOffset = mesh->getPointSize();
+	int texCoordOffset = normalOffset + mesh->getNormalSize();
+
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->getVBO());
+	glVertexAttribPointer(vPosition, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));;
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->getIBO());
+
+	//Draw Shape
+	glDrawElements(GL_TRIANGLES, mesh->getNumberOfVerts(), GL_UNSIGNED_SHORT, (void *)0);
+}
+
 void RenderingManager::RenderSceneShadowsGL()
 {
 	//Render every renderable object for the light
@@ -109,7 +127,7 @@ void RenderingManager::RenderSceneShadowsGL()
 		Renderable renderable = renderables[i];
 
 		//Render object
-		RenderObjectGL(renderable.mesh, renderable.shadowMaterial);
+		RenderObjectShadowGL(renderable.mesh, renderable.shadowMaterial);
 	}
 }
 

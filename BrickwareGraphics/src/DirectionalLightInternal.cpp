@@ -66,9 +66,9 @@ void DirectionalLightInternal::Init()
 	(this->*InitPtr)();
 }
 
-void DirectionalLightInternal::RenderShadowMap(Shader* shadowShader)
+void DirectionalLightInternal::RenderShadowMap()
 {
-	(this->*RenderShadowMapPtr)(shadowShader);
+	(this->*RenderShadowMapPtr)();
 }
 
 void DirectionalLightInternal::BindShadowMap(Shader* shader)

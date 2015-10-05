@@ -1,7 +1,5 @@
 #version 130
 in vec3 vPosition;
-in vec2 vTexCoord;
-in vec3 vNormal;
 
 uniform mat4 depthVP;
 uniform mat4 modelMatrix;

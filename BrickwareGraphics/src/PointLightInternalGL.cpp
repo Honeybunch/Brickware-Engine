@@ -1,7 +1,10 @@
 #define BRICKWARE_GRAPHICS_EXPORTS
 
+#define _USE_MATH_DEFINES
+
 #include "BrickwareGraphics/PointLightInternal.hpp"
 #include "BrickwareGraphics/RenderingManager.hpp"
+#include <cmath>
 
 using namespace Brickware;
 using namespace Graphics;
@@ -64,9 +67,12 @@ void PointLightInternal::InitGL()
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void PointLightInternal::RenderShadowMapGL(Shader* shadowShader)
+void PointLightInternal::RenderShadowMapGL()
 {
-	Matrix4 depthProjection = Matrix4::getPerspectiveProjection(90.0f, (float)shadowMapRes, (float)shadowMapRes, 0.1f, 30.0f);
+	RenderingManager::PointShadowShader->bindShader();
+
+	float FoV = (float)M_PI_2;
+	Matrix4 depthProjection = Matrix4::getPerspectiveProjection(FoV, (float)shadowMapRes, (float)shadowMapRes, 0.1f, 30.0f);
 	Matrix4 depthView;
 
 	Matrix4 biasMatrix(1.0f, 0.0f, 0.0f, 0.0f,
@@ -74,8 +80,8 @@ void PointLightInternal::RenderShadowMapGL(Shader* shadowShader)
 					   0.0f, 0.0f, 1.0f, 0.0f,
 					   0.0f, 0.0f, 0.0f, 1.0f);
 
-	glClearColor(FLT_MAX, FLT_MAX, FLT_MAX, FLT_MAX);
 	glBindFramebuffer(GL_FRAMEBUFFER, shadowBuffer);
+	glClearColor(FLT_MAX, FLT_MAX, FLT_MAX, FLT_MAX);
 	glViewport(0, 0, shadowMapRes, shadowMapRes);
 
 	//Render 6 maps, one in each direction
@@ -87,23 +93,26 @@ void PointLightInternal::RenderShadowMapGL(Shader* shadowShader)
 
 		//Set matrices
 		depthVP = depthView * depthProjection;
-		shadowShader->setGlobalMatrix4("depthVP", depthVP);
+		RenderingManager::PointShadowShader->setGlobalMatrix4("depthVP", depthVP);
 
 		//Setup for drawing to buffer
-		glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, cameraDirection.CubemapFace, shadowBuffer, 0);
+		glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, cameraDirection.CubemapFace, shadowCubeMap, 0);
 		glDrawBuffer(GL_COLOR_ATTACHMENT0);
 
 		//Render to texture
-		glClearDepth(1.0f);
-		glClear(GL_DEPTH_BUFFER_BIT);
+		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
 		RenderingManager::RenderSceneShadowsGL();
 	}
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	RenderingManager::PointShadowShader->freeShader();
 }
 
 void PointLightInternal::BindShadowMapGL(Shader* shader)
 {
-	//Bind Shadow cube map
+	//shader->setGlobalMatrix4("depthBiasMVP", depthBiasMVP);
+	//
+	//glActiveTexture(GL_TEXTURE2);
+	//glBindTexture(GL_TEXTURE_CUBE_MAP, shadowCubeMap);
 }

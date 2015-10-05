@@ -73,10 +73,10 @@ void PointLightInternal::Init()
 	(this->*InitPtr)();
 }
 
-void PointLightInternal::RenderShadowMap(Shader* shadowShader)
+void PointLightInternal::RenderShadowMap()
 {
 	//Render cube map
-	(this->*RenderShadowMapPtr)(shadowShader);
+	(this->*RenderShadowMapPtr)();
 }
 
 void PointLightInternal::BindShadowMap(Shader* shader)

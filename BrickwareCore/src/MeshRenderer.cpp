@@ -13,7 +13,7 @@ MeshRenderer::MeshRenderer(Mesh* mesh, Material* material)
 	castsShadows = true;
 
 	if (castsShadows)
-		this->shadowMaterial = new Material(RenderingManager::ShadowShader);
+		this->shadowMaterial = new Material(RenderingManager::DirectionalShadowShader);
 
 	this->material = new Material(*material);
 	this->mesh = mesh;

@@ -22,7 +22,8 @@ IDXGIAdapter* RenderingManager::dxgiAdapter;
 
 void(*RenderingManager::Render)();
 
-Shader* RenderingManager::ShadowShader = nullptr;
+Shader* RenderingManager::DirectionalShadowShader = nullptr;
+Shader* RenderingManager::PointShadowShader = nullptr;
 
 void RenderingManager::Initialize(ID3D11Device* device, ID3D11DeviceContext* deviceContext)
 {
@@ -30,8 +31,10 @@ void RenderingManager::Initialize(ID3D11Device* device, ID3D11DeviceContext* dev
 
 	if (GraphicsSettings::Shadows)
 	{
-		if (ShadowShader == nullptr)
-			ShadowShader = new Shader("Shaders/ShadowVertex", "Shaders/ShadowPixel");
+		if (DirectionalShadowShader == nullptr)
+			DirectionalShadowShader = new Shader("Shaders/DirectionalShadowVertex", "Shaders/DirectionalShadowPixel");
+		if (PointShadowShader == nullptr)
+			PointShadowShader = new Shader("Shaders/PointShadowVertex", "Shaders/PointShadowPixel");
 	}
 
 	//Setup function pointers based on rendering API

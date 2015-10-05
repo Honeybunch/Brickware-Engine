@@ -48,7 +48,7 @@ namespace Brickware
 			void setQuadratic(float quadratic);
 
 			virtual void RenderLight(Shader* shader);
-			virtual void RenderShadowMap(Shader* shadowShader);
+			virtual void RenderShadowMap();
 			virtual void BindShadowMap(Shader* shader);
 
 			virtual ~PointLightInternal(void);
@@ -66,7 +66,7 @@ namespace Brickware
 			float quadratic;
 
 			void (PointLightInternal::*InitPtr)();
-			void (PointLightInternal::*RenderShadowMapPtr)(Shader* shadowShader);
+			void (PointLightInternal::*RenderShadowMapPtr)();
 			void (PointLightInternal::*BindShadowMapPtr)(Shader* shader);
 
 #ifdef GL_SUPPORT
@@ -75,12 +75,12 @@ namespace Brickware
 			GLuint shadowCubeMap;
 
 			void InitGL();
-			void RenderShadowMapGL(Shader* shadowShader);
+			void RenderShadowMapGL();
 			void BindShadowMapGL(Shader* shader);
 #endif
 #ifdef D3D_SUPPORT
 			void InitD3D();
-			void RenderShadowMapD3D(Shader* shadowShader);
+			void RenderShadowMapD3D();
 			void BindShadowMapD3D(Shader* shader);
 #endif
 		};

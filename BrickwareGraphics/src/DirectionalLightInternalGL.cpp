@@ -37,8 +37,10 @@ void DirectionalLightInternal::InitGL()
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void DirectionalLightInternal::RenderShadowMapGL(Shader* shadowShader)
+void DirectionalLightInternal::RenderShadowMapGL()
 {
+	RenderingManager::DirectionalShadowShader->bindShader();
+
 	//Send info about the directional light to the shader for shadow mapping
 	Vector3 focalPoint = direction * -30;
 
@@ -56,7 +58,7 @@ void DirectionalLightInternal::RenderShadowMapGL(Shader* shadowShader)
 	//Apply bias to get texture coordinates
 	depthBiasMVP = biasMatrix * depthVP;
 
-	shadowShader->setGlobalMatrix4("depthVP", depthVP);
+	RenderingManager::DirectionalShadowShader->setGlobalMatrix4("depthVP", depthVP);
 
 	//Setup for drawing to buffer
 	glViewport(0, 0, shadowMapRes, shadowMapRes);
@@ -69,6 +71,8 @@ void DirectionalLightInternal::RenderShadowMapGL(Shader* shadowShader)
 	RenderingManager::RenderSceneShadowsGL();
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+	RenderingManager::DirectionalShadowShader->freeShader();
 }
 
 void DirectionalLightInternal::BindShadowMapGL(Shader* shader)

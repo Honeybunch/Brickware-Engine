@@ -48,7 +48,10 @@ std::vector<std::string> RendererInfo::GetAllSupportedGLSLVersions()
 	//glGetStringi isn't available below GL 3
 	if (GetGLMajorVersion() >= 3)
 	{
-		for (unsigned int i = 0; i < GL_NUM_SHADING_LANGUAGE_VERSIONS - 1; i++)
+		int numShadingLangVersions;
+		glGetIntegerv(GL_NUM_SHADING_LANGUAGE_VERSIONS, &numShadingLangVersions);
+
+		for (unsigned int i = 0; i < numShadingLangVersions - 1; i++)
 		{
 			const char* version = (char*)glGetStringi(GL_SHADING_LANGUAGE_VERSION, i);
 			if (version)

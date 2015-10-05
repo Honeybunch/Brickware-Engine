@@ -55,7 +55,8 @@ namespace Brickware
 			static void (*Render)();
 			static void Destroy();
 
-			static Shader* ShadowShader;
+			static Shader* DirectionalShadowShader;
+			static Shader* PointShadowShader;
 		private:
 
 #ifdef GL_SUPPORT
@@ -64,7 +65,9 @@ namespace Brickware
 			static void ShadowPassGL();
 			static void ScenePassGL();
 
-			static void RenderObjectGL(Mesh* mesh, Material* material);
+			static void RenderObjectSceneGL(Mesh* mesh, Material* material);
+			static void RenderObjectShadowGL(Mesh* mesh, Material* shadowMaterial);
+
 			static void RenderSceneShadowsGL();
 #endif
 #ifdef D3D_SUPPORT

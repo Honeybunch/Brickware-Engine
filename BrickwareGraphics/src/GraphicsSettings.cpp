@@ -11,4 +11,4 @@ bool GraphicsSettings::VSync = false;
 bool GraphicsSettings::Shadows = true;
 AntiAliasing GraphicsSettings::AA = AntiAliasing::MSAAx2;
 TextureFiltering GraphicsSettings::TexFiltering = TextureFiltering::Anisotropicx2;
-ShadowQuality GraphicsSettings::ShadowQual = ShadowQuality::Low;
+ShadowQuality GraphicsSettings::ShadowQual = ShadowQuality::High;

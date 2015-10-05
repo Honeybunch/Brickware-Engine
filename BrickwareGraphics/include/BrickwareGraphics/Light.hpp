@@ -41,7 +41,7 @@ namespace Brickware
 			void setShadowMapQuality(ShadowQuality shadowQuality);
 
 			virtual void RenderLight(Shader* shader) = 0;
-			virtual void RenderShadowMap(Shader* shadowShader) = 0;
+			virtual void RenderShadowMap() = 0;
 			virtual void BindShadowMap(Shader* shader) = 0;
 
 			virtual ~Light(void);

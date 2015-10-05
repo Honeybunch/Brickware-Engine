@@ -127,50 +127,82 @@ bool Shader::loadGLSL(std::string vertexShaderFileName, std::string pixelShaderF
 
 void Shader::setVector4GL(const char* valueName, Vector4 value)
 {
-	GLuint uniformLocation = (GLuint)(uniformMap[valueName]);
-	glUniform4fv(uniformLocation, 1, value.getAsArray());
+	//Don't send values that don't exist
+	if (uniformMap.find(valueName) != uniformMap.end())
+	{
+		GLuint uniformLocation = (GLuint)(uniformMap[valueName]);
+		glUniform4fv(uniformLocation, 1, value.getAsArray());
+	}
 }
 
 void Shader::setVector3GL(const char* valueName, Vector3 value)
 {
-	GLuint uniformLocation = (GLuint)(uniformMap[valueName]);
-	glUniform3fv(uniformLocation, 1, value.getAsArray());
+	//Don't send values that don't exist
+	if (uniformMap.find(valueName) != uniformMap.end())
+	{
+		GLuint uniformLocation = (GLuint)(uniformMap[valueName]);
+		glUniform3fv(uniformLocation, 1, value.getAsArray());
+	}
 }
 
 void Shader::setVector2GL(const char* valueName, Vector2 value)
 {
-	GLuint uniformLocation = (GLuint)(uniformMap[valueName]);
-	glUniform2fv(uniformLocation, 1, value.getAsArray());
+	//Don't send values that don't exist
+	if (uniformMap.find(valueName) != uniformMap.end())
+	{
+		GLuint uniformLocation = (GLuint)(uniformMap[valueName]);
+		glUniform2fv(uniformLocation, 1, value.getAsArray());
+	}
 }
 
 void Shader::setIntGL(const char* valueName, int value)
 {
-	GLuint uniformLocation = (GLuint)(uniformMap[valueName]);
-	glUniform1i(uniformLocation, value);
+	//Don't send values that don't exist
+	if (uniformMap.find(valueName) != uniformMap.end())
+	{
+		GLuint uniformLocation = (GLuint)(uniformMap[valueName]);
+		glUniform1i(uniformLocation, value);
+	}
 }
 
 void Shader::setFloatGL(const char* valueName, float value)
 {
-	GLuint uniformLocation = (GLuint)(uniformMap[valueName]);
-	glUniform1f(uniformLocation, value);
+	//Don't send values that don't exist
+	if (uniformMap.find(valueName) != uniformMap.end())
+	{
+		GLuint uniformLocation = (GLuint)(uniformMap[valueName]);
+		glUniform1f(uniformLocation, value);
+	}
 }
 
 void Shader::setDoubleGL(const char* valueName, double value)
 {
-	GLuint uniformLocation = (GLuint)(uniformMap[valueName]);
-	glUniform1d(uniformLocation, value);
+	//Don't send values that don't exist
+	if (uniformMap.find(valueName) != uniformMap.end())
+	{
+		GLuint uniformLocation = (GLuint)(uniformMap[valueName]);
+		glUniform1d(uniformLocation, value);
+	}
 }
 
 void Shader::setMatrix4GL(const char* valueName, Matrix4 value)
 {
-	GLuint uniformLocation = (GLuint)(uniformMap[valueName]);
-	glUniformMatrix4fv(uniformLocation, 1, false, value.getAsArray());
+	//Don't send values that don't exist
+	if (uniformMap.find(valueName) != uniformMap.end())
+	{
+		GLuint uniformLocation = (GLuint)(uniformMap[valueName]);
+		glUniformMatrix4fv(uniformLocation, 1, false, value.getAsArray());
+	}
 }
 
 void Shader::setMatrix3GL(const char* valueName, Matrix3 value)
 {
-	GLuint uniformLocation = (GLuint)(uniformMap[valueName]);
-	glUniformMatrix3fv(uniformLocation, 1, false, value.getAsArray());
+	//Don't send values that don't exist
+	if (uniformMap.find(valueName) != uniformMap.end())
+	{
+		GLuint uniformLocation = (GLuint)(uniformMap[valueName]);
+		glUniformMatrix3fv(uniformLocation, 1, false, value.getAsArray());
+	}
 }
 
 #endif

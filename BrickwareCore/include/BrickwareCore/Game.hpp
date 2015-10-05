@@ -36,6 +36,7 @@
 #include "BrickwareGraphics/Texture.hpp"
 #include "BrickwareGraphics/PrimitiveManager.hpp"
 #include "BrickwareGraphics/Primitive.hpp"
+#include "BrickwareGraphics/GLDebugCallback.hpp"
 
 #include "BrickwareMath/Vector3.hpp"
 

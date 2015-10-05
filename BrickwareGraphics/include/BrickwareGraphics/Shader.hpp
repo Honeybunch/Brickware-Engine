@@ -68,7 +68,9 @@ namespace Brickware
 			friend class RenderingManager;
 
 		public:
+			Shader(std::string vertexShaderFileName);
 			Shader(std::string vertexShaderFileName, std::string pixelShaderFileName);
+			Shader(std::string geometryShaderFileName, std::string vertexShaderFileName, std::string pixelShaderFileName);
 
 			void bindShader();
 			void freeShader();
@@ -113,7 +115,13 @@ namespace Brickware
 			void bindGLSL();
 			void freeGLSL();
 
+			void setGLFunctionPointers();
+
+			bool loadGLSL(std::string vertexShaderFileName);
 			bool loadGLSL(std::string vertexShaderFileName, std::string pixelShaderFileName);
+			bool loadGLSL(std::string geometryShaderFileName, std::string vertexShaderFileName, std::string pixelShaderFileName);
+
+			void reflectShaderGL();
 
 			void setVector4GL(const char* valueName, Math::Vector4 value);
 			void setVector3GL(const char* valueName, Math::Vector3 value);
@@ -146,8 +154,12 @@ namespace Brickware
 
 			void bindHLSL();
 			void freeHLSL();
+			
+			void setD3DFunctionPointers();
 
+			bool loadHLSL(std::string vertexShaderFileName);
 			bool loadHLSL(std::string vertexShaderFileName, std::string pixelShaderFileName);
+			bool loadHLSL(std::string geometryShaderFileName, std::string vertexShaderFileName, std::string pixelShaderFileName);
 
 			void setVector4D3D(const char* valueName, Math::Vector4 value);
 			void setVector3D3D(const char* valueName, Math::Vector3 value);

@@ -10,6 +10,23 @@ using namespace Graphics;
 using namespace Math;
 using namespace Utility;
 
+void Shader::setD3DFunctionPointers()
+{
+	bindShaderPtr = &Shader::bindHLSL;
+	freeShaderPtr = &Shader::freeHLSL;
+
+	setGlobalVector4Ptr = &Shader::setVector4D3D;
+	setGlobalVector3Ptr = &Shader::setVector3D3D;
+	setGlobalVector2Ptr = &Shader::setVector2D3D;
+
+	setGlobalIntPtr = &Shader::setIntD3D;
+	setGlobalFloatPtr = &Shader::setFloatD3D;
+	setGlobalDoublePtr = &Shader::setDoubleD3D;
+
+	setGlobalMatrix4Ptr = &Shader::setMatrix4D3D;
+	setGlobalMatrix3Ptr = &Shader::setMatrix3D3Ds;
+}
+
 void Shader::bindHLSL()
 {
 	//Setup input layout

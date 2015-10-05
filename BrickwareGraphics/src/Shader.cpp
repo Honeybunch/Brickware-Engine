@@ -14,6 +14,43 @@ using namespace Math;
 
 Shader* Shader::ActiveShader = nullptr;
 
+Shader::Shader(std::string vertexShaderFileName)
+{
+	//TODO: Strip existing file extension if any
+	std::string trimmedVertexFileName = StringUtils::trimToLastChar(vertexShaderFileName, '/');
+
+	RenderingAPI renderer = GraphicsSettings::Renderer;
+
+	//Setup function pointers based on rendering API
+#ifdef GL_SUPPORT
+	if (renderer = RenderingAPI::OpenGL)
+	{
+		if (RendererInfo::GetAPIMajorVersion() >= 3)
+		{
+			loadGLSL(vertexShaderFileName);
+
+			setGLFunctionPointers();
+		}
+		else
+		{
+			std::cout << "Your card does not support OpenGL 3+" << std::endl;
+		}
+	}
+#endif
+
+#ifdef D3D_SUPPORT
+	if (renderer = RenderingAPI::DirectX)
+	{
+		if (RendererInfo::GetAPIMajorVersion() == 11)
+		{
+			loadHLSL(trimmedVertexFileName);
+
+			setD3DFunctionPointers();
+		}
+	}
+#endif
+}
+
 Shader::Shader(std::string vertexShaderFileName, std::string pixelShaderFileName)
 {
 	//TODO: Strip existing file extension if any
@@ -23,54 +60,74 @@ Shader::Shader(std::string vertexShaderFileName, std::string pixelShaderFileName
 	RenderingAPI renderer = GraphicsSettings::Renderer;
 
 	//Setup function pointers based on rendering API
+
+#ifdef GL_SUPPORT
 	if (renderer = RenderingAPI::OpenGL)
 	{
 		if (RendererInfo::GetAPIMajorVersion() >= 3)
 		{
 			loadGLSL(vertexShaderFileName, pixelShaderFileName);
 
-			bindShaderPtr = &Shader::bindGLSL;
-			freeShaderPtr = &Shader::freeGLSL;
-
-			setGlobalVector4Ptr = &Shader::setVector4GL;
-			setGlobalVector3Ptr = &Shader::setVector3GL;
-			setGlobalVector2Ptr = &Shader::setVector2GL;
-
-			setGlobalIntPtr = &Shader::setIntGL;
-			setGlobalFloatPtr = &Shader::setFloatGL;
-			setGlobalDoublePtr = &Shader::setDoubleGL;
-
-			setGlobalMatrix4Ptr = &Shader::setMatrix4GL;
-			setGlobalMatrix3Ptr = &Shader::setMatrix3GL;
+			setGLFunctionPointers();
 		}
 		else
 		{
 			std::cout << "Your card does not support OpenGL 3+" << std::endl;
 		}
 	}
-	else if (renderer = RenderingAPI::DirectX)
+#endif
+
+#ifdef D3D_SUPPORT
+	if (renderer = RenderingAPI::DirectX)
 	{
 		if (RendererInfo::GetAPIMajorVersion() == 11)
 		{
-#ifdef D3D_SUPPORT
 			loadHLSL(trimmedVertexFileName, trimmedPixelFileName);
 
-			bindShaderPtr = &Shader::bindHLSL;
-			freeShaderPtr = &Shader::freeHLSL;
-
-			setGlobalVector4Ptr = &Shader::setVector4D3D;
-			setGlobalVector3Ptr = &Shader::setVector3D3D;
-			setGlobalVector2Ptr = &Shader::setVector2D3D;
-
-			setGlobalIntPtr = &Shader::setIntD3D;
-			setGlobalFloatPtr = &Shader::setFloatD3D;
-			setGlobalDoublePtr = &Shader::setDoubleD3D;
-
-			setGlobalMatrix4Ptr = &Shader::setMatrix4D3D;
-			setGlobalMatrix3Ptr = &Shader::setMatrix3D3D;
-#endif
+			setD3DFunctionPointers();
 		}
 	}
+#endif
+}
+
+Shader::Shader(std::string geometryShaderFileName, std::string vertexShaderFileName, std::string pixelShaderFileName)
+{
+	//TODO: Strip existing file extension if any
+	std::string trimmedGeometryFileName = StringUtils::trimToLastChar(geometryShaderFileName, '/');
+	std::string trimmedVertexFileName = StringUtils::trimToLastChar(vertexShaderFileName, '/');
+	std::string trimmedPixelFileName = StringUtils::trimToLastChar(pixelShaderFileName, '/');
+
+	RenderingAPI renderer = GraphicsSettings::Renderer;
+
+	//Setup function pointers based on rendering API
+
+#ifdef GL_SUPPORT
+	if (renderer = RenderingAPI::OpenGL)
+	{
+		if (RendererInfo::GetAPIMajorVersion() >= 3)
+		{
+			loadGLSL(geometryShaderFileName, vertexShaderFileName, pixelShaderFileName);
+
+			setGLFunctionPointers();
+		}
+		else
+		{
+			std::cout << "Your card does not support OpenGL 3+" << std::endl;
+		}
+	}
+#endif
+
+#ifdef D3D_SUPPORT
+	if (renderer = RenderingAPI::DirectX)
+	{
+		if (RendererInfo::GetAPIMajorVersion() == 11)
+		{
+			loadHLSL(geometryShaderFileName, trimmedVertexFileName, trimmedPixelFileName);
+
+			setD3DFunctionPointers();
+		}
+	}
+#endif
 }
 
 void Shader::bindShader()

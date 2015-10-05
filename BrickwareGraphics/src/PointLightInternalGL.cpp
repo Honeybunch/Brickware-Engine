@@ -93,8 +93,6 @@ void PointLightInternal::RenderShadowMapGL()
 
 		//Set matrices
 		depthVP = depthView * depthProjection;
-		RenderingManager::PointShadowShader->setGlobalMatrix4("depthVP", depthVP);
-		RenderingManager::PointShadowShader->setGlobalVector3("lightPos", position);
 
 		//Setup for drawing to buffer
 		glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, cameraDirection.CubemapFace, shadowCubeMap, 0);
@@ -102,6 +100,9 @@ void PointLightInternal::RenderShadowMapGL()
 
 		//Render to texture
 		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+
+		RenderingManager::PointShadowShader->setGlobalMatrix4("depthVP", depthVP);
+		RenderingManager::PointShadowShader->setGlobalVector3("lightPos", position);
 
 		RenderingManager::RenderSceneShadowsGL(RenderingManager::PointShadowShader);
 	}

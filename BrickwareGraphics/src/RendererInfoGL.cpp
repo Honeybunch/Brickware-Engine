@@ -51,7 +51,7 @@ std::vector<std::string> RendererInfo::GetAllSupportedGLSLVersions()
 		int numShadingLangVersions;
 		glGetIntegerv(GL_NUM_SHADING_LANGUAGE_VERSIONS, &numShadingLangVersions);
 
-		for (unsigned int i = 0; i < numShadingLangVersions - 1; i++)
+		for (int i = 0; i < numShadingLangVersions - 1; i++)
 		{
 			const char* version = (char*)glGetStringi(GL_SHADING_LANGUAGE_VERSION, i);
 			if (version)

@@ -32,7 +32,7 @@ void RenderingManager::Initialize(ID3D11Device* device, ID3D11DeviceContext* dev
 	if (GraphicsSettings::Shadows)
 	{
 		if (DirectionalShadowShader == nullptr)
-			DirectionalShadowShader = new Shader("Shaders/DirectionalShadowVertex", "Shaders/DirectionalShadowPixel");
+			DirectionalShadowShader = new Shader("Shaders/DirectionalShadowVertex");
 		if (PointShadowShader == nullptr)
 			PointShadowShader = new Shader("Shaders/PointShadowVertex", "Shaders/PointShadowPixel");
 	}

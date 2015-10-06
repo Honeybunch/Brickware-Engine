@@ -1,6 +1,8 @@
 #ifndef MATRIX4_H
 #define MATRIX4_H
 
+#define _USE_MATH_DEFINES
+
 //DLL Header
 #include "BrickwareMath/BrickwareMathDLL.hpp"
 
@@ -29,7 +31,7 @@ namespace Brickware
 			static Matrix4 getIdentityMatrix();
 			
 			static Matrix4 getOrthographicProjection(float left, float right, float bottom, float top, float near, float far);
-			static Matrix4 getPerspectiveProjection(float fov, float width, float height, float near, float far);
+			static Matrix4 getPerspectiveProjection(float fov, float aspect, float near, float far);
 
 			static Matrix4 getLookAtView(Vector3 eye, Vector3 center, Vector3 up);
 

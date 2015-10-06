@@ -102,7 +102,7 @@ float CalcPointShadows(PointLight light)
 	// Now get current linear depth as the length between the fragment and light position
 	float currentDepth = length(fragToLight);
 	// Now test for shadows
-	float shadow = currentDepth - light.shadowBias > closestDepth ? 1.0 : 0.0;
+	float shadow = currentDepth - 0.0005 > closestDepth ? 0.0 : 0.5;
 
 	return shadow;
 }
@@ -144,7 +144,7 @@ vec3 CalcPointLight(PointLight light, vec4 hue, vec3 viewDir)
 	//Calc shadows
 	float shadow = CalcPointShadows(light);
 
-	vec3 pointLight = (ambient + (1 - shadow) * (diffuse + specular));
+	vec3 pointLight = (ambient + shadow * (diffuse + specular));
 
 	return pointLight;
 }

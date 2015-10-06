@@ -30,20 +30,20 @@ Matrix4 Matrix4::getOrthographicProjection(float left, float right, float bottom
 				   d, e, f, 1);
 }
 
-Matrix4 Matrix4::getPerspectiveProjection(float fov, float width, float height, float near, float far)
+Matrix4 Matrix4::getPerspectiveProjection(float fov, float aspect, float near, float far)
 {
+	//thanks to https://stackoverflow.com/questions/18404890/how-to-build-perspective-projection-matrix-no-api
 	float depth = far - near;
 	float q = -(far + near) / depth;
 	float qn = -2 * (far * near) / depth;
 
-	float w = 2 * near / width;
-	w /= (width / height);
-	float h = 2 * near / height;
+	float h = 1 / tanf(0.5f * fov);
+	float w = h / aspect;
 
-	return Matrix4 (w, 0, 0, 0,
-					0, h, 0, 0,
-					0, 0, q, -1,
-					0, 0, qn, 0);
+	return Matrix4(w, 0, 0, 0,
+				   0, h, 0, 0,
+				   0, 0, q, -1,
+				   0, 0, qn, 0);
 }
 
 Matrix4 Matrix4::getLookAtView(Vector3 eye, Vector3 center, Vector3 up)

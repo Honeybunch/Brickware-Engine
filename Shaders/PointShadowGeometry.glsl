@@ -5,7 +5,7 @@ layout (triangle_strip, max_vertices = 18) out;
 
 uniform mat4 shadowMatrices[6];
 
-out vec4 FragPos; //output per emitvertex
+out vec4 fragPos; //output per emitvertex
 
 void main()
 {
@@ -14,8 +14,8 @@ void main()
 		gl_Layer = face; //gl_Layer is built in and specifies the face to render to
 		for (int i = 0; i < 3; i++) //For each triangle's verts
 		{
-			FragPos = gl_in[i].gl_Position;
-			gl_Position = shadowMatrices[face] * FragPos;
+			fragPos = gl_in[i].gl_Position;
+			gl_Position = shadowMatrices[face] * fragPos;
 			EmitVertex();
 		}
 		EndPrimitive();

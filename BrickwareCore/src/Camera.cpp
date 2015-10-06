@@ -90,7 +90,7 @@ Matrix4 Camera::calcViewMatrix()
 
 Matrix4 Camera::calcProjectionMatrix()
 {
-	return Matrix4::getPerspectiveProjection(FoV, width, height, zNear, zFar);
+	return Matrix4::getPerspectiveProjection(FoV, width / height, zNear, zFar);
 }
 
 Camera::~Camera(void)

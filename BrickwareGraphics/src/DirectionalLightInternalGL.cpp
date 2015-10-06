@@ -56,7 +56,7 @@ void DirectionalLightInternal::RenderShadowMapGL()
 					   0.0f, 0.0f, 0.0f, 1.0f);
 
 	//Apply bias to get texture coordinates
-	depthBiasMVP = biasMatrix * depthVP;
+	depthBiasVP = biasMatrix * depthVP;
 
 	RenderingManager::DirectionalShadowShader->setGlobalMatrix4("depthVP", depthVP);
 
@@ -76,8 +76,8 @@ void DirectionalLightInternal::RenderShadowMapGL()
 
 void DirectionalLightInternal::BindShadowMapGL(Shader* shader)
 {
-	shader->setGlobalMatrix4("depthBiasMVP", depthBiasMVP);
+	shader->setGlobalMatrix4("depthBiasVP", depthBiasVP);
 
-	glActiveTexture(GL_TEXTURE1);
+	glActiveTexture(GL_TEXTURE2);
 	glBindTexture(GL_TEXTURE_2D, depthTexture);
 }

@@ -12,7 +12,8 @@ uniform mat4 worldMatrix;
 uniform mat4 modelMatrix;
 uniform mat4 rotationMatrix;
 
-uniform mat4 depthBiasMVP;
+uniform mat4 depthBiasVP;
+uniform mat4 pointDepthBiasVP;
 
 uniform vec3 lookAt;
 uniform vec3 eyePoint;
@@ -42,6 +43,8 @@ void main()
 
 	texCoord = vTexCoord;
 
-	mat4 shadowMVP = depthBiasMVP * modelMatrix;
+	mat4 shadowMVP = depthBiasVP * modelMatrix;
+	mat4 pointShadowMVP = pointDepthBiasVP * modelMatrix;
+
 	shadowCoord = (shadowMVP * vec4(vPosition, 1.0f));
 }

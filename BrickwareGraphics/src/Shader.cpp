@@ -177,6 +177,11 @@ void Shader::setGlobalMatrix3(const char* valueName, Matrix3 value)
 	(this->*setGlobalMatrix3Ptr)(valueName, value);
 }
 
+void Shader::setMultipleGlobalMatrix4(const char* valueName, std::vector<Matrix4> values)
+{
+	(this->*setMultipleGlobalMatrix4Ptr)(valueName, values);
+}
+
 Shader::~Shader()
 {
 #ifdef D3D_SUPPORT

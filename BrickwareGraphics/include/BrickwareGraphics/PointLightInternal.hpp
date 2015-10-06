@@ -72,8 +72,6 @@ namespace Brickware
 #ifdef GL_SUPPORT
 			static CameraDirection CameraDirections[6];
 
-			GLuint shadowCubeMap;
-
 			void InitGL();
 			void RenderShadowMapGL();
 			void BindShadowMapGL(Shader* shader);

@@ -48,6 +48,7 @@ void RenderingManager::ScenePassGL()
 
 		if (shader != Shader::ActiveShader)
 		{
+			Shader::ActiveShader = shader;
 			shader->bindShader();
 
 			//Send light data to the shader

@@ -117,6 +117,7 @@ bool TestGame::init()
 	dirLightComp->setSpecularColor(Vector3(0.5f, 0.5f, 0.5f));
 
 	dirLightComp->setShadowMapQuality(ShadowQuality::VeryHigh);
+	dirLightComp->setShadowBias(0.0005f);
 	dirLightComp->setShadowStrength(0.7f);
 
 	dirLight->addComponent(dirLightComp);
@@ -205,7 +206,7 @@ bool TestGame::init()
 	nonSpinBox->getTransform()->setScale(Vector3(1.0f, 1.0f, 1.0f));
 
 	//Create Camera
-	Camera* cameraComp = new Camera(50, 0.1f, 0.1f, 0.1f, 100.0f);
+	Camera* cameraComp = new Camera(50.0f, 0.1f, 0.1f, 0.1f, 100.0f);
 	cameraComp->setActive();
 
 	GameObject* camera = new GameObject();

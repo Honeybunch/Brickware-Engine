@@ -1,16 +1,17 @@
-#version 130
+#version 330
 
-in vec3 worldPos;
+in vec4 fragPos;
 
 uniform vec3 lightPos;
-
-out float fragColor;
+uniform float farPlane;
 
 void main()
 {
-	//Distance from the object's vert to the light
-	vec3 lightToVertex = worldPos - lightPos;
-	float lightToPixelDistance = length(lightToVertex);
+	//Distance from the fragment to the light
+	float lightDistance = length(fragPos.xyz - lightPos);
 
-	fragColor = lightToPixelDistance;
+	//Map 0 to 1 by dividing by far plane
+	lightDistance = lightDistance / farPlane;
+
+	gl_FragDepth = lightDistance;
 }

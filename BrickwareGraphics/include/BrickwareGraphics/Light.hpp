@@ -51,7 +51,7 @@ namespace Brickware
 			virtual void Init() = 0;
 
 			Math::Matrix4 depthVP;
-			Math::Matrix4 depthBiasMVP;
+			Math::Matrix4 depthBiasVP;
 
 			Math::Vector3 ambientColor;
 			Math::Vector3 diffuseColor;

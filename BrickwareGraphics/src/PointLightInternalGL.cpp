@@ -25,23 +25,12 @@ void PointLightInternal::InitGL()
 	//Gen framebuffer
 	glGenFramebuffers(1, &shadowBuffer);
 
-	//Setup 16 bit depth texture
-	glGenBuffers(1, &depthTexture);
-	glBindTexture(GL_TEXTURE_2D, depthTexture);
-
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16, shadowMapRes, shadowMapRes, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-	glBindTexture(GL_TEXTURE_2D, 0);
-
 	//Create cube map
-	glGenTextures(1, &shadowCubeMap);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, shadowCubeMap);
+	glGenTextures(1, &depthTexture);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, depthTexture);
 
 	for (unsigned int i = 0; i < 6; i++)
-		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_R32F, shadowMapRes, shadowMapRes, 0, GL_RED, GL_FLOAT, NULL);
+		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_DEPTH_COMPONENT, shadowMapRes, shadowMapRes, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
 
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -49,11 +38,9 @@ void PointLightInternal::InitGL()
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
-	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
-
 	//Setup FBO
 	glBindFramebuffer(GL_FRAMEBUFFER, shadowBuffer);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTexture, 0);
+	glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, depthTexture, 0);
 
 	//Disable the color buffer
 	glDrawBuffer(GL_NONE);
@@ -61,9 +48,10 @@ void PointLightInternal::InitGL()
 
 	//Check that the buffer is OK
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-		std::cout << "DirectionalLight framebuffer encountered an error!" << std::endl;
+		std::cout << "PointLight framebuffer encountered an error!" << std::endl;
 
 	//Unbind framebuffer
+	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
@@ -71,8 +59,9 @@ void PointLightInternal::RenderShadowMapGL()
 {
 	RenderingManager::PointShadowShader->bindShader();
 
+	float farPlane = 30.0f;
 	float FoV = (float)M_PI_2;
-	Matrix4 depthProjection = Matrix4::getPerspectiveProjection(FoV, (float)shadowMapRes, (float)shadowMapRes, 0.1f, 30.0f);
+	Matrix4 depthProjection = Matrix4::getPerspectiveProjection(FoV, 0.1f, 0.1f, 0.1f, farPlane);
 	Matrix4 depthView;
 
 	Matrix4 biasMatrix(1.0f, 0.0f, 0.0f, 0.0f,
@@ -81,40 +70,36 @@ void PointLightInternal::RenderShadowMapGL()
 					   0.0f, 0.0f, 0.0f, 1.0f);
 
 	glBindFramebuffer(GL_FRAMEBUFFER, shadowBuffer);
-	glClearColor(FLT_MAX, FLT_MAX, FLT_MAX, FLT_MAX);
 	glViewport(0, 0, shadowMapRes, shadowMapRes);
 
-	//Render 6 maps, one in each direction
+	//Send the 6 view * proj maps to the geometry shader
+	std::vector<Matrix4> values;
+
 	for (unsigned int i = 0; i < 6; i++)
 	{
 		//Setup look at for this direction
 		CameraDirection cameraDirection = CameraDirections[i];
-		depthView = Matrix4::getLookAtView(position, cameraDirection.Target, cameraDirection.Up);
-
-		//Set matrices
+		depthView = Matrix4::getLookAtView(position, position + cameraDirection.Target, cameraDirection.Up);
 		depthVP = depthView * depthProjection;
 
-		//Setup for drawing to buffer
-		glFramebufferTexture2D(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, cameraDirection.CubemapFace, shadowCubeMap, 0);
-		glDrawBuffer(GL_COLOR_ATTACHMENT0);
-
-		//Render to texture
-		glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
-
-		RenderingManager::PointShadowShader->setGlobalMatrix4("depthVP", depthVP);
-		RenderingManager::PointShadowShader->setGlobalVector3("lightPos", position);
-
-		RenderingManager::RenderSceneShadowsGL(RenderingManager::PointShadowShader);
+		values.push_back(depthVP);
 	}
 
+	RenderingManager::PointShadowShader->setGlobalVector3("lightPos", position);
+	RenderingManager::PointShadowShader->setGlobalFloat("farPlane", farPlane);
+	RenderingManager::PointShadowShader->setMultipleGlobalMatrix4("shadowMatrices[0]", values);
+
+	//Render
+	glClear(GL_DEPTH_BUFFER_BIT);
+	RenderingManager::RenderSceneShadowsGL(RenderingManager::PointShadowShader);
+
+	//Clean up
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	RenderingManager::PointShadowShader->freeShader();
 }
 
 void PointLightInternal::BindShadowMapGL(Shader* shader)
-{
-	//shader->setGlobalMatrix4("depthBiasMVP", depthBiasMVP);
-	//
-	//glActiveTexture(GL_TEXTURE2);
-	//glBindTexture(GL_TEXTURE_CUBE_MAP, shadowCubeMap);
+{	
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, depthTexture);
 }

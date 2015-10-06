@@ -86,6 +86,8 @@ namespace Brickware
 			void setGlobalMatrix4(const char* valueName, Math::Matrix4 value);
 			void setGlobalMatrix3(const char* valueName, Math::Matrix3 value);
 
+			void setMultipleGlobalMatrix4(const char* valueName, std::vector<Math::Matrix4> values);
+
 			~Shader();
 
 		private:
@@ -104,6 +106,8 @@ namespace Brickware
 
 			void(Shader::*setGlobalMatrix4Ptr)(const char*, Math::Matrix4);
 			void(Shader::*setGlobalMatrix3Ptr)(const char*, Math::Matrix3);
+
+			void(Shader::*setMultipleGlobalMatrix4Ptr)(const char* valueName, std::vector<Math::Matrix4> values);
 
 			std::map<std::string, Texture*> textureMap;
 
@@ -133,6 +137,8 @@ namespace Brickware
 
 			void setMatrix4GL(const char* valueName, Math::Matrix4 value);
 			void setMatrix3GL(const char* valueName, Math::Matrix3 value);
+
+			void setMultipleMatrix4GL(const char* valueName, std::vector<Math::Matrix4> values);
 #endif
 
 #ifdef D3D_SUPPORT

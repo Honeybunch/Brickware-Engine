@@ -34,7 +34,7 @@ void RenderingManager::Initialize(ID3D11Device* device, ID3D11DeviceContext* dev
 		if (DirectionalShadowShader == nullptr)
 			DirectionalShadowShader = new Shader("Shaders/DirectionalShadowVertex");
 		if (PointShadowShader == nullptr)
-			PointShadowShader = new Shader("Shaders/PointShadowVertex", "Shaders/PointShadowPixel");
+			PointShadowShader = new Shader("Shaders/PointShadowGeometry", "Shaders/PointShadowVertex", "Shaders/PointShadowPixel");
 	}
 
 	//Setup function pointers based on rendering API

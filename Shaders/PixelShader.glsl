@@ -52,13 +52,14 @@ uniform Material material;
 out vec4 fragColor;
 
 in vec2 texCoord;
-in vec4 shadowCoord;
+in vec4 shadowCoord; 
+
 uniform float shadowStrength;
 uniform float shadowBias;
 
 uniform sampler2D diffuseTexture;
 uniform sampler2D shadowMap;
-uniform samplerCube pointShadowMaps[4];
+uniform samplerCube pointShadowMap;
 
 //Vertex data
 in vec3 worldNormal;
@@ -83,11 +84,27 @@ float CalcDirShadows(DirectionalLight light)
 	float strengthFactor = light.shadowStrength / 4;
 	for (int i = 0; i < 4; i++)
 	{
-		if (texture(shadowMap, projCoords.xy + poissonDisk[i]/700.0).z < projCoords.z - light.shadowBias)
+		if (texture(shadowMap, projCoords.xy + poissonDisk[i] / 700.0).z < projCoords.z - light.shadowBias)
 			visibility -= strengthFactor;
 	}
 
 	return visibility;
+}
+
+float CalcPointShadows(PointLight light)
+{
+	// Get vector between fragment position and light position
+	vec3 fragToLight = worldPosition - light.position;
+	// Use the light to fragment vector to sample from the depth map    
+	float closestDepth = texture(pointShadowMap, fragToLight).r;
+	// It is currently in linear range between [0,1]. Re-transform back to original value
+	closestDepth *= 30.0;
+	// Now get current linear depth as the length between the fragment and light position
+	float currentDepth = length(fragToLight);
+	// Now test for shadows
+	float shadow = currentDepth - light.shadowBias > closestDepth ? 1.0 : 0.0;
+
+	return shadow;
 }
 
 //Calcuate the light on this object from the scene's directional light
@@ -99,8 +116,8 @@ vec3 CalcDirectionalLight(DirectionalLight light, vec4 hue, vec3 viewDir)
 	float diffusePower = max(dot(worldNormal, lightDir), 0.0);
 	float specularPower = pow(max(dot(viewDir, reflectDir), 0.0), 128);
 
-	vec3 ambient = light.ambientColor * hue.rgb;
-	vec3 diffuse = light.diffuseColor * diffusePower * hue.rgb;
+	vec3 ambient  = light.ambientColor  * hue.rgb;
+	vec3 diffuse  = light.diffuseColor  * diffusePower * hue.rgb;
 	vec3 specular = light.specularColor * specularPower * hue.rgb;
 
 	//Calculate shadows
@@ -108,7 +125,7 @@ vec3 CalcDirectionalLight(DirectionalLight light, vec4 hue, vec3 viewDir)
 
 	vec3 dirLight = (ambient + shadow * (diffuse + specular));
 
-	return  dirLight;
+	return dirLight;
 }
 
 //Calculate the light on this object from the scene's point lights
@@ -124,7 +141,12 @@ vec3 CalcPointLight(PointLight light, vec4 hue, vec3 viewDir)
 	vec3 diffuse  = light.diffuseColor  * diffusePower  * hue.rgb;
 	vec3 specular = light.specularColor * specularPower * hue.rgb;
 
-	return (ambient + diffuse + specular);
+	//Calc shadows
+	float shadow = CalcPointShadows(light);
+
+	vec3 pointLight = (ambient + (1 - shadow) * (diffuse + specular));
+
+	return pointLight;
 }
 
 void main()

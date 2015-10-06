@@ -35,6 +35,8 @@ void Shader::setGLFunctionPointers()
 
 	setGlobalMatrix4Ptr = &Shader::setMatrix4GL;
 	setGlobalMatrix3Ptr = &Shader::setMatrix3GL;
+
+	setMultipleGlobalMatrix4Ptr = &Shader::setMultipleMatrix4GL;
 }
 
 bool Shader::loadGLSL(std::string vertexShaderFileName)
@@ -133,7 +135,6 @@ bool Shader::loadGLSL(std::string vertexShaderFileName, std::string pixelShaderF
 	// Link the program
 	glLinkProgram(shaderProgram);
 	StringUtils::printProgramInfoLog(shaderProgram);
-
 
 	// Perform shader reflection
 	reflectShaderGL();
@@ -246,7 +247,7 @@ void Shader::reflectShaderGL()
 
 		name[nameLength] = 0;
 
-		if (type == GL_SAMPLER_2D)
+		if (type == GL_SAMPLER_2D || type == GL_SAMPLER_CUBE)
 		{
 			textureMap[std::string(name)] = nullptr;
 
@@ -340,6 +341,26 @@ void Shader::setMatrix3GL(const char* valueName, Matrix3 value)
 	{
 		GLuint uniformLocation = (GLuint)(uniformMap[valueName]);
 		glUniformMatrix3fv(uniformLocation, 1, false, value.getAsArray());
+	}
+}
+
+void Shader::setMultipleMatrix4GL(const char* valueName, std::vector<Matrix4> values)
+{
+	//Don't send values that don't exist
+	if (uniformMap.find(valueName) != uniformMap.end())
+	{
+		//Align values in one array
+		float* floatValues = new float[values.size() * 16];
+
+		for (unsigned int i = 0; i < values.size(); i++)
+			memcpy(floatValues + (i * 16), values[i].getAsArray(), sizeof(float) * 16);
+
+		//Send to GL
+		GLuint uniformLocation = (GLuint)(uniformMap[valueName]);
+		glUniformMatrix4fv(uniformLocation, values.size(), false, floatValues);
+
+		//Cleanup 
+		delete[] floatValues;
 	}
 }
 

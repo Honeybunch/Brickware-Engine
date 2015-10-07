@@ -206,7 +206,9 @@ bool TestGame::init()
 	nonSpinBox->getTransform()->setScale(Vector3(1.0f, 1.0f, 1.0f));
 
 	//Create Camera
-	Camera* cameraComp = new Camera(45.0f, Screen::getWidth(), Screen::getHeight(), 0.1f, 100.0f);
+	float fov = (60.0f * 180.0f) / M_PI;
+
+	Camera* cameraComp = new Camera(fov, Screen::getWidth(), Screen::getHeight(), 0.1f, 100.0f);
 	cameraComp->setActive();
 
 	GameObject* camera = new GameObject();

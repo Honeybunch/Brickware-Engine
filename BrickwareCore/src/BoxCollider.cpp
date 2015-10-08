@@ -65,7 +65,7 @@ void BoxCollider::Start()
 	normals.push_back(Vector3(0, 0, 1));
 }
 
-#ifdef _DEBUG
+#ifdef BRICKWARE_DEBUG
 void BoxCollider::DebugDraw()
 {
 	Transform* transform = getGameObject()->getTransform();

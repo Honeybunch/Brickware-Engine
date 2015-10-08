@@ -73,25 +73,14 @@ void RenderingManager::RenderObjectSceneGL(Mesh* mesh, Material* material)
 	GLint shaderProgram;
 	glGetIntegerv(GL_CURRENT_PROGRAM, &shaderProgram);
 
-	GLuint vPosition = glGetAttribLocation(shaderProgram, "vPosition");
-	GLuint vNormal = glGetAttribLocation(shaderProgram, "vNormal");
-	GLuint vTexCoord = glGetAttribLocation(shaderProgram, "vTexCoord");
+	glBindVertexArray(mesh->getVAO());
 
-	glEnableVertexAttribArray(vPosition);
-	glEnableVertexAttribArray(vNormal);
-	glEnableVertexAttribArray(vTexCoord);
-
-	int normalOffset = mesh->getPointSize();
-	int texCoordOffset = normalOffset + mesh->getNormalSize();
-
-	glBindBuffer(GL_ARRAY_BUFFER, mesh->getVBO());
-	glVertexAttribPointer(vPosition, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
-	glVertexAttribPointer(vNormal, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(normalOffset));
-	glVertexAttribPointer(vTexCoord, 2, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(texCoordOffset));
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->getIBO());
+	glBindAttribLocation(shaderProgram, 0, "vPosition");
+	glBindAttribLocation(shaderProgram, 1, "vNormal");
+	glBindAttribLocation(shaderProgram, 2, "vTexCoord");
 
 	//Draw Shape
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->getIBO());
 	glDrawElements(GL_TRIANGLES, mesh->getNumberOfVerts(), GL_UNSIGNED_SHORT, (void *)0);
 }
 
@@ -103,19 +92,12 @@ void RenderingManager::RenderObjectShadowGL(Mesh* mesh,  Material* shadowMateria
 	GLint shaderProgram;
 	glGetIntegerv(GL_CURRENT_PROGRAM, &shaderProgram);
 
-	GLuint vPosition = glGetAttribLocation(shaderProgram, "vPosition");
+	glBindVertexArray(mesh->getVAO());
 
-	glEnableVertexAttribArray(vPosition);
-
-	int normalOffset = mesh->getPointSize();
-	int texCoordOffset = normalOffset + mesh->getNormalSize();
-
-	glBindBuffer(GL_ARRAY_BUFFER, mesh->getVBO());
-	glVertexAttribPointer(vPosition, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));;
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->getIBO());
+	glBindAttribLocation(shaderProgram, 0, "vPosition");
 
 	//Draw Shape
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->getIBO());
 	glDrawElements(GL_TRIANGLES, mesh->getNumberOfVerts(), GL_UNSIGNED_SHORT, (void *)0);
 }
 

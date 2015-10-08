@@ -42,7 +42,7 @@ namespace Brickware
 
 			//When called will send light data to the <Brickware::Graphics::RenderingManager>
 			virtual void Render();
-#ifdef _DEBUG
+#ifdef BRICKWARE_DEBUG
 			//When called in Debug mode will draw debug output of the light's position
 			virtual void DebugDraw();
 #endif

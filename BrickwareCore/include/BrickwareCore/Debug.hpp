@@ -1,4 +1,4 @@
-#ifdef _DEBUG
+#ifdef BRICKWARE_DEBUG
 
 #ifndef DEBUG_H
 #define DEBUG_H

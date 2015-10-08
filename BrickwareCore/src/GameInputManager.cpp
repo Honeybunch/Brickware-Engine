@@ -91,7 +91,7 @@ void GameInputManager::MouseOverObjects()
 		}
 	}
 
-#ifdef _DEBUG
+#ifdef BRICKWARE_DEBUG
 	if (closestHit.collider != nullptr && Debug::Debugging)
 	{
 		Primitive::SetColor(Vector4(1.0f, 0.0f, 1.0f, 1.0f));

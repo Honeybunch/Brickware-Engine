@@ -1,4 +1,4 @@
-#ifdef _DEBUG
+#ifdef BRICKWARE_DEBUG
 
 #define BRICKWARE_CORE_EXPORTS
 

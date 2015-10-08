@@ -29,6 +29,7 @@
 #endif
 
 //Other Brickware Project Headers
+#include "BrickwareGraphics/RendererInfo.hpp"
 #include "BrickwareGraphics/Mesh.hpp"
 #include "BrickwareGraphics/Shader.hpp"
 #include "BrickwareGraphics/Light.hpp"

@@ -60,7 +60,7 @@ void PointLightInternal::RenderShadowMapGL()
 	RenderingManager::PointShadowShader->bindShader();
 
 	float farPlane = 30.0f;
-	Matrix4 depthProjection = Matrix4::getPerspectiveProjection(M_PI_2, 1.0f, 0.1f, farPlane);
+	Matrix4 depthProjection = Matrix4::getPerspectiveProjection((float)M_PI_2, 1.0f, 0.1f, farPlane);
 	Matrix4 depthView;
 
 	Matrix4 biasMatrix(1.0f, 0.0f, 0.0f, 0.0f,

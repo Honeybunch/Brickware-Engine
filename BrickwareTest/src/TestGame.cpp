@@ -27,7 +27,6 @@ bool TestGame::init()
 	for (unsigned int i = 0; i < SupportedShadingLanguageVersions.size(); i++)
 		std::cout << "\t" << SupportedShadingLanguageVersions[i] << std::endl;
 
-
 	//Test JSON loading
 	JSONObject* object = JSONParser::DecodeJSONFromFile("Data/test.json");
 
@@ -206,9 +205,9 @@ bool TestGame::init()
 	nonSpinBox->getTransform()->setScale(Vector3(1.0f, 1.0f, 1.0f));
 
 	//Create Camera
-	float fov = (60.0f * 180.0f) / M_PI;
+	float fov = (60.0f * 180.0f) / (float)M_PI;
 
-	Camera* cameraComp = new Camera(fov, Screen::getWidth(), Screen::getHeight(), 0.1f, 100.0f);
+	Camera* cameraComp = new Camera(fov, (float)Screen::getWidth(), (float)Screen::getHeight(), 0.1f, 100.0f);
 	cameraComp->setActive();
 
 	GameObject* camera = new GameObject();
@@ -227,7 +226,7 @@ void TestGame::updateScene()
 	if (Input::getKeyDown(KeyCode::escape))
 		running = false;
 
-#ifdef _DEBUG
+#ifdef BRICKWARE_DEBUG
 	if (Input::getKeyDown(KeyCode::F1) && dKeyDown == false)
 	{
 		Debug::Debugging = !Debug::Debugging;

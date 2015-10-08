@@ -29,7 +29,7 @@ namespace Brickware
 			virtual Component* Clone();
 			virtual void Start();
 
-#ifdef _DEBUG
+#ifdef BRICKWARE_DEBUG
 			virtual void DebugDraw() override;
 #endif
 

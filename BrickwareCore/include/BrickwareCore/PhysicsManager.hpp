@@ -18,7 +18,7 @@
 
 #include "BrickwareGraphics/Primitive.hpp"
 
-#ifdef _DEBUG
+#ifdef BRICKWARE_DEBUG
 #include "BrickwareCore/Debug.hpp"
 #endif
 

@@ -133,7 +133,7 @@ void GameObject::OnRender()
 	for (unsigned int i = 0; i < components.size(); i++)
 	{
 		components[i]->Render();
-#ifdef _DEBUG
+#ifdef BRICKWARE_DEBUG
 		if (Debug::Debugging)
 			components[i]->DebugDraw();
 #endif

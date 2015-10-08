@@ -227,12 +227,15 @@ void Game::handleInput()
 #ifdef GL_SUPPORT
 bool Game::initGL()
 {
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
 	//Attempt initialization
 	if (!glfwInit())
 		return false;
+
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
+	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	//Create window
 	glWindow = glfwCreateWindow(Screen::width, Screen::height, "Brickware-Test", nullptr, nullptr);
@@ -246,11 +249,15 @@ bool Game::initGL()
 	//Make Context
 	glfwMakeContextCurrent(glWindow);
 
-	//Turn off VSYNC TODO: Make this a graphics option
-	glfwSwapInterval(0);
+	//Set Vsync
+	if (Graphics::GraphicsSettings::VSync)
+		glfwSwapInterval(1);
+	else
+		glfwSwapInterval(0);
 
 	glfwSetInputMode(glWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
+	glewExperimental = true;
 	if(glewInit() != GLEW_OK)
 		return false;
 

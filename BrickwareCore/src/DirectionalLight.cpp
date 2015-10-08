@@ -27,7 +27,7 @@ void DirectionalLight::Render()
 	Graphics::RenderingManager::AddLight(light);
 }
 
-#ifdef _DEBUG
+#ifdef BRICKWARE_DEBUG
 void DirectionalLight::DebugDraw()
 {
 	Graphics::Primitive::SetColor(Vector4(1, 1, 0, 1));

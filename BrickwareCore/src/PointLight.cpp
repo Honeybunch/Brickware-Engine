@@ -21,7 +21,7 @@ void PointLight::Render()
 	Graphics::RenderingManager::AddLight(light);
 }
 
-#ifdef _DEBUG
+#ifdef BRICKWARE_DEBUG
 void PointLight::DebugDraw()
 {
 	Graphics::Primitive::SetColor(Vector4(1, 1, 0, 1));

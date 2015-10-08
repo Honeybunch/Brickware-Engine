@@ -26,7 +26,7 @@ Texture::Texture(const char* textureFileName)
 		}
 		else
 		{
-			std::cout << "Your card does not support OpenGL 3+" << std::endl;
+			std::cout << "Error loading Texture: Your card does not support OpenGL 3+" << std::endl;
 		}
 	}
 	else if (renderer = RenderingAPI::DirectX)

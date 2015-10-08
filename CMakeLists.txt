@@ -2,6 +2,7 @@ cmake_minimum_required (VERSION 2.6)
 
 project(Brickware-Engine)
 
+set(DEBUG_BUILD TRUE CACHE BOOL "Build a debug project")
 set(BUILD_TEST TRUE CACHE BOOL "Build the Test project")
 
 set(RENDERER "OpenGL" CACHE STRING "Use the OpenGL renderer by default")
@@ -25,6 +26,10 @@ if(WIN32)
 		set(D3D_SUPPORT FALSE CACHE BOOL "")
 	endif(GL_SUPPORT)
 endif(WIN32)
+
+if(DEBUG_BUILD)
+	add_definitions(-DBRICKWARE_DEBUG)
+endif(DEBUG_BUILD)
 
 if(D3D_SUPPORT)
 	add_definitions(-DD3D_SUPPORT)

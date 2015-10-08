@@ -17,7 +17,7 @@ public:
 
 	virtual bool init();
 
-#ifdef _DEBUG
+#ifdef BRICKWARE_DEBUG
 	bool dKeyDown = false;
 #endif
 

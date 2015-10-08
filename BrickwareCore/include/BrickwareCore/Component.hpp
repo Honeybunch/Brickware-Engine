@@ -112,7 +112,7 @@ namespace Brickware
 			*/
 			virtual void Render();
 
-#ifdef _DEBUG
+#ifdef BRICKWARE_DEBUG
 			//Override this if you want your component to draw something while Debug Mode is active
 			virtual void DebugDraw();
 #endif

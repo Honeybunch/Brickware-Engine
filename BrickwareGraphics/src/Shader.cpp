@@ -33,7 +33,7 @@ Shader::Shader(std::string vertexShaderFileName)
 		}
 		else
 		{
-			std::cout << "Your card does not support OpenGL 3+" << std::endl;
+			std::cout << "Error loading Shader: Your card does not support OpenGL 3+" << std::endl;
 		}
 	}
 #endif
@@ -72,7 +72,7 @@ Shader::Shader(std::string vertexShaderFileName, std::string pixelShaderFileName
 		}
 		else
 		{
-			std::cout << "Your card does not support OpenGL 3+" << std::endl;
+			std::cout << "Error loading Shader: Your card does not support OpenGL 3+" << std::endl;
 		}
 	}
 #endif
@@ -112,7 +112,7 @@ Shader::Shader(std::string geometryShaderFileName, std::string vertexShaderFileN
 		}
 		else
 		{
-			std::cout << "Your card does not support OpenGL 3+" << std::endl;
+			std::cout << "Error loading Shader: Your card does not support OpenGL 3+" << std::endl;
 		}
 	}
 #endif

@@ -39,7 +39,7 @@ void Component::OnMouseExit(){}
 
 void Component::Render(){}
 
-#ifdef _DEBUG
+#ifdef BRICKWARE_DEBUG
 void Component::DebugDraw(){}
 #endif
 

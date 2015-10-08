@@ -81,7 +81,7 @@ namespace Brickware
 			void bufferChanges();
 
 #ifdef GL_SUPPORT
-			int glBufferHint;
+			GLuint getVAO();
 			GLuint getVBO();
 			GLuint getIBO();
 #endif
@@ -96,6 +96,10 @@ namespace Brickware
 			~Mesh();
 
 		private:
+			void(Mesh::*setBufferHintPtr)(BufferHint hint);
+			void(Mesh::*bufferMeshPtr)();
+			void(Mesh::*cleanupMeshPtr)();
+
 			void loadOBJ(const char* fileName);
 
 			std::vector<Math::Vector3> modelVerts;
@@ -121,10 +125,14 @@ namespace Brickware
 
 #ifdef GL_SUPPORT
 			//Buffer IDs
+			GLuint vao;
 			GLuint vbo;
 			GLuint ibo;
 
+			int glBufferHint;
+			void setBufferHintGL(BufferHint hint);
 			void bufferGL();
+			void cleanupGL();
 #endif
 
 #ifdef D3D_SUPPORT
@@ -134,7 +142,9 @@ namespace Brickware
 
 			ID3D11Buffer* indexBuffer;
 
+			void setBufferHintD3D(BufferHint hint);
 			void bufferD3D();
+			void cleanupD3D();
 #endif
 		};
 	}

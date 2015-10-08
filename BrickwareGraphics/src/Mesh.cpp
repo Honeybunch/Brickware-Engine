@@ -1,4 +1,3 @@
-
 #define BRICKWARE_GRAPHICS_EXPORTS
 
 #include "BrickwareGraphics/Mesh.hpp"
@@ -17,6 +16,36 @@ Mesh::Mesh(const char* modelFileName)
 	indices = nullptr;
 
 	loadOBJ(modelFileName);
+
+	//Setup function pointers based on rendering API
+	RenderingAPI renderer = GraphicsSettings::Renderer;
+#ifdef GL_SUPPORT
+	if (renderer = RenderingAPI::OpenGL)
+	{
+		if (RendererInfo::GetAPIMajorVersion() >= 3)
+		{
+			setBufferHintPtr = &Mesh::setBufferHintGL;
+			bufferMeshPtr = &Mesh::bufferGL;
+			cleanupMeshPtr = &Mesh::cleanupGL;
+		}
+		else
+		{
+			std::cout << "Error loading Shader: Your card does not support OpenGL 3+" << std::endl;
+		}
+	}
+#endif
+
+#ifdef D3D_SUPPORT
+	if (renderer = RenderingAPI::DirectX)
+	{
+		if (RendererInfo::GetAPIMajorVersion() == 11)
+		{
+			setBufferHintPtr = &Mesh::setBufferHintD3D;
+			bufferMeshPtr = &Mesh::bufferD3D;
+			cleanupMeshPtr = &Mesh::cleanupD3D;
+		}
+	}
+#endif
 
 	setBufferHint(BufferHint::STATIC_DRAW);
 
@@ -40,12 +69,7 @@ void Mesh::setBounds(Bounds newBounds){ bounds = newBounds; }
 
 void Mesh::setBufferHint(BufferHint hint)
 {
-#ifdef GL_SUPPORT
-	if (hint == BufferHint::STATIC_DRAW)
-		glBufferHint = GL_STATIC_DRAW;
-	else if (hint == BufferHint::DYNAMIC_DRAW)
-		glBufferHint = GL_DYNAMIC_DRAW;
-#endif
+	(this->*setBufferHintPtr)(hint);
 }
 
 void Mesh::setVertices(vector<Vector3> newVerts){ modelVerts = newVerts; }
@@ -118,13 +142,7 @@ void Mesh::bufferChanges()
 	}
 
 	//Actually have the drawing API buffer data
-#ifdef GL_SUPPORT
-	bufferGL();
-#endif
-
-#ifdef D3D_SUPPORT
-	bufferD3D();
-#endif
+	(this->*bufferMeshPtr)();
 
 	//We can clear this memory for now after it's buffered
 	if (points)
@@ -148,18 +166,6 @@ void Mesh::bufferChanges()
 		indices = nullptr;
 	}
 }
-#ifdef GL_SUPPORT
-GLuint Mesh::getVBO(){ return vbo; }
-GLuint Mesh::getIBO(){ return ibo; }
-#endif
-
-#ifdef D3D_SUPPORT
-ID3D11Buffer* Mesh::getPositionBuffer(){ return positionBuffer; }
-ID3D11Buffer* Mesh::getNormalBuffer(){ return normalBuffer; }
-ID3D11Buffer* Mesh::getTexCoordBuffer(){ return texCoordBuffer; }
-
-ID3D11Buffer* Mesh::getIndexBuffer(){ return indexBuffer; }
-#endif
 
 //Private functions
 
@@ -337,94 +343,8 @@ void Mesh::loadOBJ(const char* fileName)
 	objFile.close();
 }
 
-#ifdef GL_SUPPORT
-void Mesh::bufferGL()
-{
-	//Setup the VBO
-	glDeleteBuffers(1, &vbo);
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-
-	glBufferData(GL_ARRAY_BUFFER, pointSize + normalSize + texCoordSize, nullptr, glBufferHint);
-	glBufferSubData(GL_ARRAY_BUFFER, 0, pointSize, points);
-	glBufferSubData(GL_ARRAY_BUFFER, pointSize, normalSize, normals);
-	glBufferSubData(GL_ARRAY_BUFFER, pointSize + normalSize, texCoordSize, texCoords);
-
-	//Setup the IBO
-	glDeleteBuffers(1, &ibo);
-	glGenBuffers(1, &ibo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexSize, indices, GL_STATIC_DRAW);
-}
-#endif
-
-#ifdef D3D_SUPPORT
-void Mesh::bufferD3D()
-{
-	//Use 3 buffers instead of one interleaved buffer
-	D3D11_BUFFER_DESC positionBufferDesc;
-	positionBufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
-	positionBufferDesc.ByteWidth = pointSize;
-	positionBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	positionBufferDesc.CPUAccessFlags = 0;
-	positionBufferDesc.MiscFlags = 0;
-	positionBufferDesc.StructureByteStride = 0;
-
-	D3D11_BUFFER_DESC normalBufferDesc;
-	normalBufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
-	normalBufferDesc.ByteWidth = normalSize;
-	normalBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	normalBufferDesc.CPUAccessFlags = 0;
-	normalBufferDesc.MiscFlags = 0;
-	normalBufferDesc.StructureByteStride = 0;
-
-	D3D11_BUFFER_DESC texCoordBufferDesc;
-	texCoordBufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
-	texCoordBufferDesc.ByteWidth = texCoordSize;
-	texCoordBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	texCoordBufferDesc.CPUAccessFlags = 0;
-	texCoordBufferDesc.MiscFlags = 0;
-	texCoordBufferDesc.StructureByteStride = 0;
-
-	D3D11_SUBRESOURCE_DATA positionData;
-	positionData.pSysMem = points;
-
-	D3D11_SUBRESOURCE_DATA normalData;
-	normalData.pSysMem = normals;
-
-	D3D11_SUBRESOURCE_DATA texCoordData;
-	texCoordData.pSysMem = texCoords;
-
-	//Buffer
-	HR(RenderingManager::device->CreateBuffer(&positionBufferDesc, &positionData, &positionBuffer));
-	HR(RenderingManager::device->CreateBuffer(&normalBufferDesc, &normalData, &normalBuffer));
-	HR(RenderingManager::device->CreateBuffer(&texCoordBufferDesc, &texCoordData, &texCoordBuffer));
-
-	//Need to have ints rather than shorts
-	unsigned int* d3dIndices = new unsigned int[numberOfVerts];
-
-	for (unsigned int i = 0; i < numberOfVerts; i++)
-		d3dIndices[i] = (unsigned int)indices[i];
-
-	//Create index buffer description
-	D3D11_BUFFER_DESC indexBufferDesc;
-	indexBufferDesc.Usage = D3D11_USAGE_IMMUTABLE;
-	indexBufferDesc.ByteWidth = sizeof(UINT) * numberOfVerts;
-	indexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
-	indexBufferDesc.CPUAccessFlags = 0;
-	indexBufferDesc.MiscFlags = 0;
-	indexBufferDesc.StructureByteStride = 0;
-
-	D3D11_SUBRESOURCE_DATA indexData;
-	indexData.pSysMem = d3dIndices;
-
-	//Buffer
-	HR(RenderingManager::device->CreateBuffer(&indexBufferDesc, &indexData, &indexBuffer));
-}
-#endif
-
 //Destructor
 Mesh::~Mesh()
 {
-
+	(this->*cleanupMeshPtr)();
 }

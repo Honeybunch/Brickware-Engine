@@ -94,7 +94,7 @@ void PhysicsManager::Update()
 						activeCollisions.push_back(collision);
 						activeCollisions.push_back(oppositeCollision);
 
-#ifdef _DEBUG
+#ifdef BRICKWARE_DEBUG
 						if (Debug::Debugging)
 							GameTime::SetTimeScale(0);
 #endif

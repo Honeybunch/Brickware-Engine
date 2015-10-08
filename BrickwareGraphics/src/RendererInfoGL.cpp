@@ -45,8 +45,8 @@ std::vector<std::string> RendererInfo::GetAllSupportedGLSLVersions()
 {
 	std::vector<std::string> supportedVersions;
 
-	//glGetStringi isn't available below GL 3
-	if (GetGLMajorVersion() >= 3)
+	//GL_NUM_SHADING_LANGUAGE_VERSIONS is not available below version 4.3
+	if (GetGLMajorVersion() >= 4 && GetGLMinorVersion() >= 3)
 	{
 		int numShadingLangVersions;
 		glGetIntegerv(GL_NUM_SHADING_LANGUAGE_VERSIONS, &numShadingLangVersions);
@@ -60,7 +60,7 @@ std::vector<std::string> RendererInfo::GetAllSupportedGLSLVersions()
 	}
 	else
 	{
-		supportedVersions.push_back("GL Version below 3.0; try using GetShadingLanguageVersion instead");
+		supportedVersions.push_back("GL Version below 4.3; try using GetShadingLanguageVersion instead");
 	}
 
 	return supportedVersions;

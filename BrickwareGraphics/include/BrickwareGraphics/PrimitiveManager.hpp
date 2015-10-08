@@ -47,27 +47,38 @@ namespace Brickware
 			static std::vector<Primitive*> Primitives;
 			static Shader* shader;
 
+			static void (*DrawPrimitivePtr)(Primitive* p);
+			static void (*BufferDataPtr)();
+			static void (*DestroyDataPtr)();
+
 #ifdef GL_SUPPORT
 			//Primitive buffers
+			static GLuint pointVAO;
 			static GLuint pointVBO;
 			static GLuint pointIBO;
 
+			static GLuint lineVAO;
 			static GLuint lineVBO;
 			static GLuint lineIBO;
 
+			static GLuint lineQuadVAO;
 			static GLuint lineQuadVBO;
 			static GLuint lineQuadIBO;
 
+			static GLuint lineCircleVAO;
 			static GLuint lineCircleVBO;
 			static GLuint lineCircleIBO;
 
+			static GLuint fillQuadVAO;
 			static GLuint fillQuadVBO;
 			static GLuint fillQuadIBO;
 
+			static GLuint fillCircleVAO;
 			static GLuint fillCircleVBO;
 			static GLuint fillCircleIBO;
 
 			static void BufferDataGL();
+			static void DestroyDataGL();
 
 			static void DrawPrimitiveGL(Primitive* p);
 
@@ -78,8 +89,9 @@ namespace Brickware
 
 #ifdef D3D_SUPPORT
 			static void BufferDataD3D();
+			static void DestroyDataD3D();
 
-			static void DrawPrimitiveD3D(Primitive* p, Math::Matrix4 worldMatrix);
+			static void DrawPrimitiveD3D(Primitive* p);
 
 			static void SetColorD3D(Math::Vector4 color);
 			static void SetPointSizeD3D(float pointSize);

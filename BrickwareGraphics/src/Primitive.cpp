@@ -17,7 +17,7 @@ void Primitive::SetLineWidth(float lineWidth){ currentLineWidth = lineWidth; }
 void Primitive::DrawPoint(Vector3 point)
 {
 #ifdef GL_SUPPORT
-	Primitive* p = new Primitive(PrimitiveManager::pointVBO, PrimitiveManager::pointIBO,
+	Primitive* p = new Primitive(PrimitiveManager::pointVAO, PrimitiveManager::pointVBO, PrimitiveManager::pointIBO,
 								 point, Vector3(), Vector3(), 
 								 PrimitiveType::P_POINT);
 	p->pointCount = 1;
@@ -42,7 +42,7 @@ void Primitive::DrawLine(Vector3 start, Vector3 end)
 	Quaternion rotation(angleAxisRotation);
 
 #ifdef GL_SUPPORT
-	Primitive* p = new Primitive(PrimitiveManager::lineVBO, PrimitiveManager::lineIBO,
+	Primitive* p = new Primitive(PrimitiveManager::lineVAO, PrimitiveManager::lineVBO, PrimitiveManager::lineIBO,
 		start, scale, rotation,
 		PrimitiveType::P_LINE);
 	p->pointCount = 2;
@@ -62,8 +62,9 @@ void Primitive::FillCircle(Vector3 center, float radius, Vector3 rotation){}
 
 #ifdef GL_SUPPORT
 
-Primitive::Primitive(GLuint vbo, GLuint ibo, Vector3 translation, Vector3 scale, Quaternion rotation, PrimitiveType drawType)
+Primitive::Primitive(GLuint vao, GLuint vbo, GLuint ibo, Vector3 translation, Vector3 scale, Quaternion rotation, PrimitiveType drawType)
 {
+	this->vao = vao;
 	this->vbo = vbo;
 	this->ibo = ibo;
 

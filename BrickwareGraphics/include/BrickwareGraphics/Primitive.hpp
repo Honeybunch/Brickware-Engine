@@ -49,7 +49,7 @@ namespace Brickware
 
 		private:
 #ifdef GL_SUPPORT
-			Primitive(GLuint vbo, GLuint ibo, Math::Vector3 translation, Math::Vector3 scale, Math::Quaternion rotation, PrimitiveType drawType);
+			Primitive(GLuint vao, GLuint vbo, GLuint ibo, Math::Vector3 translation, Math::Vector3 scale, Math::Quaternion rotation, PrimitiveType drawType);
 #endif
 
 #ifdef D3D_SUPPORT
@@ -58,6 +58,7 @@ namespace Brickware
 			~Primitive();
 
 #ifdef GL_SUPPORT
+			GLuint vao;
 			GLuint vbo;
 			GLuint ibo;
 #endif

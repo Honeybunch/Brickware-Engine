@@ -107,7 +107,6 @@ extern "C" {
 		{
 			printf("%d: %s of %s severity, raised from %s: %s\n",
 				id, _type, _severity, _source, msg);
-			int i = 0;
 		}
 
 	}

@@ -19,9 +19,8 @@ Shader::Shader(std::string vertexShaderFileName)
 	//TODO: Strip existing file extension if any
 	std::string trimmedVertexFileName = StringUtils::trimToLastChar(vertexShaderFileName, '/');
 
-	RenderingAPI renderer = GraphicsSettings::Renderer;
-
 	//Setup function pointers based on rendering API
+	RenderingAPI renderer = GraphicsSettings::Renderer;
 #ifdef GL_SUPPORT
 	if (renderer = RenderingAPI::OpenGL)
 	{

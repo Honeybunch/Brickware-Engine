@@ -36,6 +36,8 @@ PointLightInternal::PointLightInternal() : Light()
 		}
 	}
 
+	farPlane = 30.0f;
+
 	Init();
 }
 

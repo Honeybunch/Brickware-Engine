@@ -3,6 +3,7 @@
 #include "BrickwareCore/Game.hpp"
 
 using namespace Brickware;
+using namespace Graphics;
 using namespace Core;
 using namespace Math;
 
@@ -231,16 +232,33 @@ bool Game::initGL()
 	if (!glfwInit())
 		return false;
 
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	//Create window
-	glWindow = glfwCreateWindow(Screen::width, Screen::height, "Brickware-Test", nullptr, nullptr);
+	//Try to find the highest supported core profile version
+	bool success = false;
+	for (unsigned int major = 4; major > 0; major--)
+	{
+		for (unsigned int minor = 5; minor > 0; minor--)
+		{
+			glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, major);
+			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minor);
+			glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
+			glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	if (!glWindow)
+			//Create window
+			glWindow = glfwCreateWindow(Screen::width, Screen::height, "Brickware-Test", nullptr, nullptr);
+
+			if (glWindow != nullptr)
+			{
+				minor = 1;
+				major = 1;
+				success = true;
+				break;
+			}
+		}
+	}
+
+	if (!success)
 	{
 		glfwTerminate();
 		return false;

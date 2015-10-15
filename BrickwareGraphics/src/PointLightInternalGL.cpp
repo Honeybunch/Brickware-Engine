@@ -59,7 +59,6 @@ void PointLightInternal::RenderShadowMapGL()
 {
 	RenderingManager::PointShadowShader->bindShader();
 
-	float farPlane = 30.0f;
 	Matrix4 depthProjection = Matrix4::getPerspectiveProjection((float)M_PI_2, 1.0f, 0.1f, farPlane);
 	Matrix4 depthView;
 
@@ -99,6 +98,11 @@ void PointLightInternal::RenderShadowMapGL()
 
 void PointLightInternal::BindShadowMapGL(Shader* shader)
 {	
+	//Set far plane for rendering
+	std::string farPlaneString = "pointLights[" + std::to_string(lightIndex) + "].farPlane";
+	shader->setGlobalFloat(farPlaneString.c_str(), farPlane);
+
+	//Bind shadow map
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, depthTexture);
 }

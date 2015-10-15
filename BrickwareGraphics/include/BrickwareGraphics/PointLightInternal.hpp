@@ -58,6 +58,7 @@ namespace Brickware
 
 			static int LightCount;
 			int lightIndex;
+			float farPlane;
 
 			Vector3 position;
 

@@ -60,13 +60,13 @@ void RenderingManager::ScenePassGL()
 		}
 
 		//Render object
-		RenderObjectSceneGL(renderable.mesh, renderable.material);
+		RenderObjectGL(renderable.mesh, renderable.material);
 	}
 
 	Shader::ActiveShader->freeShader();
 }
 
-void RenderingManager::RenderObjectSceneGL(Mesh* mesh, Material* material)
+void RenderingManager::RenderObjectGL(Mesh* mesh, Material* material)
 {
 	material->sendDataToGPU();
 
@@ -75,30 +75,8 @@ void RenderingManager::RenderObjectSceneGL(Mesh* mesh, Material* material)
 
 	glBindVertexArray(mesh->getVAO());
 
-	glBindAttribLocation(shaderProgram, 0, "vPosition");
-	glBindAttribLocation(shaderProgram, 1, "vNormal");
-	glBindAttribLocation(shaderProgram, 2, "vTexCoord");
-
 	//Draw Shape
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->getIBO());
-	glDrawElements(GL_TRIANGLES, mesh->getNumberOfVerts(), GL_UNSIGNED_SHORT, (void *)0);
-}
-
-//Doesn't try to send texCoord and normal info
-void RenderingManager::RenderObjectShadowGL(Mesh* mesh,  Material* shadowMaterial)
-{
-	shadowMaterial->sendDataToGPU();
-
-	GLint shaderProgram;
-	glGetIntegerv(GL_CURRENT_PROGRAM, &shaderProgram);
-
-	glBindVertexArray(mesh->getVAO());
-
-	glBindAttribLocation(shaderProgram, 0, "vPosition");
-
-	//Draw Shape
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->getIBO());
-	glDrawElements(GL_TRIANGLES, mesh->getNumberOfVerts(), GL_UNSIGNED_SHORT, (void *)0);
+	glDrawArrays(GL_TRIANGLES, 0, mesh->getNumberOfVerts());
 }
 
 void RenderingManager::RenderSceneShadowsGL(Shader* shadowShader)
@@ -110,7 +88,7 @@ void RenderingManager::RenderSceneShadowsGL(Shader* shadowShader)
 		renderable.shadowMaterial->setShader(shadowShader);
 
 		//Render object
-		RenderObjectShadowGL(renderable.mesh, renderable.shadowMaterial);
+		RenderObjectGL(renderable.mesh, renderable.shadowMaterial);
 	}
 }
 

@@ -1,11 +1,11 @@
-#version 130
+#version 330
 
 #define pi 3.141592653589793238462643383279
 
 //Attributes
-in vec3 vPosition;
-in vec3 vNormal;
-in vec2 vTexCoord;
+layout(location = 0)in vec3 vPosition;
+layout(location = 1)in vec3 vNormal;
+layout(location = 2)in vec2 vTexCoord;
 
 //Uniforms
 uniform mat4 worldMatrix;

@@ -65,8 +65,7 @@ namespace Brickware
 			static void ShadowPassGL();
 			static void ScenePassGL();
 
-			static void RenderObjectSceneGL(Mesh* mesh, Material* material);
-			static void RenderObjectShadowGL(Mesh* mesh, Material* shadowMaterial);
+			static void RenderObjectGL(Mesh* mesh, Material* material);
 
 			static void RenderSceneShadowsGL(Shader* shadowShader);
 #endif

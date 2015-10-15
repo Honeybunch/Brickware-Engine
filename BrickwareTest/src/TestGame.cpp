@@ -160,10 +160,10 @@ bool TestGame::init()
 	sphere->getTransform()->setPosition(Vector3(-6.0f, 1.0f, -5.0f));
 	sphere->addComponent(new MeshRenderer(sphereMesh, sphereMaterial));
 	sphere->addComponent(new SphereCollider(Vector3(),1.0f));
-
 	Spin* sphereSpin = new Spin();
 	sphereSpin->rotationDelta = Vector3(0.05f, 0.05f, 0.0f);
 	sphere->addComponent(sphereSpin);
+
 	GameObject* cube = new GameObject();
 	cube->getTransform()->setPosition(Vector3(-3.0f, 1.0f, -5.0f));
 	cube->getTransform()->setScale(Vector3(1.0f, 1.0f, 1.0f));

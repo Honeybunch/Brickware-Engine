@@ -1,4 +1,4 @@
-#version 150 core
+#version 330
 
 in vec4 fragPos;
 

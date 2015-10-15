@@ -257,7 +257,8 @@ void Shader::reflectShaderGL()
 		}
 		else
 		{
-			uniformMap[std::string(name)] = i;
+			GLint loc = glGetUniformLocation(shaderProgram, name);
+			uniformMap[std::string(name)] = loc;
 		}
 
 		delete[] name;
@@ -359,7 +360,7 @@ void Shader::setMultipleMatrix4GL(const char* valueName, std::vector<Matrix4> va
 		GLuint uniformLocation = (GLuint)(uniformMap[valueName]);
 		glUniformMatrix4fv(uniformLocation, values.size(), false, floatValues);
 
-		//Cleanup 
+		//Cleanup
 		delete[] floatValues;
 	}
 }

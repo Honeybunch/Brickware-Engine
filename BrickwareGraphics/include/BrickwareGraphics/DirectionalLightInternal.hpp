@@ -19,13 +19,13 @@
 #include <string>
 
 //Project Headers
-#include "BrickwareGraphics/Light.hpp"
+#include "BrickwareGraphics/InternalLight.hpp"
 
 namespace Brickware
 {
 	namespace Graphics
 	{
-		class BRICKWARE_GRAPHICS_API DirectionalLightInternal : public Light
+		class BRICKWARE_GRAPHICS_API DirectionalLightInternal : public InternalLight
 		{
 		public:
 			DirectionalLightInternal();

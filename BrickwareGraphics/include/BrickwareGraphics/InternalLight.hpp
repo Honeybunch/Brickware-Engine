@@ -26,10 +26,10 @@ namespace Brickware
 {
 	namespace Graphics
 	{
-		class BRICKWARE_GRAPHICS_API Light
+		class BRICKWARE_GRAPHICS_API InternalLight
 		{
 		public:
-			Light();
+			InternalLight();
 
 			void setAmbientColor(Math::Vector3 ambientColor);
 			void setDiffuseColor(Math::Vector3 diffuseColor);
@@ -44,7 +44,7 @@ namespace Brickware
 			virtual void RenderShadowMap() = 0;
 			virtual void BindShadowMap(Shader* shader) = 0;
 
-			virtual ~Light(void);
+			virtual ~InternalLight(void);
 
 		protected:
 

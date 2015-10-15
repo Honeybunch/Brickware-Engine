@@ -8,7 +8,7 @@ using namespace Math;
 
 int PointLightInternal::LightCount;
 
-PointLightInternal::PointLightInternal() : Light()
+PointLightInternal::PointLightInternal() : InternalLight()
 {
 	position = Vector3(0,0,0);
 

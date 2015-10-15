@@ -11,7 +11,7 @@ Material* RenderingManager::currentMaterial;
 Material* RenderingManager::currentShadowMaterial;
 
 std::vector<Renderable> RenderingManager::renderables;
-std::vector<Light*> RenderingManager::lights;
+std::vector<InternalLight*> RenderingManager::lights;
 
 #ifdef D3D_SUPPORT
 ID3D11Device* RenderingManager::device;
@@ -65,7 +65,7 @@ void RenderingManager::Initialize(ID3D11Device* device, ID3D11DeviceContext* dev
 	}
 }
 
-void RenderingManager::AddLight(Light* light)
+void RenderingManager::AddLight(InternalLight* light)
 {
 	lights.push_back(light);
 }

@@ -6,7 +6,7 @@ using namespace Brickware;
 using namespace Graphics;
 using namespace Math;
 
-DirectionalLightInternal::DirectionalLightInternal() : Light()
+DirectionalLightInternal::DirectionalLightInternal() : InternalLight()
 {
 	direction = Vector3(0, -1, 0);
 

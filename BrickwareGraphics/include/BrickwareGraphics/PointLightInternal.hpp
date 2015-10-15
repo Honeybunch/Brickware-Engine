@@ -19,7 +19,7 @@
 #include <string>
 
 //Project Headers
-#include "BrickwareGraphics/Light.hpp"
+#include "BrickwareGraphics/InternalLight.hpp"
 
 namespace Brickware
 {
@@ -36,7 +36,7 @@ namespace Brickware
 		};
 #endif
 
-		class BRICKWARE_GRAPHICS_API PointLightInternal : public Light
+		class BRICKWARE_GRAPHICS_API PointLightInternal : public InternalLight
 		{
 		public:
 			PointLightInternal();

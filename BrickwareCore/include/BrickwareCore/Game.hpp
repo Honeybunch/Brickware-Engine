@@ -32,7 +32,7 @@
 #include "BrickwareGraphics/RendererInfo.hpp"
 #include "BrickwareGraphics/Mesh.hpp"
 #include "BrickwareGraphics/Shader.hpp"
-#include "BrickwareGraphics/Light.hpp"
+#include "BrickwareGraphics/InternalLight.hpp"
 #include "BrickwareGraphics/Material.hpp"
 #include "BrickwareGraphics/Texture.hpp"
 #include "BrickwareGraphics/PrimitiveManager.hpp"

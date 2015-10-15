@@ -31,7 +31,7 @@ namespace Brickware
 
 #ifdef _WIN32
 		template class BRICKWARE_GRAPHICS_API std::vector < Renderable >;
-		template class BRICKWARE_GRAPHICS_API std::vector < Light* >;
+		template class BRICKWARE_GRAPHICS_API std::vector < InternalLight* >;
 #endif
 
 		class BRICKWARE_GRAPHICS_API RenderingManager
@@ -39,14 +39,14 @@ namespace Brickware
 			friend class Material;
 			friend class Shader;
 			friend class Mesh;
-			friend class Light;
+			friend class InternalLight;
 			friend class PointLightInternal;
 			friend class DirectionalLightInternal;
 			friend class Texture;
 			friend class RendererInfo;
 
 		public:
-			static void AddLight(Light* light);
+			static void AddLight(InternalLight* light);
 			static void UseMaterial(Material* material);
 			static void UseShadowMaterial(Material* shadowMaterial);
 			static void DrawMesh(Mesh* mesh);
@@ -82,7 +82,7 @@ namespace Brickware
 			static Material* currentShadowMaterial;
 
 			static std::vector <Renderable> renderables;
-			static std::vector <Light* > lights;
+			static std::vector <InternalLight*> lights;
 		};
 	}
 }

@@ -1,5 +1,5 @@
-#ifndef LIGHT_H
-#define LIGHT_H
+#ifndef INTERNAL_LIGHT_H
+#define INTERNAL_LIGHT_H
 
 //Pre-Include Defines
 #define _CRT_SECURE_NO_WARNINGS

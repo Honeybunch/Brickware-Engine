@@ -60,8 +60,7 @@
 #include "BrickwareCore/GameTime.hpp"
 #include "BrickwareCore/PhysicsManager.hpp"
 #include "BrickwareCore/Debug.hpp"
-#include "BrickwareCore/PointLight.hpp"
-#include "BrickwareCore/DirectionalLight.hpp"
+#include "BrickwareCore/Light.hpp"
 #include "BrickwareCore/FirstPersonController.hpp"
 #include "BrickwareCore/GameInputManager.hpp"
 

@@ -99,7 +99,7 @@ float CalcPointShadows(PointLight light)
 	// Use the light to fragment vector to sample from the depth map    
 	float closestDepth = texture(pointShadowMap, fragToLight).r;
 	// It is currently in linear range between [0,1]. Re-transform back to original value
-	closestDepth *= 30.0f;
+	closestDepth *= light.farPlane;
 	// Now get current linear depth as the length between the fragment and light position
 	float currentDepth = length(fragToLight);
 	// Now test for shadows

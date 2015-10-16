@@ -3,9 +3,9 @@
 #define pi 3.141592653589793238462643383279
 
 //Attributes
-layout(location = 0)in vec3 vPosition;
-layout(location = 1)in vec3 vNormal;
-layout(location = 2)in vec2 vTexCoord;
+layout(location = 0) in vec3 vPosition;
+layout(location = 1) in vec3 vNormal;
+layout(location = 2) in vec2 vTexCoord;
 
 //Uniforms
 uniform mat4 worldMatrix;
@@ -17,7 +17,6 @@ uniform mat4 pointDepthBiasVP;
 
 uniform vec3 lookAt;
 uniform vec3 eyePoint;
-//uniform vec3 up;
 
 //To be passed to the fragment shader
 out vec3 worldNormal;
@@ -29,10 +28,10 @@ out vec4 shadowCoord;
 
 void main()
 {
-    gl_Position = worldMatrix * vec4(vPosition, 1.0f);
+	vec4 pos4 = vec4(vPosition, 1.0f);
 
 	//Shading
-	vec4 worldCoord4v = modelMatrix * vec4(vPosition, 1.0f);
+	vec4 worldCoord4v = modelMatrix * pos4;
 	mat3 rotation = mat3(rotationMatrix);
 
 	worldNormal = rotation * vNormal;
@@ -43,8 +42,10 @@ void main()
 
 	texCoord = vTexCoord;
 
+	//Shadows
 	mat4 shadowMVP = depthBiasVP * modelMatrix;
-	mat4 pointShadowMVP = pointDepthBiasVP * modelMatrix;
+	shadowCoord = (shadowMVP * pos4);
 
-	shadowCoord = (shadowMVP * vec4(vPosition, 1.0f));
+	//Set position
+	gl_Position = worldMatrix * pos4;
 }

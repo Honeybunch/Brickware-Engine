@@ -109,6 +109,14 @@ bool TestGame::init()
 	Mesh* triangleMesh = new Mesh("Models/triangle.obj");
 
 	//Create Lights
+	GameObject* light1 = new GameObject();
+	Light* light1Comp = new Light(LightType::POINT);
+	light1Comp->setDiffuseColor(Vector3(.3f, .3f, .3f));
+	light1Comp->setSpecularColor(Vector3(.6f, .6f, .6f));
+
+	light1->getTransform()->setPosition(Vector3(1.0f, 0.1f, 0.0f));
+	light1->addComponent(light1Comp);
+
 	GameObject* dirLight = new GameObject();
 	Light* dirLightComp = new Light(LightType::DIRECTIONAL);
 	dirLightComp->setDirection(Vector3(0, -0.9f, 1.0f));
@@ -120,14 +128,6 @@ bool TestGame::init()
 	dirLightComp->setShadowStrength(0.7f);
 
 	dirLight->addComponent(dirLightComp);
-
-	GameObject* light1 = new GameObject();
-	Light* light1Comp = new Light(LightType::POINT);
-	light1Comp->setDiffuseColor(Vector3(.3f, .3f, .3f));
-	light1Comp->setSpecularColor(Vector3(.6f, .6f, .6f));
-
-	light1->getTransform()->setPosition(Vector3(1.0f, 0.1f, 0.0f));
-	light1->addComponent(light1Comp);
 
 	//Create Objects
 	GameObject* castle = new GameObject();

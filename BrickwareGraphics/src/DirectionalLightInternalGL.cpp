@@ -1,4 +1,4 @@
-#define BRICKWARE_GRAPHICS_EXPORTS
+﻿#define BRICKWARE_GRAPHICS_EXPORTS
 
 #include "BrickwareGraphics/DirectionalLightInternal.hpp"
 #include "BrickwareGraphics/RenderingManager.hpp"
@@ -34,6 +34,7 @@ void DirectionalLightInternal::InitGL()
 		std::cout << "DirectionalLight framebuffer encountered an error!" << std::endl;
 
 	//Unbind framebuffer
+	glBindTexture(GL_TEXTURE_2D, 0);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 

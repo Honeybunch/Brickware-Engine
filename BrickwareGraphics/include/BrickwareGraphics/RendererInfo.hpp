@@ -4,6 +4,18 @@
 #include <iostream>
 #include <vector>
 
+#ifdef GL_SUPPORT
+#include <GL/glew.h>
+
+#ifdef _WIN32
+#include <windows.h>
+#define GLFW_DLL
+#endif
+
+#define GLFW_INCLUDE_GLU
+#include <GLFW/glfw3.h>
+#endif
+
 #include "BrickwareGraphicsDLL.hpp"
 
 namespace Brickware

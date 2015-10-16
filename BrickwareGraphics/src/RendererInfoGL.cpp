@@ -2,9 +2,6 @@
 
 #define BRICKWARE_GRAPHICS_EXPORTS
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
 #include "BrickwareGraphics/RendererInfo.hpp"
 
 using namespace Brickware;

@@ -15,6 +15,7 @@ void RenderingManager::RenderGL()
 
 	//Other user defined render passes here?
 
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	ScenePassGL();
 
 	//Cleanup
@@ -63,6 +64,14 @@ void RenderingManager::ScenePassGL()
 		RenderObjectGL(renderable.mesh, renderable.material);
 	}
 
+	glBindVertexArray(0);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+	glActiveTexture(GL_TEXTURE2);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
 	Shader::ActiveShader->freeShader();
 }
 
@@ -90,6 +99,8 @@ void RenderingManager::RenderSceneShadowsGL(Shader* shadowShader)
 		//Render object
 		RenderObjectGL(renderable.mesh, renderable.shadowMaterial);
 	}
+
+	glBindVertexArray(0);
 }
 
 #endif

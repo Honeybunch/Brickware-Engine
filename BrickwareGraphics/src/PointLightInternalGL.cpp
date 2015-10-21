@@ -92,7 +92,6 @@ void PointLightInternal::RenderShadowMapGL()
 	RenderingManager::RenderSceneShadowsGL(RenderingManager::PointShadowShader);
 
 	//Clean up
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	RenderingManager::PointShadowShader->freeShader();
 }
 

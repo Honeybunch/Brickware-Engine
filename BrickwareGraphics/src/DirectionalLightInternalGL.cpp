@@ -19,6 +19,8 @@ void DirectionalLightInternal::InitGL()
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16, shadowMapRes, shadowMapRes, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE, GL_COMPARE_REF_TO_TEXTURE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC, GL_LEQUAL);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
@@ -59,11 +61,11 @@ void DirectionalLightInternal::RenderShadowMapGL()
 	//Apply bias to get texture coordinates
 	depthBiasVP = biasMatrix * depthVP;
 
-	RenderingManager::DirectionalShadowShader->setGlobalMatrix4("depthVP", depthVP);
-
 	//Setup for drawing to buffer
 	glViewport(0, 0, shadowMapRes, shadowMapRes);
 	glBindFramebuffer(GL_FRAMEBUFFER, shadowBuffer);
+
+	RenderingManager::DirectionalShadowShader->setGlobalMatrix4("depthVP", depthVP);
 
 	glClearDepth(1.0f);
 	glClear(GL_DEPTH_BUFFER_BIT);
@@ -71,7 +73,6 @@ void DirectionalLightInternal::RenderShadowMapGL()
 	//Render to texture
 	RenderingManager::RenderSceneShadowsGL(RenderingManager::DirectionalShadowShader);
 
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	RenderingManager::DirectionalShadowShader->freeShader();
 }
 

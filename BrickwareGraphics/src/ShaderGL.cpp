@@ -247,7 +247,7 @@ void Shader::reflectShaderGL()
 
 		name[nameLength] = 0;
 
-		if (type == GL_SAMPLER_2D || type == GL_SAMPLER_CUBE)
+		if (type == GL_SAMPLER_2D || type == GL_SAMPLER_CUBE || type == GL_SAMPLER_2D_SHADOW)
 		{
 			textureMap[std::string(name)] = nullptr;
 

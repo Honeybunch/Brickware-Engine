@@ -59,6 +59,8 @@ void PointLightInternal::RenderLight(Shader* shader)
 	std::string diffLightString = lightString + "diffuseColor";
 	std::string specLightString = lightString + "specularColor";
 
+	std::string shadowStrengthString = lightString + "shadowStrength";
+	std::string shadowBiasString = lightString + "shadowBias";
 
 	//Make sure to let the material know how many lights there are
 	shader->setGlobalInt("pointLightCount", LightCount);
@@ -68,6 +70,9 @@ void PointLightInternal::RenderLight(Shader* shader)
 	shader->setGlobalVector3(ambLightString.c_str(), ambientColor);
 	shader->setGlobalVector3(diffLightString.c_str(), diffuseColor);
 	shader->setGlobalVector3(specLightString.c_str(), specularColor);
+
+	shader->setGlobalFloat(shadowStrengthString.c_str(), shadowStrength);
+	shader->setGlobalFloat(shadowBiasString.c_str(), shadowBias);
 }
 
 void PointLightInternal::Init()

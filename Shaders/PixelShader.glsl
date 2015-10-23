@@ -74,20 +74,10 @@ float CalcDirShadows(DirectionalLight light)
 	//Get into 0-1 range
 	projCoords = projCoords * 0.5 + 0.5;
 
-	vec2 poissonDisk[4] = vec2[](
-		vec2(-0.94201624, -0.39906216),
-		vec2(0.94558609, -0.76890725),
-		vec2(-0.094184101, -0.92938870),
-		vec2(0.34495938, 0.29387760)
-		);
+	float visibility = 0.0;
 
-	float visibility = 1.0f;
-	float strengthFactor = light.shadowStrength / 4;
-	for (int i = 0; i < 4; i++)
-	{
-		if (texture(shadowMap, projCoords.xy + poissonDisk[i] / 700.0).z < projCoords.z - light.shadowBias)
-			visibility -= strengthFactor;
-	}
+	if (texture(shadowMap, projCoords.xy).r > projCoords.z - light.shadowBias)
+		visibility = light.shadowStrength;
 
 	return visibility;
 }
@@ -103,7 +93,7 @@ float CalcPointShadows(PointLight light)
 	// Now get current linear depth as the length between the fragment and light position
 	float currentDepth = length(fragToLight);
 	// Now test for shadows
-	float shadow = currentDepth - 0.0005 > closestDepth ? 0.0 : 0.5;
+	float shadow = currentDepth - light.shadowBias > closestDepth ? 0.0 : light.shadowStrength;
 
 	return shadow;
 }

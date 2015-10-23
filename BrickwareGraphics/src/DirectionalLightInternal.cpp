@@ -48,8 +48,8 @@ void DirectionalLightInternal::RenderLight(Shader* shader)
 	std::string diffLightString = baseString + "diffuseColor";
 	std::string specLightString = baseString + "specularColor";
 
-	std::string shadowStrengthString = baseString += "shadowStrength";
-	std::string shadowBiasString = baseString += "shadowBias";
+	std::string shadowStrengthString = baseString + "shadowStrength";
+	std::string shadowBiasString = baseString + "shadowBias";
 
 	//Send light data
 	shader->setGlobalVector3(dirLightString.c_str(), direction);

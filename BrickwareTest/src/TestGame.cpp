@@ -113,7 +113,11 @@ bool TestGame::init()
 	Light* light1Comp = new Light(LightType::POINT);
 	light1Comp->setDiffuseColor(Vector3(.3f, .3f, .3f));
 	light1Comp->setSpecularColor(Vector3(.6f, .6f, .6f));
-	
+
+	light1Comp->setShadowMapQuality(ShadowQuality::VeryHigh);
+	light1Comp->setShadowBias(0.00005f);
+	light1Comp->setShadowStrength(0.5f);
+
 	light1->getTransform()->setPosition(Vector3(1.0f, 0.1f, 0.0f));
 	light1->addComponent(light1Comp);
 
@@ -124,7 +128,7 @@ bool TestGame::init()
 	dirLightComp->setSpecularColor(Vector3(0.5f, 0.5f, 0.5f));
 	
 	dirLightComp->setShadowMapQuality(ShadowQuality::VeryHigh);
-	dirLightComp->setShadowBias(0.0005f);
+	dirLightComp->setShadowBias(0.00005f);
 	dirLightComp->setShadowStrength(0.7f);
 	
 	dirLight->addComponent(dirLightComp);

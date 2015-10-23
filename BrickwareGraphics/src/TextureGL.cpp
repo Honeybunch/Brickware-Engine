@@ -15,30 +15,29 @@ void Texture::bufferGL()
 	glGenTextures(1, &glTexture);
 	glBindTexture(GL_TEXTURE_2D, glTexture);
 
-	if(textureType == TextureType::RGBA)
-		glTextureType = GL_RGBA;
+	if (pixelInputFormat == TextureFormat::RGBA)
+		glPixelInputFormat = GL_RGBA;
+	glInternalFormat = GL_RGBA;
 
 	//Load texture data
-	glTexImage2D(GL_TEXTURE_2D, 0, glTextureType, width, height, 0, glTextureType, GL_UNSIGNED_BYTE, pixels);
+	glTexImage2D(GL_TEXTURE_2D, 0, glInternalFormat, width, height, 0, glPixelInputFormat, GL_UNSIGNED_BYTE, pixels);
 
 	//Setup mipmaps and parameters
 	glGenerateMipmap(GL_TEXTURE_2D);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
 	//Unbind texture
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Texture::bindGL()
+void Texture::bindGL(int location)
 {
-	glActiveTexture(GL_TEXTURE0);
+	glActiveTexture(GL_TEXTURE0 + location);
 	glBindTexture(GL_TEXTURE_2D, glTexture);
 }
 
-void Texture::freeGL()
+void Texture::freeGL(int location)
 {
-	glActiveTexture(GL_TEXTURE0);
+	glActiveTexture(GL_TEXTURE0 + location);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 #endif

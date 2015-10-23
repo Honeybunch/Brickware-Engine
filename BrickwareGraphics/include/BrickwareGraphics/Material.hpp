@@ -66,18 +66,18 @@ namespace Brickware
 			std::vector<char*> getConstantBufferData();
 #endif
 			
-			void setVector4(const char* valueName, Math::Vector4 value);
-			void setVector3(const char* valueName, Math::Vector3 value);
-			void setVector2(const char* valueName, Math::Vector2 value);
+			void setVector4(std::string valueName, Math::Vector4 value);
+			void setVector3(std::string valueName, Math::Vector3 value);
+			void setVector2(std::string valueName, Math::Vector2 value);
 
-			void setInt(const char* valueName, int value);
-			void setFloat(const char* valueName, float value);
-			void setDouble(const char* valueName, double value);
+			void setInt(std::string valueName, int value);
+			void setFloat(std::string valueName, float value);
+			void setDouble(std::string valueName, double value);
 
-			void setMatrix4(const char* valueName, Math::Matrix4 value);
-			void setMatrix3(const char* valueName, Math::Matrix3 value);
+			void setMatrix4(std::string valueName, Math::Matrix4 value);
+			void setMatrix3(std::string valueName, Math::Matrix3 value);
 
-			void setTexture(const char* textureName, Texture* texture);
+			void setTexture(std::string textureName, Texture* texture);
 
 			~Material();
 

@@ -58,7 +58,6 @@ namespace Brickware
 		template class BRICKWARE_GRAPHICS_API std::map < std::string, D3D11_SHADER_VARIABLE_DESC* >;
 		template class BRICKWARE_GRAPHICS_API std::vector < std::map<std::string, D3D11_SHADER_VARIABLE_DESC*>* >;
 #endif
-		template class BRICKWARE_GRAPHICS_API std::map < std::string, Texture*>;
 #endif
 
 		class BRICKWARE_GRAPHICS_API Shader
@@ -75,18 +74,20 @@ namespace Brickware
 			void bindShader();
 			void freeShader();
 
-			void setGlobalVector4(const char* valueName, Math::Vector4 value);
-			void setGlobalVector3(const char* valueName, Math::Vector3 value);
-			void setGlobalVector2(const char* valueName, Math::Vector2 value);
+			void setGlobalVector4(std::string valueName, Math::Vector4 value);
+			void setGlobalVector3(std::string valueName, Math::Vector3 value);
+			void setGlobalVector2(std::string valueName, Math::Vector2 value);
 
-			void setGlobalInt(const char* valueName, int value);
-			void setGlobalFloat(const char* valueName, float value);
-			void setGlobalDouble(const char* valueName, double value);
+			void setGlobalInt(std::string valueName, int value);
+			void setGlobalFloat(std::string valueName, float value);
+			void setGlobalDouble(std::string valueName, double value);
 
-			void setGlobalMatrix4(const char* valueName, Math::Matrix4 value);
-			void setGlobalMatrix3(const char* valueName, Math::Matrix3 value);
+			void setGlobalMatrix4(std::string valueName, Math::Matrix4 value);
+			void setGlobalMatrix3(std::string valueName, Math::Matrix3 value);
 
-			void setMultipleGlobalMatrix4(const char* valueName, std::vector<Math::Matrix4> values);
+			void setMultipleGlobalMatrix4(std::string valueName, std::vector<Math::Matrix4> values);
+
+			void setGlobalTexture(std::string valueName, Texture* value);
 
 			~Shader();
 
@@ -96,25 +97,24 @@ namespace Brickware
 			void(Shader::*bindShaderPtr)();
 			void(Shader::*freeShaderPtr)();
 
-			void(Shader::*setGlobalVector4Ptr)(const char*, Math::Vector4);
-			void(Shader::*setGlobalVector3Ptr)(const char*, Math::Vector3);
-			void(Shader::*setGlobalVector2Ptr)(const char*, Math::Vector2);
+			void(Shader::*setGlobalVector4Ptr)(std::string, Math::Vector4);
+			void(Shader::*setGlobalVector3Ptr)(std::string, Math::Vector3);
+			void(Shader::*setGlobalVector2Ptr)(std::string, Math::Vector2);
 
-			void(Shader::*setGlobalIntPtr)(const char*, int);
-			void(Shader::*setGlobalFloatPtr)(const char*, float);
-			void(Shader::*setGlobalDoublePtr)(const char*, double);
+			void(Shader::*setGlobalIntPtr)(std::string, int);
+			void(Shader::*setGlobalFloatPtr)(std::string, float);
+			void(Shader::*setGlobalDoublePtr)(std::string, double);
 
-			void(Shader::*setGlobalMatrix4Ptr)(const char*, Math::Matrix4);
-			void(Shader::*setGlobalMatrix3Ptr)(const char*, Math::Matrix3);
+			void(Shader::*setGlobalMatrix4Ptr)(std::string, Math::Matrix4);
+			void(Shader::*setGlobalMatrix3Ptr)(std::string, Math::Matrix3);
 
-			void(Shader::*setMultipleGlobalMatrix4Ptr)(const char* valueName, std::vector<Math::Matrix4> values);
-
-			std::map<std::string, Texture*> textureMap;
+			void(Shader::*setMultipleGlobalMatrix4Ptr)(std::string valueName, std::vector<Math::Matrix4> values);
 
 #ifdef GL_SUPPORT
 			GLuint shaderProgram;
 
 			std::map<std::string, GLuint > uniformMap;
+			std::map<std::string, GLuint > textureMap;
 
 			void bindGLSL();
 			void freeGLSL();
@@ -127,18 +127,18 @@ namespace Brickware
 
 			void reflectShaderGL();
 
-			void setVector4GL(const char* valueName, Math::Vector4 value);
-			void setVector3GL(const char* valueName, Math::Vector3 value);
-			void setVector2GL(const char* valueName, Math::Vector2 value);
+			void setVector4GL(std::string valueName, Math::Vector4 value);
+			void setVector3GL(std::string valueName, Math::Vector3 value);
+			void setVector2GL(std::string valueName, Math::Vector2 value);
 
-			void setIntGL(const char* valueName, int value);
-			void setFloatGL(const char* valueName, float value);
-			void setDoubleGL(const char* valueName, double value);
+			void setIntGL(std::string valueName, int value);
+			void setFloatGL(std::string valueName, float value);
+			void setDoubleGL(std::string valueName, double value);
 
-			void setMatrix4GL(const char* valueName, Math::Matrix4 value);
-			void setMatrix3GL(const char* valueName, Math::Matrix3 value);
+			void setMatrix4GL(std::string valueName, Math::Matrix4 value);
+			void setMatrix3GL(std::string valueName, Math::Matrix3 value);
 
-			void setMultipleMatrix4GL(const char* valueName, std::vector<Math::Matrix4> values);
+			void setMultipleMatrix4GL(std::string valueName, std::vector<Math::Matrix4> values);
 #endif
 
 #ifdef D3D_SUPPORT
@@ -156,7 +156,7 @@ namespace Brickware
 			std::vector<char*> constantBufferData;
 			std::vector<std::map<std::string, D3D11_SHADER_VARIABLE_DESC*>*> constantBufferMaps;
 
-			ConstVariableInfo getVariableInfoByName(const char* valueName);
+			ConstVariableInfo getVariableInfoByName(std::string valueName);
 
 			void bindHLSL();
 			void freeHLSL();
@@ -167,16 +167,18 @@ namespace Brickware
 			bool loadHLSL(std::string vertexShaderFileName, std::string pixelShaderFileName);
 			bool loadHLSL(std::string geometryShaderFileName, std::string vertexShaderFileName, std::string pixelShaderFileName);
 
-			void setVector4D3D(const char* valueName, Math::Vector4 value);
-			void setVector3D3D(const char* valueName, Math::Vector3 value);
-			void setVector2D3D(const char* valueName, Math::Vector2 value);
+			void setVector4D3D(std::string valueName, Math::Vector4 value);
+			void setVector3D3D(std::string valueName, Math::Vector3 value);
+			void setVector2D3D(std::string valueName, Math::Vector2 value);
 
-			void setIntD3D(const char* valueName, int value);
-			void setFloatD3D(const char* valueName, float value);
-			void setDoubleD3D(const char* valueName, double value);
+			void setIntD3D(std::string valueName, int value);
+			void setFloatD3D(std::string valueName, float value);
+			void setDoubleD3D(std::string valueName, double value);
 
-			void setMatrix4D3D(const char* valueName, Math::Matrix4 value);
-			void setMatrix3D3D(const char* valueName, Math::Matrix3 value);
+			void setMatrix4D3D(std::string valueName, Math::Matrix4 value);
+			void setMatrix3D3D(std::string valueName, Math::Matrix3 value);
+
+			void setMultipleMatrix4D3D(std::string valueName, std::vector<Math::Matrix4> values);
 #endif
 		};
 	}

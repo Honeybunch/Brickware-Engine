@@ -14,10 +14,6 @@ Material::Material(Shader* shader)
 {
 	this->shader = shader;
 
-	//We copy this from the shader so that every material will have its own map of textures
-	//With the the proper names from the shader's shader reflection
-	textureMap = shader->textureMap;
-
 	if (defaultTexture == nullptr)
 		defaultTexture = new Texture("Textures/defaultTexture.bmp");
 
@@ -50,48 +46,45 @@ Shader* Material::getShader(){ return shader; }
 
 Material::~Material(){}
 
-void Material::setVector4(const char* valueName, Vector4 value)
+void Material::setVector4(std::string valueName, Vector4 value)
 {
 	vector4Map[valueName] = value;
 }
-void Material::setVector3(const char* valueName, Vector3 value)
+void Material::setVector3(std::string valueName, Vector3 value)
 {
 	vector3Map[valueName] = value;
 }
-void Material::setVector2(const char* valueName, Vector2 value)
+void Material::setVector2(std::string valueName, Vector2 value)
 {
 	vector2Map[valueName] = value;
 }
 
-void Material::setInt(const char* valueName, int value)
+void Material::setInt(std::string valueName, int value)
 {
 	intMap[valueName] = value;
 }
-void Material::setFloat(const char* valueName, float value)
+void Material::setFloat(std::string valueName, float value)
 {
 	floatMap[valueName] = value;
 }
-void Material::setDouble(const char* valueName, double value)
+void Material::setDouble(std::string valueName, double value)
 {
 	doubleMap[valueName] = value;
 }
 
-void Material::setMatrix4(const char* valueName, Matrix4 value)
+void Material::setMatrix4(std::string valueName, Matrix4 value)
 {
 	matrix4Map[valueName] = value;
 }
 
-void Material::setMatrix3(const char* valueName, Matrix3 value)
+void Material::setMatrix3(std::string valueName, Matrix3 value)
 {
 	matrix3Map[valueName] = value;
 }
 
-void Material::setTexture(const char* textureName, Texture* texture)
+void Material::setTexture(std::string textureName, Texture* texture)
 {
-	if (textureMap.size() > 0 && textureMap.find(textureName) != textureMap.end())
-	{
-		textureMap[textureName] = texture;
-	}
+	textureMap[textureName] = texture;
 }
 
 void Material::sendDataToGPU()
@@ -180,6 +173,6 @@ void Material::sendDataToGPU()
 	for (std::pair<std::string, Texture*> texPair : textureMap)
 	{
 		if (texPair.second != nullptr)
-			texPair.second->bindTexture();
+			shader->setGlobalTexture(texPair.first, texPair.second);
 	}
 }

@@ -141,44 +141,52 @@ void Shader::freeShader()
 	(this->*freeShaderPtr)();
 }
 
-void Shader::setGlobalVector4(const char* valueName, Vector4 value)
+void Shader::setGlobalVector4(std::string valueName, Vector4 value)
 {
 	(this->*setGlobalVector4Ptr)(valueName, value);
 }
-void Shader::setGlobalVector3(const char* valueName, Vector3 value)
+void Shader::setGlobalVector3(std::string valueName, Vector3 value)
 {
 	(this->*setGlobalVector3Ptr)(valueName, value);
 }
-void Shader::setGlobalVector2(const char* valueName, Vector2 value)
+void Shader::setGlobalVector2(std::string valueName, Vector2 value)
 {
 	(this->*setGlobalVector2Ptr)(valueName, value);
 }
 
-void Shader::setGlobalInt(const char* valueName, int value)
+void Shader::setGlobalInt(std::string valueName, int value)
 {
 	(this->*setGlobalIntPtr)(valueName, value);
 }
-void Shader::setGlobalFloat(const char* valueName, float value)
+void Shader::setGlobalFloat(std::string valueName, float value)
 {
 	(this->*setGlobalFloatPtr)(valueName, value);
 }
-void Shader::setGlobalDouble(const char* valueName, double value)
+void Shader::setGlobalDouble(std::string valueName, double value)
 {
 	(this->*setGlobalDoublePtr)(valueName, value);
 }
 
-void Shader::setGlobalMatrix4(const char* valueName, Matrix4 value)
+void Shader::setGlobalMatrix4(std::string valueName, Matrix4 value)
 {
 	(this->*setGlobalMatrix4Ptr)(valueName, value);
 }
-void Shader::setGlobalMatrix3(const char* valueName, Matrix3 value)
+void Shader::setGlobalMatrix3(std::string valueName, Matrix3 value)
 {
 	(this->*setGlobalMatrix3Ptr)(valueName, value);
 }
 
-void Shader::setMultipleGlobalMatrix4(const char* valueName, std::vector<Matrix4> values)
+void Shader::setMultipleGlobalMatrix4(std::string valueName, std::vector<Matrix4> values)
 {
 	(this->*setMultipleGlobalMatrix4Ptr)(valueName, values);
+}
+
+void Shader::setGlobalTexture(std::string valueName, Texture* value)
+{
+	if (textureMap.find(valueName) != textureMap.end())
+	{
+		value->bindTexture(textureMap[valueName]);
+	}
 }
 
 Shader::~Shader()

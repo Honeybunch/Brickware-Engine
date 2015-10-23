@@ -50,14 +50,14 @@ void Texture::bufferD3D()
 	ZeroMemory(&resourceDesc, sizeof(resourceDesc));
 }
 
-void Texture::bindD3D()
+void Texture::bindD3D(int location)
 {
-	RenderingManager::deviceContext->PSSetShaderResources(0, 1, &d3dTextureSRV);
+	RenderingManager::deviceContext->PSSetShaderResources(location, 1, &d3dTextureSRV);
 }
 
-void Texture::freeD3D()
+void Texture::freeD3D(int location)
 {
-	//Game::deviceContext->PSSetShaderResources(0, 1, 0);
+	//Game::deviceContext->PSSetShaderResources(location, 1, 0);
 }
 
 #endif

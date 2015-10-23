@@ -49,14 +49,14 @@ void Texture::bufferTexture()
 	(this->*bufferTexturePtr)();
 }
 
-void Texture::bindTexture()
+void Texture::bindTexture(int location)
 {
-	(this->*bindTexturePtr)();
+	(this->*bindTexturePtr)(location);
 }
 
-void Texture::freeTexture()
+void Texture::freeTexture(int location)
 {
-	(this->*freeTexturePtr)();
+	(this->*freeTexturePtr)(location);
 }
 
 unsigned char* Texture::getPixels(){ return pixels; }
@@ -102,7 +102,7 @@ void Texture::loadBMP(const char* textureFileName)
 		{
 			//Even though there is no alpha in 24bpp BMPs DirectX does not support RGB without alpha
 			//So we will manually add an alpha value of 255;
-			textureType = TextureType::RGBA;
+			pixelInputFormat = TextureFormat::RGBA;
 			int loopCounter = 0;
 
 			for (int i = 0; i < pixelArraySize; i+= 4)

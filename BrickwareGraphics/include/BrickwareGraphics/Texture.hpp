@@ -25,18 +25,19 @@ namespace Brickware
 {
 	namespace Graphics
 	{
-		enum BRICKWARE_GRAPHICS_API TextureType{
+		enum BRICKWARE_GRAPHICS_API TextureFormat{
 			RGBA
 		};
 
 		class BRICKWARE_GRAPHICS_API Texture
 		{
-			friend class Material;
-
 		public:
 			Texture(const char* textureFileName);
 
 			unsigned char* getPixels();
+
+			void bindTexture(int location);
+			void freeTexture(int location);
 
 			~Texture();
 
@@ -44,23 +45,23 @@ namespace Brickware
 			void loadBMP(const char* textureFileName);
 
 			void bufferTexture();
-			void bindTexture();
-			void freeTexture();
 
 			//Function pointers for branching between rendering APIs
 			void(Texture::*bufferTexturePtr)();
-			void(Texture::*bindTexturePtr)();
-			void(Texture::*freeTexturePtr)();
+			void(Texture::*bindTexturePtr)(int location);
+			void(Texture::*freeTexturePtr)(int location);
 
-			TextureType textureType;
+			TextureFormat internalFormat;
+			TextureFormat pixelInputFormat;
 
 #ifdef GL_SUPPORT
 			GLuint glTexture;
-			GLenum glTextureType;
+			GLenum glInternalFormat;
+			GLenum glPixelInputFormat;
 
 			void bufferGL();
-			void bindGL();
-			void freeGL();
+			void bindGL(int location);
+			void freeGL(int location);
 #endif
 
 #ifdef D3D_SUPPORT
@@ -68,8 +69,8 @@ namespace Brickware
 			ID3D11ShaderResourceView* d3dTextureSRV;
 
 			void bufferD3D();
-			void bindD3D();
-			void freeD3D();
+			void bindD3D(int location);
+			void freeD3D(int location);
 #endif
 
 			int width;

@@ -249,11 +249,13 @@ void Shader::reflectShaderGL()
 
 		if (type == GL_SAMPLER_2D || type == GL_SAMPLER_CUBE || type == GL_SAMPLER_2D_SHADOW)
 		{
-			textureMap[std::string(name)] = nullptr;
-
 			//Get texture location
 			GLuint texLoc = glGetUniformLocation(shaderProgram, name);
-			glUniform1i(texLoc, textureCount++);
+			glUniform1i(texLoc, textureCount);
+
+			textureMap[std::string(name)] = textureCount;
+			
+			textureCount++;
 		}
 		else
 		{
@@ -265,7 +267,7 @@ void Shader::reflectShaderGL()
 	}
 }
 
-void Shader::setVector4GL(const char* valueName, Vector4 value)
+void Shader::setVector4GL(std::string valueName, Vector4 value)
 {
 	//Don't send values that don't exist
 	if (uniformMap.find(valueName) != uniformMap.end())
@@ -275,7 +277,7 @@ void Shader::setVector4GL(const char* valueName, Vector4 value)
 	}
 }
 
-void Shader::setVector3GL(const char* valueName, Vector3 value)
+void Shader::setVector3GL(std::string valueName, Vector3 value)
 {
 	//Don't send values that don't exist
 	if (uniformMap.find(valueName) != uniformMap.end())
@@ -285,7 +287,7 @@ void Shader::setVector3GL(const char* valueName, Vector3 value)
 	}
 }
 
-void Shader::setVector2GL(const char* valueName, Vector2 value)
+void Shader::setVector2GL(std::string valueName, Vector2 value)
 {
 	//Don't send values that don't exist
 	if (uniformMap.find(valueName) != uniformMap.end())
@@ -295,7 +297,7 @@ void Shader::setVector2GL(const char* valueName, Vector2 value)
 	}
 }
 
-void Shader::setIntGL(const char* valueName, int value)
+void Shader::setIntGL(std::string valueName, int value)
 {
 	//Don't send values that don't exist
 	if (uniformMap.find(valueName) != uniformMap.end())
@@ -305,7 +307,7 @@ void Shader::setIntGL(const char* valueName, int value)
 	}
 }
 
-void Shader::setFloatGL(const char* valueName, float value)
+void Shader::setFloatGL(std::string valueName, float value)
 {
 	//Don't send values that don't exist
 	if (uniformMap.find(valueName) != uniformMap.end())
@@ -315,7 +317,7 @@ void Shader::setFloatGL(const char* valueName, float value)
 	}
 }
 
-void Shader::setDoubleGL(const char* valueName, double value)
+void Shader::setDoubleGL(std::string valueName, double value)
 {
 	//Don't send values that don't exist
 	if (uniformMap.find(valueName) != uniformMap.end())
@@ -325,7 +327,7 @@ void Shader::setDoubleGL(const char* valueName, double value)
 	}
 }
 
-void Shader::setMatrix4GL(const char* valueName, Matrix4 value)
+void Shader::setMatrix4GL(std::string valueName, Matrix4 value)
 {
 	//Don't send values that don't exist
 	if (uniformMap.find(valueName) != uniformMap.end())
@@ -335,7 +337,7 @@ void Shader::setMatrix4GL(const char* valueName, Matrix4 value)
 	}
 }
 
-void Shader::setMatrix3GL(const char* valueName, Matrix3 value)
+void Shader::setMatrix3GL(std::string valueName, Matrix3 value)
 {
 	//Don't send values that don't exist
 	if (uniformMap.find(valueName) != uniformMap.end())
@@ -345,7 +347,7 @@ void Shader::setMatrix3GL(const char* valueName, Matrix3 value)
 	}
 }
 
-void Shader::setMultipleMatrix4GL(const char* valueName, std::vector<Matrix4> values)
+void Shader::setMultipleMatrix4GL(std::string valueName, std::vector<Matrix4> values)
 {
 	//Don't send values that don't exist
 	if (uniformMap.find(valueName) != uniformMap.end())

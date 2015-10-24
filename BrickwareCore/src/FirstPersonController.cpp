@@ -91,12 +91,12 @@ void FirstPersonController::Update()
 	if (Input::getKeyDown(KeyCode::d))
 		moveRight();
 
-	float screenCenterX = Screen::getWidth() / 2.0f;
-	float screenCenterY = Screen::getHeight() / 2.0f;
+	float screenCenterX = Screen::GetWidth() / 2.0f;
+	float screenCenterY = Screen::GetHeight() / 2.0f;
 
 	//Adjust yaw and pitch based on how much we've deviated from the center
-	float yawDiff = (screenCenterX - Input::getMousePosition().getX()) / Screen::getWidth();
-	float pitchDiff = (screenCenterY - Input::getMousePosition().getY()) / Screen::getHeight();
+	float yawDiff = (screenCenterX - Input::getMousePosition().getX()) / Screen::GetWidth();
+	float pitchDiff = (screenCenterY - Input::getMousePosition().getY()) / Screen::GetHeight();
 
 	Transform* transform = getGameObject()->getTransform();
 	Vector3 rotation = transform->getEulerRotation();

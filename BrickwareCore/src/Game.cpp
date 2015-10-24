@@ -41,9 +41,6 @@ Game::Game(int windowWidth, int windowHeight)
 	//Seed randoms for later
 	srand((unsigned int)time(0));
 
-	Screen::width = windowWidth;
-	Screen::height = windowHeight;
-
 #ifdef D3D_SUPPORT
 	hAppInst = HINST;
 	driverType = D3D_DRIVER_TYPE_HARDWARE;
@@ -156,10 +153,12 @@ bool Game::init()
 {
 	bool initSuccess = true;
 
+	initSuccess &= Screen::Init();
+
 #ifdef D3D_SUPPORT
-	initSuccess = initD3D();
+	initSuccess &= initD3D();
 #else
-	initSuccess = initGL();
+	initSuccess &= initGL();
 #endif
 
 	//Init managers
@@ -228,46 +227,7 @@ void Game::handleInput()
 #ifdef GL_SUPPORT
 bool Game::initGL()
 {
-	//Attempt initialization
-	if (!glfwInit())
-		return false;
-
-
-	//Try to find the highest supported core profile version
-	bool success = false;
-	for (unsigned int major = 4; major > 0; major--)
-	{
-		for (unsigned int minor = 5; minor > 0; minor--)
-		{
-			glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, major);
-			glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, minor);
-#ifdef BRICKWARE_DEBUG
-			glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GL_TRUE);
-#endif
-			glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-			glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-			//Create window
-			glWindow = glfwCreateWindow(Screen::width, Screen::height, "Brickware-Test", nullptr, nullptr);
-
-			if (glWindow != nullptr)
-			{
-				minor = 1;
-				major = 1;
-				success = true;
-				break;
-			}
-		}
-	}
-
-	if (!success)
-	{
-		glfwTerminate();
-		return false;
-	}
-
-	//Make Context
-	glfwMakeContextCurrent(glWindow);
+	glWindow = glfwGetCurrentContext();
 
 	//Set Vsync
 	if (Graphics::GraphicsSettings::VSync)
@@ -276,6 +236,8 @@ bool Game::initGL()
 		glfwSwapInterval(0);
 
 	glfwSetInputMode(glWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+
+	//Screen::SetResolution(800,600, true);
 
 	glewExperimental = true;
 	if(glewInit() != GLEW_OK)

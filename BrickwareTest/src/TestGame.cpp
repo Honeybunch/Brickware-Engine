@@ -189,7 +189,7 @@ bool TestGame::init()
 	//Create Camera
 	float fov = (60.0f * 180.0f) / (float)M_PI;
 
-	Camera* cameraComp = new Camera(fov, (float)Screen::getWidth(), (float)Screen::getHeight(), 0.1f, 100.0f);
+	Camera* cameraComp = new Camera(fov, (float)Screen::GetWidth(), (float)Screen::GetHeight(), 0.1f, 100.0f);
 	cameraComp->setActive();
 
 	GameObject* camera = new GameObject();

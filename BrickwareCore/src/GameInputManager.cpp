@@ -30,8 +30,8 @@ void GameInputManager::MouseOverObjects()
 	Vector2 mousePos = Input::getMousePosition();
 
 	//Resolution to screen space
-	float x = ((2.0f * mousePos[0]) / Screen::getWidth()) - 1.0f;
-	float y = 1.0f - (2.0f * mousePos[1]) / Screen::getHeight();
+	float x = ((2.0f * mousePos[0]) / Screen::GetWidth()) - 1.0f;
+	float y = 1.0f - (2.0f * mousePos[1]) / Screen::GetHeight();
 
 	Vector4 rayClipNear(x, y, -1.0f, 1.0f);
 	Vector4 rayClipFar(x, y, 1.0f, 1.0f);

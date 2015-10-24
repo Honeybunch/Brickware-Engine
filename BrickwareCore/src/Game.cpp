@@ -130,9 +130,6 @@ int Game::run()
 			loops++;
 		}		
 
-		//Calculate interpolation (UNUSED)
-		//interpolation = (float)(((float)ticks + skipTicks - nextGameTick) / (float)skipTicks);
-
 		frames++;
 
 		render();
@@ -149,6 +146,14 @@ int Game::run()
 
 		GameTime::frameEnd();
 	}
+
+#ifdef GL_SUPPORT
+	endGL();
+#endif
+
+#ifdef D3D_SUPPORT
+	endD3D();
+#endif
 
 	return 0;
 }

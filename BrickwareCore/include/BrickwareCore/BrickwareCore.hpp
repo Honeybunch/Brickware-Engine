@@ -12,7 +12,6 @@
 #include "BrickwareCore/MeshRenderer.hpp"
 #include "BrickwareCore/Octree.hpp"
 #include "BrickwareCore/Rigidbody.hpp"
-#include "BrickwareCore/Screen.hpp"
 #include "BrickwareCore/Settings.hpp"
 #include "BrickwareCore/SphereCollider.hpp"
 #include "BrickwareCore/Transform.hpp"

@@ -2,7 +2,7 @@
 #define SCREEN_H
 
 //DLL Header
-#include "BrickwareCore/BrickwareCoreDLL.hpp"
+#include "BrickwareGraphics/BrickwareGraphicsDLL.hpp"
 
 //Graphics Headers
 #ifdef D3D_SUPPORT
@@ -28,17 +28,18 @@
 //Project headers
 #include "BrickwareGraphics/GraphicsSettings.hpp"
 #include "BrickwareGraphics/RendererInfo.hpp"
+#include "BrickwareGraphics/GLDebugCallback.hpp"
 
 namespace Brickware
 {
-	namespace Core
+	namespace Graphics
 	{
 		/* Static class describing the state of the game screen
 		 * 
 		 * This class is for the user to easily be able to read the width, 
 		 * height, aspect ratio and other states of their game's screen.
 		 */
-		class BRICKWARE_CORE_API Screen
+		class BRICKWARE_GRAPHICS_API Screen
 		{
 		public:
 			/* Init's the screen subsystems so we know how to handle the

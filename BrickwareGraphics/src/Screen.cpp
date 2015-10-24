@@ -1,9 +1,8 @@
-#define BRICKWARE_CORE_EXPORTS
+#define BRICKWARE_GRAPHICS_EXPORTS
 
-#include "BrickwareCore/Screen.hpp"
+#include "BrickwareGraphics/Screen.hpp"
 
 using namespace Brickware;
-using namespace Core;
 using namespace Graphics;
 
 int Screen::width;
@@ -24,7 +23,6 @@ bool Screen::Init()
 	Screen::height = 600;
 	Screen::aspectRatio = ((float)width / (float)height);
 	Screen::fullscreen = false;
-
 
 	//Setup function pointers based on rendering API
 	RenderingAPI renderer = GraphicsSettings::Renderer;
@@ -109,12 +107,37 @@ bool Screen::InitGL()
 
 void Screen::SetResolutionGL(int width, int height, bool fullscreen)
 {
-	glfwDestroyWindow(glWindow);
+	GLFWwindow* oldWindow = glWindow;
 
 	if (fullscreen)
-		glWindow = glfwCreateWindow(width, height, "Brickware-Test", glfwGetPrimaryMonitor(), nullptr);
+		glWindow = glfwCreateWindow(width, height, "Brickware-Test", glfwGetPrimaryMonitor(), oldWindow);
 	else
-		glWindow = glfwCreateWindow(width, height, "Brickware-Test", nullptr, nullptr);
+		glWindow = glfwCreateWindow(width, height, "Brickware-Test", nullptr, oldWindow);
 
 	glfwMakeContextCurrent(glWindow);
+
+	glfwDestroyWindow(oldWindow);
+
+	//Set Vsync
+	if (Graphics::GraphicsSettings::VSync)
+		glfwSwapInterval(1);
+	else
+		glfwSwapInterval(0);
+
+	glfwSetInputMode(glWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+
+	//OpenGL initialization
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
+	glEnable(GL_PROGRAM_POINT_SIZE);
+	glClearColor(1.0, 1.0, 1.0, 1.0);
+
+#ifdef BRICKWARE_DEBUG
+	// Enable the debugging layer of OpenGL
+	// GL_DEBUG_OUTPUT - Faster version but not useful for breakpoints
+	// GL_DEBUG_OUTPUT_SYNCHRONUS - Callback is in sync with errors, so a breakpoint
+	// can be placed on the callback in order to get a stacktrace for the GL error.
+	glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+	glDebugMessageCallback(GLPrintErrorCallback, NULL);
+#endif
 }

@@ -6,10 +6,10 @@
 
 //Other Brickware Project Headers
 #include "BrickwareGraphics/Primitive.hpp"
+#include "BrickwareGraphics/Screen.hpp"
 
 //Project Headers
 #include "BrickwareCore/Settings.hpp"
-#include "BrickwareCore/Screen.hpp"
 #include "BrickwareCore/GameTime.hpp"
 #include "BrickwareCore/Collision.hpp"
 #include "BrickwareCore/Input.hpp"

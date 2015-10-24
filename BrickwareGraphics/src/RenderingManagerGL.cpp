@@ -3,6 +3,7 @@
 
 #include "BrickwareGraphics/BrickwareGraphicsDLL.hpp"
 #include "BrickwareGraphics/RenderingManager.hpp"
+#include "BrickwareGraphics/Screen.hpp"
 
 using namespace Brickware;
 using namespace Graphics;
@@ -38,7 +39,7 @@ void RenderingManager::ShadowPassGL()
 
 void RenderingManager::ScenePassGL()
 {
-	glViewport(0, 0, 800, 600);
+	glViewport(0, 0, Screen::GetWidth(), Screen::GetHeight());
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	//Render every renderable object

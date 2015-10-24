@@ -4,6 +4,7 @@
 
 using namespace Brickware;
 using namespace Core;
+using namespace Graphics;
 using namespace Math;
 
 FirstPersonController::FirstPersonController()

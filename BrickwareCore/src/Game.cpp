@@ -36,7 +36,7 @@ LRESULT CALLBACK MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 vector<GameObject*> Game::gameObjects;
 
-Game::Game(int windowWidth, int windowHeight)
+Game::Game()
 {
 	//Seed randoms for later
 	srand((unsigned int)time(0));
@@ -64,6 +64,10 @@ Game::Game(int windowWidth, int windowHeight)
 
 int Game::run()
 {
+#ifdef GL_SUPPORT
+	glWindow = glfwGetCurrentContext();
+#endif
+
 #ifdef D3D_SUPPORT
 	MSG msg = { 0 };
 #endif
@@ -108,7 +112,7 @@ int Game::run()
 		if (timeInterval > 1000)
 		{
 			float fps = frames / (float)(timeInterval / 1000);
-			std::cout << "FPS: " << fps << std::endl;
+			//std::cout << "FPS: " << fps << std::endl;
 
 			lastTime = GameTime::GetMillisSinceStart();
 			frames = 0;
@@ -229,35 +233,9 @@ bool Game::initGL()
 {
 	glWindow = glfwGetCurrentContext();
 
-	//Set Vsync
-	if (Graphics::GraphicsSettings::VSync)
-		glfwSwapInterval(1);
-	else
-		glfwSwapInterval(0);
-
-	glfwSetInputMode(glWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
-
-	//Screen::SetResolution(800,600, true);
-
 	glewExperimental = true;
 	if(glewInit() != GLEW_OK)
 		return false;
-
-	//OpenGL initialization
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
-	glEnable(GL_PROGRAM_POINT_SIZE);
-	glClearColor(1.0, 1.0, 1.0, 1.0);
-
-#ifdef BRICKWARE_DEBUG
-	// Enable the debugging layer of OpenGL
-	// GL_DEBUG_OUTPUT - Faster version but not useful for breakpoints
-	// GL_DEBUG_OUTPUT_SYNCHRONUS - Callback is in sync with errors, so a breakpoint
-	// can be placed on the callback in order to get a stacktrace for the GL error.
-
-	glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-	glDebugMessageCallback(GLPrintErrorCallback, NULL);
-#endif
 
 	return true;
 }

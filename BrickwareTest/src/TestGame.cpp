@@ -6,7 +6,7 @@ using namespace Graphics;
 using namespace Math;
 using namespace Utility;
 
-TestGame::TestGame() : Game(800, 600)
+TestGame::TestGame() : Game()
 {
 }
 
@@ -16,6 +16,8 @@ bool TestGame::init()
 
 	if (!good)
 		return false;
+
+	Screen::SetResolution(1920, 1080, true);
 
 	//Test Renderer Info
 	std::cout << "API Version: " << RendererInfo::GetAPIVersion() << std::endl;

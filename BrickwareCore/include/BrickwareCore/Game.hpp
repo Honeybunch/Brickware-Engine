@@ -37,7 +37,7 @@
 #include "BrickwareGraphics/Texture.hpp"
 #include "BrickwareGraphics/PrimitiveManager.hpp"
 #include "BrickwareGraphics/Primitive.hpp"
-#include "BrickwareGraphics/GLDebugCallback.hpp"
+#include "BrickwareGraphics/Screen.hpp"
 
 #include "BrickwareMath/Vector3.hpp"
 
@@ -53,7 +53,6 @@
 #include "BrickwareCore/Camera.hpp"
 #include "BrickwareCore/Settings.hpp"
 #include "BrickwareCore/Input.hpp"
-#include "BrickwareCore/Screen.hpp"
 #include "BrickwareCore/SphereCollider.hpp"
 #include "BrickwareCore/BoxCollider.hpp"
 #include "BrickwareCore/MeshRenderer.hpp"
@@ -91,7 +90,7 @@ namespace Brickware
 			 * @windowWidth The width of the window you want your game to be in.
 			 * @windowHeight The height of the window you want your game to be in.
 			 */
-			Game(int windowWidth, int windowHeight);
+			Game();
 
 			/* Call this when you want your game to start running
 			 * @returns An error code to tell you why the game stopped.

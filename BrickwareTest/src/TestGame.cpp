@@ -17,7 +17,7 @@ bool TestGame::init()
 	if (!good)
 		return false;
 
-	Screen::SetResolution(1920, 1080, true);
+	Screen::SetResolution(1280, 800, false);
 
 	//Test Renderer Info
 	std::cout << "API Version: " << RendererInfo::GetAPIVersion() << std::endl;
@@ -83,13 +83,14 @@ bool TestGame::init()
 	Texture* castleTexture = new Texture("Textures/castleAOTexture.bmp");
 	Texture* grassTexture = new Texture("Textures/grassTexture.bmp");
 	Texture* stoneTexture = new Texture("Textures/stoneTexture.bmp");
+	Texture* bitTestTexture = new Texture("Textures/16BitTest.bmp");
 
 	//Setup materials
 	Material* castleMaterial = new Material(shader);
 	castleMaterial->setTexture("diffuseTexture", castleTexture);
 
 	Material* sphereMaterial = new Material(shader);
-	sphereMaterial->setTexture("diffuseTexture", brickTexture);
+	sphereMaterial->setTexture("diffuseTexture", bitTestTexture);
 	Material* cubeMaterial = new Material(shader);
 	cubeMaterial->setTexture("diffuseTexture", boxTexture);
 

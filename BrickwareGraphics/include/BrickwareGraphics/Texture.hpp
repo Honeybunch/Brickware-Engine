@@ -26,7 +26,10 @@ namespace Brickware
 	namespace Graphics
 	{
 		enum BRICKWARE_GRAPHICS_API TextureFormat{
-			RGBA
+			RGBA,
+			BGRA,
+			RGB,
+			BGR
 		};
 
 		class BRICKWARE_GRAPHICS_API Texture

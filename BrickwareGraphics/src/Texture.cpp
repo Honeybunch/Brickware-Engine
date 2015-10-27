@@ -88,53 +88,118 @@ void Texture::loadBMP(const char* textureFileName)
 
 		int bytesPerPixel = colorDepth / 8;
 
-		int rowSize = ((colorDepth * width + 31) / 32) * 4;
-		int pixelArraySize = width * height * 4; //Size of the BMP pixel array in bytes
-
 		//Calculate row padding; each row must have a size that is a multiple of 4 bytes
 		//Not really necessary for 24 bbp
 		//int rowPadding = (width * bytesPerPixel) % 4;
 
-		pixels = new unsigned char[pixelArraySize];
-
 		//Load the colors into the pixels array based on color depth
-		if (colorDepth == 24)
+		switch (colorDepth)
 		{
-			//Even though there is no alpha in 24bpp BMPs DirectX does not support RGB without alpha
-			//So we will manually add an alpha value of 255;
-			pixelInputFormat = TextureFormat::RGBA;
-			int loopCounter = 0;
+		case 1:
+		{
 
-			for (int i = 0; i < pixelArraySize; i+= 4)
+		}
+			break;
+		case 2:
+		{
+
+		}
+			break;
+		case 4:
+		{
+		
+		}
+			break;
+		case 8:
+		{
+		
+		}
+			break;
+		case 16:
+		{
+			int pixelArraySize = width * height * 2; //Size of the BMP pixel array in bytes
+			pixels = new unsigned char[pixelArraySize * 2];
+
+			//BMPs are in BGR by default so use that
+			pixelInputFormat = TextureFormat::BGRA;
+
+			//4 elements every 2 bytes
+			//Blue is the first 4 bits, Green is the next 4 etc.
+			int loopCount = 0;
+			for (int i = 0; i < pixelArraySize; i += 2)
 			{
-				char r, g, b;
-
-				//Gives us an offset of 3 for every 4 of the loop
-				int pixelOffset = i - loopCounter;
-
-				b = *(char*)(bmpBytes + pixelArrayLocation + pixelOffset) ;
-				g = *(char*)(bmpBytes + pixelArrayLocation + pixelOffset + 1);
-				r = *(char*)(bmpBytes + pixelArrayLocation + pixelOffset + 2);
-
-				pixels[i] = r;
-				pixels[i + 1] = g;
-				pixels[i + 2] = b;
-				pixels[i + 3] = 255; //Alpha
-
-				loopCounter++;
+				char bg = *(char*)(bmpBytes + pixelArrayLocation + i);
+				char ra = *(char*)(bmpBytes + pixelArrayLocation + i + 1);
+			
+				char b = bg & 0x0F;
+				char g = bg >> 4;
+			
+				char r = ra & 0x0F;
+				char a = ra >> 4;
+			
+				//Multiply by 16 to get into the 0-255 range
+				pixels[loopCount] = b * 16;
+				pixels[loopCount + 1] = g * 16;
+				pixels[loopCount + 2] = r * 16;
+				pixels[loopCount + 3] = a * 16;
+			
+				loopCount += 4;
 			}
 		}
-		else
+			break;
+		case 24:
 		{
-			std::cout << "Color Depth not 24bpp" << std::endl;
-			std::cout << "BMPs with color depth of " << colorDepth << " bpp are not supported yet" << std::endl;
+			int pixelArraySize = width * height * 3; //Size of the BMP pixel array in bytes
+			pixels = new unsigned char[pixelArraySize];
+
+			//BMPs are in BGR by default so use that
+			pixelInputFormat = TextureFormat::BGR;
+
+			//3 elements every 3 bytes
+			for (int i = 0; i < pixelArraySize; i += 3)
+			{
+				//Set Blue
+				pixels[i]     = *(char*)(bmpBytes + pixelArrayLocation + i);
+				//Green
+				pixels[i + 1] = *(char*)(bmpBytes + pixelArrayLocation + i + 1);
+				//Red
+				pixels[i + 2] = *(char*)(bmpBytes + pixelArrayLocation + i + 2);
+			}
+		}
+			break;
+		
+		//Thanks to: https://en.wikipedia.org/wiki/BMP_file_format
+		case 32:
+		{
+			int pixelArraySize = width * height * 4; //Size of the BMP pixel array in bytes
+			pixels = new unsigned char[pixelArraySize];
+
+			pixelInputFormat = TextureFormat::BGRA;
+
+			for (int i = 0; i < pixelArraySize; i += 3)
+			{
+				//Set Blue
+				pixels[i] = *(char*)(bmpBytes + pixelArrayLocation + i);
+				//Green
+				pixels[i + 1] = *(char*)(bmpBytes + pixelArrayLocation + i + 1);
+				//Red
+				pixels[i + 2] = *(char*)(bmpBytes + pixelArrayLocation + i + 2);
+				//Alpha
+				pixels[i + 3] = *(char*)(bmpBytes + pixelArrayLocation + i + 3);
+			}
+
+		}
+			break;
+		default:
+			std::cout << "Color Depth not supported" << std::endl;
+			break;
 		}
 	}
 
-	delete bmpBytes;
+	delete[] bmpBytes;
 }
 
 Texture::~Texture()
 {
-	delete pixels;
+	delete[] pixels;
 }

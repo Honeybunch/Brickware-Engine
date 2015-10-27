@@ -15,10 +15,26 @@ void Texture::bufferGL()
 	glGenTextures(1, &glTexture);
 	glBindTexture(GL_TEXTURE_2D, glTexture);
 
-	if (pixelInputFormat == TextureFormat::RGBA)
+	switch (pixelInputFormat)
+	{
+	case TextureFormat::RGBA:
 		glPixelInputFormat = GL_RGBA;
-	glInternalFormat = GL_RGBA;
-
+		glInternalFormat = GL_RGBA;
+		break;
+	case TextureFormat::BGRA:
+		glPixelInputFormat = GL_BGRA;
+		glInternalFormat = GL_RGBA;
+		break;
+	case TextureFormat::RGB:
+		glPixelInputFormat = GL_RGB;
+		glInternalFormat = GL_RGB;
+		break;
+	case TextureFormat::BGR:
+		glPixelInputFormat = GL_BGR;
+		glInternalFormat = GL_RGB;
+		break;
+	}
+	
 	//Load texture data
 	glTexImage2D(GL_TEXTURE_2D, 0, glInternalFormat, width, height, 0, glPixelInputFormat, GL_UNSIGNED_BYTE, pixels);
 

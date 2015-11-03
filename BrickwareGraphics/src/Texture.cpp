@@ -88,65 +88,9 @@ void Texture::loadBMP(const char* textureFileName)
 
 		int bytesPerPixel = colorDepth / 8;
 
-		//Calculate row padding; each row must have a size that is a multiple of 4 bytes
-		//Not really necessary for 24 bbp
-		//int rowPadding = (width * bytesPerPixel) % 4;
-
 		//Load the colors into the pixels array based on color depth
 		switch (colorDepth)
 		{
-		case 1:
-		{
-
-		}
-			break;
-		case 2:
-		{
-
-		}
-			break;
-		case 4:
-		{
-		
-		}
-			break;
-		case 8:
-		{
-		
-		}
-			break;
-		case 16:
-		{
-			int pixelArraySize = width * height * 2; //Size of the BMP pixel array in bytes
-			pixels = new unsigned char[pixelArraySize * 2];
-
-			//BMPs are in BGR by default so use that
-			pixelInputFormat = TextureFormat::BGRA;
-
-			//4 elements every 2 bytes
-			//Blue is the first 4 bits, Green is the next 4 etc.
-			int loopCount = 0;
-			for (int i = 0; i < pixelArraySize; i += 2)
-			{
-				char bg = *(char*)(bmpBytes + pixelArrayLocation + i);
-				char ra = *(char*)(bmpBytes + pixelArrayLocation + i + 1);
-			
-				char b = bg & 0x0F;
-				char g = bg >> 4;
-			
-				char r = ra & 0x0F;
-				char a = ra >> 4;
-			
-				//Multiply by 16 to get into the 0-255 range
-				pixels[loopCount] = b * 16;
-				pixels[loopCount + 1] = g * 16;
-				pixels[loopCount + 2] = r * 16;
-				pixels[loopCount + 3] = a * 16;
-			
-				loopCount += 4;
-			}
-		}
-			break;
 		case 24:
 		{
 			int pixelArraySize = width * height * 3; //Size of the BMP pixel array in bytes
@@ -191,7 +135,7 @@ void Texture::loadBMP(const char* textureFileName)
 		}
 			break;
 		default:
-			std::cout << "Color Depth not supported" << std::endl;
+			std::cout << "Color Depth not supported; Please use 24 or 32 bpp" << std::endl;
 			break;
 		}
 	}

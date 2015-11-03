@@ -7,8 +7,17 @@ using namespace Brickware;
 using namespace Graphics;
 using namespace Utility;
 
-Texture::Texture(const char* textureFileName)
+Texture::Texture(const char* textureFileName,
+	TextureColorSpace textureColorSpace,
+	MagFilterOption textureMagOption,
+	MinFilterOption textureMinOption,
+	TextureWrapOption textureWrapS,
+	TextureWrapOption textureWrapT,
+	TextureWrapOption textureWrapR)
 {
+	//Set agnostic texture options
+	colorSpace = textureColorSpace;
+
 	//TODO: check file name once we support multiple file namess
 	loadBMP(textureFileName);
 
@@ -20,6 +29,10 @@ Texture::Texture(const char* textureFileName)
 	{
 		if (RendererInfo::GetAPIMajorVersion() >= 3)
 		{
+			//Set GL specific texture options
+			setTextureOptionsGL(textureMagOption, textureMinOption, textureWrapS, textureWrapT, textureWrapR);
+
+			//Setup function pointers
 			bufferTexturePtr = &Texture::bufferGL;
 			bindTexturePtr = &Texture::bindGL;
 			freeTexturePtr = &Texture::freeGL;

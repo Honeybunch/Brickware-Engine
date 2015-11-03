@@ -78,12 +78,12 @@ bool TestGame::init()
 	Shader* shader = new Shader("Shaders/VertexShader", "Shaders/PixelShader");
 
 	//Load textures
-	Texture* boxTexture = new Texture("Textures/boxTexture.bmp");
-	Texture* brickTexture = new Texture("Textures/brickTexture.bmp");
-	Texture* castleTexture = new Texture("Textures/castleAOTexture.bmp");
-	Texture* grassTexture = new Texture("Textures/grassTexture.bmp");
-	Texture* stoneTexture = new Texture("Textures/stoneTexture.bmp");
-	Texture* bitTestTexture = new Texture("Textures/32BitTest.bmp");
+	Texture* boxTexture = new Texture("Textures/boxTexture.bmp", TextureColorSpace::LINEAR);
+	Texture* brickTexture = new Texture("Textures/brickTexture.bmp", TextureColorSpace::LINEAR);
+	Texture* castleTexture = new Texture("Textures/castleAOTexture.bmp", TextureColorSpace::LINEAR);
+	Texture* grassTexture = new Texture("Textures/grassTexture.bmp", TextureColorSpace::LINEAR);
+	Texture* stoneTexture = new Texture("Textures/stoneTexture.bmp", TextureColorSpace::LINEAR);
+	Texture* bitTestTexture = new Texture("Textures/32BitTest.bmp", TextureColorSpace::LINEAR);
 
 	//Setup materials
 	Material* castleMaterial = new Material(shader);

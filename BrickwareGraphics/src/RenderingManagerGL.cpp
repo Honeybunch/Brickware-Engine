@@ -8,100 +8,90 @@
 using namespace Brickware;
 using namespace Graphics;
 
-void RenderingManager::RenderGL()
-{
-	PreRenderGL();
+void RenderingManager::RenderGL() {
+  PreRenderGL();
 
-	ShadowPassGL();
+  ShadowPassGL();
 
-	//Other user defined render passes here?
+  // Other user defined render passes here?
 
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	ScenePassGL();
+  glBindFramebuffer(GL_FRAMEBUFFER, 0);
+  ScenePassGL();
 
-	//Cleanup
-	lights.clear();
-	renderables.clear();
+  // Cleanup
+  lights.clear();
+  renderables.clear();
 }
 
-void RenderingManager::PreRenderGL()
-{
-	glCullFace(GL_BACK);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+void RenderingManager::PreRenderGL() {
+  glCullFace(GL_BACK);
+  glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
-void RenderingManager::ShadowPassGL()
-{
-	//Send light data to the shader
-	for (unsigned int j = 0; j < lights.size(); j++)
-		lights[j]->RenderShadowMap();
+void RenderingManager::ShadowPassGL() {
+  // Send light data to the shader
+  for (unsigned int j = 0; j < lights.size(); j++)
+    lights[j]->RenderShadowMap();
 }
 
-void RenderingManager::ScenePassGL()
-{
-	glViewport(0, 0, Screen::GetWidth(), Screen::GetHeight());
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
-	//Render every renderable object
-	for (unsigned int i = 0; i < renderables.size(); i++)
-	{
-		Renderable renderable = renderables[i];
-		Shader* shader = renderable.material->shader;
+void RenderingManager::ScenePassGL() {
+  glViewport(0, 0, Screen::GetWidth(), Screen::GetHeight());
+  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		if (shader != Shader::ActiveShader)
-		{
-			Shader::ActiveShader = shader;
-			shader->bindShader();
+  // Render every renderable object
+  for (unsigned int i = 0; i < renderables.size(); i++) {
+    Renderable renderable = renderables[i];
+    Shader *shader = renderable.material->shader;
 
-			//Send light data to the shader
-			for (unsigned int j = 0; j < lights.size(); j++)
-			{
-				lights[j]->RenderLight(shader);
-				lights[j]->BindShadowMap(shader);
-			}
-		}
+    if (shader != Shader::ActiveShader) {
+      Shader::ActiveShader = shader;
+      shader->bindShader();
 
-		//Render object
-		RenderObjectGL(renderable.mesh, renderable.material);
-	}
+      // Send light data to the shader
+      for (unsigned int j = 0; j < lights.size(); j++) {
+        lights[j]->RenderLight(shader);
+        lights[j]->BindShadowMap(shader);
+      }
+    }
 
-	glBindVertexArray(0);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, 0);
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
-	glActiveTexture(GL_TEXTURE2);
-	glBindTexture(GL_TEXTURE_2D, 0);
+    // Render object
+    RenderObjectGL(renderable.mesh, renderable.material);
+  }
 
-	Shader::ActiveShader->freeShader();
+  glBindVertexArray(0);
+  glActiveTexture(GL_TEXTURE0);
+  glBindTexture(GL_TEXTURE_2D, 0);
+  glActiveTexture(GL_TEXTURE2);
+  glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+  glActiveTexture(GL_TEXTURE1);
+  glBindTexture(GL_TEXTURE_2D, 0);
+
+  Shader::ActiveShader->freeShader();
 }
 
-void RenderingManager::RenderObjectGL(Mesh* mesh, Material* material)
-{
-	material->sendDataToGPU();
+void RenderingManager::RenderObjectGL(Mesh *mesh, Material *material) {
+  material->sendDataToGPU();
 
-	GLint shaderProgram;
-	glGetIntegerv(GL_CURRENT_PROGRAM, &shaderProgram);
+  GLint shaderProgram;
+  glGetIntegerv(GL_CURRENT_PROGRAM, &shaderProgram);
 
-	glBindVertexArray(mesh->getVAO());
+  glBindVertexArray(mesh->getVAO());
 
-	//Draw Shape
-	glDrawArrays(GL_TRIANGLES, 0, mesh->getNumberOfVerts());
+  // Draw Shape
+  glDrawArrays(GL_TRIANGLES, 0, mesh->getNumberOfVerts());
 }
 
-void RenderingManager::RenderSceneShadowsGL(Shader* shadowShader)
-{
-	//Render every renderable object for the light
-	for (unsigned int i = 0; i < renderables.size(); i++)
-	{
-		Renderable renderable = renderables[i];
-		renderable.shadowMaterial->setShader(shadowShader);
+void RenderingManager::RenderSceneShadowsGL(Shader *shadowShader) {
+  // Render every renderable object for the light
+  for (unsigned int i = 0; i < renderables.size(); i++) {
+    Renderable renderable = renderables[i];
+    renderable.shadowMaterial->setShader(shadowShader);
 
-		//Render object
-		RenderObjectGL(renderable.mesh, renderable.shadowMaterial);
-	}
+    // Render object
+    RenderObjectGL(renderable.mesh, renderable.shadowMaterial);
+  }
 
-	glBindVertexArray(0);
+  glBindVertexArray(0);
 }
 
 #endif

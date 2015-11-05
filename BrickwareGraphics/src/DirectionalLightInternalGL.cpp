@@ -7,77 +7,79 @@ using namespace Brickware;
 using namespace Graphics;
 using namespace Math;
 
-void DirectionalLightInternal::InitGL()
-{
-	//Gen framebuffer
-	glGenFramebuffers(1, &shadowBuffer);
+void DirectionalLightInternal::InitGL() {
+  // Gen framebuffer
+  glGenFramebuffers(1, &shadowBuffer);
 
-	//Setup 16 bit depth texture
-	glGenTextures(1, &depthTexture);
-	glBindTexture(GL_TEXTURE_2D, depthTexture);
+  // Setup 16 bit depth texture
+  glGenTextures(1, &depthTexture);
+  glBindTexture(GL_TEXTURE_2D, depthTexture);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16, shadowMapRes, shadowMapRes, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16, shadowMapRes,
+               shadowMapRes, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
-	glBindFramebuffer(GL_FRAMEBUFFER, shadowBuffer);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthTexture, 0);
+  glBindFramebuffer(GL_FRAMEBUFFER, shadowBuffer);
+  glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D,
+                         depthTexture, 0);
 
-	//Don't draw color buffer
-	glDrawBuffer(GL_NONE);
-	glReadBuffer(GL_NONE);
+  // Don't draw color buffer
+  glDrawBuffer(GL_NONE);
+  glReadBuffer(GL_NONE);
 
-	//Check that the buffer is OK
-	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-		std::cout << "DirectionalLight framebuffer encountered an error!" << std::endl;
+  // Check that the buffer is OK
+  if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+    std::cout << "DirectionalLight framebuffer encountered an error!"
+              << std::endl;
 
-	//Unbind framebuffer
-	glBindTexture(GL_TEXTURE_2D, 0);
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+  // Unbind framebuffer
+  glBindTexture(GL_TEXTURE_2D, 0);
+  glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void DirectionalLightInternal::RenderShadowMapGL()
-{
-	RenderingManager::DirectionalShadowShader->bindShader();
+void DirectionalLightInternal::RenderShadowMapGL() {
+  RenderingManager::DirectionalShadowShader->bindShader();
 
-	//Send info about the directional light to the shader for shadow mapping
-	Vector3 focalPoint = direction * -30;
+  // Send info about the directional light to the shader for shadow mapping
+  Vector3 focalPoint = direction * -30;
 
-	//Compute MVP from light's direction
-	Matrix4 depthProjection = Matrix4::getOrthographicProjection(-30, 30, -30, 30, -60, 60);
-	Matrix4 depthView = Matrix4::getLookAtView(focalPoint, Vector3(0, 0, 0), Vector3(0, 1, 0));
+  // Compute MVP from light's direction
+  Matrix4 depthProjection =
+      Matrix4::getOrthographicProjection(-30, 30, -30, 30, -60, 60);
+  Matrix4 depthView =
+      Matrix4::getLookAtView(focalPoint, Vector3(0, 0, 0), Vector3(0, 1, 0));
 
-	depthVP = depthView * depthProjection;
+  depthVP = depthView * depthProjection;
 
-	Matrix4 biasMatrix(1.0f, 0.0f, 0.0f, 0.0f,
-					   0.0f, 1.0f, 0.0f, 0.0f,
-					   0.0f, 0.0f, 1.0f, 0.0f,
-					   0.0f, 0.0f, 0.0f, 1.0f);
+  Matrix4 biasMatrix(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+                     1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
 
-	//Apply bias to get texture coordinates
-	depthBiasVP = biasMatrix * depthVP;
+  // Apply bias to get texture coordinates
+  depthBiasVP = biasMatrix * depthVP;
 
-	//Setup for drawing to buffer
-	glViewport(0, 0, shadowMapRes, shadowMapRes);
-	glBindFramebuffer(GL_FRAMEBUFFER, shadowBuffer);
+  // Setup for drawing to buffer
+  glViewport(0, 0, shadowMapRes, shadowMapRes);
+  glBindFramebuffer(GL_FRAMEBUFFER, shadowBuffer);
 
-	RenderingManager::DirectionalShadowShader->setGlobalMatrix4("depthVP", depthVP);
+  RenderingManager::DirectionalShadowShader->setGlobalMatrix4("depthVP",
+                                                              depthVP);
 
-	glClearDepth(1.0f);
-	glClear(GL_DEPTH_BUFFER_BIT);
+  glClearDepth(1.0f);
+  glClear(GL_DEPTH_BUFFER_BIT);
 
-	//Render to texture
-	RenderingManager::RenderSceneShadowsGL(RenderingManager::DirectionalShadowShader);
+  // Render to texture
+  RenderingManager::RenderSceneShadowsGL(
+      RenderingManager::DirectionalShadowShader);
 
-	RenderingManager::DirectionalShadowShader->freeShader();
+  RenderingManager::DirectionalShadowShader->freeShader();
 }
 
-void DirectionalLightInternal::BindShadowMapGL(Shader* shader)
-{
-	shader->setGlobalMatrix4("depthBiasVP", depthBiasVP);
+void DirectionalLightInternal::BindShadowMapGL(Shader *shader) {
+  shader->setGlobalMatrix4("depthBiasVP", depthBiasVP);
 
-	glActiveTexture(GL_TEXTURE2);
-	glBindTexture(GL_TEXTURE_2D, depthTexture);
+  glActiveTexture(GL_TEXTURE1);
+  glBindTexture(GL_TEXTURE_2D, depthTexture);
 }

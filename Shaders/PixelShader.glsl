@@ -1,4 +1,4 @@
-#version 330 
+#version 330
 
 //Directional Light data
 struct DirectionalLight
@@ -53,7 +53,7 @@ uniform Material material;
 out vec4 fragColor;
 
 in vec2 texCoord;
-in vec4 shadowCoord; 
+in vec4 shadowCoord;
 
 uniform float shadowStrength;
 uniform float shadowBias;
@@ -76,24 +76,26 @@ float CalcDirShadows(DirectionalLight light)
 
 	float visibility = 0.0;
 
-	if (texture(shadowMap, projCoords.xy).r > projCoords.z - light.shadowBias)
-		visibility = light.shadowStrength;
+	float closestDepth = texture(shadowMap, projCoords.xy).r;
+	float currentDepth = projCoords.z - light.shadowBias;
 
-	return visibility;
+	float shadow = currentDepth > closestDepth ? 0.0 : light.shadowStrength;
+
+	return shadow;
 }
 
 float CalcPointShadows(PointLight light)
 {
 	// Get vector between fragment position and light position
 	vec3 fragToLight = worldPosition - light.position;
-	// Use the light to fragment vector to sample from the depth map    
+	// Use the light to fragment vector to sample from the depth map
 	float closestDepth = texture(pointShadowMap, fragToLight).r;
 	// It is currently in linear range between [0,1]. Re-transform back to original value
 	closestDepth *= light.farPlane;
 	// Now get current linear depth as the length between the fragment and light position
-	float currentDepth = length(fragToLight);
+	float currentDepth = length(fragToLight) - light.shadowBias;
 	// Now test for shadows
-	float shadow = currentDepth - light.shadowBias > closestDepth ? 0.0 : light.shadowStrength;
+	float shadow = currentDepth > closestDepth ? 0.0 : light.shadowStrength;
 
 	return shadow;
 }

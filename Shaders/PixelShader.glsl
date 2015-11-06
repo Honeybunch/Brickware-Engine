@@ -58,9 +58,9 @@ in vec4 shadowCoord;
 uniform float shadowStrength;
 uniform float shadowBias;
 
-uniform sampler2D diffuseTexture;
-uniform sampler2D shadowMap;
-uniform samplerCube pointShadowMap;
+uniform sampler2D a_diffuseTexture;
+uniform sampler2D b_shadowMap;
+uniform samplerCube c_pointShadowMap;
 
 //Vertex data
 in vec3 worldNormal;
@@ -76,7 +76,7 @@ float CalcDirShadows(DirectionalLight light)
 
 	float visibility = 0.0;
 
-	float closestDepth = texture(shadowMap, projCoords.xy).r;
+	float closestDepth = texture(b_shadowMap, projCoords.xy).r;
 	float currentDepth = projCoords.z - light.shadowBias;
 
 	float shadow = currentDepth > closestDepth ? 0.0 : light.shadowStrength;
@@ -89,7 +89,7 @@ float CalcPointShadows(PointLight light)
 	// Get vector between fragment position and light position
 	vec3 fragToLight = worldPosition - light.position;
 	// Use the light to fragment vector to sample from the depth map
-	float closestDepth = texture(pointShadowMap, fragToLight).r;
+	float closestDepth = texture(c_pointShadowMap, fragToLight).r;
 	// It is currently in linear range between [0,1]. Re-transform back to original value
 	closestDepth *= light.farPlane;
 	// Now get current linear depth as the length between the fragment and light position
@@ -148,7 +148,7 @@ void main()
 	vec3 specularProduct;
 
 	//Get the color of the applied texture
-	vec4 hue = texture(diffuseTexture, texCoord);
+	vec4 hue = texture(a_diffuseTexture, texCoord);
 
 	vec3 finalColor = vec3(0);
 

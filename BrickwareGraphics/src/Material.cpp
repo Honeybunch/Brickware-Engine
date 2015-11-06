@@ -17,7 +17,7 @@ Material::Material(Shader* shader)
 	if (defaultTexture == nullptr)
 		defaultTexture = new Texture("Textures/defaultTexture.bmp");
 
-	this->setTexture("diffuseTexture", Material::defaultTexture);
+	this->setTexture("a_diffuseTexture", Material::defaultTexture);
 
 	Materials.push_back(this);
 }

@@ -34,7 +34,7 @@ LRESULT CALLBACK MainWndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 #endif
 
-vector<GameObject*> Game::gameObjects;
+std::vector<GameObject*> Game::gameObjects;
 
 Game::Game()
 {

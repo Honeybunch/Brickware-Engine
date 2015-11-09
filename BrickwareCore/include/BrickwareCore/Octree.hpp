@@ -29,14 +29,14 @@ namespace Brickware
 			BRICKWARE_CORE_API ~OctreeNode();
 
 			//Accessors
-			vector<OctreeNode*> getChildren();
-			vector<GameObject*> getObjects();
+			std::vector<OctreeNode*> getChildren();
+			std::vector<GameObject*> getObjects();
 			BRICKWARE_CORE_API OctreeNode* getParent();
 			BRICKWARE_CORE_API bool getHasChildren();
 
 			BRICKWARE_CORE_API void addObject(GameObject* object);
 
-			vector<OctreeNode*> getCollidingChildrenWithFrustum(FrustumCollider* collider);
+			std::vector<OctreeNode*> getCollidingChildrenWithFrustum(FrustumCollider* collider);
 
 		private:
 			Octree* octree;
@@ -48,8 +48,8 @@ namespace Brickware
 
 			Math::Bounds bounds;
 
-			vector<OctreeNode*> childNodes;
-			vector<GameObject*> objects;
+			std::vector<OctreeNode*> childNodes;
+			std::vector<GameObject*> objects;
 
 			BRICKWARE_CORE_API void addToChildren(GameObject* object);
 
@@ -69,7 +69,7 @@ namespace Brickware
 
 			int nodeCount;
 
-			vector<OctreeNode*> getCollidingChildren(Collider* collider);
+			std::vector<OctreeNode*> getCollidingChildren(Collider* collider);
 
 			BRICKWARE_CORE_API void addObject(GameObject* object);
 

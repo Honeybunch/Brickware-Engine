@@ -23,8 +23,8 @@ OctreeNode::OctreeNode(Octree* octree, OctreeNode* parent = nullptr, float depth
 }
 
 //Accessors
-vector<OctreeNode*> OctreeNode::getChildren(){ return childNodes; }
-vector<GameObject*> OctreeNode::getObjects(){ return objects; }
+std::vector<OctreeNode*> OctreeNode::getChildren(){ return childNodes; }
+std::vector<GameObject*> OctreeNode::getObjects(){ return objects; }
 OctreeNode* OctreeNode::getParent(){ return parent; }
 bool OctreeNode::getHasChildren(){ return hasChildren; }
 
@@ -117,9 +117,9 @@ void OctreeNode::subdivide()
 	hasChildren = true;
 }
 
-vector<OctreeNode*> OctreeNode::getCollidingChildrenWithFrustum(FrustumCollider* collider)
+std::vector<OctreeNode*> OctreeNode::getCollidingChildrenWithFrustum(FrustumCollider* collider)
 {
-	vector<OctreeNode*> toReturn;
+	std::vector<OctreeNode*> toReturn;
 
 	if (collider->isColliding(bounds))
 	{
@@ -127,7 +127,7 @@ vector<OctreeNode*> OctreeNode::getCollidingChildrenWithFrustum(FrustumCollider*
 		{
 			for (unsigned int i = 0; i < childNodes.size(); i++)
 			{
-				vector<OctreeNode*> childReturns = childNodes[i]->getCollidingChildrenWithFrustum(collider);
+				std::vector<OctreeNode*> childReturns = childNodes[i]->getCollidingChildrenWithFrustum(collider);
 
 				for (unsigned int j = 0; j < childReturns.size(); j++)
 				{
@@ -167,14 +167,14 @@ int Octree::getPerNodeLimit(){ return perNodeLimit; }
 
 OctreeNode* Octree::getRoot(){ return root; }
 
-vector<OctreeNode*> Octree::getCollidingChildren(Collider* other)
+std::vector<OctreeNode*> Octree::getCollidingChildren(Collider* other)
 {
 	FrustumCollider* otherFrustum = dynamic_cast<FrustumCollider*>(other);
 
 	if (otherFrustum)
 		return root->getCollidingChildrenWithFrustum(otherFrustum);
 	else
-		return vector<OctreeNode*>();
+		return std::vector<OctreeNode*>();
 }
 
 void Octree::addObject(GameObject* object)

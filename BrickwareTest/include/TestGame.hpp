@@ -4,6 +4,7 @@
 #include "BrickwareCore/Game.hpp"
 #include "BrickwareGraphics/RendererInfo.hpp"
 #include "BrickwareUtils/JSONParser.hpp"
+#include "BrickwareUtils/XMLParser.hpp"
 
 #include <iostream>
 

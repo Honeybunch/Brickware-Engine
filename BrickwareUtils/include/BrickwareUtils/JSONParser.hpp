@@ -19,8 +19,6 @@
 //Project Headers
 #include "BrickwareUtils/StringUtils.hpp"
 
-using namespace std;
-
 namespace Brickware
 {
 	namespace Utility
@@ -176,12 +174,12 @@ namespace Brickware
 			 *
 			 * @returns A pointer to the decoded JSONObject.
 			 */
-			inline static JSONObject* DecodeJSONFromString(const char* rawString)
+			inline static JSONObject* DecodeJSONFromString(const char* jsonString)
 			{
 				//We want to strip all whitespace from the raw string
-				const char* jsonString = StringUtils::trimAllWhitespace(rawString);
+				const char* rawJSON = StringUtils::trimAllWhitespace(jsonString);
 
-				return parseObject(jsonString);
+				return parseObject(rawJSON);
 			}
 
 			static void EncodeJSONToFile(const char* filename, JSONObject object);

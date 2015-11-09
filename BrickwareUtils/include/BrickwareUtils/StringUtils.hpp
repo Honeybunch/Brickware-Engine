@@ -25,8 +25,6 @@
 #include <vector>
 #include <locale>
 
-using namespace std;
-
 namespace Brickware
 {
 	namespace Utility

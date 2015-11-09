@@ -10,7 +10,7 @@ using namespace Utility;
 */
 
 //return a vector of std::strings split by a delimeter
-vector<string> StringUtils::stringSplit(const char* toSplit, const char* delimiter)
+std::vector<std::string> StringUtils::stringSplit(const char* toSplit, const char* delimiter)
 {
 	//Modify the given string to add a delimeter to the end of the string so that the last value will be parsed
 	char* toSplitMod = new char[strlen(toSplit) + 2];
@@ -18,7 +18,7 @@ vector<string> StringUtils::stringSplit(const char* toSplit, const char* delimit
 	strcat(toSplitMod, &delimiter[0]);
 	toSplitMod[strlen(toSplitMod)] = '\0';
 
-	vector<string> split;
+	std::vector<std::string> split;
 
 	//Split string along spaces to get normals
 	char* token = strtok_single(toSplitMod, delimiter);
@@ -156,7 +156,7 @@ void StringUtils::printShaderInfoLog(GLuint obj)
 		glGetShaderInfoLog(obj, infoLogLength, &charsWritten, infoLog);
 		infoLog[infoLogLength] = '\0';
 		if (infoLogLength > 1)
-			cout << infoLog << endl;
+			printf(infoLog);
 
 		//delete[] infoLog;
 	}
@@ -176,7 +176,7 @@ void StringUtils::printProgramInfoLog(GLuint obj)
 		glGetProgramInfoLog(obj, infoLogLength, &charsWritten, infoLog);
 		infoLog[infoLogLength] = '\0';
 		if (infoLogLength > 1)
-			cout << infoLog << endl;
+			printf(infoLog);
 
 		//delete[] infoLog;
 	}

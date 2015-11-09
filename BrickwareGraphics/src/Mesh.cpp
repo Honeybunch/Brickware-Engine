@@ -52,10 +52,10 @@ Mesh::Mesh(const char* modelFileName)
 	bufferChanges();
 }
 
-vector<Vector3> Mesh::getVerticies(){ return modelVerts; }
-vector<Vector3> Mesh::getNormals(){ return modelNormals; }
-vector<Vector2> Mesh::getTexCoords(){	return modelTexCoords; }
-vector<Vector3> Mesh::getIndices(){ return modelIndices; }
+std::vector<Vector3> Mesh::getVerticies(){ return modelVerts; }
+std::vector<Vector3> Mesh::getNormals(){ return modelNormals; }
+std::vector<Vector2> Mesh::getTexCoords(){	return modelTexCoords; }
+std::vector<Vector3> Mesh::getIndices(){ return modelIndices; }
 
 int Mesh::getPointSize(){ return pointSize; }
 int Mesh::getNormalSize(){ return normalSize; }
@@ -72,10 +72,10 @@ void Mesh::setBufferHint(BufferHint hint)
 	(this->*setBufferHintPtr)(hint);
 }
 
-void Mesh::setVertices(vector<Vector3> newVerts){ modelVerts = newVerts; }
-void Mesh::setNormals(vector<Vector3> newNormals){ modelNormals = newNormals; }
-void Mesh::setTexCoords(vector<Vector2> newTexCoords){ modelTexCoords = newTexCoords; }
-void Mesh::setIndices(vector<Vector3> newIndices){ modelIndices = newIndices; }
+void Mesh::setVertices(std::vector<Vector3> newVerts){ modelVerts = newVerts; }
+void Mesh::setNormals(std::vector<Vector3> newNormals){ modelNormals = newNormals; }
+void Mesh::setTexCoords(std::vector<Vector2> newTexCoords){ modelTexCoords = newTexCoords; }
+void Mesh::setIndices(std::vector<Vector3> newIndices){ modelIndices = newIndices; }
 
 void Mesh::bufferChanges()
 {
@@ -172,27 +172,27 @@ void Mesh::bufferChanges()
 //Load a shape from an OBJ
 void Mesh::loadOBJ(const char* fileName)
 {
-	ifstream objFile(fileName, ios::in);
+	std::ifstream objFile(fileName, std::ios::in);
 
 	if (!objFile.is_open())
 	{
-		cout << "Error opening file: " << fileName << endl;
+		std::cout << "Error opening file: " << fileName << std::endl;
 		return;
 	}
 
 	//Vectors of vectors to store data before we construct it
-	vector<Vector3> modelVerticies;
-	vector<Vector2> modelTextureCoords;
-	vector<Vector3> modelNormals;
-	vector<Vector3> modelIndices;
+	std::vector<Vector3> modelVerticies;
+	std::vector<Vector2> modelTextureCoords;
+	std::vector<Vector3> modelNormals;
+	std::vector<Vector3> modelIndices;
 
 	Bounds modelBounds;
 	Vector3 min(std::numeric_limits<float>::max(), std::numeric_limits<float>::max(), std::numeric_limits<float>::max());
 	Vector3 max(std::numeric_limits<float>::min(), std::numeric_limits<float>::min(), std::numeric_limits<float>::min());
 
-	string line;
+	std::string line;
 
-	while (getline(objFile, line))
+	while (std::getline(objFile, line))
 	{
 		//copy to a cstring so we can tokenize
 		char* cLine = new char[line.size() + 1];
@@ -215,7 +215,7 @@ void Mesh::loadOBJ(const char* fileName)
 			case ' ':
 			{
 				//Split string along spaces to get vertex info
-				vector<string> tokens = StringUtils::stringSplit(cLine + 2, " ");
+				std::vector<std::string> tokens = StringUtils::stringSplit(cLine + 2, " ");
 
 				float* rawVec = new float[3];
 
@@ -255,7 +255,7 @@ void Mesh::loadOBJ(const char* fileName)
 			case 't':
 			{
 				//Split string along spaces to get tex coord info
-				vector<string> tokens = StringUtils::stringSplit(cLine + 3, " ");
+				std::vector<std::string> tokens = StringUtils::stringSplit(cLine + 3, " ");
 
 				float* rawTexCoord = new float[2];
 
@@ -275,7 +275,7 @@ void Mesh::loadOBJ(const char* fileName)
 			case 'n':
 			{
 				//Split string along spaces to get normals
-				vector<string> tokens = StringUtils::stringSplit(cLine + 3, " ");
+				std::vector<std::string> tokens = StringUtils::stringSplit(cLine + 3, " ");
 
 				float* rawNormal = new float[3];
 
@@ -302,12 +302,12 @@ void Mesh::loadOBJ(const char* fileName)
 		{
 			//Split string along spaces to get faces
 			//use a string splitting method so we can nest with strtok
-			vector<string> rawFaces = StringUtils::stringSplit(cLine + 2, " ");
+			std::vector<std::string> rawFaces = StringUtils::stringSplit(cLine + 2, " ");
 
 			for (unsigned int i = 0; i < rawFaces.size(); i++)
 			{
 				//Parse even further, now to get face info
-				vector<string> tokens = StringUtils::stringSplit(rawFaces[i].c_str(), "/");
+				std::vector<std::string> tokens = StringUtils::stringSplit(rawFaces[i].c_str(), "/");
 
 				int* faceInfo = new int[3];
 

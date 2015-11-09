@@ -72,6 +72,8 @@ bool TestGame::init()
 		std::cout << std::endl;
 	}
 
+	XMLDoc* xmlDoc = XMLParser::DecodeXMLFromFile("Data/test.xml");
+
 	setCursorVisible(true);
 
 	//Load shader

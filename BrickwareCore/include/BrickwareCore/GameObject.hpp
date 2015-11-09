@@ -66,7 +66,7 @@ namespace Brickware
 			/* Gets all the attached <Component>s (including the <Transform>).
 			 * @returns a vector of all the attached <Component>s.
 			 */
-			vector<Component*>& getComponents();
+			std::vector<Component*>& getComponents();
 
 			/* Gets a <Component> of a given type.
 			 * @returns The first <Component> of the given type or,

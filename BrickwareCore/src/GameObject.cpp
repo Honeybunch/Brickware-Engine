@@ -41,7 +41,7 @@ GameObject::GameObject(Transform* transform)
 
 GameObject::GameObject(GameObject& other)
 {
-	components = vector<Component*>();
+	components = std::vector<Component*>();
 
 	//Copy components that are able to be copied over
 	unsigned int componentCount = other.components.size();
@@ -72,12 +72,12 @@ GameObject::GameObject(GameObject& other)
 	toDestroy = false;
 }
 
-vector<GameObject*> GameObject::getGameObjects(){ return Game::gameObjects; }
+std::vector<GameObject*> GameObject::getGameObjects(){ return Game::gameObjects; }
 
 //Accessors
 Transform* GameObject::getTransform(){ return transform; }
 
-vector<Component*>& GameObject::getComponents(){ return components;  }
+std::vector<Component*>& GameObject::getComponents(){ return components; }
 
 //Mutators
 void GameObject::addComponent(Component* newComponent)

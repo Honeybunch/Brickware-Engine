@@ -55,7 +55,7 @@ bool Shader::loadGLSL(std::string vertexShaderFileName)
 	// Read in shader source
 	vertexShaderSource = StringUtils::textFileRead(glslVertexFileName);
 	if (!vertexShaderSource) {
-		cerr << "Error reading vertex shader " << glslVertexFileName << endl;
+		std::cerr << "Error reading vertex shader " << glslVertexFileName << std::endl;
 		shaderProgram = 0;
 		return false;
 	}
@@ -106,13 +106,13 @@ bool Shader::loadGLSL(std::string vertexShaderFileName, std::string pixelShaderF
 	// Read in shader source
 	vertexShaderSource = StringUtils::textFileRead(glslVertexFileName);
 	if (!vertexShaderSource) {
-		cerr << "Error reading vertex shader " << glslVertexFileName << endl;
+		std::cerr << "Error reading vertex shader " << glslVertexFileName << std::endl;
 		shaderProgram = 0;
 		return false;
 	}
 	pixelShaderSource = StringUtils::textFileRead(glslPixelFileName);
 	if (!pixelShaderSource) {
-		cerr << "Error reading fragment shader " << glslPixelFileName << endl;
+		std::cerr << "Error reading fragment shader " << glslPixelFileName << std::endl;
 		shaderProgram = 0;
 		return false;
 	}
@@ -170,19 +170,19 @@ bool Shader::loadGLSL(std::string geometryShaderFileName, std::string vertexShad
 	// Read in shader source
 	geometryShaderSource = StringUtils::textFileRead(glslGeometryFileName);
 	if (!geometryShaderSource) {
-		cerr << "Error reading vertex shader " << glslGeometryFileName << endl;
+		std::cerr << "Error reading vertex shader " << glslGeometryFileName << std::endl;
 		shaderProgram = 0;
 		return false;
 	}
 	vertexShaderSource = StringUtils::textFileRead(glslVertexFileName);
 	if (!vertexShaderSource) {
-		cerr << "Error reading vertex shader " << glslVertexFileName << endl;
+		std::cerr << "Error reading vertex shader " << glslVertexFileName << std::endl;
 		shaderProgram = 0;
 		return false;
 	}
 	pixelShaderSource = StringUtils::textFileRead(glslPixelFileName);
 	if (!pixelShaderSource) {
-		cerr << "Error reading fragment shader " << glslPixelFileName << endl;
+		std::cerr << "Error reading fragment shader " << glslPixelFileName << std::endl;
 		shaderProgram = 0;
 		return false;
 	}

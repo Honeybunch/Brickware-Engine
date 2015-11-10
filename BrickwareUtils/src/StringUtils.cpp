@@ -139,6 +139,59 @@ const char* StringUtils::trimAllWhitespace(const char* string)
 	return trimmedString;
 }
 
+const char* StringUtils::trimWhitespaceForXML(const char* string)
+{
+	unsigned int spaceCount = 0;
+	const unsigned int originalStringSize = strlen(string);
+
+	//Determine how many spaces there are in the string so we can build a proper string
+	bool important = false;
+	for (unsigned int i = 0; i < originalStringSize; i++)
+	{
+		if (!important)
+		{
+			if (string[i] == ' ' || string[i] == '\n' || string[i] == '\t' || string[i] == '\r')
+				spaceCount++;
+		}
+		
+		if (string[i] == '<')
+			important = true;
+		else if (string[i] == '>' && important)
+			important = false;
+	}
+
+	const int trimmedStringSize = originalStringSize - spaceCount;
+
+	char* trimmedString = new char[trimmedStringSize];
+
+	//Time to fill the trimmed string with everything that isn't whitespace
+	int offset = 0;
+	important = false;
+	for (unsigned int i = 0; i < originalStringSize; i++)
+	{
+		if (!important)
+		{
+			if (string[i] != ' ' && string[i] != '\n' && string[i] != '\t' && string[i] != '\r')
+				trimmedString[i - offset] = string[i];
+			else
+				offset++;
+		}
+		else
+		{
+			trimmedString[i - offset] = string[i];
+		}
+
+		if (string[i] == '<')
+			important = true;
+		else if (string[i] == '>' && important)
+			important = false;
+	}
+	trimmedString[trimmedStringSize] = '\0';
+
+	return trimmedString;
+}
+
+
 #ifdef GL_SUPPORT
 
 void StringUtils::printShaderInfoLog(GLuint obj)

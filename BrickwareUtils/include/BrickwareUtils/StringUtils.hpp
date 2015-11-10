@@ -89,6 +89,12 @@ namespace Brickware
 			 */
 			static const char* trimAllWhitespace(const char* string);
 
+			/* Trims all unimportant whitespace out of a raw XML string
+			* @string The string that you want to remove whitespace from
+			* @returns The trimmed string
+			*/
+			static const char* trimWhitespaceForXML(const char* string);
+
 #ifdef GL_SUPPORT
 			/* Prints the shader info log *GL_SUPPORT ONLY*
 			 * @obj the int that points to the shader on the GPU

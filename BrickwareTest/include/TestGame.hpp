@@ -4,29 +4,27 @@
 #include "BrickwareCore/Game.hpp"
 #include "BrickwareGraphics/RendererInfo.hpp"
 #include "BrickwareUtils/JSONParser.hpp"
-#include "BrickwareUtils/XMLParser.hpp"
 
 #include <iostream>
 
 #include "Spin.hpp"
 #include "Spawner.hpp"
 
-class TestGame : public Brickware::Core::Game
-{
+class TestGame : public Brickware::Core::Game {
 public:
-	TestGame();
+  TestGame();
 
-	virtual bool init();
+  virtual bool init();
 
 #ifdef BRICKWARE_DEBUG
-	bool dKeyDown = false;
+  bool dKeyDown = false;
 #endif
 
-	~TestGame();
+  ~TestGame();
 
 private:
-	virtual void updateScene() override;
-	virtual void renderScene() override;
+  virtual void updateScene() override;
+  virtual void renderScene() override;
 };
 
 #endif

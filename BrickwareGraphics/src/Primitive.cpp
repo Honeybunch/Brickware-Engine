@@ -30,7 +30,7 @@ void Primitive::DrawLine(Vector3 start, Vector3 end)
 	float sqSum = (delta.getX() * delta.getX()) + (delta.getY() * delta.getY()) + (delta.getZ() * delta.getZ());
 	float distance = sqrtf(sqSum);
 
-	Vector3 scale(distance, 0, 0); //The original line buffer is just along x, so that's all we need to scale along
+	Vector3 scale(distance, 1, 1); //The original line buffer is just along x, so that's all we need to scale along
 
 	//Determine angle between points for rotation
 	Vector3 rotationAxis = Vector3::Normalize(Vector3::Cross(Vector3(1, 0, 0), Vector3::Normalize(delta)));
@@ -48,17 +48,6 @@ void Primitive::DrawLine(Vector3 start, Vector3 end)
 	p->pointCount = 2;
 #endif
 }
-void Primitive::DrawQuad(Vector3 topLeft, Vector3 topRight, Vector3 bottomRight, Vector3 bottomLeft, Vector3 rotation)
-{
-
-}
-void Primitive::DrawCircle(Vector3 center, float radius, Vector3 rotation)
-{
-
-}
-
-void Primitive::FillQuad(Vector3 topLeft, Vector3 topRight, Vector3 bottomRight, Vector3 bottomLeft, Vector3 rotation){}
-void Primitive::FillCircle(Vector3 center, float radius, Vector3 rotation){}
 
 #ifdef GL_SUPPORT
 
@@ -91,7 +80,10 @@ Primitive::Primitive(GLuint vao, GLuint vbo, GLuint ibo, Vector3 translation, Ve
 
 	modelMatrix = scaleMat * rotationMat * translationMat;
 
-	PrimitiveManager::Primitives.push_back(this);
+	if (drawType == PrimitiveType::P_POINT)
+		PrimitiveManager::PointPrimitives.push_back(this);
+	else if (drawType == PrimitiveType::P_LINE)
+		PrimitiveManager::LinePrimitives.push_back(this);
 }
 #endif
 

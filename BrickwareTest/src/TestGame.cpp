@@ -239,6 +239,14 @@ void TestGame::updateScene() {
   } else if (Input::getKeyUp(KeyCode::F1)) {
     dKeyDown = false;
   }
+
+  Primitive::SetPointSize(0.3f);
+  Primitive::SetLineWidth(1.0f);
+  Primitive::SetColor(Vector4(1, 0, 0, 0));
+  Primitive::DrawLine(Vector3(), Vector3(-10, 0, 0));
+
+  Primitive::DrawPoint(Vector3());
+  Primitive::DrawPoint(Vector3(-10,0,0));
 #endif
 
   for (unsigned int i = 0; i < gameObjects.size(); i++)

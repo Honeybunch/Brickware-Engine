@@ -209,7 +209,7 @@ void StringUtils::printShaderInfoLog(GLuint obj)
 		glGetShaderInfoLog(obj, infoLogLength, &charsWritten, infoLog);
 		infoLog[infoLogLength] = '\0';
 		if (infoLogLength > 1)
-			printf(infoLog);
+			std::cout << infoLog << std::endl;
 
 		//delete[] infoLog;
 	}

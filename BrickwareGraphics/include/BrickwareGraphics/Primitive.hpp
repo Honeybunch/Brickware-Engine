@@ -41,11 +41,6 @@ namespace Brickware
 
 			static void DrawPoint(Math::Vector3 point);
 			static void DrawLine(Math::Vector3 start, Math::Vector3 end);
-			static void DrawQuad(Math::Vector3 topLeft, Math::Vector3 topRight, Math::Vector3 bottomRight, Math::Vector3 bottomLeft, Math::Vector3 rotation);
-			static void DrawCircle(Math::Vector3 center, float radius, Math::Vector3 rotation);
-
-			static void FillQuad(Math::Vector3 topLeft, Math::Vector3 topRight, Math::Vector3 bottomRight, Math::Vector3 bottomLeft, Math::Vector3 rotation);
-			static void FillCircle(Math::Vector3 center, float radius, Math::Vector3 rotation);
 
 		private:
 #ifdef GL_SUPPORT

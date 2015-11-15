@@ -44,10 +44,12 @@ namespace Brickware
 			static void Destroy();
 
 		private:
-			static std::vector<Primitive*> Primitives;
-			static Shader* shader;
+			static std::vector<Primitive*> PointPrimitives;
+			static std::vector<Primitive*> LinePrimitives;
+			static Shader* pointShader;
+			static Shader* lineShader;
 
-			static void (*DrawPrimitivePtr)(Primitive* p);
+			static void(*DrawPrimitivePtr)(Primitive* p, Shader* shader);
 			static void (*BufferDataPtr)();
 			static void (*DestroyDataPtr)();
 
@@ -61,28 +63,11 @@ namespace Brickware
 			static GLuint lineVBO;
 			static GLuint lineIBO;
 
-			static GLuint lineQuadVAO;
-			static GLuint lineQuadVBO;
-			static GLuint lineQuadIBO;
-
-			static GLuint lineCircleVAO;
-			static GLuint lineCircleVBO;
-			static GLuint lineCircleIBO;
-
-			static GLuint fillQuadVAO;
-			static GLuint fillQuadVBO;
-			static GLuint fillQuadIBO;
-
-			static GLuint fillCircleVAO;
-			static GLuint fillCircleVBO;
-			static GLuint fillCircleIBO;
-
 			static void BufferDataGL();
 			static void DestroyDataGL();
 
-			static void DrawPrimitiveGL(Primitive* p);
+			static void DrawPrimitiveGL(Primitive* p, Shader* shader);
 
-			static void SetColorGL(Math::Vector4 color);
 			static void SetPointSizeGL(float pointSize);
 			static void SetLineWidthGL(float lineWidth);
 #endif
@@ -91,7 +76,7 @@ namespace Brickware
 			static void BufferDataD3D();
 			static void DestroyDataD3D();
 
-			static void DrawPrimitiveD3D(Primitive* p);
+			static void DrawPrimitiveD3D(Primitive* p, Shader* shader);
 
 			static void SetColorD3D(Math::Vector4 color);
 			static void SetPointSizeD3D(float pointSize);

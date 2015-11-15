@@ -22,7 +22,7 @@ void Spin::Update()
 
 	Vector3 currentRotation = transform->getEulerRotation();
 
-	Vector3 deltaRot = rotationDelta * deltaTime;
+	Vector3 deltaRot = rotationDelta * deltaTime * GameTime::GetTimeScale();
 
 	transform->setEulerRotation(currentRotation + deltaRot);
 }

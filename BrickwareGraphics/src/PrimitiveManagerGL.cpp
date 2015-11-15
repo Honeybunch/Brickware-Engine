@@ -4,6 +4,7 @@
 
 #include "BrickwareGraphics/PrimitiveManager.hpp"
 #include "BrickwareGraphics/Primitive.hpp"
+#include "BrickwareGraphics/Screen.hpp"
 
 using namespace Brickware;
 using namespace Graphics;
@@ -18,22 +19,6 @@ GLuint PrimitiveManager::lineVAO;
 GLuint PrimitiveManager::lineVBO;
 GLuint PrimitiveManager::lineIBO;
 
-GLuint PrimitiveManager::lineQuadVAO;
-GLuint PrimitiveManager::lineQuadVBO;
-GLuint PrimitiveManager::lineQuadIBO;
-
-GLuint PrimitiveManager::lineCircleVAO;
-GLuint PrimitiveManager::lineCircleVBO;
-GLuint PrimitiveManager::lineCircleIBO;
-
-GLuint PrimitiveManager::fillQuadVAO;
-GLuint PrimitiveManager::fillQuadVBO;
-GLuint PrimitiveManager::fillQuadIBO;
-
-GLuint PrimitiveManager::fillCircleVAO;
-GLuint PrimitiveManager::fillCircleVBO;
-GLuint PrimitiveManager::fillCircleIBO;
-
 void PrimitiveManager::BufferDataGL()
 {
 	//Data that we're going to buffer
@@ -43,34 +28,6 @@ void PrimitiveManager::BufferDataGL()
 	float line[6] = { 0, 0, 0,
 		1.0f, 0, 0 };
 	unsigned short lineIndices[2] = { 0, 1 };
-
-	float lineQuad[12] = { -0.5f, 0.5f, 0,
-		0.5f, 0.5f, 0,
-		0.5f, -0.5f, 0,
-		-0.5f, -0.5f, 0 };
-	unsigned short lineQuadIndices[4] = { 0, 1, 2, 3 };
-
-	//Generate points for line circle
-	const int circlePoints = 20;
-	float lineCircle[circlePoints * 3];
-	unsigned short lineCircleIndices[circlePoints];
-
-	float radsPerPoint = (float)(M_PI_2 / circlePoints);
-
-	//We have to calculate the points in a circle
-	for (int i = 0; i < 20; i++)
-	{
-		float x = cosf(radsPerPoint * i);
-		float y = sinf(radsPerPoint * i);
-
-		int index = (i * 3);
-
-		lineCircle[index] = x;
-		lineCircle[index + 1] = y;
-		lineCircle[index + 2] = 0;
-
-		lineCircleIndices[i] = i;
-	}
 
 	//Buffer point
 	glGenVertexArrays(1, &pointVAO);
@@ -102,43 +59,13 @@ void PrimitiveManager::BufferDataGL()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, lineIBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 2 * sizeof(unsigned short), lineIndices, GL_STATIC_DRAW);
 
-	//Buffer line quad
-	glGenVertexArrays(1, &lineQuadVAO);
-	glBindVertexArray(lineQuadVAO);
-
-	glGenBuffers(1, &lineQuadVBO);
-	glBindBuffer(GL_ARRAY_BUFFER, lineQuadVBO);
-	glBufferData(GL_ARRAY_BUFFER, 12 * sizeof(float), lineQuad, GL_STATIC_DRAW);
-
-	glGenBuffers(1, &lineQuadIBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, lineQuadIBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 4 * sizeof(unsigned short), lineQuadIndices, GL_STATIC_DRAW);
-
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
-
-	//Buffer line circle
-	glGenVertexArrays(1, &lineCircleVAO);
-	glBindVertexArray(lineCircleVAO);
-
-	glGenBuffers(1, &lineCircleVBO);
-	glBindBuffer(GL_ARRAY_BUFFER, lineCircleVBO);
-	glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), lineCircle, GL_STATIC_DRAW);
-
-	glGenBuffers(1, &lineCircleIBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, lineCircleIBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 2 * sizeof(unsigned short), lineCircleIndices, GL_STATIC_DRAW);
-
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, BUFFER_OFFSET(0));
-
 	//Unbind everything
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-void PrimitiveManager::DrawPrimitiveGL(Primitive* p)
+void PrimitiveManager::DrawPrimitiveGL(Primitive* p, Shader* shader)
 {
 	GLenum drawType;
 
@@ -155,28 +82,26 @@ void PrimitiveManager::DrawPrimitiveGL(Primitive* p)
 		break;
 	}
 
-	SetColorGL(p->color);
-	SetPointSizeGL(p->pointSize);
-	SetLineWidthGL(p->lineWidth);
+	if (drawType == PrimitiveType::P_POINT){
+		GLuint sizeLocation = (GLuint)(shader->uniformMap["size"]);
+		glUniform1f(sizeLocation, p->pointSize);
+
+		GLuint ratioLocation = (GLuint)(shader->uniformMap["aspectRatio"]);
+		glUniform1f(ratioLocation, Screen::GetAspectRatio());
+	}
+
+	//Set Color
+	GLuint colorLocation = (GLuint)(shader->uniformMap["color"]);
+	glUniform4fv(colorLocation, 1, p->color.getAsArray());
 
 	GLuint worldLocation = (GLuint)(shader->uniformMap["worldMatrix"]);
 	glUniformMatrix4fv(worldLocation, 1, GL_FALSE, p->worldMatrix.getAsArray());
 
 	//Setup primitive VAO
 	glBindVertexArray(p->vao);
-	glBindAttribLocation(shader->shaderProgram, 0, "position");
-	
-	//Bind ibo and draw
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, p->ibo);
-	glDrawElements(drawType, p->pointCount, GL_UNSIGNED_SHORT, (void*)0);
+	glDrawArrays(drawType, 0, p->pointCount);
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-}
-
-void PrimitiveManager::SetColorGL(Math::Vector4 color)
-{
-	GLuint colorLocation = (GLuint)(shader->uniformMap["color"]);
-	glUniform4fv(colorLocation, 1, color.getAsArray());
 }
 
 void PrimitiveManager::SetPointSizeGL(float pointSize)
@@ -204,22 +129,6 @@ void PrimitiveManager::DestroyDataGL()
 	glDeleteVertexArrays(1, &lineVAO);
 	glDeleteBuffers(1, &lineVBO);
 	glDeleteBuffers(1, &lineIBO);
-
-	glDeleteVertexArrays(1, &lineQuadVAO);
-	glDeleteBuffers(1, &lineQuadVBO);
-	glDeleteBuffers(1, &lineQuadIBO);
-
-	glDeleteVertexArrays(1, &lineCircleVAO);
-	glDeleteBuffers(1, &lineCircleVBO);
-	glDeleteBuffers(1, &lineCircleIBO);
-
-	glDeleteVertexArrays(1, &fillQuadVAO);
-	glDeleteBuffers(1, &fillQuadVBO);
-	glDeleteBuffers(1, &fillQuadIBO);
-
-	glDeleteVertexArrays(1, &fillCircleVAO);
-	glDeleteBuffers(1, &fillCircleVBO);
-	glDeleteBuffers(1, &fillCircleIBO);
 }
 
 #endif

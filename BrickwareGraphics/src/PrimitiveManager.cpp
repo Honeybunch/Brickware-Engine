@@ -6,18 +6,21 @@
 using namespace Brickware;
 using namespace Graphics;
 
-std::vector<Primitive*> PrimitiveManager::Primitives;
-Shader* PrimitiveManager::shader;
+std::vector<Primitive*> PrimitiveManager::PointPrimitives;
+std::vector<Primitive*> PrimitiveManager::LinePrimitives;
+Shader* PrimitiveManager::pointShader;
+Shader* PrimitiveManager::lineShader;
 
 //Static function pointers
-void(*PrimitiveManager::DrawPrimitivePtr)(Primitive* p);
+void(*PrimitiveManager::DrawPrimitivePtr)(Primitive* p, Shader* shader);
 void(*PrimitiveManager::BufferDataPtr)();
 void(*PrimitiveManager::DestroyDataPtr)();
 
 //Used to load the basic shader and buffer data
 void PrimitiveManager::Initialize()
 {
-	shader = new Shader("Shaders/PrimitiveVertex", "Shaders/PrimitivePixel");
+	pointShader = new Shader("Shaders/PrimitivePointGeometry", "Shaders/PrimitiveVertex", "Shaders/PrimitivePixel");
+	lineShader = new Shader("Shaders/PrimitiveVertex", "Shaders/PrimitivePixel");
 
 	//Setup function pointers based on rendering API
 	RenderingAPI renderer = GraphicsSettings::Renderer;
@@ -55,25 +58,44 @@ void PrimitiveManager::Initialize()
 
 void PrimitiveManager::ClearPrimitives()
 {
-	for (unsigned int i = 0; i < Primitives.size(); i++)
-		delete Primitives[i];
+	for (unsigned int i = 0; i < PointPrimitives.size(); i++)
+		delete PointPrimitives[i];
 
-	Primitives.clear();
+	PointPrimitives.clear();
+
+	for (unsigned int i = 0; i < LinePrimitives.size(); i++)
+		delete LinePrimitives[i];
+
+	LinePrimitives.clear();
 }
 
 void PrimitiveManager::DrawPrimitives(Math::Matrix4 viewMatrix, Math::Matrix4 projectionMatrix)
 {
-	shader->bindShader();
+	pointShader->bindShader();
 
-	for (unsigned int i = 0; i < Primitives.size(); i++)
+	for (unsigned int i = 0; i < PointPrimitives.size(); i++)
 	{
-		Primitive* p = Primitives[i];
+		Primitive* p = PointPrimitives[i];
 		p->worldMatrix = (p->modelMatrix * viewMatrix) * projectionMatrix;
 
 		//Draw with proper APIs
-		(*DrawPrimitivePtr)(p);
+		(*DrawPrimitivePtr)(p, pointShader);
 	}
-	shader->freeShader();
+
+	pointShader->freeShader();
+
+	lineShader->bindShader();
+
+	for (unsigned int i = 0; i < LinePrimitives.size(); i++)
+	{
+		Primitive* p = LinePrimitives[i];
+		p->worldMatrix = (p->modelMatrix * viewMatrix) * projectionMatrix;
+
+		//Draw with proper APIs
+		(*DrawPrimitivePtr)(p, lineShader);
+	}
+
+	lineShader->freeShader();
 }
 
 void PrimitiveManager::Destroy()
@@ -82,7 +104,8 @@ void PrimitiveManager::Destroy()
 
 	(*DestroyDataPtr)();
 
-	delete shader;
+	delete pointShader;
+	delete lineShader;
 }
 
 

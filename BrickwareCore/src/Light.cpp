@@ -51,7 +51,7 @@ void Light::Render()
 void Light::DebugDraw()
 {
 	Graphics::Primitive::SetColor(Vector4(1, 1, 0, 1));
-	Graphics::Primitive::SetPointSize(20.0f);
+	Graphics::Primitive::SetPointSize(.3f);
 
 	Graphics::Primitive::DrawPoint(getGameObject()->getTransform()->getPosition());
 }

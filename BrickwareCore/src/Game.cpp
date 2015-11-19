@@ -239,8 +239,34 @@ bool Game::initGL()
 	glWindow = glfwGetCurrentContext();
 
 	glewExperimental = true;
-	if(glewInit() != GLEW_OK)
+	if (glewInit() != GLEW_OK)
 		return false;
+
+	//Set Vsync
+	if (Graphics::GraphicsSettings::VSync)
+		glfwSwapInterval(1);
+	else
+		glfwSwapInterval(0);
+
+	glfwSetInputMode(glWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+
+	//OpenGL initialization
+	glEnable(GL_CULL_FACE);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_PROGRAM_POINT_SIZE);
+	glClearColor(1.0, 1.0, 1.0, 1.0);
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+
+#ifdef BRICKWARE_DEBUG
+	// Enable the debugging layer of OpenGL
+	// GL_DEBUG_OUTPUT - Faster version but not useful for breakpoints
+	// GL_DEBUG_OUTPUT_SYNCHRONUS - Callback is in sync with errors, so a breakpoint
+	// can be placed on the callback in order to get a stacktrace for the GL error.
+	glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+	glDebugMessageCallback(GLPrintErrorCallback, NULL);
+#endif
 
 	return true;
 }

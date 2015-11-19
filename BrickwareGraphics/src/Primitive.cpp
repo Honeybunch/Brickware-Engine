@@ -18,7 +18,7 @@ void Primitive::DrawPoint(Vector3 point)
 {
 #ifdef GL_SUPPORT
 	Primitive* p = new Primitive(PrimitiveManager::pointVAO, PrimitiveManager::pointVBO, PrimitiveManager::pointIBO,
-								 point, Vector3(), Vector3(), 
+								 point, Vector3(1,1,1), Vector3(), 
 								 PrimitiveType::P_POINT);
 	p->pointCount = 1;
 #endif

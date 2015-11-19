@@ -14,7 +14,7 @@ bool Screen::fullscreen;
 GLFWwindow* Screen::glWindow;
 #endif
 
-void(*Screen::SetResolutionPtr)(int width, int height, bool fullscreen);
+void (*Screen::SetResolutionPtr)(int width, int height, bool fullscreen);
 
 bool Screen::Init()
 {
@@ -99,7 +99,6 @@ bool Screen::InitGL()
 		return false;
 	}
 
-	//Make Context
 	glfwMakeContextCurrent(glWindow);
 
 	return true;
@@ -107,40 +106,11 @@ bool Screen::InitGL()
 
 void Screen::SetResolutionGL(int width, int height, bool fullscreen)
 {
-	GLFWwindow* oldWindow = glWindow;
+	if (!fullscreen)
+	{
+		glfwSetWindowSize(glWindow, width, height);
+		return;
+	}
 
-	if (fullscreen)
-		glWindow = glfwCreateWindow(width, height, "Brickware-Test", glfwGetPrimaryMonitor(), oldWindow);
-	else
-		glWindow = glfwCreateWindow(width, height, "Brickware-Test", nullptr, oldWindow);
-
-	glfwMakeContextCurrent(glWindow);
-
-	glfwDestroyWindow(oldWindow);
-
-	//Set Vsync
-	if (Graphics::GraphicsSettings::VSync)
-		glfwSwapInterval(1);
-	else
-		glfwSwapInterval(0);
-
-	glfwSetInputMode(glWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
-
-	//OpenGL initialization
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
-	glEnable(GL_PROGRAM_POINT_SIZE);
-	glClearColor(1.0, 1.0, 1.0, 1.0);
-
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-
-#ifdef BRICKWARE_DEBUG
-	// Enable the debugging layer of OpenGL
-	// GL_DEBUG_OUTPUT - Faster version but not useful for breakpoints
-	// GL_DEBUG_OUTPUT_SYNCHRONUS - Callback is in sync with errors, so a breakpoint
-	// can be placed on the callback in order to get a stacktrace for the GL error.
-	glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-	glDebugMessageCallback(GLPrintErrorCallback, NULL);
-#endif
+	//Wait for 3.2
 }

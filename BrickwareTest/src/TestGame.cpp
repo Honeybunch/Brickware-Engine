@@ -8,6 +8,8 @@ using namespace Utility;
 
 TestGame::TestGame() : Game() {}
 
+TestGame* TestGame::currentGame = nullptr;
+
 bool TestGame::init() 
 {
 	bool good = Game::init();
@@ -16,7 +18,7 @@ bool TestGame::init()
 		return false;
 
 	Screen::SetResolution(1280, 800, false);
-	setCursorVisible(false);
+	Screen::SetCursorVisible(false);
 
 	// Test Renderer Info
 	std::cout << "API Version: " << RendererInfo::GetAPIVersion() << std::endl;
@@ -209,6 +211,11 @@ bool TestGame::init()
 	nonSpinBox->getTransform()->setPosition(Vector3(0, 1.0f, -10.0f));
 	nonSpinBox->getTransform()->setScale(Vector3(1.0f, 1.0f, 1.0f));
 
+	//Create Game Manager
+	GameObject* gameManager = new GameObject();
+	GameManager* gameManagerComp = new GameManager();
+	gameManager->addComponent(gameManagerComp);
+
 	// Create Camera
 	float fov = (60.0f * 180.0f) / (float)M_PI;
 
@@ -224,36 +231,15 @@ bool TestGame::init()
 	for (unsigned int i = 0; i < gameObjects.size(); i++)
 		gameObjects[i]->Start();
 
+	currentGame = this;
+
 	return true;
 }
 
-void TestGame::updateScene()
+void TestGame::Shutdown()
 {
-	if (Input::getKeyDown(KeyCode::escape))
-		running = false;
-
-#ifdef BRICKWARE_DEBUG
-	if (Input::getKeyDown(KeyCode::F1) && dKeyDown == false)
-	{
-		Debug::Debugging = !Debug::Debugging;
-		if (GameTime::GetTimeScale() != 1.0f)
-			GameTime::SetTimeScale(1.0f);
-		dKeyDown = true;
-	}
-	else if (Input::getKeyUp(KeyCode::F1))
-	{
-		dKeyDown = false;
-	}
-#endif
-
-	for (unsigned int i = 0; i < gameObjects.size(); i++)
-		gameObjects[i]->Update();
-}
-
-void TestGame::renderScene()
-{
-	for (unsigned int i = 0; i < gameObjects.size(); i++)
-		gameObjects[i]->OnRender();
+	if (currentGame != nullptr)
+		currentGame->running = false;
 }
 
 TestGame::~TestGame() {}

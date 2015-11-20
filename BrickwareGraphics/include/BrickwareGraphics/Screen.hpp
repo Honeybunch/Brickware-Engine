@@ -74,6 +74,11 @@ namespace Brickware
 			 */
 			static void SetResolution(int width, int height, bool fullscreen);
 
+			/* Set whether or not the mouse cursor will be visible
+			 * @visible The boolean telling the cursor whether or not to be displayed
+			 */
+			static void SetCursorVisible(bool visible);
+
 		private:
 			static int width;
 			static int height;
@@ -81,16 +86,19 @@ namespace Brickware
 			static bool fullscreen;
 
 			static void(*SetResolutionPtr)(int width, int height, bool fullscreen);
+			static void(*SetCursorVisiblePtr)(bool visible);
 
 #ifdef GL_SUPPORT
 			static GLFWwindow* glWindow;
 			static bool InitGL();
 			static void SetResolutionGL(int width, int height, bool fullscreen);
+			static void SetCursorVisibleGL(bool visible);
 #endif
 
 #ifdef D3D_SUPPORT
 			static bool InitD3D();
 			static void SetResolutionD3D(int width, int height, bool fullscreen);
+			static void SetCursorVisibleD3D(bool visible);
 #endif
 		};
 	}

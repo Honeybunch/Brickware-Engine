@@ -9,6 +9,7 @@
 
 #include "Spin.hpp"
 #include "Spawner.hpp"
+#include "GameManager.hpp"
 
 class TestGame : public Brickware::Core::Game {
 public:
@@ -16,15 +17,13 @@ public:
 
   virtual bool init();
 
-#ifdef BRICKWARE_DEBUG
-  bool dKeyDown = false;
-#endif
+  // Sets running to false and closes game
+  static void Shutdown();
 
   ~TestGame();
 
 private:
-  virtual void updateScene() override;
-  virtual void renderScene() override;
+	static TestGame* currentGame;
 };
 
 #endif

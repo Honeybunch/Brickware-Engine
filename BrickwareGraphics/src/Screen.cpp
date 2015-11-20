@@ -15,6 +15,7 @@ GLFWwindow* Screen::glWindow;
 #endif
 
 void (*Screen::SetResolutionPtr)(int width, int height, bool fullscreen);
+void (*Screen::SetCursorVisiblePtr)(bool visible);
 
 bool Screen::Init()
 {
@@ -30,6 +31,7 @@ bool Screen::Init()
 	if (renderer = RenderingAPI::OpenGL)
 	{
 		SetResolutionPtr = &SetResolutionGL;
+		SetCursorVisiblePtr = &SetCursorVisibleGL;
 		return InitGL();
 	}
 #endif
@@ -38,6 +40,7 @@ bool Screen::Init()
 	if (renderer = RenderingAPI::DirectX)
 	{
 		SetResolutionPtr = &SetResolutionD3D;
+		SetCursorVisiblePtr = &SetCursorVisibleD3D;
 		return InitD3D();
 	}
 #endif
@@ -58,6 +61,11 @@ void Screen::SetResolution(int width, int height, bool fullscreen)
 	Screen::fullscreen = fullscreen;
 
 	(*SetResolutionPtr)(width, height, fullscreen);
+}
+
+void Screen::SetCursorVisible(bool visible)
+{
+	(*SetCursorVisiblePtr)(visible);
 }
 
 bool Screen::InitGL()
@@ -113,4 +121,13 @@ void Screen::SetResolutionGL(int width, int height, bool fullscreen)
 	}
 
 	//Wait for 3.2
+}
+
+
+void Screen::SetCursorVisibleGL(bool visible)
+{
+	if (visible)
+		glfwSetInputMode(glWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	else
+		glfwSetInputMode(glWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 }

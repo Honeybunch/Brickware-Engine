@@ -118,7 +118,7 @@ int Game::run()
 			frames = 0;
 		}
 
-		updateScene();
+		update();
 		
 		//Update physics "ticksPerSecond" times per second
 		loops = 0;
@@ -184,23 +184,13 @@ bool Game::init()
 	return initSuccess;
 }
 
-void Game::setCursorVisible(bool visible)
-{
-#ifdef GL_SUPPORT
-	if (visible)
-		glfwSetInputMode(glWindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-	else
-		glfwSetInputMode(glWindow, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
-		
-#endif
-
-#ifdef D3D_SUPPORT
-	ShowCursor(visible);
-#endif
-}
-
-
 //Private methods
+
+void Game::update()
+{
+	for (unsigned int i = 0; i < gameObjects.size(); i++)
+		gameObjects[i]->Update();
+}
 
 //This render will be called by the game loop and wraps the super class's
 //Render in the proper settings for the given rendering API
@@ -210,7 +200,9 @@ void Game::render()
 	startRenderD3D();
 #endif
 
-	renderScene(); //Will be overridden 
+	//Render each game object
+	for (unsigned int i = 0; i < gameObjects.size(); i++)
+		gameObjects[i]->OnRender();
 
 	Graphics::RenderingManager::Render();
 

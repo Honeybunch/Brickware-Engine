@@ -103,14 +103,6 @@ namespace Brickware
 			 */
 			virtual bool init();
 
-			// Override to write your update logic
-			virtual void updateScene() = 0;
-			// Override to write your render logic
-			virtual void renderScene() = 0;
-
-			//THIS IS TEMPORARY, WILL BE MOVED
-			void setCursorVisible(bool visible);
-
 #ifdef D3D_SUPPORT
 			LRESULT MsgProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 #endif
@@ -127,6 +119,7 @@ namespace Brickware
 			float interpolation;
 			int ticks;
 
+			void update();
 			void render();
 			void handleInput();
 

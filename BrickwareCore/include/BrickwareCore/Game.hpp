@@ -41,6 +41,8 @@
 
 #include "BrickwareMath/Vector3.hpp"
 
+#include "BrickwareUtils/Logger.hpp"
+
 //System Level Headers
 #include <stdlib.h>
 #include <iostream>

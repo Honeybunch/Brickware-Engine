@@ -25,7 +25,10 @@ int main (int argc, char **argv)
 	TestGame game;
 
 	if (!game.init())
+	{
+		system("pause");
 		return -1;
+	}
 
 	return game.run();
 }

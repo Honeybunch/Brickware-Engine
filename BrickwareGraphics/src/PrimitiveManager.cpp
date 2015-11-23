@@ -102,10 +102,13 @@ void PrimitiveManager::Destroy()
 {
 	ClearPrimitives();
 
-	(*DestroyDataPtr)();
+	if (DestroyDataPtr)
+		(*DestroyDataPtr)();
 
-	delete pointShader;
-	delete lineShader;
+	if (pointShader)
+		delete pointShader;
+	if (lineShader)
+		delete lineShader;
 }
 
 

@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 2.6)
 
 project(Brickware-Engine)
 
-set(DEBUG_BUILD TRUE CACHE BOOL "Build a debug project")
+set(DEBUG_BUILD TRUE CACHE BOOL "Build debug libraries")
 set(BUILD_TEST TRUE CACHE BOOL "Build the Test project")
 
 set(RENDERER "OpenGL" CACHE STRING "Use the OpenGL renderer by default")

@@ -6,6 +6,7 @@ using namespace Brickware;
 using namespace Graphics;
 using namespace Core;
 using namespace Math;
+using namespace Utility;
 
 //Window is static so that it can be easily accessed by static friends like Input and Screen
 #ifdef GL_SUPPORT
@@ -160,14 +161,30 @@ int Game::run()
 
 bool Game::init()
 {
-	bool initSuccess = true;
+	if (!Logger::Init())
+	{
+		std::cout << "Failure initializing the logger!" << std::endl;
+		return false;
+	}
 
-	initSuccess &= Screen::Init();
+	if(!Screen::Init())
+	{
+		std::cout << "Failure initializing the Screen!" << std::endl;
+		return false;
+	}
 
 #ifdef D3D_SUPPORT
-	initSuccess &= initD3D();
+	if (!initD3D())
+	{
+		std::cout << "Failure initializing DirectX!" << std::endl;
+		return false;
+	}
 #else
-	initSuccess &= initGL();
+	if (!initGL())
+	{
+		std::cout << "Failure initializing OpenGL!" << std::endl;
+		return false;
+	}
 #endif
 
 	//Init managers
@@ -181,7 +198,7 @@ bool Game::init()
 	PhysicsManager::Initialize();
 	GameInputManager::Initialize();
 
-	return initSuccess;
+	return true;
 }
 
 //Private methods
@@ -770,4 +787,5 @@ Game::~Game()
 	Graphics::RenderingManager::Destroy();
 	PhysicsManager::Destroy();
 	GameInputManager::Destroy();
+	Logger::Close();
 }

@@ -221,7 +221,7 @@ bool TestGame::init()
 
 	Camera *cameraComp = new Camera(fov, (float)Screen::GetWidth(),
 		(float)Screen::GetHeight(), 0.1f, 100.0f);
-	cameraComp->setActive();
+	cameraComp->SetActive();
 
 	GameObject *camera = new GameObject();
 	camera->addComponent(cameraComp);

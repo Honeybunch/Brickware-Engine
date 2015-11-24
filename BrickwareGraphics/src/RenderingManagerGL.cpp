@@ -11,11 +11,9 @@ using namespace Graphics;
 void RenderingManager::RenderGL() {
   PreRenderGL();
 
-  ShadowPassGL();
+  //ShadowPassGL();
 
   // Other user defined render passes here?
-
-  glBindFramebuffer(GL_FRAMEBUFFER, 0);
   ScenePassGL();
 
   // Cleanup
@@ -35,8 +33,8 @@ void RenderingManager::ShadowPassGL() {
 }
 
 void RenderingManager::ScenePassGL() {
-  glViewport(0, 0, Screen::GetWidth(), Screen::GetHeight());
-  glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  //glViewport(0, 0, Screen::GetWidth(), Screen::GetHeight());
+  //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   // Render every renderable object
   for (unsigned int i = 0; i < renderables.size(); i++) {

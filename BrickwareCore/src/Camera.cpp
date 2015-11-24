@@ -5,6 +5,7 @@
 
 using namespace Brickware;
 using namespace Core;
+using namespace Graphics;
 using namespace Math;
 
 Camera* Camera::GetActiveCamera(){ return ActiveCamera; }
@@ -19,6 +20,9 @@ Camera::Camera(float FoV = 50, float width = 0.1f, float height = 0.1f, float zN
 
 	lookAt = Vector3();
 
+	//Create test render texture
+	renderTexture = new RenderTexture(Screen::GetWidth(), Screen::GetHeight(), 16);
+
 	SceneCameras.push_back(this);
 }
 
@@ -27,13 +31,15 @@ void Camera::Start()
 	//getGameObject()->addComponent(new FrustumCollider(zNear, zFar, FoV, width / height));
 }
 
-Vector3 Camera::getLookAt(){ return lookAt; }
-Matrix4 Camera::getViewMatrix(){ return viewMatrix; }
-Matrix4 Camera::getProjectionMatrix(){ return projectionMatrix; }
+RenderTexture* Camera::GetRenderTexture(){ return renderTexture; }
 
-void Camera::setLookAt(Vector3 lookAt){ this->lookAt = lookAt; }
+Vector3 Camera::GetLookAt(){ return lookAt; }
+Matrix4 Camera::GetViewMatrix(){ return viewMatrix; }
+Matrix4 Camera::GetProjectionMatrix(){ return projectionMatrix; }
 
-void Camera::setActive()
+void Camera::SetLookAt(Vector3 lookAt){ this->lookAt = lookAt; }
+
+void Camera::SetActive()
 {
 	for (unsigned int i = 0; i < SceneCameras.size(); i++)
 	{

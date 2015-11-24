@@ -19,6 +19,7 @@
 //Other Brickware Project Headers
 #include "BrickwareMath/Matrix4.hpp"
 #include "BrickwareGraphics/Material.hpp"
+#include "BrickwareGraphics/RenderTexture.hpp"
 
 //System Level Headers
 #include <iostream>
@@ -69,39 +70,35 @@ namespace Brickware
 			 */
 			Camera(float FoV, float width, float height, float zNear, float zFar);
 
+			/* Gets the camera's current render texture
+			 * @return A <Graphics::RenderTexture> pointer that this camera wants to render to
+			 */
+			Graphics::RenderTexture* GetRenderTexture();
+
 			/* Gets the look direction
 			 * @return A <Math::Vector3> that represents this camera's look direction.
 			 */
-			Math::Vector3 getLookAt();
+			Math::Vector3 GetLookAt();
 
 			/* Gets the view matrix
 			 * @return A <Math::Matrix4> that represents this camera's view matrix
 			 */
-			Math::Matrix4 getViewMatrix();
+			Math::Matrix4 GetViewMatrix();
 			
 			/* Gets the projection matrix
 			 * @return a <Math::Matrix4> that represents this camera's projection matrix
 			 */
-			Math::Matrix4 getProjectionMatrix();
+			Math::Matrix4 GetProjectionMatrix();
 
 			/* Set the camera's look at direction
 			 * @lookAt The direction that you want the camera to look at
 			 */
-			void setLookAt(Math::Vector3 lookAt);
+			void SetLookAt(Math::Vector3 lookAt);
 			
 			/* Set this Camera to be the active camera.
 			 * This will make sure that all other cameras are inactive.
 			 */
-			void setActive();
-			
-			//Moves the Camera's <GameObject> forward
-			void moveForward();
-			//Moves the Camera's <GameObject> backward
-			void moveBackward();
-			//Strafes the Camera's <GameObject> left
-			void moveLeft();
-			//Strafes the Camera's <GameObject> right
-			void moveRight();
+			void SetActive();
 
 			//Currently does nothing, should setup a rendering octree
 			virtual void Start() override;
@@ -134,6 +131,8 @@ namespace Brickware
 
 			Math::Matrix4 calcViewMatrix();
 			Math::Matrix4 calcProjectionMatrix();
+
+			Graphics::RenderTexture* renderTexture;
 		};
 	}
 }

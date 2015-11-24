@@ -40,7 +40,7 @@ void GameInputManager::MouseOverObjects()
 	Camera* camera = Camera::GetActiveCamera();
 	Vector3 cameraPos = camera->getGameObject()->getTransform()->getPosition();
 
-	Matrix4 inverseViewProj = camera->getViewMatrix() * camera->getProjectionMatrix();
+	Matrix4 inverseViewProj = camera->GetViewMatrix() * camera->GetProjectionMatrix();
 	inverseViewProj = inverseViewProj.getInverse();
 
 	Vector4 rayEyeNear = inverseViewProj * rayClipNear;

@@ -57,8 +57,10 @@ namespace Brickware
 			Math::Vector3 diffuseColor;
 			Math::Vector3 specularColor;
 
+#ifdef GL_SUPPORT
 			GLuint shadowBuffer;
 			GLuint depthTexture;
+#endif
 
 			float shadowStrength;
 			float shadowBias;

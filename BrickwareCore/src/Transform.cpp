@@ -110,8 +110,8 @@ void Transform::Render()
 		if (material)
 		{
 			Camera* currentCamera = Camera::GetActiveCamera();
-			Matrix4 viewMatrix = currentCamera->getViewMatrix();
-			Matrix4 projectionMatrix = currentCamera->getProjectionMatrix();
+			Matrix4 viewMatrix = currentCamera->GetViewMatrix();
+			Matrix4 projectionMatrix = currentCamera->GetProjectionMatrix();
 
 			Matrix4 worldMatrix = (modelMatrix * viewMatrix) * projectionMatrix;
 

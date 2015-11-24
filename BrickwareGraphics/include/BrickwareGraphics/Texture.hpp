@@ -65,6 +65,8 @@ namespace Brickware
 
 		class BRICKWARE_GRAPHICS_API Texture
 		{
+			friend class RenderTexture;
+
 		public:
 			Texture(const char* textureFileName, 
 					TextureColorSpace textureColorSpace = TextureColorSpace::GAMMA,

@@ -48,9 +48,15 @@ extern "C" {
 #endif
 
 	// Callback function for printing debug statements
+#ifdef _WIN32
 	BRICKWARE_GRAPHICS_API void APIENTRY GLPrintErrorCallback(GLenum source, GLenum type, GLuint id,
 		GLenum severity, GLsizei length,
 		const GLchar *msg, const void *data);
+#else
+	BRICKWARE_GRAPHICS_API void APIENTRY GLPrintErrorCallback(GLenum source, GLenum type, GLuint id,
+		GLenum severity, GLsizei length,
+		const GLchar *msg, void *data);
+#endif
 
 #ifdef __cplusplus
 }

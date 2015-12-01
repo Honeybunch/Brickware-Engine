@@ -76,7 +76,7 @@ unsigned char* Texture::getPixels(){ return pixels; }
 
 void Texture::loadBMP(const char* textureFileName)
 {
-	char* bmpBytes = StringUtils::textFileRead(textureFileName);
+	const char* bmpBytes = StringUtils::textFileRead(textureFileName);
 
 	if (bmpBytes == nullptr)
 	{
@@ -124,7 +124,7 @@ void Texture::loadBMP(const char* textureFileName)
 			}
 		}
 			break;
-		
+
 		//Thanks to: https://en.wikipedia.org/wiki/BMP_file_format
 		case 32:
 		{

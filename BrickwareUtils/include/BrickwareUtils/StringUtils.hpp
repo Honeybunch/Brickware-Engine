@@ -60,7 +60,7 @@ namespace Brickware
 			 * @returns The contents of the file if successful,
 			 *          nullptr if there was an error reading
 			 */
-			static char* textFileRead(const char* fileName);
+			static const char* textFileRead(const char* fileName);
 
 			/* Writes a string into a file.
 			 * @filename The name of the file to create and or write into.

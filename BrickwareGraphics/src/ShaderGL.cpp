@@ -47,7 +47,7 @@ bool Shader::loadGLSL(std::string vertexShaderFileName)
 	const char* glslVertexFileName = vertexShaderFileName.append(".glsl").c_str();
 
 	// Read in shader source
-	char* vertexShaderSource;
+	const char* vertexShaderSource;
 
 	// Create the shader
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -96,8 +96,8 @@ bool Shader::loadGLSL(std::string vertexShaderFileName, std::string pixelShaderF
 	const char* glslPixelFileName = pixelShaderFileName.append(".glsl").c_str();
 
 	// Read in shader source
-	char* vertexShaderSource;
-	char* pixelShaderSource;
+	const char* vertexShaderSource;
+	const char* pixelShaderSource;
 
 	// Create the shader
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -158,9 +158,9 @@ bool Shader::loadGLSL(std::string geometryShaderFileName, std::string vertexShad
 	const char* glslPixelFileName = pixelShaderFileName.append(".glsl").c_str();
 
 	// Read in shader source
-	char* geometryShaderSource;
-	char* vertexShaderSource;
-	char* pixelShaderSource;
+	const char* geometryShaderSource;
+	const char* vertexShaderSource;
+	const char* pixelShaderSource;
 
 	// Create the shader
 	GLuint geometryShader = glCreateShader(GL_GEOMETRY_SHADER);
@@ -254,7 +254,7 @@ void Shader::reflectShaderGL()
 			glUniform1i(texLoc, textureCount);
 
 			textureMap[std::string(name)] = textureCount;
-			
+
 			textureCount++;
 		}
 		else

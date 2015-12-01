@@ -159,7 +159,7 @@ namespace Brickware
 			 */
 			inline static JSONObject* DecodeJSONFromFile(const char* filename)
 			{
-				char* filecontents = StringUtils::textFileRead(filename);
+				const char* filecontents = StringUtils::textFileRead(filename);
 				if (filecontents == nullptr)
 				{
 					std::cout << "Could not read JSON file" << std::endl;

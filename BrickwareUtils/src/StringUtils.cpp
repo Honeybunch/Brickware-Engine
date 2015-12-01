@@ -38,7 +38,7 @@ std::vector<std::string> StringUtils::stringSplit(const char* toSplit, const cha
 	return split;
 }
 
-char* StringUtils::textFileRead(const char *fileName){
+const char* StringUtils::textFileRead(const char *fileName){
 
 	FILE *file;
 	char *content = nullptr;
@@ -70,7 +70,8 @@ char* StringUtils::textFileRead(const char *fileName){
 		fprintf(stderr, "Invalid file name");
 	}
 
-	return content;
+	const char* constContent = content;
+	return constContent;
 }
 
 int StringUtils::textFileWrite(const char *fileName, char *stringToWrite)
@@ -153,7 +154,7 @@ const char* StringUtils::trimWhitespaceForXML(const char* string)
 			if (string[i] == ' ' || string[i] == '\n' || string[i] == '\t' || string[i] == '\r')
 				spaceCount++;
 		}
-		
+
 		if (string[i] == '<')
 			important = true;
 		else if (string[i] == '>' && important)

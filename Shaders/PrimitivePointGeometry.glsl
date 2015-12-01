@@ -38,6 +38,6 @@ void main()
 	EmitVertex();
 	gl_Position = (center + offset[0]);
 	EmitVertex();
-	
+
 	EndPrimitive();
 }

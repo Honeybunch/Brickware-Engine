@@ -50,7 +50,7 @@ extern "C" {
 	// Callback function for printing debug statements
 	BRICKWARE_GRAPHICS_API void APIENTRY GLPrintErrorCallback(GLenum source, GLenum type, GLuint id,
 		GLenum severity, GLsizei length,
-		const GLchar *msg, void *data);
+		const GLchar *msg, const void *data);
 
 #ifdef __cplusplus
 }

@@ -1,6 +1,7 @@
 #define BRICKWARE_UTILITY_EXPORTS
 
 #include "BrickwareUtils/Logger.hpp"
+#include "BrickwareUtils/Filesystem.hpp"
 
 using namespace Brickware;
 using namespace Utility;
@@ -13,6 +14,10 @@ std::ofstream* Logger::logFileStream;
 */
 bool Logger::Init()
 {
+	//If the Logs folder doesn't exist we should create it
+	if (!Filesystem::DirExists("Logs/"))
+		Filesystem::CreateDir("Logs/");
+
 	logFileStream = new std::ofstream();
 
 	logFileStream->open("Logs/Brickware.log", std::ios::out | std::ios::app);

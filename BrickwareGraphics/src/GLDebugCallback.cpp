@@ -3,6 +3,7 @@
 #define BRICKWARE_GRAPHICS_EXPORTS
 
 #include "BrickwareGraphics/GLDebugCallback.hpp"
+#include "BrickwareUtils/Logger.hpp"
 
 #ifdef __cplusplus
 extern "C" {
@@ -110,8 +111,14 @@ extern "C" {
 
 		if (severity != GL_DEBUG_SEVERITY_NOTIFICATION)
 		{
-			printf("%d: %s of %s severity, raised from %s: %s\n",
-				id, _type, _severity, _source, msg);
+			std::string error = std::to_string(id) + ": " + _type + " of " + _severity + " severity, raised from " + _source + ": " + msg + "\n";
+
+			//Live log the error to the console if we're in debug mode
+#ifdef BRICKWARE_DEBUG
+			printf(error.c_str());
+#endif
+			//Log the error to a file
+			Brickware::Utility::Logger::Log(error);
 		}
 
 	}

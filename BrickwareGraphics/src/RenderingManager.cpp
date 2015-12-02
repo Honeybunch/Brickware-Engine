@@ -11,6 +11,11 @@ Material* RenderingManager::currentMaterial;
 Material* RenderingManager::currentShadowMaterial;
 
 std::vector<Renderable> RenderingManager::renderables;
+
+std::vector<RenderPass> RenderingManager::preScenePasses;
+std::vector<RenderPass> RenderingManager::scenePasses;
+RenderTexture* RenderingManager::finalRenderTexture;
+
 std::vector<InternalLight*> RenderingManager::lights;
 
 #ifdef D3D_SUPPORT
@@ -85,6 +90,19 @@ void RenderingManager::DrawMesh(Mesh* mesh)
 	renderable.shadowMaterial = currentShadowMaterial;
 
 	renderables.push_back(renderable);
+}
+
+void RenderingManager::AddPreScenePass(RenderPass renderPass)
+{
+	preScenePasses.push_back(renderPass);
+}
+void RenderingManager::AddScenePass(RenderPass renderPass)
+{
+	scenePasses.push_back(renderPass);
+}
+void RenderingManager::SetFinalRenderTarget(RenderTexture* renderTexture)
+{
+	finalRenderTexture = renderTexture;
 }
 
 void RenderingManager::Destroy()

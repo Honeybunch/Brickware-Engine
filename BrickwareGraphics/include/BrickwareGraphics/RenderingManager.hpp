@@ -29,8 +29,17 @@ namespace Brickware
 			Material* shadowMaterial;
 		};
 
+		struct RenderPass
+		{
+			Matrix4 view;
+			Matrix4 projection;
+			RenderTexture* renderTexture;
+			Shader* shader;
+		};
+
 #ifdef _WIN32
 		template class BRICKWARE_GRAPHICS_API std::vector < Renderable >;
+		template class BRICKWARE_GRAPHICS_API std::vector < RenderPass >;
 		template class BRICKWARE_GRAPHICS_API std::vector < InternalLight* >;
 #endif
 
@@ -55,6 +64,10 @@ namespace Brickware
 			static void (*Render)();
 			static void Destroy();
 
+			static void AddPreScenePass(RenderPass renderPass);
+			static void AddScenePass(RenderPass renderPass);
+			static void SetFinalRenderTarget(RenderTexture* renderTexture);
+
 			static Shader* DirectionalShadowShader;
 			static Shader* PointShadowShader;
 		private:
@@ -62,7 +75,7 @@ namespace Brickware
 #ifdef GL_SUPPORT
 			static void RenderGL();
 			static void PreRenderGL();
-			static void ShadowPassGL();
+			static void PreScenePassGL();
 			static void ScenePassGL();
 
 			static void RenderObjectGL(Mesh* mesh, Material* material);
@@ -82,6 +95,11 @@ namespace Brickware
 			static Material* currentShadowMaterial;
 
 			static std::vector <Renderable> renderables;
+
+			static std::vector <RenderPass> preScenePasses;
+			static std::vector <RenderPass> scenePasses;
+			static RenderTexture* finalRenderTexture;
+
 			static std::vector <InternalLight*> lights;
 		};
 	}

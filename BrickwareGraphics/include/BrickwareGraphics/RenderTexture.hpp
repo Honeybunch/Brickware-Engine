@@ -29,6 +29,10 @@ namespace Brickware
 	{
 		class BRICKWARE_GRAPHICS_API RenderTexture
 		{
+			friend class InternalLight;
+			friend class DirectionalLightInternal;
+			friend class PointLightInternal;
+
 		public:
 			/* Creates a Render Tetxure of a given width and height
 			 * Assumes a depth of 16 bits

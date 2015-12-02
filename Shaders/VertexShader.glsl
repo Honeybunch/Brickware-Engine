@@ -8,8 +8,9 @@ layout(location = 1) in vec3 vNormal;
 layout(location = 2) in vec2 vTexCoord;
 
 //Uniforms
-uniform mat4 worldMatrix;
 uniform mat4 modelMatrix;
+uniform mat4 viewMatrix;
+uniform mat4 projectionMatrix;
 uniform mat4 rotationMatrix;
 
 uniform mat4 depthBiasVP;
@@ -29,6 +30,7 @@ out vec4 shadowCoord;
 void main()
 {
 	vec4 pos4 = vec4(vPosition, 1.0f);
+	mat4 worldMatrix = projectionMatrix * viewMatrix * modelMatrix;
 
 	//Shading
 	vec4 worldCoord4v = modelMatrix * pos4;
@@ -36,8 +38,8 @@ void main()
 
 	worldNormal = rotation * vNormal;
 	worldPosition = vec3(worldCoord4v.x / worldCoord4v.w,
-						 worldCoord4v.y / worldCoord4v.w,
-						 worldCoord4v.z / worldCoord4v.w);
+		worldCoord4v.y / worldCoord4v.w,
+		worldCoord4v.z / worldCoord4v.w);
 	eyePosition = eyePoint;
 
 	texCoord = vTexCoord;

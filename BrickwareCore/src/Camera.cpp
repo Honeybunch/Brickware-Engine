@@ -67,6 +67,17 @@ void Camera::Update()
 
 void Camera::Render()
 {	
+	if (active == true)
+		RenderingManager::SetFinalRenderTarget(renderTexture);
+
+	RenderPass pass;
+	pass.view = viewMatrix;
+	pass.projection = projectionMatrix;
+	pass.renderTexture = renderTexture;
+	pass.shader = nullptr;
+
+	RenderingManager::AddScenePass(pass);
+
 	for (unsigned int i = 0; i < Graphics::Material::Materials.size(); i++)
 	{
 		Graphics::Material* material = Graphics::Material::Materials[i];

@@ -1,6 +1,7 @@
 #define BRICKWARE_GRAPHICS_EXPORTS
 
 #include "BrickwareGraphics/DirectionalLightInternal.hpp"
+#include "BrickwareGraphics/RenderingManager.hpp"
 
 using namespace Brickware;
 using namespace Graphics;
@@ -11,6 +12,8 @@ DirectionalLightInternal::DirectionalLightInternal() : InternalLight()
 	direction = Vector3(0, -1, 0);
 
 	RenderingAPI renderer = GraphicsSettings::Renderer;
+
+	renderTexture = new RenderTexture(shadowMapRes, shadowMapRes, 16);
 
 	//Initialize based on rendering API
 	if (renderer = RenderingAPI::OpenGL)
@@ -68,7 +71,31 @@ void DirectionalLightInternal::Init()
 
 void DirectionalLightInternal::RenderShadowMap()
 {
-	(this->*RenderShadowMapPtr)();
+	//Create render pass
+	// Send info about the directional light to the shader for shadow mapping
+	Vector3 focalPoint = direction * -30;
+
+	// Compute MVP from light's direction
+	Matrix4 depthProjection =
+		Matrix4::getOrthographicProjection(-30, 30, -30, 30, -60, 60);
+	Matrix4 depthView =
+		Matrix4::getLookAtView(focalPoint, Vector3(0, 0, 0), Vector3(0, 1, 0));
+
+	depthVP = depthView * depthProjection;
+
+	Matrix4 biasMatrix(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+		1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+
+	// Apply bias to get texture coordinates
+	depthBiasVP = biasMatrix * depthVP;
+
+	RenderPass shadowPass;
+	shadowPass.view = depthView;
+	shadowPass.projection = depthProjection;
+	shadowPass.renderTexture = renderTexture;
+	shadowPass.shader = RenderingManager::DirectionalShadowShader;
+
+	RenderingManager::AddPreScenePass(shadowPass);
 }
 
 void DirectionalLightInternal::BindShadowMap(Shader* shader)

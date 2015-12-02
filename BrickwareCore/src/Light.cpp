@@ -87,10 +87,12 @@ void Light::initLight(LightType lightType)
 void Light::RenderDirectional()
 {
 	RenderingManager::AddLight(light);
+	light->RenderShadowMap();
 }
 
 void Light::RenderPoint()
 {
 	((PointLightInternal*)light)->setPosition(getGameObject()->getTransform()->getPosition());
-	Graphics::RenderingManager::AddLight(light);
+	RenderingManager::AddLight(light);
+	light->RenderShadowMap();
 }

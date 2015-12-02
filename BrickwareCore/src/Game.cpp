@@ -221,12 +221,7 @@ void Game::render()
 	for (unsigned int i = 0; i < gameObjects.size(); i++)
 		gameObjects[i]->OnRender();
 
-	Camera* active = Camera::GetActiveCamera();
-
-	active->GetRenderTexture()->Bind();
 	Graphics::RenderingManager::Render();
-	active->GetRenderTexture()->Free();
-
 
 #ifdef D3D_SUPPORT
 	swapBuffersD3D();

@@ -76,7 +76,8 @@ void RenderingManager::RenderObjectGL(Mesh *mesh, Material *material) {
   glBindVertexArray(mesh->getVAO());
 
   // Draw Shape
-  glDrawArrays(GL_TRIANGLES, 0, mesh->getNumberOfVerts());
+  unsigned int numOfVerts = (unsigned int)mesh->getNumberOfVerts();
+  glDrawArrays(GL_TRIANGLES, 0, numOfVerts);
 }
 
 void RenderingManager::RenderSceneShadowsGL(Shader *shadowShader) {

@@ -127,10 +127,9 @@ namespace Brickware
 			}
 
 			/* Get the number of pairs in the object.
-			 *
 			 * @return The count of pairs in the object.
 			 */
-			inline unsigned int getSize()
+			inline size_t getSize()
 			{
 				return keyValuePairs.size();
 			}
@@ -201,7 +200,7 @@ namespace Brickware
 				//Parsing strings
 				else if (string[0] == '\"')
 				{
-					int valStringLen = strlen(string) - 1;
+					size_t valStringLen = strlen(string) - 1;
 					char* valueString = new char[valStringLen];
 					memcpy(valueString, string + 1, valStringLen);
 					valueString[valStringLen - 1] = '\0';
@@ -243,7 +242,7 @@ namespace Brickware
 			inline static JSONObject* parseObject(const char* string)
 			{
 				int index = 0;
-				int stringLength = strlen(string);
+				size_t stringLength = strlen(string);
 				char c = string[index];
 
 				JSONObject* object = new JSONObject;
@@ -341,7 +340,7 @@ namespace Brickware
 				trimmedString = trimmedString.substr(1,trimmedString.length() - 2);
 
 				//Split
-				int stringLength = trimmedString.size();
+				size_t stringLength = trimmedString.size();
 				int index = 0;
 
 				char m = trimmedString[0];

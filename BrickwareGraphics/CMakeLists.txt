@@ -27,7 +27,6 @@ endif(UNIX)
 
 #Link GL, GLEW and GLFW
 if(GL_SUPPORT)
-
 	if(UNIX)
 		target_link_libraries(BrickwareGraphics GL)
 		target_link_libraries(BrickwareGraphics GLEW)
@@ -39,7 +38,6 @@ if(GL_SUPPORT)
 		target_link_libraries(BrickwareGraphics ${GLEW_LIB}/glew32.lib)
 		target_link_libraries(BrickwareGraphics ${GLFW_LIB}/glfw3dll.lib)
 	endif(WIN32)
-
 endif(GL_SUPPORT)
 
 if(D3D_SUPPORT)

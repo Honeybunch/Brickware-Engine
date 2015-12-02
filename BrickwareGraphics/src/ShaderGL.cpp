@@ -360,7 +360,8 @@ void Shader::setMultipleMatrix4GL(std::string valueName, std::vector<Matrix4> va
 
 		//Send to GL
 		GLuint uniformLocation = (GLuint)(uniformMap[valueName]);
-		glUniformMatrix4fv(uniformLocation, values.size(), false, floatValues);
+		GLsizei size = (GLsizei)values.size();
+		glUniformMatrix4fv(uniformLocation, size, false, floatValues);
 
 		//Cleanup
 		delete[] floatValues;

@@ -18,10 +18,12 @@ if(WIN32)
 	if(GL_SUPPORT)
 		set(GLFW_INCLUDE "" CACHE PATH "GLFW Include Path")
 		set(GLFW_LIB "" CACHE PATH "GLFW Lib Path")
-
-		set(GLEW_INCLUDE "" CACHE PATH "GLFW Include Path")
-		set(GLEW_LIB "" CACHE PATH "GLFW Lib Path")
-
+		set(GLFW_BIN "" CACHE PATH "GLFW Bin (DLL) Path")
+		
+		set(GLEW_INCLUDE "" CACHE PATH "GLEW Include Path")
+		set(GLEW_LIB "" CACHE PATH "GLEW Lib Path")
+		set(GLEW_BIN "" CACHE PATH "GLEW Bin (DLL) Path")
+		
 		set(GL_SUPPORT TRUE CACHE BOOL "")
 		set(D3D_SUPPORT FALSE CACHE BOOL "")
 	endif(GL_SUPPORT)

@@ -43,7 +43,7 @@ const char* StringUtils::textFileRead(const char *fileName){
 	FILE *file;
 	char *content = nullptr;
 
-	int count = 0;
+	size_t count = 0;
 
 	if (fileName != nullptr)
 	{
@@ -59,7 +59,8 @@ const char* StringUtils::textFileRead(const char *fileName){
 			{
 				content = (char*)malloc(sizeof(char) * (count + 1));
 
-				count = fread(content, sizeof(char), count - 1, file);
+				size_t charSize = sizeof(char);
+				count = fread(content, charSize, count - 1, file);
 				content[count] = '\0';
 			}
 			fclose(file);
@@ -113,7 +114,7 @@ std::string StringUtils::trimToLastChar(std::string string, char lastChar)
 const char* StringUtils::trimAllWhitespace(const char* string)
 {
 	unsigned int spaceCount = 0;
-	const unsigned int originalStringSize = strlen(string);
+	const size_t originalStringSize = strlen(string);
 
 	//Determine how many spaces there are in the string so we can build a proper string
 	for (unsigned int i = 0; i < originalStringSize; i++)
@@ -122,7 +123,7 @@ const char* StringUtils::trimAllWhitespace(const char* string)
 			spaceCount++;
 	}
 
-	const int trimmedStringSize = originalStringSize - spaceCount;
+	const size_t trimmedStringSize = originalStringSize - spaceCount;
 
 	char* trimmedString = new char[trimmedStringSize];
 
@@ -143,7 +144,7 @@ const char* StringUtils::trimAllWhitespace(const char* string)
 const char* StringUtils::trimWhitespaceForXML(const char* string)
 {
 	unsigned int spaceCount = 0;
-	const unsigned int originalStringSize = strlen(string);
+	const size_t originalStringSize = strlen(string);
 
 	//Determine how many spaces there are in the string so we can build a proper string
 	bool important = false;
@@ -161,7 +162,7 @@ const char* StringUtils::trimWhitespaceForXML(const char* string)
 			important = false;
 	}
 
-	const int trimmedStringSize = originalStringSize - spaceCount;
+	const size_t trimmedStringSize = originalStringSize - spaceCount;
 
 	char* trimmedString = new char[trimmedStringSize];
 
@@ -242,7 +243,7 @@ void StringUtils::printProgramInfoLog(GLuint obj)
 
 WCHAR* StringUtils::stringToWideString(const char* string)
 {
-	int stringSize = strlen(string) + 1;
+	size_t stringSize = strlen(string) + 1;
 
 	WCHAR* wideString = new WCHAR[stringSize];
 
@@ -253,7 +254,7 @@ WCHAR* StringUtils::stringToWideString(const char* string)
 
 char* StringUtils::wideStringToString(WCHAR* wideString)
 {
-	int stringLength = wcslen(wideString);
+	size_t stringLength = wcslen(wideString);
 
 	char* string = new char[stringLength];
 

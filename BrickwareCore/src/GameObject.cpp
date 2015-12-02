@@ -44,7 +44,7 @@ GameObject::GameObject(GameObject& other)
 	components = std::vector<Component*>();
 
 	//Copy components that are able to be copied over
-	unsigned int componentCount = other.components.size();
+	const size_t componentCount = other.components.size();
 
 	for (unsigned int i = 0; i < componentCount; i++)
 	{

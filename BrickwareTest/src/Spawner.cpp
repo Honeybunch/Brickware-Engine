@@ -58,7 +58,7 @@ void Spawner::spawnObject()
 
 	if (collider)
 	{
-		unsigned int gameObjectCount = GameObject::getGameObjects().size();
+		size_t gameObjectCount = GameObject::getGameObjects().size();
 		for (unsigned int i = 0; i < gameObjectCount; i++)
 		{
 			GameObject* otherObject = GameObject::getGameObjects()[i];

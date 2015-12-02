@@ -57,12 +57,12 @@ std::vector<Vector3> Mesh::getNormals(){ return modelNormals; }
 std::vector<Vector2> Mesh::getTexCoords(){	return modelTexCoords; }
 std::vector<Vector3> Mesh::getIndices(){ return modelIndices; }
 
-int Mesh::getPointSize(){ return pointSize; }
-int Mesh::getNormalSize(){ return normalSize; }
-int Mesh::getTexCoordSize(){ return texCoordSize; }
+size_t Mesh::getPointSize(){ return pointSize; }
+size_t Mesh::getNormalSize(){ return normalSize; }
+size_t Mesh::getTexCoordSize(){ return texCoordSize; }
 
-int Mesh::getIndexSize(){ return indexSize; }
-int Mesh::getNumberOfVerts(){ return numberOfVerts; }
+size_t Mesh::getIndexSize(){ return indexSize; }
+size_t Mesh::getNumberOfVerts(){ return numberOfVerts; }
 
 Bounds Mesh::getBounds(){ return bounds; }
 void Mesh::setBounds(Bounds newBounds){ bounds = newBounds; }
@@ -82,7 +82,7 @@ void Mesh::bufferChanges()
 	//We need to take the data loaded from the model and order it the way that
 	//OpenGL and DirectX want
 
-	const unsigned int indexCount = modelIndices.size();
+	const size_t indexCount = modelIndices.size();
 	indexSize = indexCount * sizeof(unsigned short);
 
 	//Need to clear out data if it exits
@@ -103,9 +103,11 @@ void Mesh::bufferChanges()
 	indices = new unsigned short[indexCount];
 
 	//Setup sizes for data
-	pointSize = indexCount * 3 * sizeof(float);
+	unsigned int floatSize = (unsigned int)sizeof(float);
+
+	pointSize = indexCount * 3 * floatSize;
 	normalSize = pointSize;
-	texCoordSize = indexCount * 2 * sizeof(float);
+	texCoordSize = indexCount * 2 * floatSize;
 
 	int pointCounter = 0;
 	int normalCounter = 0;

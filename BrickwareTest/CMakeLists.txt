@@ -29,7 +29,6 @@ endif(UNIX)
 
 #Link GL, GLEW and GLFW
 if(GL_SUPPORT)
-
 	if(UNIX)
 		target_link_libraries(BrickwareTest GL)
 		target_link_libraries(BrickwareTest GLEW)
@@ -41,7 +40,6 @@ if(GL_SUPPORT)
 		target_link_libraries(BrickwareTest ${GLEW_LIB}/glew32.lib)
 		target_link_libraries(BrickwareTest ${GLFW_LIB}/glfw3dll.lib)
 	endif(WIN32)
-
 endif(GL_SUPPORT)
 
 if(D3D_SUPPORT)
@@ -61,9 +59,9 @@ set_property(TARGET BrickwareTest PROPERTY FOLDER "lib")
 #Copy OpenGL Shared Libs
 if(WIN32 AND GL_SUPPORT)
 	add_custom_command(TARGET BrickwareTest POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy ${GLEW_LIB}/glew32.dll ${BUILD_DIR})
+	COMMAND ${CMAKE_COMMAND} -E copy ${GLEW_BIN}/glew32.dll ${BUILD_DIR})
 	add_custom_command(TARGET BrickwareTest POST_BUILD
-	COMMAND ${CMAKE_COMMAND} -E copy ${GLFW_LIB}/glfw3.dll ${BUILD_DIR})
+	COMMAND ${CMAKE_COMMAND} -E copy ${GLFW_BIN}/glfw3.dll ${BUILD_DIR})
 endif(WIN32 AND GL_SUPPORT)
 
 #Copy Shaders

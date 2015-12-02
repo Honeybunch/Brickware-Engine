@@ -62,11 +62,11 @@ namespace Brickware
 
 			Math::Bounds getBounds();
 
-			int getPointSize();
-			int getNormalSize();
-			int getIndexSize();
-			int getNumberOfVerts();
-			int getTexCoordSize();
+			size_t getPointSize();
+			size_t getNormalSize();
+			size_t getIndexSize();
+			size_t getNumberOfVerts();
+			size_t getTexCoordSize();
 
 			void setBufferHint(BufferHint hint);
 
@@ -115,13 +115,13 @@ namespace Brickware
 
 			Math::Bounds bounds;
 
-			unsigned int numberOfVerts;
+			size_t numberOfVerts;
 
-			unsigned int pointSize;
-			unsigned int normalSize;
-			unsigned int texCoordSize;
+			size_t pointSize;
+			size_t normalSize;
+			size_t texCoordSize;
 
-			unsigned int indexSize;
+			size_t indexSize;
 
 #ifdef GL_SUPPORT
 			//Buffer IDs

@@ -115,7 +115,7 @@ extern "C" {
 
 			//Live log the error to the console if we're in debug mode
 #ifdef BRICKWARE_DEBUG
-			printf(error.c_str());
+			printf("%s",error.c_str());
 #endif
 			//Log the error to a file
 			Brickware::Utility::Logger::Log(error);

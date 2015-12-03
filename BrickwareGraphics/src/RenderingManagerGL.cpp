@@ -12,11 +12,11 @@ using namespace Graphics;
 void RenderingManager::RenderGL()
 {
 	PreRenderGL();
-	
+
 	PreScenePassGL();
-	
+
 	ScenePassGL();
-	
+
 	// Cleanup
 	lights.clear();
 	renderables.clear();
@@ -48,7 +48,7 @@ void RenderingManager::PreScenePassGL()
 		for (unsigned int i = 0; i < renderables.size(); i++) {
 			Renderable renderable = renderables[i];
 			renderable.shadowMaterial->setShader(shader);
-			
+
 			// Render object
 			RenderObjectGL(renderable.mesh, renderable.shadowMaterial);
 		}
@@ -102,10 +102,9 @@ void RenderingManager::ScenePassGL()
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	glClearColor(0, 1, 0, 1);
+	//Render screen
 	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
-	//Render screen
 	screenShader->bindGLSL();
 
 	//Bind final image
@@ -142,11 +141,11 @@ void RenderingManager::RenderSceneShadowsGL(Shader *shadowShader)
 	for (unsigned int i = 0; i < renderables.size(); i++) {
 	  Renderable renderable = renderables[i];
 	  renderable.shadowMaterial->setShader(shadowShader);
-	
+
 	  // Render object
 	  RenderObjectGL(renderable.mesh, renderable.shadowMaterial);
 	}
-	
+
 	glBindVertexArray(0);
 }
 

@@ -32,6 +32,7 @@ namespace Brickware
 			friend class InternalLight;
 			friend class DirectionalLightInternal;
 			friend class PointLightInternal;
+			friend class RenderingManager;
 
 		public:
 			/* Creates a Render Tetxure of a given width and height

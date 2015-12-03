@@ -53,6 +53,11 @@ namespace Brickware
 		class BRICKWARE_GRAPHICS_API Mesh
 		{
 		public:
+			Mesh();
+			Mesh(std::vector<Math::Vector3> verticies, 
+				 std::vector<Math::Vector3> normals,
+				 std::vector<Math::Vector2> texCoords,
+				 std::vector<Math::Vector3> indices);
 			Mesh(const char* modelFilePath);
 
 			std::vector<Math::Vector3> getVerticies();
@@ -96,6 +101,8 @@ namespace Brickware
 			~Mesh();
 
 		private:
+			void init();
+
 			void(Mesh::*setBufferHintPtr)(BufferHint hint);
 			void(Mesh::*bufferMeshPtr)();
 			void(Mesh::*cleanupMeshPtr)();

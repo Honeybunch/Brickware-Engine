@@ -8,6 +8,38 @@ using namespace Graphics;
 using namespace Utility;
 using namespace Math;
 
+//No point data; can be set later
+Mesh::Mesh()
+{
+	points = nullptr;
+	normals = nullptr;
+	texCoords = nullptr;
+	indices = nullptr;
+
+	//Init graphics specific systems, buffer mesh and set function pointers
+	init();
+}
+
+Mesh::Mesh(std::vector<Math::Vector3> verts,
+		   std::vector<Math::Vector3> norms,
+		   std::vector<Math::Vector2> textureCoords,
+		   std::vector<Math::Vector3> inds)
+{
+	points = nullptr;
+	normals = nullptr;
+	texCoords = nullptr;
+	indices = nullptr;
+
+	modelVerts = verts;
+	modelNormals = norms;
+	modelTexCoords = textureCoords;
+	modelIndices = inds;
+
+	//Init graphics specific systems, buffer mesh and set function pointers
+	init();
+}
+
+//Load mesh data from file
 Mesh::Mesh(const char* modelFileName)
 {
 	points = nullptr;
@@ -17,39 +49,8 @@ Mesh::Mesh(const char* modelFileName)
 
 	loadOBJ(modelFileName);
 
-	//Setup function pointers based on rendering API
-	RenderingAPI renderer = GraphicsSettings::Renderer;
-#ifdef GL_SUPPORT
-	if (renderer = RenderingAPI::OpenGL)
-	{
-		if (RendererInfo::GetAPIMajorVersion() >= 3)
-		{
-			setBufferHintPtr = &Mesh::setBufferHintGL;
-			bufferMeshPtr = &Mesh::bufferGL;
-			cleanupMeshPtr = &Mesh::cleanupGL;
-		}
-		else
-		{
-			std::cout << "Error loading Shader: Your card does not support OpenGL 3+" << std::endl;
-		}
-	}
-#endif
-
-#ifdef D3D_SUPPORT
-	if (renderer = RenderingAPI::DirectX)
-	{
-		if (RendererInfo::GetAPIMajorVersion() == 11)
-		{
-			setBufferHintPtr = &Mesh::setBufferHintD3D;
-			bufferMeshPtr = &Mesh::bufferD3D;
-			cleanupMeshPtr = &Mesh::cleanupD3D;
-		}
-	}
-#endif
-
-	setBufferHint(BufferHint::STATIC_DRAW);
-
-	bufferChanges();
+	//Init graphics specific systems, buffer mesh and set function pointers
+	init();
 }
 
 std::vector<Vector3> Mesh::getVerticies(){ return modelVerts; }
@@ -170,6 +171,43 @@ void Mesh::bufferChanges()
 }
 
 //Private functions
+
+void Mesh::init()
+{
+	//Setup function pointers based on rendering API
+	RenderingAPI renderer = GraphicsSettings::Renderer;
+#ifdef GL_SUPPORT
+	if (renderer = RenderingAPI::OpenGL)
+	{
+		if (RendererInfo::GetAPIMajorVersion() >= 3)
+		{
+			setBufferHintPtr = &Mesh::setBufferHintGL;
+			bufferMeshPtr = &Mesh::bufferGL;
+			cleanupMeshPtr = &Mesh::cleanupGL;
+		}
+		else
+		{
+			std::cout << "Error loading Shader: Your card does not support OpenGL 3+" << std::endl;
+		}
+	}
+#endif
+
+#ifdef D3D_SUPPORT
+	if (renderer = RenderingAPI::DirectX)
+	{
+		if (RendererInfo::GetAPIMajorVersion() == 11)
+		{
+			setBufferHintPtr = &Mesh::setBufferHintD3D;
+			bufferMeshPtr = &Mesh::bufferD3D;
+			cleanupMeshPtr = &Mesh::cleanupD3D;
+		}
+	}
+#endif
+
+	setBufferHint(BufferHint::STATIC_DRAW);
+
+	bufferChanges();
+}
 
 //Load a shape from an OBJ
 void Mesh::loadOBJ(const char* fileName)

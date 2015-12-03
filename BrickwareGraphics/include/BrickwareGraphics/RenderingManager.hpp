@@ -91,6 +91,9 @@ namespace Brickware
 			static void RenderD3D();
 			static void RenderObjectD3D(Mesh* mesh, Material* material);
 #endif
+			static Mesh* internalScreen;
+			static Shader* screenShader;
+
 			static Material* currentMaterial;
 			static Material* currentShadowMaterial;
 

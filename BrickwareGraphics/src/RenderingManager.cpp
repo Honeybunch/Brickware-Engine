@@ -7,6 +7,9 @@ using namespace Brickware;
 using namespace Graphics;
 
 //Statics
+Mesh* RenderingManager::internalScreen;
+
+Shader* RenderingManager::screenShader;
 Material* RenderingManager::currentMaterial;
 Material* RenderingManager::currentShadowMaterial;
 
@@ -41,6 +44,32 @@ void RenderingManager::Initialize(ID3D11Device* device, ID3D11DeviceContext* dev
 		if (PointShadowShader == nullptr)
 			PointShadowShader = new Shader("Shaders/PointShadowGeometry", "Shaders/PointShadowVertex", "Shaders/PointShadowPixel");
 	}
+
+	//Setup internal screen
+	std::vector<Vector3> verticies;
+	std::vector<Vector3> normals;
+	std::vector<Vector2> texCoords;
+	std::vector<Vector3> indicies;
+
+	verticies.push_back(Vector3(-1, 1, 0));
+	verticies.push_back(Vector3(-1, -1, 0));
+	verticies.push_back(Vector3(1, -1, 0));
+
+	normals.push_back(Vector3(0, 0, -1));
+
+	texCoords.push_back(Vector2(1, 1));
+	texCoords.push_back(Vector2(0, 1));
+	texCoords.push_back(Vector2(0, 0));
+	texCoords.push_back(Vector2(1, 0));
+	
+	indicies.push_back(Vector3(1, 1, 1));
+	indicies.push_back(Vector3(2, 1, 2));
+	indicies.push_back(Vector3(3, 1, 3));
+
+	internalScreen = new Mesh();
+
+	//Shader to render the screen with
+	screenShader = new Shader("Shaders/ScreenVertex", "Shaders/ScreenPixel");
 
 	//Setup function pointers based on rendering API
 	if (renderer = RenderingAPI::OpenGL)

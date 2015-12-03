@@ -93,7 +93,8 @@ void RenderingManager::ScenePassGL()
 		renderTexture->Free();
 	}
 
-	glBindVertexArray(0);
+	Shader::ActiveShader->freeShader();
+
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glActiveTexture(GL_TEXTURE2);
@@ -101,7 +102,24 @@ void RenderingManager::ScenePassGL()
 	glActiveTexture(GL_TEXTURE1);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
-	Shader::ActiveShader->freeShader();
+	glClearColor(0, 1, 0, 1);
+	glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
+
+	//Render screen
+	screenShader->bindGLSL();
+
+	//Bind final image
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, finalRenderTexture->colorBufferTexture);
+
+	// Draw nothing but 3 "verticies"
+	glBindVertexArray(internalScreen->getVAO());
+	glDrawArrays(GL_TRIANGLES, 0, 3);
+
+	screenShader->freeGLSL();
+
+	glBindVertexArray(0);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void RenderingManager::RenderObjectGL(Mesh *mesh, Material *material)

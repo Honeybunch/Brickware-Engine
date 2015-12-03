@@ -54,6 +54,10 @@ target_link_libraries(BrickwareCore BrickwareGraphics)
 
 set_property(TARGET BrickwareCore PROPERTY FOLDER "lib")
 
+#Copy Shaders
+add_custom_command(TARGET BrickwareCore POST_BUILD
+COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/Shaders ${BUILD_DIR}/Shaders)
+
 install(TARGETS BrickwareCore 
 		LIBRARY DESTINATION ${PROJECT_BINARY_DIR}
 		ARCHIVE DESTINATION ${PROJECT_BINARY_DIR})

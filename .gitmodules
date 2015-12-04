@@ -1,0 +1,12 @@
+[submodule "BrickwareCore"]
+	path = BrickwareCore
+	url = http://github.com/Honeybunch/BrickwareCore
+[submodule "BrickwareGraphics"]
+	path = BrickwareGraphics
+	url = http://github.com/Honeybunch/BrickwareGraphics
+[submodule "BrickwareMath"]
+	path = BrickwareMath
+	url = http://github.com/Honeybunch/BrickwareMath
+[submodule "BrickwareUtils"]
+	path = BrickwareUtils
+	url = http://github.com/Honeybunch/BrickwareUtils

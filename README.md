@@ -56,7 +56,7 @@ TestBuild/
  * Build
  * Make sure all assets are copied into their proper directories
 
- NOTES:
+NOTES:
  * For VS you will need to set BrickwareTest as your startup project and set your Working Directory to "$(SolutionDir)TestBuild"
  * DX11 Rendering is broken at the moment as I decide whether or not I want to continue to use Direct X at all. 
  
@@ -65,8 +65,11 @@ TestBuild/
 Linux has been tested but is still kind of shaky due to the infancy of the CMake Project. There are a few extra steps compared to Windows.
 
 This has been Tested on:
+
 Debian Testing with XFCE 4, LightDM, XOrg 1.15 and AMD proprietary drivers on an AMD 7970M. (As of March 2014)
+
 Antergos Linux with LTS kernel 3.14, Gnome Shell, GDM, XOrg 1.17 and the Mesa Radeon drivers on an AMD 7970M (As of November 2015)
+
 Ubuntu 15.10 with Kernel 4.2, Unity, LightDM and the AMD Catalyst driver on an AMD 7970M (Current Linux testbed)
 
 Feel free to add any other setups you have that work or do not work

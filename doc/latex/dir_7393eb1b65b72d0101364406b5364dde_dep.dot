@@ -1,0 +1,11 @@
+digraph "BrickwareTest" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_7393eb1b65b72d0101364406b5364dde {
+    graph [ bgcolor="#eeeeff", pencolor="black", label="" URL="dir_7393eb1b65b72d0101364406b5364dde.html"];
+    dir_7393eb1b65b72d0101364406b5364dde [shape=plaintext label="BrickwareTest"];
+    dir_755f9d4c74b09f5c5ad88f1884fb3733 [shape=box label="include" color="black" fillcolor="white" style="filled" URL="dir_755f9d4c74b09f5c5ad88f1884fb3733.html"];
+    dir_109bb87c1203908ed776f2314d323052 [shape=box label="src" color="black" fillcolor="white" style="filled" URL="dir_109bb87c1203908ed776f2314d323052.html"];
+  }
+}

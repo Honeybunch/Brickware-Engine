@@ -1,0 +1,13 @@
+digraph "BrickwareGraphics/include" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_3f4884c0398f35233ee2ef6752898722 {
+    graph [ bgcolor="#ddddee", pencolor="black", label="BrickwareGraphics" fontname="Helvetica", fontsize="10", URL="dir_3f4884c0398f35233ee2ef6752898722.html"]
+  subgraph clusterdir_5c6ded6bb893ed2324c6c23d93ce557e {
+    graph [ bgcolor="#eeeeff", pencolor="black", label="" URL="dir_5c6ded6bb893ed2324c6c23d93ce557e.html"];
+    dir_5c6ded6bb893ed2324c6c23d93ce557e [shape=plaintext label="include"];
+    dir_fae6cbad1db3fab2817c01a4f4db6b79 [shape=box label="BrickwareGraphics" color="black" fillcolor="white" style="filled" URL="dir_fae6cbad1db3fab2817c01a4f4db6b79.html"];
+  }
+  }
+}

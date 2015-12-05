@@ -1,4 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<namespace id="Brickware" name="Brickware" xmlns="http://jessevdk.github.com/cldoc/1.0">
-  <namespace name="Utility" ref="Brickware::Utility#Brickware::Utility" />
-</namespace>

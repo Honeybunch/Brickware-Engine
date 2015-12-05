@@ -1,0 +1,9 @@
+digraph "BrickwareMath/include/BrickwareMath" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_0599b7b5f03500c66ccf46dd78b43b2e {
+    graph [ bgcolor="#ddddee", pencolor="black", label="include" fontname="Helvetica", fontsize="10", URL="dir_0599b7b5f03500c66ccf46dd78b43b2e.html"]
+  dir_99e3c9da973c1e36a7e48d3c92ed065f [shape=box, label="BrickwareMath", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_99e3c9da973c1e36a7e48d3c92ed065f.html"];
+  }
+}

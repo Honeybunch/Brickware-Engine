@@ -1,0 +1,82 @@
+\hypertarget{classBrickware_1_1Graphics_1_1InternalLight}{}\section{Brickware\+:\+:Graphics\+:\+:Internal\+Light Class Reference}
+\label{classBrickware_1_1Graphics_1_1InternalLight}\index{Brickware\+::\+Graphics\+::\+Internal\+Light@{Brickware\+::\+Graphics\+::\+Internal\+Light}}
+
+
+Inheritance diagram for Brickware\+:\+:Graphics\+:\+:Internal\+Light\+:
+% FIG 0
+
+
+Collaboration diagram for Brickware\+:\+:Graphics\+:\+:Internal\+Light\+:
+% FIG 1
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classBrickware_1_1Graphics_1_1InternalLight_ac22cab1c1be77d2031417d1521c3d67d}{}void {\bfseries set\+Ambient\+Color} (\hyperlink{classBrickware_1_1Math_1_1Vector3}{Math\+::\+Vector3} ambient\+Color)\label{classBrickware_1_1Graphics_1_1InternalLight_ac22cab1c1be77d2031417d1521c3d67d}
+
+\item 
+\hypertarget{classBrickware_1_1Graphics_1_1InternalLight_a7f7513eda38929fbe0be541270091516}{}void {\bfseries set\+Diffuse\+Color} (\hyperlink{classBrickware_1_1Math_1_1Vector3}{Math\+::\+Vector3} diffuse\+Color)\label{classBrickware_1_1Graphics_1_1InternalLight_a7f7513eda38929fbe0be541270091516}
+
+\item 
+\hypertarget{classBrickware_1_1Graphics_1_1InternalLight_a6c44bcea5a7e99a52e80eca4120ca2fe}{}void {\bfseries set\+Specular\+Color} (\hyperlink{classBrickware_1_1Math_1_1Vector3}{Math\+::\+Vector3} specular\+Color)\label{classBrickware_1_1Graphics_1_1InternalLight_a6c44bcea5a7e99a52e80eca4120ca2fe}
+
+\item 
+\hypertarget{classBrickware_1_1Graphics_1_1InternalLight_ae66ae62f88139414a405c6ef30f1ce83}{}void {\bfseries set\+Shadow\+Strength} (float shadow\+Strength)\label{classBrickware_1_1Graphics_1_1InternalLight_ae66ae62f88139414a405c6ef30f1ce83}
+
+\item 
+\hypertarget{classBrickware_1_1Graphics_1_1InternalLight_a2ca07c37f592323e6924e8ec2cc02bd8}{}void {\bfseries set\+Shadow\+Bias} (float shadow\+Bias)\label{classBrickware_1_1Graphics_1_1InternalLight_a2ca07c37f592323e6924e8ec2cc02bd8}
+
+\item 
+\hypertarget{classBrickware_1_1Graphics_1_1InternalLight_a66ae6b330202e6bce38294e17630d63c}{}void {\bfseries set\+Shadow\+Map\+Quality} (Shadow\+Quality shadow\+Quality)\label{classBrickware_1_1Graphics_1_1InternalLight_a66ae6b330202e6bce38294e17630d63c}
+
+\item 
+\hypertarget{classBrickware_1_1Graphics_1_1InternalLight_aa7199bbd09994c79a369bc05b1aca2b8}{}virtual void {\bfseries Render\+Light} (\hyperlink{classBrickware_1_1Graphics_1_1Shader}{Shader} $\ast$shader)=0\label{classBrickware_1_1Graphics_1_1InternalLight_aa7199bbd09994c79a369bc05b1aca2b8}
+
+\item 
+\hypertarget{classBrickware_1_1Graphics_1_1InternalLight_a3e3a41ef371bef1f44f104b63a6ca9ca}{}virtual void {\bfseries Render\+Shadow\+Map} ()=0\label{classBrickware_1_1Graphics_1_1InternalLight_a3e3a41ef371bef1f44f104b63a6ca9ca}
+
+\item 
+\hypertarget{classBrickware_1_1Graphics_1_1InternalLight_a4fa0d616aed04d16f20229649e980c5b}{}virtual void {\bfseries Bind\+Shadow\+Map} (\hyperlink{classBrickware_1_1Graphics_1_1Shader}{Shader} $\ast$shader)=0\label{classBrickware_1_1Graphics_1_1InternalLight_a4fa0d616aed04d16f20229649e980c5b}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classBrickware_1_1Graphics_1_1InternalLight_aa8b22a879b4e31f75c0244004b8b291e}{}virtual void {\bfseries Init} ()=0\label{classBrickware_1_1Graphics_1_1InternalLight_aa8b22a879b4e31f75c0244004b8b291e}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classBrickware_1_1Graphics_1_1InternalLight_a72254e8ba6d5bc130f41ee196e66e1d1}{}\hyperlink{classBrickware_1_1Math_1_1Matrix4}{Math\+::\+Matrix4} {\bfseries depth\+V\+P}\label{classBrickware_1_1Graphics_1_1InternalLight_a72254e8ba6d5bc130f41ee196e66e1d1}
+
+\item 
+\hypertarget{classBrickware_1_1Graphics_1_1InternalLight_a6970b9fa3da49bca66dadf6366f6ae12}{}\hyperlink{classBrickware_1_1Math_1_1Matrix4}{Math\+::\+Matrix4} {\bfseries depth\+Bias\+V\+P}\label{classBrickware_1_1Graphics_1_1InternalLight_a6970b9fa3da49bca66dadf6366f6ae12}
+
+\item 
+\hypertarget{classBrickware_1_1Graphics_1_1InternalLight_a6d55eded204c1146da572e3414d81c27}{}\hyperlink{classBrickware_1_1Math_1_1Vector3}{Math\+::\+Vector3} {\bfseries ambient\+Color}\label{classBrickware_1_1Graphics_1_1InternalLight_a6d55eded204c1146da572e3414d81c27}
+
+\item 
+\hypertarget{classBrickware_1_1Graphics_1_1InternalLight_a4ee7ad9273ab915dfbd00076acd25fb0}{}\hyperlink{classBrickware_1_1Math_1_1Vector3}{Math\+::\+Vector3} {\bfseries diffuse\+Color}\label{classBrickware_1_1Graphics_1_1InternalLight_a4ee7ad9273ab915dfbd00076acd25fb0}
+
+\item 
+\hypertarget{classBrickware_1_1Graphics_1_1InternalLight_aa305b6696b0e83e8ce66299b1e8d1c02}{}\hyperlink{classBrickware_1_1Math_1_1Vector3}{Math\+::\+Vector3} {\bfseries specular\+Color}\label{classBrickware_1_1Graphics_1_1InternalLight_aa305b6696b0e83e8ce66299b1e8d1c02}
+
+\item 
+\hypertarget{classBrickware_1_1Graphics_1_1InternalLight_addd14475c715fdb1abf0064f397696aa}{}float {\bfseries shadow\+Strength}\label{classBrickware_1_1Graphics_1_1InternalLight_addd14475c715fdb1abf0064f397696aa}
+
+\item 
+\hypertarget{classBrickware_1_1Graphics_1_1InternalLight_acc81d8cf19609cb8a9a7c06f3c479fb9}{}float {\bfseries shadow\+Bias}\label{classBrickware_1_1Graphics_1_1InternalLight_acc81d8cf19609cb8a9a7c06f3c479fb9}
+
+\item 
+\hypertarget{classBrickware_1_1Graphics_1_1InternalLight_a54bbe9da2702e2b3c6d233e54b13fbe8}{}float {\bfseries shadow\+Normal\+Bias}\label{classBrickware_1_1Graphics_1_1InternalLight_a54bbe9da2702e2b3c6d233e54b13fbe8}
+
+\item 
+\hypertarget{classBrickware_1_1Graphics_1_1InternalLight_af86a1d5e7b0a88b38cfa07d471d654d1}{}unsigned int {\bfseries shadow\+Map\+Res}\label{classBrickware_1_1Graphics_1_1InternalLight_af86a1d5e7b0a88b38cfa07d471d654d1}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Brickware\+Graphics/include/\+Brickware\+Graphics/Internal\+Light.\+hpp\item 
+Brickware\+Graphics/src/Internal\+Light.\+cpp\end{DoxyCompactItemize}

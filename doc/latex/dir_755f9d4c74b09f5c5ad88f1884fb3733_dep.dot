@@ -1,0 +1,9 @@
+digraph "BrickwareTest/include" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_7393eb1b65b72d0101364406b5364dde {
+    graph [ bgcolor="#ddddee", pencolor="black", label="BrickwareTest" fontname="Helvetica", fontsize="10", URL="dir_7393eb1b65b72d0101364406b5364dde.html"]
+  dir_755f9d4c74b09f5c5ad88f1884fb3733 [shape=box, label="include", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_755f9d4c74b09f5c5ad88f1884fb3733.html"];
+  }
+}

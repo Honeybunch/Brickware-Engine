@@ -1,0 +1,9 @@
+digraph "BrickwareGraphics/src" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_3f4884c0398f35233ee2ef6752898722 {
+    graph [ bgcolor="#ddddee", pencolor="black", label="BrickwareGraphics" fontname="Helvetica", fontsize="10", URL="dir_3f4884c0398f35233ee2ef6752898722.html"]
+  dir_2479bc92f873da9435fe2a0039b58935 [shape=box, label="src", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_2479bc92f873da9435fe2a0039b58935.html"];
+  }
+}

@@ -1,0 +1,9 @@
+digraph "BrickwareCore/include/BrickwareCore" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_be69db95d899b5365f815a56775fc6cf {
+    graph [ bgcolor="#ddddee", pencolor="black", label="include" fontname="Helvetica", fontsize="10", URL="dir_be69db95d899b5365f815a56775fc6cf.html"]
+  dir_a00d7de2cc5d22d19b973e9b92967b24 [shape=box, label="BrickwareCore", style="filled", fillcolor="#eeeeff", pencolor="black", URL="dir_a00d7de2cc5d22d19b973e9b92967b24.html"];
+  }
+}

@@ -1,0 +1,22 @@
+\hypertarget{classDespawn}{}\section{Despawn Class Reference}
+\label{classDespawn}\index{Despawn@{Despawn}}
+
+
+Inheritance diagram for Despawn\+:
+% FIG 0
+
+
+Collaboration diagram for Despawn\+:
+% FIG 1
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classDespawn_a0799349a271e00fbbfe29961377aa9e2}{}virtual void {\bfseries Update} ()\label{classDespawn_a0799349a271e00fbbfe29961377aa9e2}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Brickware\+Test/include/Despawn.\+hpp\item 
+Brickware\+Test/src/Despawn.\+cpp\end{DoxyCompactItemize}

@@ -78,7 +78,7 @@ bool TestGame::init()
 	}
 
 	// Load shader
-	Shader *shader = new Shader("Shaders/VertexShader", "Shaders/PixelShader");
+	Shader *shader = new Shader("Shaders/VertexShader", "Shaders/DeferredPixel");
 
 	// Load textures
 	Texture *boxTexture =
@@ -96,19 +96,19 @@ bool TestGame::init()
 
 	// Setup materials
 	Material *castleMaterial = new Material(shader);
-	castleMaterial->setTexture("a_diffuseTexture", castleTexture);
+	castleMaterial->setTexture("diffuse", castleTexture);
 
 	Material *sphereMaterial = new Material(shader);
-	sphereMaterial->setTexture("a_diffuseTexture", bitTestTexture);
+	sphereMaterial->setTexture("diffuse", bitTestTexture);
 	Material *cubeMaterial = new Material(shader);
-	cubeMaterial->setTexture("a_diffuseTexture", boxTexture);
+	cubeMaterial->setTexture("diffuse", boxTexture);
 
 	Material *squareMaterial = new Material(shader);
-	squareMaterial->setTexture("a_diffuseTexture", grassTexture);
+	squareMaterial->setTexture("diffuse", grassTexture);
 	Material *circleMaterial = new Material(shader);
-	circleMaterial->setTexture("a_diffuseTexture", stoneTexture);
+	circleMaterial->setTexture("diffuse", stoneTexture);
 	Material *triangleMaterial = new Material(shader);
-	triangleMaterial->setTexture("a_diffuseTexture", stoneTexture);
+	triangleMaterial->setTexture("diffuse", stoneTexture);
 
 	// Load basic meshes
 	Mesh *castleMesh = new Mesh("Models/castle.obj");

@@ -38,17 +38,6 @@ uniform int pointLightCount;
 uniform PointLight pointLights[maxPointLights];
 uniform vec3 ambientLight = vec3(0);
 
-//Material data
-struct Material
-{
-	vec3 ambientColor;
-	vec3 diffuseColor;
-	vec3 specularColor;
-
-	float gloss;
-};
-uniform Material material;
-
 //Texture Data
 out vec4 fragColor;
 
@@ -58,14 +47,16 @@ in vec4 shadowCoord;
 uniform float shadowStrength;
 uniform float shadowBias;
 
-uniform sampler2D a_diffuseTexture;
-uniform sampler2D b_shadowMap;
-uniform samplerCube c_pointShadowMap;
-
 //Vertex data
-in vec3 worldNormal;
-in vec3 worldPosition;
-in vec3 eyePosition;
+uniform sampler2D a_worldPosition;
+uniform sampler2D b_worldNormal;
+uniform sampler2D c_albedo;
+
+//Shadow maps
+uniform sampler2D d_shadowMap;
+uniform samplerCube e_pointShadowMap;
+
+uniform vec3 eyePosition;
 
 float CalcDirShadows(DirectionalLight light)
 {
@@ -76,7 +67,7 @@ float CalcDirShadows(DirectionalLight light)
 
 	float visibility = 0.0;
 
-	float closestDepth = texture(b_shadowMap, projCoords.xy).r;
+	float closestDepth = texture(d_shadowMap, projCoords.xy).r;
 	float currentDepth = projCoords.z - light.shadowBias;
 
 	float shadow = currentDepth > closestDepth ? 0.0 : light.shadowStrength;
@@ -84,12 +75,12 @@ float CalcDirShadows(DirectionalLight light)
 	return shadow;
 }
 
-float CalcPointShadows(PointLight light)
+float CalcPointShadows(PointLight light, vec3 worldPosition)
 {
 	// Get vector between fragment position and light position
 	vec3 fragToLight = worldPosition - light.position;
 	// Use the light to fragment vector to sample from the depth map
-	float closestDepth = texture(c_pointShadowMap, fragToLight).r;
+	float closestDepth = texture(e_pointShadowMap, fragToLight).r;
 	// It is currently in linear range between [0,1]. Re-transform back to original value
 	closestDepth *= light.farPlane;
 	// Now get current linear depth as the length between the fragment and light position
@@ -101,7 +92,7 @@ float CalcPointShadows(PointLight light)
 }
 
 //Calcuate the light on this object from the scene's directional light
-vec3 CalcDirectionalLight(DirectionalLight light, vec4 hue, vec3 viewDir)
+vec3 CalcDirectionalLight(DirectionalLight light, vec3 worldPosition, vec3 worldNormal, vec4 albedo, vec3 viewDir)
 {
 	vec3 lightDir = normalize(-light.direction);
 	vec3 reflectDir = reflect(-lightDir, worldNormal);
@@ -109,9 +100,11 @@ vec3 CalcDirectionalLight(DirectionalLight light, vec4 hue, vec3 viewDir)
 	float diffusePower = max(dot(worldNormal, lightDir), 0.0);
 	float specularPower = pow(max(dot(viewDir, reflectDir), 0.0), 128);
 
-	vec3 ambient  = light.ambientColor  * hue.rgb;
-	vec3 diffuse  = light.diffuseColor  * diffusePower * hue.rgb;
-	vec3 specular = light.specularColor * specularPower * hue.rgb;
+	vec3 color = albedo.rgb;
+
+	vec3 ambient  = light.ambientColor  * color;
+	vec3 diffuse  = light.diffuseColor  * diffusePower * color;
+	vec3 specular = light.specularColor * specularPower * color;
 
 	//Calculate shadows
 	float shadow = CalcDirShadows(light);
@@ -122,7 +115,7 @@ vec3 CalcDirectionalLight(DirectionalLight light, vec4 hue, vec3 viewDir)
 }
 
 //Calculate the light on this object from the scene's point lights
-vec3 CalcPointLight(PointLight light, vec4 hue, vec3 viewDir)
+vec3 CalcPointLight(PointLight light, vec3 worldPosition, vec3 worldNormal, vec4 albedo, vec3 viewDir)
 {
 	vec3 lightDir = normalize(light.position - worldPosition);
 	vec3 reflectDir = reflect(-lightDir, worldNormal);
@@ -130,12 +123,12 @@ vec3 CalcPointLight(PointLight light, vec4 hue, vec3 viewDir)
 	float diffusePower = max(dot(worldNormal, lightDir), 0.0); //TODO replace gloss
 	float specularPower = pow(max(dot(viewDir, reflectDir), 0.0), 128);
 
-	vec3 ambient  = light.ambientColor  * hue.rgb;
-	vec3 diffuse  = light.diffuseColor  * diffusePower  * hue.rgb;
-	vec3 specular = light.specularColor * specularPower * hue.rgb;
+	vec3 ambient  = light.ambientColor  * albedo.rgb;
+	vec3 diffuse  = light.diffuseColor  * diffusePower  * albedo.rgb;
+	vec3 specular = light.specularColor * specularPower * albedo.rgb;
 
 	//Calc shadows
-	float shadow = CalcPointShadows(light);
+	float shadow = CalcPointShadows(light, worldPosition);
 
 	vec3 pointLight = (ambient + shadow * (diffuse + specular));
 
@@ -144,26 +137,28 @@ vec3 CalcPointLight(PointLight light, vec4 hue, vec3 viewDir)
 
 void main()
 {
+	//Get data out of samplers
+	vec3 worldPosition = texture(a_worldPosition, texCoord).rgb;
+	vec3 worldNormal = texture(b_worldNormal, texCoord).rgb;
+	vec4 albedo = texture(c_albedo, texCoord);
+
 	vec3 diffuseProduct;
 	vec3 specularProduct;
-
-	//Get the color of the applied texture
-	vec4 hue = texture(a_diffuseTexture, texCoord);
 
 	vec3 finalColor = vec3(0);
 
 	vec3 viewDirection = normalize(eyePosition - worldPosition);
 
 	//Calculate directional light
-	finalColor += CalcDirectionalLight(directionalLight, hue, viewDirection);
+	finalColor += CalcDirectionalLight(directionalLight, worldPosition, worldNormal, albedo, viewDirection);
 
 	//Calculate products of every point light applying to this object
 	for(int i = 0; i < pointLightCount; i++)
 	{
 		PointLight pointLight = pointLights[i];
 
-		finalColor += CalcPointLight(pointLight, hue, viewDirection);
+		finalColor += CalcPointLight(pointLight, worldPosition, worldNormal, albedo, viewDirection);
 	}
 
-	fragColor = vec4(finalColor, hue.a);
+	fragColor = vec4(finalColor, albedo.a);
 }

@@ -125,25 +125,25 @@ bool TestGame::init()
 	Light *light1Comp = new Light(LightType::POINT);
 	light1Comp->setDiffuseColor(Vector3(.3f, .3f, .3f));
 	light1Comp->setSpecularColor(Vector3(.6f, .6f, .6f));
-
+	
 	light1Comp->setShadowMapQuality(ShadowQuality::High);
-	light1Comp->setShadowBias(0.05f);
+	light1Comp->setShadowBias(0.5f);
 	light1Comp->setShadowStrength(0.5f);
-
+	
 	light1->getTransform()->setPosition(Vector3(1.0f, 0.1f, 0.0f));
 	light1->addComponent(light1Comp);
 
-	// GameObject* light2 = new GameObject();
-	// Light* light2Comp = new Light(LightType::POINT);
-	// light2Comp->setDiffuseColor(Vector3(.3f, .3f, .3f));
-	// light2Comp->setSpecularColor(Vector3(.6f, .6f, .6f));
-	//
-	// light2Comp->setShadowMapQuality(ShadowQuality::Medium);
-	// light2Comp->setShadowBias(0.05f);
-	// light2Comp->setShadowStrength(0.5f);
-	//
-	// light2->getTransform()->setPosition(Vector3(-1.0f, 0.1f, 0.0f));
-	// light2->addComponent(light2Comp);
+	GameObject* light2 = new GameObject();
+	Light* light2Comp = new Light(LightType::POINT);
+	light2Comp->setDiffuseColor(Vector3(.3f, .3f, .3f));
+	light2Comp->setSpecularColor(Vector3(.6f, .6f, .6f));
+	
+	light2Comp->setShadowMapQuality(ShadowQuality::Medium);
+	light2Comp->setShadowBias(0.5f);
+	light2Comp->setShadowStrength(0.5f);
+	
+	light2->getTransform()->setPosition(Vector3(-1.0f, 0.1f, 0.0f));
+	light2->addComponent(light2Comp);
 
 	GameObject *dirLight = new GameObject();
 	Light *dirLightComp = new Light(LightType::DIRECTIONAL);

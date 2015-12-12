@@ -1,4 +1,4 @@
-#version 330
+#version 430 core
 
 //Directional Light data
 struct DirectionalLight
@@ -41,20 +41,20 @@ uniform vec3 ambientLight = vec3(0);
 //Texture Data
 out vec4 fragColor;
 
-in vec2 texCoord;
+in vec2 uv;
 in vec4 shadowCoord;
 
 uniform float shadowStrength;
 uniform float shadowBias;
 
 //Vertex data
-uniform sampler2D a_worldPosition;
-uniform sampler2D b_worldNormal;
-uniform sampler2D c_albedo;
+layout(location=0)uniform sampler2D a_worldPosition;
+layout(location=1)uniform sampler2D b_worldNormal;
+layout(location=2)uniform sampler2D c_albedo;
 
 //Shadow maps
-uniform sampler2D d_shadowMap;
-uniform samplerCube e_pointShadowMap;
+layout(location=3)uniform sampler2D d_shadowMap;
+layout(location=4)uniform samplerCube e_pointShadowMap;
 
 uniform vec3 eyePosition;
 
@@ -138,27 +138,27 @@ vec3 CalcPointLight(PointLight light, vec3 worldPosition, vec3 worldNormal, vec4
 void main()
 {
 	//Get data out of samplers
-	vec3 worldPosition = texture(a_worldPosition, texCoord).rgb;
-	vec3 worldNormal = texture(b_worldNormal, texCoord).rgb;
-	vec4 albedo = texture(c_albedo, texCoord);
+	vec3 worldPosition = texture(a_worldPosition, uv).rgb;
+	vec3 worldNormal = texture(b_worldNormal, uv).rgb;
+	vec4 albedo = texture(c_albedo, uv);
 
 	vec3 diffuseProduct;
 	vec3 specularProduct;
-
+	
 	vec3 finalColor = vec3(0);
-
+	
 	vec3 viewDirection = normalize(eyePosition - worldPosition);
-
+	
 	//Calculate directional light
 	finalColor += CalcDirectionalLight(directionalLight, worldPosition, worldNormal, albedo, viewDirection);
-
+	
 	//Calculate products of every point light applying to this object
 	for(int i = 0; i < pointLightCount; i++)
 	{
 		PointLight pointLight = pointLights[i];
-
+	
 		finalColor += CalcPointLight(pointLight, worldPosition, worldNormal, albedo, viewDirection);
 	}
 
-	fragColor = vec4(finalColor, albedo.a);
+	fragColor = vec4(finalColor, 1);
 }

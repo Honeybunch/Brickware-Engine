@@ -16,13 +16,9 @@ uniform mat4 rotationMatrix;
 uniform mat4 depthBiasVP;
 uniform mat4 pointDepthBiasVP;
 
-uniform vec3 lookAt;
-uniform vec3 eyePoint;
-
 //To be passed to the fragment shader
 out vec3 worldNormal;
 out vec3 worldPosition;
-out vec3 eyePosition;
 
 out vec2 texCoord;
 out vec4 shadowCoord;
@@ -40,7 +36,6 @@ void main()
 	worldPosition = vec3(worldCoord4v.x / worldCoord4v.w,
 		worldCoord4v.y / worldCoord4v.w,
 		worldCoord4v.z / worldCoord4v.w);
-	eyePosition = eyePoint;
 
 	texCoord = vTexCoord;
 
